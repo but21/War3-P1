@@ -1,0 +1,4 @@
+[TriggerCategories]
+TC_Excel=[Excel],ReplaceableTextures\CommandButtons\BTNShadowStrike.blp
+TC_Japi=[内置],F:\Warcraft III\Custom_V1\StarRail\Star_6.tga
+

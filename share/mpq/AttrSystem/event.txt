@@ -1,0 +1,7 @@
+[Unit_AttrEvent]
+title = "单位 - 修改属性"
+description = "单位修改属性:${属性类型}"
+comment = ""
+category = AttrSystem
+[[.args]]
+type = FattrType

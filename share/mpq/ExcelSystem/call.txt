@@ -1,0 +1,51 @@
+[GetRealFromExcel]
+title = "从表格中提取实数"
+description = "从 表格:${表格名} 行ID:${行ID} 列名:${列名} 提取实数"
+comment = ""
+category = TC_Excel
+returns = real
+[[.args]]
+type = string
+default = ""
+[[.args]]
+type = integer
+default = ""
+[[.args]]
+type = string
+default = ""
+
+[GetIntegerFromExcel]
+title = "从表格中提取整数"
+description = "从 表格:${表格名} 行ID:${行ID} 列名:${列名} 提取整数"
+comment = ""
+category = TC_Excel
+returns = integer
+[[.args]]
+type = string
+default = ""
+[[.args]]
+type = integer
+default = ""
+[[.args]]
+type = string
+default = ""
+
+
+[GetStringFromExcel]
+title = "从表格中提取字符串"
+description = "从 表格:${表格名} 行ID:${行ID} 列名:${列名} 提取字符串"
+comment = ""
+category = TC_Excel
+returns = string
+[[.args]]
+type = string
+default = ""
+[[.args]]
+type = integer
+default = ""
+[[.args]]
+type = string
+default = ""
+
+
+

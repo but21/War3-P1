@@ -1,0 +1,207 @@
+[Unit_GetAttr]
+title = "获取单位的属性数值"
+description = "单位:${unit} 属性:${FattrType} 值"
+comment = ""
+category = AttrSystem
+returns = real
+[[.args]]
+type = unit
+default = "GetTriggerUnit"
+[[.args]]
+type = FattrType
+default = FattrType_01
+
+[Item_GetAttr]
+title = "获取物品的属性数值"
+description = "物品:${物品} 属性:${FattrType} 值"
+comment = ""
+category = AttrSystem
+returns = real
+[[.args]]
+type = item
+[[.args]]
+type = FattrType
+default = FattrType_01
+
+[Itemtype_GetAttr]
+title = "获取物品类型的属性数值"
+description = "物品类型:${物品类型} 属性:${FattrType} 值"
+comment = ""
+category = AttrSystem
+returns = real
+[[.args]]
+type = itemcode
+[[.args]]
+type = FattrType
+default = FattrType_01
+
+
+
+[Attr_GetName]
+title = "获取属性类型名称"
+description = "属性:${FattrType} 转属性名称"
+comment = ""
+category = AttrSystem
+returns = string
+[[.args]]
+type = FattrType
+default = FattrType_01
+
+[Str_GetAttr]
+title = "根据属性名称得到属性类型"
+description = "属性名:${string} 转属性"
+comment = ""
+category = AttrSystem
+returns = FattrType
+[[.args]]
+type = string
+default = "属性名称"
+
+
+
+[Attr_I2A]
+title = "转换整数为属性类型"
+description = "转换 整数:${integer} 为属性"
+comment = ""
+category = AttrSystem
+returns = FattrType
+[[.args]]
+type = integer
+default = "0"
+
+[AllAttr_GetFor]
+title = "全部属性的循环"
+description = "全部属性的循环, 根据 索引:${integer} 得到对应属性"
+comment = ""
+category = AttrSystem
+returns = FattrType
+[[.args]]
+type = integer
+default = "0"
+
+[TipsToIndexAttrType]
+title = "字符串转属性, 指定索引的属性类型"
+description = "字符串:${string}, 索引:${integer}"
+comment = ""
+category = AttrSystem
+returns = FattrType
+[[.args]]
+type = string
+default = "字符串"
+[[.args]]
+type = integer
+default = "1"
+
+
+
+[AllAttr_GetNum]
+title = "全部属性的数量"
+description = "全部属性的数量"
+comment = ""
+category = AttrSystem
+returns = integer
+
+[TipsToIndexAttrNum]
+title = "字符串中属性的数量"
+description = "${string}中属性数量"
+comment = ""
+category = AttrSystem
+returns = integer
+[[.args]]
+type = string
+default = "字符串"
+
+[Attr_A2I]
+title = "转换属性类型为整数"
+description = "转换 属性:${FattrType} 为整数"
+comment = ""
+category = AttrSystem
+returns = integer
+[[.args]]
+type = FattrType
+default = FattrType_01
+
+
+
+[TipsToIndexAttrVal]
+title = "字符串转属性, 指定索引的属性数值"
+description = "字符串:${string} 转属性, 索引:${integer} "
+comment = ""
+category = AttrSystem
+returns = real
+[[.args]]
+type = string
+default = "字符串"
+[[.args]]
+type = integer
+default = "0"
+
+
+
+[Unit_AttrEvent_GetUnit]
+title = "属性单位"
+description = "属性单位"
+comment = ""
+category = TC_EVENTRESPONSE
+returns = unit
+
+[Unit_AttrEvent_GetAttr]
+title = "事件属性"
+description = "事件属性"
+comment = ""
+category = TC_EVENTRESPONSE
+returns = FattrType
+
+
+
+[Attr_IsBaiFen]
+title = "判断属性数值类型"
+description = "属性:${属性} 是百分比数值"
+comment = "如果是百分比类型返回true, 否则返回false"
+category = AttrSystem
+returns = boolean
+[[.args]]
+type = FattrType
+
+
+
+[GetUnitAttrFromStr]
+title = "根据属性名称获取单位对应属性类型的数值"
+description = "属性名:${string} 单位:${unit}"
+comment = ""
+category = AttrSystem
+returns = real
+[[.args]]
+type = string
+default = "属性名称"
+[[.args]]
+type = unit
+default = "GetTriggerUnit"
+
+[GetItemAttrFromStr]
+title = "根据属性名称获取物品对应属性类型的数值"
+description = "属性名:${string} 物品:${物品}"
+comment = ""
+category = AttrSystem
+returns = real
+[[.args]]
+type = string
+default = "属性名称"
+[[.args]]
+type = item
+default = ""
+
+[GetItemTypeAttrFromStr]
+title = "根据属性名称获取物品类型对应属性类型的数值"
+description = "属性名:${string} 物品类型:${物品类型}"
+comment = ""
+category = AttrSystem
+returns = real
+[[.args]]
+type = string
+default = "属性名称"
+[[.args]]
+type = itemcode
+default = ""
+
+

@@ -1,0 +1,229 @@
+[Unit_SetAttrBJ]
+title = "设置单位属性(拓展)"
+description = "设置 单位:${unit} 属性:${integer} ${integer} ${real}"
+comment = ""
+category = AttrSystem
+[[.args]]
+type = unit
+default = "GetTriggerUnit"
+[[.args]]
+type = FattrType
+default = "FattrType_01"
+[[.args]]
+type = FModifyMethodType
+default = "FModifyMethodType_01"
+[[.args]]
+type = real
+default = "0"
+
+[Unit_SetAttr]
+title = "设置单位属性"
+description = "设置 单位:${unit} 属性:${integer} = ${real}"
+comment = ""
+category = AttrSystem
+[[.args]]
+type = unit
+default = "GetTriggerUnit"
+[[.args]]
+type = FattrType
+default = "FattrType_01"
+[[.args]]
+type = real
+default = "0"
+
+[AddUnitAttrStr]
+title = "给单位添加属性字符串的属性"
+description = "单位:${unit} 获得 字符串属性:${string}"
+comment = ""
+category = AttrSystem
+[[.args]]
+type = unit
+default = "GetTriggerUnit"
+[[.args]]
+type = string
+default = ""
+
+[ReduceUnitAttrStr]
+title = "给单位减少属性字符串的属性"
+description = "单位:${unit} 减少 字符串属性:${string}"
+comment = ""
+category = AttrSystem
+[[.args]]
+type = unit
+default = "GetTriggerUnit"
+[[.args]]
+type = string
+default = ""
+
+[SetUnitAttrStr]
+title = "给单位设置属性字符串的属性"
+description = "单位:${unit} 设置 字符串属性:${string}"
+comment = ""
+category = AttrSystem
+[[.args]]
+type = unit
+default = "GetTriggerUnit"
+[[.args]]
+type = string
+default = ""
+
+[SetItemAttrEx]
+title = "设置物品属性(拓展)"
+description = "设置 物品:${物品} 属性:${integer} ${integer} ${real}"
+comment = ""
+category = AttrSystem
+[[.args]]
+type = item
+default = "GetTriggerUnit"
+[[.args]]
+type = FattrType
+default = "FattrType_01"
+[[.args]]
+type = FModifyMethodType
+default = "FModifyMethodType_01"
+[[.args]]
+type = real
+default = "0"
+
+[SetItemAttr]
+title = "设置物品属性"
+description = "设置 物品:${物品} 属性:${integer} = ${real}"
+comment = ""
+category = AttrSystem
+[[.args]]
+type = item
+[[.args]]
+type = FattrType
+default = "FattrType_01"
+[[.args]]
+type = real
+default = "0"
+
+[SetItemTypeAttrEx]
+title = "设置物品类型属性(拓展)"
+description = "设置 物品类型:${物品类型} 属性:${integer} ${integer} ${real}"
+comment = ""
+category = AttrSystem
+[[.args]]
+type = itemcode
+[[.args]]
+type = FattrType
+default = "FattrType_01"
+[[.args]]
+type = FModifyMethodType
+default = "FModifyMethodType_01"
+[[.args]]
+type = real
+default = "0"
+
+[Itemtype_SetAttr]
+title = "设置物品类型属性"
+description = "设置 物品类型:${物品类型} 属性:${integer} = ${real}"
+comment = ""
+category = AttrSystem
+[[.args]]
+type = itemcode
+default = "GetTriggerUnit"
+[[.args]]
+type = FattrType
+default = "FattrType_01"
+[[.args]]
+type = real
+default = "0"
+
+[SetUnitAttr_Ex_Str]
+title = "根据属性名称设置单位属性(拓展)"
+description = "设置 单位:${unit} 属性名:${string} ${integer} ${real}"
+comment = ""
+category = AttrSystem
+[[.args]]
+type = unit
+default = "GetTriggerUnit"
+[[.args]]
+type = string
+default = "属性名称"
+[[.args]]
+type = FModifyMethodType
+default = "FModifyMethodType_01"
+[[.args]]
+type = real
+default = "0"
+
+[SetUnitAttr_Str]
+title = "根据属性名称设置单位属性"
+description = "设置 单位:${unit} 属性名:${string} = ${real}"
+comment = ""
+category = AttrSystem
+[[.args]]
+type = unit
+default = "GetTriggerUnit"
+[[.args]]
+type = string
+default = "属性名称"
+[[.args]]
+type = real
+default = "0"
+
+[SetItemAttrEx_Str]
+title = "根据属性名称设置物品属性(拓展)"
+description = "设置 物品:${物品} 属性名:${string} ${integer} ${real}"
+comment = ""
+category = AttrSystem
+[[.args]]
+type = item
+default = "GetTriggerUnit"
+[[.args]]
+type = string
+default = "属性名称"
+[[.args]]
+type = FModifyMethodType
+default = "FModifyMethodType_01"
+[[.args]]
+type = real
+default = "0"
+
+[SetItemAttr_Str]
+title = "根据属性名称设置物品属性"
+description = "设置 物品:${物品} 属性名:${string} = ${real}"
+comment = ""
+category = AttrSystem
+[[.args]]
+type = item
+[[.args]]
+type = string
+default = "属性名称"
+[[.args]]
+type = real
+default = "0"
+
+[SetItemTypeAttrEx_Str]
+title = "根据属性名称设置物品类型属性(拓展)"
+description = "设置 物品类型:${物品类型} 属性名:${string} ${integer} ${real}"
+comment = ""
+category = AttrSystem
+[[.args]]
+type = itemcode
+[[.args]]
+type = string
+default = "属性名称"
+[[.args]]
+type = FModifyMethodType
+default = "FModifyMethodType_01"
+[[.args]]
+type = real
+default = "0"
+
+[Itemtype_SetAttr_Str]
+title = "根据属性名称设置物品类型属性"
+description = "设置 物品类型:${物品类型} 属性名:${string} = ${real}"
+comment = ""
+category = AttrSystem
+[[.args]]
+type = itemcode
+default = "GetTriggerUnit"
+[[.args]]
+type = string
+default = "属性名称"
+[[.args]]
+type = real
+default = "0"

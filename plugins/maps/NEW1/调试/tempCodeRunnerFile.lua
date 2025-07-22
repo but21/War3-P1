@@ -1,0 +1,15 @@
+				-- if attrType then
+				-- 	for attrIndex, attr in pairs(attributeTable) do
+				-- 		local originAttr = attr
+				-- 		if AttrType_Table[attrIndex]:sub(-1) == "%" then
+				-- 			attr = attr:sub(1, -2)
+				-- 		end
+				-- 		if string.find(attrType, attr) then
+				-- 			if #attrTemp < #originAttr then
+				-- 				attrTemp = originAttr
+				-- 			end
+				-- 		end
+				-- 	end
+				-- 	attrType = attrTemp
+				-- 	attrTemp = ""
+				-- end

@@ -1,0 +1,1 @@
+require "realization.magical_power"
