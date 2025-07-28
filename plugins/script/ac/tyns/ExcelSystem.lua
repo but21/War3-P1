@@ -1,8 +1,7 @@
 local code = require 'jass.code'
 local jass = require 'jass.common'
 local japi = require 'jass.japi'
-
-local excel = excel
+local excel = require "ac.tyns.excel"
 local manager = {}
 
 --[[

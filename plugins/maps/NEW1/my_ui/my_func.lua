@@ -3,7 +3,6 @@ local jass = require "jass.common"
 local japi = require "jass.japi"
 
 local manager = {}
-local excel = excel
 local string = string
 local math = math
 local table = table

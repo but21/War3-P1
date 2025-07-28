@@ -15,91 +15,93 @@ local manager = {}
 --- 之前的方式使用的属性表, 把自己的直接复制过来就行
 local attr_d = {
 	-- 基础属性
-	{ key = "生命值", index = 1 },
-	{ key = "护甲", index = 2 },
-	{ key = "力量", index = 3 },
-	{ key = "敏捷", index = 4 },
-	{ key = "智力", index = 5 },
-	{ key = "每秒回血", index = 6 },
-	{ key = "生命百分比恢复%", index = 7 },
-	{ key = "法力值", index = 8 },
-	{ key = "法力回复", index = 9 },
-	{ key = "攻击速度%", index = 10 },
-	{ key = "攻击间隔", index = 11 },
-	{ key = "攻击距离", index = 12 },
-	{ key = "冷却急速", index = 13 },
-	{ key = "持续时间%", index = 14 },
-	{ key = "发射数量", index = 15 },
-	{ key = "运气", index = 16 },
-	{ key = "移动速度", index = 17 },
-	{ key = "每秒金币", index = 18 },
-	{ key = "攻击力", index = 19 },
-	{ key = "伤害范围%", index = 20 },
 
-	-- 杀敌属性
-	{ key = "杀敌力量", index = 30 },
-	{ key = "杀敌敏捷", index = 31 },
-	{ key = "杀敌智力", index = 32 },
-	{ key = "杀敌生命", index = 33 },
+	-- 基础属性: 攻击, 生命, 护甲, 力量, 敏捷, 智力, 全属性, 每秒回血, 攻击速度%, 攻击间隔, 攻击射程, 多重属性, 多重几率%
+	-- 杀敌{杀敌攻击, 杀敌护甲, 杀敌生命, 杀敌力量, 杀敌敏捷, 杀敌智力, 杀敌全属}
+	-- 40 每秒{每秒攻击, 每秒护甲, 每秒生命, 每秒力量, 每秒敏捷, 每秒智力, 每秒全属, 每秒金币, 每秒杀敌, 每秒木材}
+	-- 60 加成{攻击加成%, 护甲加成%, 生命加成%, 力量加成%, 敏捷加成%, 智力加成%}
+	-- 80 伤害{攻击伤害%, 物理伤害%, 法术伤害%, 最终伤害%, 绝对伤害%, 攻击暴率%, 物理暴率%, 法术暴率%, 攻击暴伤%, 物理暴伤%, 法术暴伤%}
+	-- 100 生存{每秒回血, 生命恢复%, 攻击吸血%, 技能吸血%, 伤害减免%, 免伤几率%}
+	-- 120 结算{结算物理伤害%, 结算法术伤害%, 结算攻击伤害%, 结算物理暴伤%, 结算法术暴伤%, 结算攻击暴伤%}
+	-- 140 面板{面板攻击, 面板力量, 面板敏捷, 面板智力, 面板每秒回血}
 
-	-- 每秒属性
-	{ key = "每秒力量", index = 40 },
-	{ key = "每秒敏捷", index = 41 },
-	{ key = "每秒智力", index = 42 },
-	{ key = "每秒生命", index = 43 },
-	{ key = "每秒护甲", index = 44 },
+	{ key = 1, value = "攻击" },
+	{ key = 2, value = "生命" },
+	{ key = 3, value = "护甲" },
+	{ key = 4, value = "力量" },
+	{ key = 5, value = "敏捷" },
+	{ key = 6, value = "智力" },
+	{ key = 7, value = "全属性" },
+	{ key = 8, value = "每秒回血" },
+	{ key = 9, value = "攻击速度%" },
+	{ key = 10, value = "攻击间隔" },
+	{ key = 11, value = "攻击射程" },
+	{ key = 12, value = "多重属性" },
+	{ key = 13, value = "多重几率%" },
 
-	-- 加成
-	{ key = "生命加成%", index = 50 },
-	{ key = "护甲加成%", index = 51 },
-	{ key = "每秒回血加成%", index = 52 },
-	{ key = "力量加成%", index = 53 },
-	{ key = "敏捷加成%", index = 54 },
-	{ key = "智力加成%", index = 55 },
-	{ key = "经验加成%", index = 56 },
-	{ key = "金币加成%", index = 57 },
-	{ key = "杀敌加成%", index = 58 },
-	{ key = "钻石加成%", index = 59 },
-	{ key = "移速加成%", index = 60 },
-	{ key = "攻击加成%", index = 61 },
+	{ key = 21, value = "杀敌攻击" },
+	{ key = 22, value = "杀敌护甲" },
+	{ key = 23, value = "杀敌生命" },
+	{ key = 24, value = "杀敌力量" },
+	{ key = 25, value = "杀敌敏捷" },
+	{ key = 26, value = "杀敌智力" },
+	{ key = 27, value = "杀敌全属" },
+	
+	-- 40 每秒
+	{ key = 41, value = "每秒攻击" },
+	{ key = 42, value = "每秒护甲" },
+	{ key = 43, value = "每秒生命" },
+	{ key = 44, value = "每秒力量" },
+	{ key = 45, value = "每秒敏捷" },
+	{ key = 46, value = "每秒智力" },
+	{ key = 47, value = "每秒全属" },
+	{ key = 48, value = "每秒金币" },
+	{ key = 49, value = "每秒杀敌" },
+	{ key = 50, value = "每秒木材" },
 
-	-- 伤害
-	{ key = "伤害加深%", index = 70 },
-	{ key = "最终伤害%", index = 71 },
-	{ key = "物理伤害%", index = 72 },
-	{ key = "法术伤害%", index = 73 },
-	{ key = "真实伤害%", index = 74 },
-	{ key = "物理暴击率%", index = 75 },
-	{ key = "物理暴击伤害%", index = 76 },
-	{ key = "法术暴击率%", index = 77 },
-	{ key = "法术暴击伤害%", index = 78 },
-	{ key = "伤害减免%", index = 79 },
+	-- 60 加成
+	{ key = 61, value = "攻击加成%" },
+	{ key = 62, value = "护甲加成%" },
+	{ key = 63, value = "生命加成%" },
+	{ key = 64, value = "力量加成%" },
+	{ key = 65, value = "敏捷加成%" },
+	{ key = 66, value = "智力加成%" },
 
-	-- 结算
-	{ key = "结算物理伤害", index = 90 },
-	{ key = "结算法术伤害", index = 91 },
-	{ key = "结算真实伤害", index = 92 },
-	{ key = "结算物理暴伤", index = 93 },
-	{ key = "结算法术暴伤", index = 94 },
+	-- 80 伤害
+	{ key = 81, value = "攻击伤害%" },
+	{ key = 82, value = "物理伤害%" },
+	{ key = 83, value = "法术伤害%" },
+	{ key = 84, value = "最终伤害%" },
+	{ key = 85, value = "绝对伤害%" },
+	{ key = 86, value = "攻击暴率%" },
+	{ key = 87, value = "物理暴率%" },
+	{ key = 88, value = "法术暴率%" },
+	{ key = 89, value = "攻击暴伤%" },
+	{ key = 90, value = "物理暴伤%" },
+	{ key = 91, value = "法术暴伤%" },
 
-	-- 面板
-	{ key = "面板攻击", index = 100 },
-	{ key = "面板力量", index = 101 },
-	{ key = "面板敏捷", index = 102 },
-	{ key = "面板智力", index = 103 },
-	{ key = "面板每秒回血", index = 104 },
+	-- 100 生存
+	{ key = 101, value = "每秒回血" },
+	{ key = 102, value = "生命恢复%" },
+	{ key = 103, value = "攻击吸血%" },
+	{ key = 104, value = "技能吸血%" },
+	{ key = 105, value = "伤害减免%" },
+	{ key = 106, value = "免伤几率%" },
 
-	-- 当前属性
-	{ key = "当前力量%", index = 110 },
-	{ key = "当前敏捷%", index = 111 },
-	{ key = "当前智力%", index = 112 },
-	{ key = "当前护甲%", index = 113 },
-	{ key = "当前每秒回血%", index = 114 },
-	{ key = "当前伤害范围%", index = 115 },
-	{ key = "当前持续时间%", index = 116 },
-	{ key = "当前生命%", index = 117 },
-	{ key = "当前运气%", index = 118 },
-	{ key = "当前每秒金币%", index = 119 }
+	-- 120 结算
+	{ key = 121, value = "结算物理伤害%" },
+	{ key = 122, value = "结算法术伤害%" },
+	{ key = 123, value = "结算攻击伤害%" },
+	{ key = 124, value = "结算物理暴伤%" },
+	{ key = 125, value = "结算法术暴伤%" },
+	{ key = 126, value = "结算攻击暴伤%" },
+
+	-- 140 面板
+	{ key = 141, value = "面板攻击" },
+	{ key = 142, value = "面板力量" },
+	{ key = 143, value = "面板敏捷" },
+	{ key = 144, value = "面板智力" },
+	{ key = 145, value = "面板每秒回血" },
 }
 
 --- 所有属性类型  index - name
@@ -144,11 +146,24 @@ local EventIndex = 0
 
 -------------------------------  预处理 ~ lua函数 分割线 -------------------------------
 
+---根据属性字符串添加单位属性 - lua (会触发t中事件)
+---@param unit integer
+---@param operator integer +(0), -, =, *, /
+---@param attrStr string
+function manager:SetUnitAttrStr(unit, operator, attrStr)
+	for attrName, attrValue in pairs(self:ParseAttributes2(attrStr)) do
+		self:SetAttr(unit, attrName, operator, attrValue)
+	end
+end
+
 --- 解析字符串, 获取其中的属性 - lua
 ---@param str string 需要解析的字符串
 ---@return table<string, number>  -- key: 属性名称, value: 属性数值
 function manager:ParseAttributes2(str)
 	local parsedAttributes = {}
+	if not str then
+		return parsedAttributes
+	end
 	str = string.gsub(str, "|n", "\0")
 	for part in string.gmatch(str, "[^\0]+") do
 		-- 拆解属性

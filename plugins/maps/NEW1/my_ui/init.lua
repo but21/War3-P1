@@ -18,17 +18,11 @@ require 'my_ui.UI-每帧绘制'
 require 'my_ui.UI-模拟血条'
 
 local BaseModule = require "my_base.base_module_manager"
-local common = BaseModule.Common
 local archive = BaseModule.Archive
 local myFunc = BaseModule.MyFunc
 
 for i = 1, 4 do
-	local chatTrg = jass.CreateTrigger()
-	debug.handle_ref(chatTrg)
-	local function PlayerChat()
-		local player = jass.GetTriggerPlayer()
-		local message = jass.GetEventPlayerChatString()
-		local playerID = common:ConvertPlayerToID(player)
+	BaseModule.Event:PlayerChat(i, function(playerID, message)
 		local welfareData = archive:LoadStr(playerID, "welfare")
 		if message == "gzhlb" then
 			code.AddMessage(playerID, "已激活公众号礼包!")
@@ -48,14 +42,16 @@ for i = 1, 4 do
 			archive:SaveStr(playerID, "welfare", welfareData)
 			return
 		end
-	end
-	jass.TriggerRegisterPlayerChatEvent(chatTrg, common.Player[i], "", false)
-	jass.TriggerAddAction(chatTrg, PlayerChat)
+	end)
 end
 
 local UIModule = require "my_ui.ui_module_manager"
 UIModule.BossComing:Init()
-UIModule.Challenge:Init()
+
+UIModule.Card:Init()
+UIModule.Swallow:Init()
+
+-- UIModule.Challenge:Init()
 
 UIModule.ArchiveUI:Init()
 UIModule.TalentTreeUI:Init()

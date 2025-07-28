@@ -6,7 +6,7 @@ local uiCreate   = BaseModule.UICreate
 local common     = BaseModule.Common
 local archive    = BaseModule.Archive
 local tipDown    = BaseModule.UITipDialog.tipDialogDown
-local excel      = excel
+local excel      = BaseModule.Excel
 
 local players    = jass.udg_Player
 local font       = "fonts\\LXWK_Bold.ttf"

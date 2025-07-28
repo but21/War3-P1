@@ -7,7 +7,7 @@ local uiCreate        = Module.UICreate
 local tipOnlyTextDown = Module.UITipDialog.tipOnlyTextDown
 local myFunc          = Module.MyFunc
 local common          = Module.Common
-local excel           = excel
+local excel           = Module.Excel
 local players         = jass.udg_Player
 local tipDialogDown   = Module.UITipDialog.tipDialogDown
 
@@ -68,7 +68,6 @@ local function _EnterOption(btn)
 	tipDialogDown.panel:reset_allpoint()
 	tipDialogDown.panel:set_point("中心", btn, "右上", 20, -20)
 	tipDialogDown.panel:set_show(true)
-	-- 显示高光
 	_ui.highlight:reset_allpoint()
 	_ui.highlight:set_point("中心", btn, "中心", 0, 0)
 	_ui.highlight:set_show(true)

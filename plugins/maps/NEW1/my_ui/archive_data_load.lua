@@ -20,7 +20,7 @@ local treasureHunt   = UIModule.TreasureHunt
 local treasureHuntUI = UIModule.TreasureHunt.ui
 local summerTime     = UIModule.ActivityUI.ui.summerTime
 local archiveUI      = UIModule.ArchiveUI.ui
-local excel          = excel
+local excel          = BaseModule.Excel 
 
 local function ReportCheat(message)
 	code.AddMessage(0, "|cffff0000本局游戏存在存档异常玩家, 游戏即将结束!")

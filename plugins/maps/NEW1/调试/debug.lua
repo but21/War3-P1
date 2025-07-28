@@ -11,12 +11,12 @@ local attrSystem = Module.AttrSystem
 local excel = excel
 local archive = Module.Archive
 
-local weapon = require "my_ui.ui_weapon"
-local accessory = require "my_ui.ui_accessory"
+-- local weapon = require "my_ui.ui_weapon"
+-- local accessory = require "my_ui.ui_accessory"
 
 print("\ndebug...\n")
-local weaponID = weapon:GetWeapon(1)
-local accessoryID = accessory:GetAccessory(1)
+-- local weaponID = weapon:GetWeapon(1)
+-- local accessoryID = accessory:GetAccessory(1)
 if common:IsLocalPlayer(common.Player[1]) then
 	-- common:SendSync("GetAccessory", 13)
 
@@ -48,7 +48,7 @@ jass.udg_SelectOneCount[2] = 99
 -- 黑市售卖数量
 -- jass.udg_BlackMarketSalesAmount[1] = 10
 -- 藏兵阁次数
-jass.udg_CBGCount[1] = 100
+-- jass.udg_CBGCount[1] = 100
 -- 英雄升级
 for i = 1, 12, 1 do
 	-- jass.SetHeroLevel(jass.udg_Hero[1], jass.GetHeroLevel(jass.udg_Hero[1]) + 1, true)

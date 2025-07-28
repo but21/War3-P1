@@ -8,7 +8,7 @@ local common          = BaseModule.Common
 local archive         = BaseModule.Archive
 local tipOnlyTextDown = BaseModule.UITipDialog.tipOnlyTextDown
 local tipDown         = BaseModule.UITipDialog.tipDialogDown
-local excel           = excel
+local excel           = BaseModule.Excel
 
 local font            = "fonts\\LXWK_Bold.ttf"
 local japi            = require "jass.japi"

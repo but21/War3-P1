@@ -5,6 +5,7 @@ local myFunc     = BaseModule.MyFunc
 local common     = BaseModule.Common
 local archive    = BaseModule.Archive
 local players    = jass.udg_Player
+local excel = BaseModule.Excel
 local font       = "fonts\\LXWK_Bold.ttf"
 
 local BossComing = {}

@@ -11,7 +11,7 @@ local attrSystem = Module.AttrSystem
 local common = Module.Common
 local htSeizeBody = jass.udg_HTSeizeBodyID
 local htMagicalPower = jass.udg_HTMagicalPower
-local excel = excel
+local excel = Module.Excel 
 local math = math
 local players = jass.udg_Player
 

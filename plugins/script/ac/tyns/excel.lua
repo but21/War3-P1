@@ -61,3 +61,4 @@ end
     print(excel["怪物数值"]:get_val(1001,"攻击力"))
 end)
  ]]
+return excel
