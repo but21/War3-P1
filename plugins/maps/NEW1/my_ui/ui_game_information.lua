@@ -23,18 +23,18 @@ function GameInformation:Init()
 	-- 1代表普通模式, 2代表挂机模式
 	_ui.gameDifficulty = uiCreate:CreateUIRelative("text", _ui.infoBg, "中心", _ui.infoBg, "中心", 0, 5, 200, 0, { font = font, fontSize = 20, align = "居中" })
 	_ui.monsterCount   = uiCreate:CreateUIRelative("text", _ui.infoBg, "中心", _ui.infoBg, "中心", 0, -30, 200, 0, { font = font, fontSize = 23, align = "居中" })
-	ac.time(1, function()
-		if jass.udg_IsGameStart or jass.udg_GameMode > 0 then
-			local time = floor(jass.udg_GameTime)
-			local hours = floor(time / 3600) -- 计算小时
-			local minutes = floor((time % 3600) / 60) -- 计算分钟
-			local secs = time % 60
-			local timeStr = string.format("%02d : %02d : %02d", hours, minutes, secs)
-			_ui.gameTime:set_text(timeStr)
-			_ui.monsterCount:set_text(jass.udg_CurrentEnemyCount .. " / " .. jass.udg_MaxEnemyCount)
-			_ui.gameDifficulty:set_text(jass.udg_GameMode == 1 and "普通模式" .. " N" .. jass.udg_GameDifficulty or "挂机模式")
-		end
-	end)
+	-- ac.time(0.2, function()
+	-- 	if jass.udg_IsGameStart or jass.udg_GameMode > 0 then
+	-- 		local time = floor(jass.udg_GameTime)
+	-- 		local hours = floor(time / 3600) -- 计算小时
+	-- 		local minutes = floor((time % 3600) / 60) -- 计算分钟
+	-- 		local secs = time % 60
+	-- 		local timeStr = string.format("%02d : %02d : %02d", hours, minutes, secs)
+	-- 		_ui.gameTime:set_text(timeStr)
+	-- 		-- _ui.monsterCount:set_text(jass.udg_CurrentEnemyCount .. " / " .. jass.udg_MaxEnemyCount)
+	-- 		_ui.gameDifficulty:set_text(jass.udg_GameMode == 1 and "普通模式" .. " N" .. jass.udg_GameDifficulty or "挂机模式")
+	-- 	end
+	-- end)
 end
 
 return GameInformation

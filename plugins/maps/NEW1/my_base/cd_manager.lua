@@ -5,7 +5,8 @@ local jass = require 'jass.common'
 -- 内置
 local japi = require 'jass.japi'
 
-local math = math
+local max = math.max
+local floor = math.floor
 local manager = {}
 
 local Module = require "my_base.base_module_manager"
@@ -49,16 +50,15 @@ local function SetHeroAtk()
 	for playerID, value in ipairs(players) do
 		local hero = jass.udg_Hero[playerID]
 		if hero then
-			local atk = math.max(attrSystem:GetObjAttrFromStr(hero, "面板力量"), attrSystem:GetObjAttrFromStr(hero, "面板敏捷"), attrSystem:GetObjAttrFromStr(hero, "面板智力"))
+			local atk = 0.5 * max(attrSystem:GetObjAttrFromStr(hero, "面板力量"), attrSystem:GetObjAttrFromStr(hero, "面板敏捷"), attrSystem:GetObjAttrFromStr(hero, "面板智力"))
 			local oldAtk = myFunc:GetCustomValue(hero, "实数", "oldAtk")
 			myFunc:SetCustomValue(hero, "实数", "oldAtk", atk)
-			code.SetUnitAttr_Str(hero, "攻击力", attrSystem:GetObjAttrFromStr(hero, "攻击力") + atk - oldAtk)
+			code.SetUnitAttr_Str(hero, "攻击", attrSystem:GetObjAttrFromStr(hero, "攻击") + atk - oldAtk)
 		end
 	end
 end
 
 
-local failedCountdown = 0
 
 local timer = 0
 ac.time(0.01, function()
@@ -86,8 +86,8 @@ ac.time(0.01, function()
 			local effect = myFunc:GetCustomValue(hero, "特效", "atkRangeEffect")
 			local isShow = myFunc:GetCustomValue(effect, "真值", "isShow")
 			if isShow then
-				local atkRange = attrSystem:GetObjAttrFromStr(hero, "攻击距离")
-				local size = 6 * atkRange / 500
+				local atkRange = attrSystem:GetObjAttrFromStr(hero, "攻击射程")
+				local size = atkRange / 100
 				common:SetEffectSize(effect, size)
 			end
 		end
@@ -95,20 +95,18 @@ ac.time(0.01, function()
 	-- 1秒触发
 	if timer % 100 == 0 then
 		jass.udg_GameTime = jass.udg_GameTime + 1
+		local time = floor(jass.udg_GameTime)
+		local hours = floor(time / 3600)    -- 计算小时
+		local minutes = floor((time % 3600) / 60) -- 计算分钟
+		local secs = time % 60
+		local timeStr = string.format("%02d : %02d : %02d", hours, minutes, secs)
+		UIModule.GameInformation.ui.gameTime:set_text(timeStr)
+
 		common:RunTrigger(jass.gg_trg_1Timer)
 		SetHeroAtk()
 		-- 挂机结束
 		if jass.udg_GameTime > 27005 then
 			CustomVictoryBJ(common.Player[0], true, false)
-		end
-		if jass.udg_CurrentEnemyCount > jass.udg_MaxEnemyCount then
-			failedCountdown = failedCountdown + 1
-			code.AddMessage(0, "|cfff43232怪物超出上限,请在" .. 10 - failedCountdown .. "秒内清除,否则游戏失败")
-			if failedCountdown >= 10 then
-				code.GameFailed(0)
-			end
-		else
-			failedCountdown = 0
 		end
 	end
 

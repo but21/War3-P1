@@ -14,25 +14,25 @@ local math          = math
 local tipDialogDown = Module.UITipDialog.tipDialogDown
 
 
-local Swallow      = {}
+local Swallow = {}
 
-local _ui          = {}
+local _ui     = {}
 
-Swallow.ui         = _ui
+Swallow.ui    = _ui
 
-local swallowHero  = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 }
-local swallowEquip = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14 }
 
 function Swallow:Init()
-	local UIModule = require "my_ui.ui_module_manager"
-	local cardModule = UIModule.Card
-	local _currentPage = 1
-	local wBtn, hBtn = 60, 60
-	local xBtn, yBtn = 1400, 300
-	local OpenUI = {}
-	OpenUI.panel = gameui:builder 'panel' { w = 1, h = 1, xy = { '中心', xBtn, yBtn }, show = true }
-	OpenUI.background = OpenUI.panel:builder "image" { w = wBtn, h = hBtn, xy = { "中心", OpenUI.panel, "中心", 0, 0 }, image = [[]] }
-	OpenUI.btn = OpenUI.background:builder "button" { w = wBtn, h = hBtn, xy = { "中心", OpenUI.background, "中心", 0, 0 } }
+	local UIModule        = require "my_ui.ui_module_manager"
+	local swallowedHeroes = UIModule.SeizeBody.swallowedHeroes
+	local swallowEquip    = { {}, {}, {}, {} }
+	local cardModule      = UIModule.Card
+	local _currentPage    = 1
+	local wBtn, hBtn      = 60, 60
+	local xBtn, yBtn      = 1400, 300
+	local OpenUI          = {}
+	OpenUI.panel          = gameui:builder 'panel' { w = 1, h = 1, xy = { '中心', xBtn, yBtn }, show = true }
+	OpenUI.background     = OpenUI.panel:builder "image" { w = wBtn, h = hBtn, xy = { "中心", OpenUI.panel, "中心", 0, 0 }, image = [[]] }
+	OpenUI.btn            = OpenUI.background:builder "button" { w = wBtn, h = hBtn, xy = { "中心", OpenUI.background, "中心", 0, 0 } }
 	OpenUI.btn:event("进入")(function(btn)
 		local playerID = common:GetLocalPlayerID()
 		local tip = "[当前羁绊]|n|n"
@@ -50,11 +50,12 @@ function Swallow:Init()
 	end)
 	OpenUI.btn:event("点击")(function()
 		local playerID = common:GetLocalPlayerID()
-		local count = #cardModule.swallowCards[playerID] + #swallowHero + #swallowEquip
+		local count = #cardModule.swallowCards[playerID] + #swallowedHeroes[playerID] + #swallowEquip[playerID]
 		local allPage = (count - 1) // 35 + 1
+		allPage = math.max(1, allPage)
 		_currentPage = 1
 		local uiIndex = 0
-		for _, id in ipairs(swallowHero) do
+		for _, id in ipairs(swallowedHeroes[playerID]) do
 			uiIndex = uiIndex + 1
 			if uiIndex > 35 then
 				break
@@ -65,7 +66,7 @@ function Swallow:Init()
 			_ui.iconBtn[uiIndex].ty = "英雄"
 			_ui.iconBtn[uiIndex].id = id
 		end
-		for _, id in ipairs(swallowEquip) do
+		for _, id in ipairs(swallowEquip[playerID]) do
 			uiIndex = uiIndex + 1
 			if uiIndex > 35 then
 				break
@@ -108,13 +109,13 @@ function Swallow:Init()
 	_ui.prePageBtn = uiCreate:CreateUIRelative("button", _ui.prePageIcon, "中心", _ui.prePageIcon, "中心", 0, 0, 30, 30)
 	local function _ClickPageBtn(firstIndex, playerID)
 		local uiIndex = 0
-		if firstIndex < #swallowHero then
-			for i = firstIndex + 1, #swallowHero, 1 do
+		if firstIndex < #swallowedHeroes[playerID] then
+			for i = firstIndex + 1, #swallowedHeroes[playerID], 1 do
 				uiIndex = uiIndex + 1
 				if uiIndex > 35 then
 					break
 				end
-				local id = swallowHero[i]
+				local id = swallowedHeroes[playerID][i]
 				local icon = excel:GetData("夺舍", id, "Icon")
 				_ui.icon[uiIndex]:set_show(true)
 				_ui.icon[uiIndex]:set_image(icon)
@@ -122,14 +123,14 @@ function Swallow:Init()
 				_ui.iconBtn[uiIndex].id = id
 			end
 		end
-		firstIndex = math.max(0, firstIndex - #swallowHero)
-		if firstIndex < #swallowEquip then
-			for i = firstIndex + 1, #swallowEquip do
+		firstIndex = math.max(0, firstIndex - #swallowedHeroes[playerID])
+		if firstIndex < #swallowEquip[playerID] then
+			for i = firstIndex + 1, #swallowEquip[playerID] do
 				uiIndex = uiIndex + 1
 				if uiIndex > 35 then
 					break
 				end
-				local id = swallowEquip[i]
+				local id = swallowEquip[playerID][i]
 				local icon = excel:GetData("神通", id, "Icon")
 				_ui.icon[uiIndex]:set_show(true)
 				_ui.icon[uiIndex]:set_image(icon)
@@ -137,7 +138,7 @@ function Swallow:Init()
 				_ui.iconBtn[uiIndex].id = id
 			end
 		end
-		firstIndex = math.max(0, firstIndex - #swallowEquip)
+		firstIndex = math.max(0, firstIndex - #swallowEquip[playerID])
 		if firstIndex < #cardModule.swallowCards[playerID] then
 			for i = firstIndex + 1, #cardModule.swallowCards[playerID], 1 do
 				uiIndex = uiIndex + 1
@@ -155,7 +156,7 @@ function Swallow:Init()
 	end
 	_ui.prePageBtn:event("点击")(function()
 		local playerID = common:GetLocalPlayerID()
-		local count = #cardModule.swallowCards[playerID] + #swallowHero + #swallowEquip
+		local count = #cardModule.swallowCards[playerID] + #swallowedHeroes[playerID] + #swallowEquip[playerID]
 		local allPage = (count - 1) // 35 + 1
 		if allPage > 1 and _currentPage > 1 then
 			for i = 1, 35 do
@@ -171,7 +172,7 @@ function Swallow:Init()
 	_ui.nextPageBtn = uiCreate:CreateUIRelative("button", _ui.nextPageIcon, "中心", _ui.nextPageIcon, "中心", 0, 0, 30, 30)
 	_ui.nextPageBtn:event("点击")(function()
 		local playerID = common:GetLocalPlayerID()
-		local count = #cardModule.swallowCards[playerID] + #swallowHero + #swallowEquip
+		local count = #cardModule.swallowCards[playerID] + #swallowedHeroes[playerID] + #swallowEquip[playerID]
 		local allPage = (count - 1) // 35 + 1
 		if allPage > 1 and _currentPage < allPage then
 			for i = 1, 35 do
@@ -188,24 +189,32 @@ function Swallow:Init()
 	local function _EnterBtn(btn)
 		local ty = btn.ty
 		local id = btn.id
+		local icon, name, intro, tips
 		if ty == "卡牌" then
-			local icon = excel:GetData("卡牌", id, "Icon")
-			local name = excel:GetData("卡牌", id, "CardName")
-			local bondName = excel:GetData("卡牌", id, "BondName")
-			local tips = excel:GetData("卡牌", id, "Tip")
-			tipDialogDown.icon:set_image(icon)
-			tipDialogDown.name:set_text(name)
-			tipDialogDown.tips:set_text(tips)
-			tipDialogDown.intro:set_text("羁绊: " .. bondName)
-			tipDialogDown.panel:reset_allpoint()
-			tipDialogDown.panel:set_point("中心", btn, "右上", 15, -8)
-			tipDialogDown.panel:set_show(true)
-			local w, h = btn:get_wh()
-			_ui.highlight:set_wh(w, h)
-			_ui.highlight:reset_allpoint()
-			_ui.highlight:set_point("中心", btn, "中心", 0, 0)
-			_ui.highlight:set_show(true)
+			icon = excel:GetData("卡牌", id, "Icon")
+			name = excel:GetData("卡牌", id, "CardName")
+			intro = excel:GetData("卡牌", id, "BondName")
+			tips = excel:GetData("卡牌", id, "Tip")
+			intro = "羁绊: " .. intro
 		end
+		if ty == "英雄" then
+			name = excel:GetData("夺舍", id, "Name")
+			tips = excel:GetData("夺舍", id, "Tips")
+			icon = excel:GetData("夺舍", id, "Icon")
+			intro = "夺舍效果"
+		end
+		tipDialogDown.intro:set_text(intro)
+		tipDialogDown.icon:set_image(icon)
+		tipDialogDown.name:set_text(name)
+		tipDialogDown.tips:set_text(tips)
+		tipDialogDown.panel:reset_allpoint()
+		tipDialogDown.panel:set_point("中心", btn, "右上", 12, -8)
+		tipDialogDown.panel:set_show(true)
+		local w, h = btn:get_wh()
+		_ui.highlight:set_wh(w, h)
+		_ui.highlight:reset_allpoint()
+		_ui.highlight:set_point("中心", btn, "中心", 0, 0)
+		_ui.highlight:set_show(true)
 	end
 	local function _LeaveBtn(btn)
 		tipDialogDown.panel:set_show(false)

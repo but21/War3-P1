@@ -176,6 +176,10 @@ function Common:GetUnitState(unit, ty)
 	return 0
 end
 
+---设置单位属性
+---@param unit any
+---@param ty string(护甲, 生命值, 魔法值, 攻击距离, 攻击间隔, 攻击速度)
+---@param val number
 function Common:SetUnitState(unit, ty, val)
 	if ty == "护甲" then
 		jass.SetUnitState(unit, jass.ConvertUnitState(0x20), val)
@@ -195,6 +199,13 @@ function Common:SetUnitState(unit, ty, val)
 	if ty == "攻击速度" then
 		jass.SetUnitState(unit, jass.ConvertUnitState(0x51), val)
 	end
+end
+
+---获取英雄等级
+---@param hero any
+---@return integer 
+function Common:GetHeroLv(hero)
+	return jass.GetHeroLevel(hero)
 end
 
 ---判断单位受到的攻击类型(受伤事件)

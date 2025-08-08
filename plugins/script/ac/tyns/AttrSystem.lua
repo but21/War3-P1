@@ -15,30 +15,23 @@ local manager = {}
 --- 之前的方式使用的属性表, 把自己的直接复制过来就行
 local attr_d = {
 	-- 基础属性
-
-	-- 基础属性: 攻击, 生命, 护甲, 力量, 敏捷, 智力, 全属性, 每秒回血, 攻击速度%, 攻击间隔, 攻击射程, 多重属性, 多重几率%
-	-- 杀敌{杀敌攻击, 杀敌护甲, 杀敌生命, 杀敌力量, 杀敌敏捷, 杀敌智力, 杀敌全属}
-	-- 40 每秒{每秒攻击, 每秒护甲, 每秒生命, 每秒力量, 每秒敏捷, 每秒智力, 每秒全属, 每秒金币, 每秒杀敌, 每秒木材}
-	-- 60 加成{攻击加成%, 护甲加成%, 生命加成%, 力量加成%, 敏捷加成%, 智力加成%}
-	-- 80 伤害{攻击伤害%, 物理伤害%, 法术伤害%, 最终伤害%, 绝对伤害%, 攻击暴率%, 物理暴率%, 法术暴率%, 攻击暴伤%, 物理暴伤%, 法术暴伤%}
-	-- 100 生存{每秒回血, 生命恢复%, 攻击吸血%, 技能吸血%, 伤害减免%, 免伤几率%}
-	-- 120 结算{结算物理伤害%, 结算法术伤害%, 结算攻击伤害%, 结算物理暴伤%, 结算法术暴伤%, 结算攻击暴伤%}
-	-- 140 面板{面板攻击, 面板力量, 面板敏捷, 面板智力, 面板每秒回血}
-
 	{ key = 1, value = "攻击" },
 	{ key = 2, value = "生命" },
 	{ key = 3, value = "护甲" },
 	{ key = 4, value = "力量" },
 	{ key = 5, value = "敏捷" },
 	{ key = 6, value = "智力" },
-	{ key = 7, value = "全属性" },
-	{ key = 8, value = "每秒回血" },
+	{ key = 7, value = "全属" },
+	{ key = 8, value = "已丢弃" },
 	{ key = 9, value = "攻击速度%" },
 	{ key = 10, value = "攻击间隔" },
 	{ key = 11, value = "攻击射程" },
-	{ key = 12, value = "多重属性" },
+	{ key = 12, value = "多重数量" },
 	{ key = 13, value = "多重几率%" },
+	{ key = 14, value = "多重伤害系数" },
+	{ key = 15, value = "技能急速%" },
 
+	-- 杀敌
 	{ key = 21, value = "杀敌攻击" },
 	{ key = 22, value = "杀敌护甲" },
 	{ key = 23, value = "杀敌生命" },
@@ -46,7 +39,7 @@ local attr_d = {
 	{ key = 25, value = "杀敌敏捷" },
 	{ key = 26, value = "杀敌智力" },
 	{ key = 27, value = "杀敌全属" },
-	
+
 	-- 40 每秒
 	{ key = 41, value = "每秒攻击" },
 	{ key = 42, value = "每秒护甲" },
@@ -66,6 +59,9 @@ local attr_d = {
 	{ key = 64, value = "力量加成%" },
 	{ key = 65, value = "敏捷加成%" },
 	{ key = 66, value = "智力加成%" },
+	{ key = 67, value = "金币加成%" },
+	{ key = 68, value = "杀敌加成%" },
+	{ key = 69, value = "木材加成%" },
 
 	-- 80 伤害
 	{ key = 81, value = "攻击伤害%" },
@@ -79,6 +75,7 @@ local attr_d = {
 	{ key = 89, value = "攻击暴伤%" },
 	{ key = 90, value = "物理暴伤%" },
 	{ key = 91, value = "法术暴伤%" },
+	{ key = 92, value = "真实伤害%" },
 
 	-- 100 生存
 	{ key = 101, value = "每秒回血" },
@@ -95,6 +92,9 @@ local attr_d = {
 	{ key = 124, value = "结算物理暴伤%" },
 	{ key = 125, value = "结算法术暴伤%" },
 	{ key = 126, value = "结算攻击暴伤%" },
+	{ key = 127, value = "结算多重伤害%" },
+	{ key = 128, value = "结算真实伤害%" },
+	{ key = 129, value = "结算技能急速%" },
 
 	-- 140 面板
 	{ key = 141, value = "面板攻击" },
@@ -102,6 +102,11 @@ local attr_d = {
 	{ key = 143, value = "面板敏捷" },
 	{ key = 144, value = "面板智力" },
 	{ key = 145, value = "面板每秒回血" },
+
+	-- 160 当前
+	{ key = 161, value = "当前力量%" },
+	{ key = 162, value = "当前敏捷%" },
+	{ key = 163, value = "当前智力%" },
 }
 
 --- 所有属性类型  index - name
@@ -111,8 +116,8 @@ local AttrType_Table = {}
 local AttrType_Table2 = {}
 
 for _, value in pairs(attr_d) do
-	AttrType_Table[value.index] = value.key
-	AttrType_Table2[value.key] = value.index
+	AttrType_Table[value.key] = value.value
+	AttrType_Table2[value.value] = value.key
 end
 
 --- 全部属性的循环, 全部属性的数量, 为该功能创建的表

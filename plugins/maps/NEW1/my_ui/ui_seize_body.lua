@@ -1,31 +1,42 @@
-local Module          = require "my_base.base_module_manager"
-local code            = require "jass.code"
-local jass            = require "jass.common"
-local font            = "fonts\\LXWK_Bold.ttf"
+local Module              = require "my_base.base_module_manager"
+local code                = require "jass.code"
+local jass                = require "jass.common"
+local font                = "fonts\\LXWK_Bold.ttf"
 
-local uiCreate        = Module.UICreate
-local tipOnlyTextDown = Module.UITipDialog.tipOnlyTextDown
-local myFunc          = Module.MyFunc
-local common          = Module.Common
-local excel           = Module.Excel
-local players         = jass.udg_Player
-local tipDialogDown   = Module.UITipDialog.tipDialogDown
+local uiCreate            = Module.UICreate
+local tipOnlyTextDown     = Module.UITipDialog.tipOnlyTextDown
+local myFunc              = Module.MyFunc
+local common              = Module.Common
+local excel               = Module.Excel
+local excelSystem         = Module.ExcelSystem
+local players             = jass.udg_Player
+local tipDialogDown       = Module.UITipDialog.tipDialogDown
 
-local SeizeBody       = {}
-local _ui             = {}
-SeizeBody.ui          = _ui
+local SeizeBody           = {}
+local _ui                 = {}
+SeizeBody.ui              = _ui
+SeizeBody.swallowedHeroes = {}
 
--- 刷新消耗
-local _refreshCost    = {}
+local _drawAmount         = { 2, 2, 2, 2 }
+
+
+local _refreshCost = {}
+local _drawPool    = {}
+
 
 ---@type table<integer, table<integer, integer>> 对应玩家的选项ID
-local _optionsID      = {}
+local _optionsID = {}
 for playerID, value in ipairs(jass.udg_Player) do
-	_optionsID[playerID]                = {}
+	_optionsID[playerID] = {}
+	_drawPool[playerID]  = {}
+	for i = 1, #excel["夺舍"], 1 do
+		_drawPool[playerID][i] = i
+	end
 	_refreshCost[playerID]              = {}
 	_refreshCost[playerID].originCost   = excel["其它"][8]["Value2"]
 	_refreshCost[playerID].raiseCost    = excel["其它"][8]["Value3"]
 	_refreshCost[playerID].refreshCount = 0
+	SeizeBody.swallowedHeroes[playerID] = {}
 end
 
 -- 模型数据
@@ -45,6 +56,7 @@ local modelDatas     = {
 	[13] = { stand = 4, modelPosition = { -20, 0, -22 }, cameraRotate = { 0, 15, 0 }, scale = 0.2 },
 	[14] = { stand = 12, modelPosition = { -25, 0, -25 }, cameraRotate = { 0, 15, 0 }, scale = 0.2 },
 	[15] = { stand = 6, modelPosition = { -22, 0, -25 }, cameraRotate = { 0, 15, 0 }, scale = 0.2 },
+	[16] = { stand = 0, modelPosition = { -25, 0, -25 }, cameraRotate = { 0, 20, 0 }, scale = 0.2 },
 }
 
 SeizeBody.modelDatas = modelDatas
@@ -59,7 +71,7 @@ _ui.optionTip        = {}
 local function _EnterOption(btn)
 	local playerID = common:GetLocalPlayerID()
 	local name = excel["夺舍"][_optionsID[playerID][btn.index]]["Name"]
-	local tip = excel["夺舍"][_optionsID[playerID][btn.index]]["Tips"]
+	local tip = excelSystem:GetData("夺舍", _optionsID[playerID][btn.index], "Tips")
 	local icon = excel["夺舍"][_optionsID[playerID][btn.index]]["Icon"]
 	tipDialogDown.name:set_text(name)
 	tipDialogDown.icon:set_image(icon)
@@ -77,12 +89,9 @@ local function _LeaveOption(btn)
 	_ui.highlight:set_show(false)
 end
 local function _ClickOption(btn)
-	local amount = 3
-	if not _ui.optionBg[3]._show then
-		amount = 2
-	end
-	_ui.Hide(amount)
-	local id = _optionsID[common:GetLocalPlayerID()][btn.index]
+	local playerID = common:GetLocalPlayerID()
+	_ui.Hide(_drawAmount[playerID])
+	local id = _optionsID[playerID][btn.index]
 	common:SendSync("SeizeBody", id)
 end
 local _optionW, _optionH = 204, 356
@@ -101,7 +110,7 @@ for i = 1, 3 do
 	-- _ui.optionTip[i] = uiCreate:CreateUIRelative("text", _ui.optionShadow[i], "底部", _ui.optionBg[i], "底部", 0, 20, _optionW - 30, 0, { font = font, fontSize = 20, align = "居中" })
 end
 _ui.highlight = uiCreate:CreateUIRelative("image", _ui.panel, "中心", _ui.panel, "中心", 0, 0, _optionW, _optionH, { isShow = false, image = [[Survival\UI\SeizeBody\highlight.tga]] })
-local _refreshW, _refreshH = 80, 40
+local _refreshW, _refreshH = 100, 50
 _ui.refreshBg = uiCreate:CreateUIRelative("image", _ui.panel, "中心", _ui.panel, "中心", 0, -250, _refreshW, _refreshH, { image = [[Survival\UI\refresh.tga]] })
 _ui.refreshBtn = uiCreate:CreateUIRelative("button", _ui.refreshBg, "中心", _ui.refreshBg, "中心", 0, 0, _refreshW, _refreshH)
 _ui.refreshBtn:event "进入" (function(btn)
@@ -120,22 +129,6 @@ _ui.refreshBtn:event "离开" (function(btn)
 end)
 _ui.refreshBtn:event "点击" (function(btn)
 	common:SendSync("RefreshSeizeSelect")
-end)
-common:ReceiveSync("RefreshSeizeSelect")(function()
-	local player = common:GetSyncPlayer()
-	local playerID = common:ConvertPlayerToID(player)
-	local cost = _refreshCost[playerID].originCost + _refreshCost[playerID].raiseCost * _refreshCost[playerID].refreshCount
-	if jass.udg_PlayerDiamond[playerID] >= cost then
-		_refreshCost[playerID].refreshCount = _refreshCost[playerID].refreshCount + 1
-		jass.udg_PlayerDiamond[playerID] = jass.udg_PlayerDiamond[playerID] - cost
-		if common:IsLocalPlayer(player) then
-			cost = _refreshCost[playerID].originCost + _refreshCost[playerID].raiseCost * _refreshCost[playerID].refreshCount
-			tipOnlyTextDown.tips:set_text("点击消耗|cfaffff00" .. cost .. "|r钻石刷新")
-		end
-		code.BeginSeizeBody(playerID, true)
-	else
-		code.AddMessage(playerID, "|cfff43232钻石不足!!!")
-	end
 end)
 _ui.refreshText = uiCreate:CreateUIRelative("text", _ui.refreshBg, "中心", _ui.refreshBg, "中心", 0, 0, _refreshW, 0, { font = font, fontSize = 22, align = "居中" })
 
@@ -198,42 +191,18 @@ function _ui.Hide(showAmount)
 	end
 end
 
-function code.BeginSeizeBody(playerID, isShowUI)
-	local optionAmount = 3
-	for i = 1, optionAmount, 1 do
-		local condition = true
-		local id = common:GetRandomInt(1, #excel["夺舍"])
-		if id ~= jass.udg_CurrentSeizeBodyID[playerID] then
-			condition = false
-			for j = 1, i - 1 do
-				if id == _optionsID[playerID][j] then
-					condition = true
-					break
-				end
-			end
-		end
-		local loopCount = 0
-		while condition do
-			id = common:GetRandomInt(1, #excel["夺舍"])
-			if id ~= jass.udg_CurrentSeizeBodyID[playerID] then
-				condition = false
-				for j = 1, i - 1 do
-					if id == _optionsID[playerID][j] then
-						condition = true
-						break
-					end
-				end
-			end
-			loopCount = loopCount + 1
-			if loopCount > 10 then
-				condition = false
-			end
-		end
-		_optionsID[playerID][i] = id
-		-- 设置模型和提示文本, 然后整体显示选项
+local function DrawHero(playerID)
+	local drawAmount = _drawAmount[playerID]
+	_optionsID[playerID] = {}
+	for count = 1, drawAmount do
+		local randomIndex = common:GetRandomInt(1, #_drawPool[playerID])
+		local id = _drawPool[playerID][randomIndex]
+		table.insert(_optionsID[playerID], id)
+		table.remove(_drawPool[playerID], randomIndex)
+		_optionsID[playerID][count] = id
 		local modelData = modelDatas[id]
-		_ui.optionModel[i]:set_model(excel["夺舍"][id]["Model"])
-		_ui.optionModel[i]:set_camera_target(0, 0, 0):
+		_ui.optionModel[count]:set_model(excel["夺舍"][id]["Model"])
+		_ui.optionModel[count]:set_camera_target(0, 0, 0):
 			set_model_position(modelData.modelPosition[1], modelData.modelPosition[2], modelData.modelPosition[3])
 			:set_x(modelData.cameraRotate[1]):set_y(modelData.cameraRotate[2]):set_z(modelData.cameraRotate[3])
 			:set_camera_source(1, 0, 0)
@@ -241,11 +210,62 @@ function code.BeginSeizeBody(playerID, isShowUI)
 			:set_Size(modelData.scale)
 		-- _ui.optionTip[i]:set_text(excel["夺舍"][id]["Tips"])
 	end
-	if not isShowUI then
-		if common:IsLocalPlayer(players[playerID]) then
-			_ui.Show(optionAmount)
+	if common:IsLocalPlayer(players[playerID]) then
+		_ui.Show(drawAmount)
+	end
+end
+
+common:ReceiveSync("RefreshSeizeSelect")(function()
+	local player = common:GetSyncPlayer()
+	local playerID = common:ConvertPlayerToID(player)
+	local cost = _refreshCost[playerID].originCost + _refreshCost[playerID].raiseCost * _refreshCost[playerID].refreshCount
+	if jass.udg_PlayerDiamond[playerID] >= cost then
+		_refreshCost[playerID].refreshCount = _refreshCost[playerID].refreshCount + 1
+		jass.udg_PlayerDiamond[playerID] = jass.udg_PlayerDiamond[playerID] - cost
+		if common:IsLocalPlayer(player) then
+			cost = _refreshCost[playerID].originCost + _refreshCost[playerID].raiseCost * _refreshCost[playerID].refreshCount
+			tipOnlyTextDown.tips:set_text("点击消耗|cfaffff00" .. cost .. "|r钻石刷新")
+		end
+		local tempHeroes = {}
+		if #_drawPool[playerID] >= _drawAmount[playerID] * 2 then
+			for _, id in ipairs(_optionsID[playerID]) do
+				table.insert(tempHeroes, id)
+			end
+		else
+			for _, id in ipairs(_optionsID[playerID]) do
+				table.insert(_drawPool[playerID], id)
+			end
+		end
+		_optionsID[playerID] = {}
+		DrawHero(playerID)
+		for _, id in ipairs(tempHeroes) do
+			table.insert(_drawPool[playerID], id)
+		end
+	else
+		code.AddMessage(playerID, "|cfff43232钻石不足!!!")
+	end
+end)
+common:ReceiveSync("SeizeBody")(function(data)
+	local player = common:GetSyncPlayer()
+	local playerID = common:ConvertPlayerToID(player)
+	if jass.udg_CurrentSeizeBodyID[playerID] > 0 then
+		table.insert(SeizeBody.swallowedHeroes[playerID], jass.udg_CurrentSeizeBodyID[playerID])
+	end
+	for index, id in ipairs(_optionsID[playerID]) do
+		if id ~= data then
+			table.insert(_drawPool[playerID], id)
 		end
 	end
+	common:SaveInteger(jass.udg_HTSeizeBodyID, playerID, data, 1)
+	jass.udg_CurrentSeizeBodyID[playerID] = data
+	myFunc:SetCustomValue(jass.gg_trg_SeizeBodyLua, "整数", "playerID", playerID)
+	common:RunTrigger(jass.gg_trg_SeizeBodyLua)
+end)
+
+-- 修改抽取和刷新方式, 一个数组存储已吞噬的英雄
+
+function code.BeginSeizeBody(playerID)
+	DrawHero(playerID)
 end
 
 return SeizeBody

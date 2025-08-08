@@ -5,7 +5,7 @@ local myFunc     = BaseModule.MyFunc
 local common     = BaseModule.Common
 local archive    = BaseModule.Archive
 local players    = jass.udg_Player
-local excel = BaseModule.Excel
+local excel      = BaseModule.Excel
 local font       = "fonts\\LXWK_Bold.ttf"
 
 local BossComing = {}
@@ -17,6 +17,26 @@ function BossComing:Init()
 	ui.countdownBg = gameui:builder 'image' { w = 100, h = 40, xy = { "顶部", gameui, "顶部", 200, -80 }, image = [[UI\Widgets\ToolTips\Human\human-tooltip-background.blp]], show = false }
 	ui.countdownText = ui.countdownBg:builder 'text' { w = 100, h = 0, xy = { "中心", ui.countdownBg, "中心", 0, 0 }, font = { font, 20, align = "居中" } }
 end
+
+local maxTime = 0
+local timer = 0
+ac.time(1, function(self)
+	if maxTime > 0 then
+		timer = timer + 1
+		ui.countdownBg:set_show(true)
+		ui.countdownText:set_text(90 - timer .. "秒")
+		if timer >= maxTime then
+			code.GameFailed(0)
+			self:rem()
+		end
+	else
+		ui.countdownBg:set_show(false)
+		if jass.udg_GameResult > 0 then
+			code.GameWin()
+			self:rem()
+		end
+	end
+end)
 
 function code.GameWin()
 	if jass.udg_GameResult == 0 then
@@ -50,27 +70,28 @@ function code.GameFailed(playerID)
 end
 
 function code.BossComing(playerID, bossID)
-	if bossID == 86 then
+	maxTime = 90
+	if bossID == 85 then
 		jass.udg_IsGameStart = false
-		ac.time(1, function(self)
-			if jass.udg_GameResult > 0 then
-				if common:IsLocalPlayer(players[playerID]) then
-					ui.countdownBg:set_show(true)
-					ui.countdownText:set_text(120 - self.lostcount .. "秒")
-				end
-				code.GameWin()
-				if common:IsLocalPlayer(players[playerID]) then
-					ui.countdownBg:set_show(false)
-				end
-				self:rem()
-			end
-			if self.lostcount == 120 then
-				code.GameFailed(playerID)
-				self:rem()
-			end
-		end)
 	end
-	if common:IsLocalPlayer(jass.udg_Player[playerID]) then
+	-- ac.time(1, function(self)
+	-- 	if jass.udg_GameResult > 0 then
+	-- 		if common:IsLocalPlayer(players[playerID]) then
+	-- 			ui.countdownBg:set_show(true)
+	-- 			ui.countdownText:set_text(90 - self.lostcount .. "秒")
+	-- 		end
+	-- 		code.GameWin()
+	-- 		if common:IsLocalPlayer(players[playerID]) then
+	-- 			ui.countdownBg:set_show(false)
+	-- 		end
+	-- 		self:rem()
+	-- 	end
+	-- 	if self.lostcount == 90 then
+	-- 		code.GameFailed(playerID)
+	-- 		self:rem()
+	-- 	end
+	-- end)
+	if common:IsLocalPlayer(common.Player[playerID]) then
 		ui.background:set_show(true)
 		ui.background:set_wh(1729 * 0.7, 332 * 0.7)
 		ui.background:set_point2("中心", 960, 850)
@@ -78,7 +99,7 @@ function code.BossComing(playerID, bossID)
 		local manager = {}
 		manager.fun1 = function()
 			count = count + 1
-			if count <= 2 then
+			if count <= 3 then
 				myFunc:FadeAlpha({
 					UI = ui.background,
 					time = 1,
@@ -95,6 +116,10 @@ function code.BossComing(playerID, bossID)
 		end
 		manager.fun1()
 	end
+end
+
+function code.KillAttackBoss()
+	maxTime = 0
 end
 
 return BossComing

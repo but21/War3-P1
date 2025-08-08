@@ -5,6 +5,11 @@ function StringFormat1 takes string str returns string
 	return ""
 endfunction
 
+function KillAttackBoss takes nothing returns nothing
+	call GetTriggeringTrigger()
+	return 
+endfunction
+
 // 游戏胜利
 function GameWin takes nothing returns nothing
 	call GetTriggeringTrigger()

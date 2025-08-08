@@ -115,7 +115,6 @@ globals
 	integer array udg_Hotkey
 	unit array udg_Hero
 	unit array udg_BABY
-	boolean array udg_DCD
 	integer udg_SLine_Stack_Top = 0
 	effect array udg_SLine_Stack_Effect
 	attacktype array udg_SLine_AttackType
@@ -151,21 +150,13 @@ globals
 	attacktype array udg_Surrounds_AttackType
 	location udg_BackHomeP = null
 	real array udg_PositionAngle
-	real array udg_ProduceNormalEnemySpeed
-	integer array udg_ProduceNormalEnemyCount
 	integer array udg_RemoteEnemyType
-	integer udg_CurrentEnemyCount = 0
-	integer udg_MaxEnemyCount = 0
 	boolean udg_IsGameStart = false
-	real array udg_ProduceEliteEnemySpeed
-	integer array udg_ProduceEliteEnemyCount
-	hashtable udg_HTKillsShopBuyCount = null
 	unit array udg_BlackMarket
 	integer array udg_BlackMarketLv
 	integer array udg_BlackMarketSalesAmount
 	hashtable udg_HTBMBuyCount = null
-	integer array udg_KillEliteDiamondPro
-	real array udg_KillEliteDiamond
+	real array udg_KillWoodDiamond
 	real array udg_KillBossDiamond
 	integer array udg_BMSalesFreePro
 	integer array udg_BlackMarketSkill
@@ -180,52 +171,24 @@ globals
 	integer array udg_CurrentHeroSkin
 	integer array udg_BossSkillVest
 	trigger array udg_BossSkillTrig
-	trigger gg_trg____________________001 = null
-	trigger gg_trg_TestInit = null
-	trigger gg_trg_ToCode = null
-	trigger gg_trg_OpenArchiveChallenge = null
-	trigger gg_trg_ArchiveChallengeInit = null
-	trigger gg_trg_BossSkillTrig1_1 = null
-	trigger gg_trg_BossSkillTrig2_1 = null
-	trigger gg_trg_BossSkillTrig3_1 = null
-	trigger gg_trg_BossSkillTrig3_2 = null
-	trigger gg_trg_BossSkillTrig4_1 = null
-	trigger gg_trg_BossSkillTrig4_2 = null
-	trigger gg_trg_BossSkillTrig4_2_DamageAction = null
-	trigger gg_trg_BossSkillTrig5_1 = null
-	trigger gg_trg_BossSkillTrig5_2 = null
-	trigger gg_trg_BossSkillTrig6_1 = null
-	trigger gg_trg_BossSkillTrig6_2 = null
-	trigger gg_trg_BossSkillTrig6_3 = null
-	trigger gg_trg_BossSkillInit = null
-	trigger gg_trg_SeizeBodySync = null
-	trigger gg_trg_SelectBMSync = null
-	trigger gg_trg_BuyBMSales = null
-	trigger gg_trg_SetBMSales = null
-	trigger gg_trg_BlackMarketInit = null
-	trigger gg_trg_CreateNormalEnemy = null
-	trigger gg_trg_CreateEliteAndBoss = null
-	trigger gg_trg_WBInit = null
-	trigger gg_trg_UnitDead = null
-	trigger gg_trg_PressKeyA = null
-	trigger gg_trg_F2 = null
-	trigger gg_trg_F1 = null
-	trigger gg_trg_HeroLvUp = null
-	trigger gg_trg_RecoverHp = null
-	trigger gg_trg_BackHome = null
-	trigger gg_trg_D___u = null
-	trigger gg_trg_D_Func_Effect = null
-	trigger gg_trg_ShowAttr = null
-	trigger gg_trg_HeroRelive = null
-	trigger gg_trg_HeroAttrInit = null
-	trigger gg_trg_ChangeAttrEvent = null
-	trigger gg_trg_DamageSystem = null
-	trigger gg_trg_AttackSystem = null
-	trigger gg_trg_001Timer = null
-	trigger gg_trg_002Timer = null
-	trigger gg_trg_01Timer = null
-	trigger gg_trg_05Timer = null
-	trigger gg_trg_1Timer = null
+	location array udg_HomePoints
+	location array udg_HomeEnemyPoints
+	integer udg_CurrentMonsterWave = 0
+	boolean udg_SpawnNormalMonsters = false
+	integer udg_LgfMaxAmount = 0
+	integer array udg_LgfExtraMaxAmount
+	integer udg_SpawnNormalMonstersCount = 0
+	integer array udg_CurrentQuestIndex
+	group array udg_QuestMonsterGroup
+	boolean array udg_IsInQuest
+	group array udg_LgfMonsterGroup
+	integer array udg_LgfWoodMonsterRemainingKills
+	integer array udg_LgfWoodMonsterReduceKills
+	unit array udg_SLine_Target
+	unit array udg_Bezier_Target
+	real array udg_DrawCardCostReduce
+	integer udg_CurrentWoodMonsterValueID = 0
+	integer udg_LgfWoodMonsterRequiredKills = 0
 	trigger gg_trg_Weapon_1 = null
 	trigger gg_trg_Weapon_1_EndAction = null
 	trigger gg_trg_Weapon_1_EndAction2 = null
@@ -285,6 +248,67 @@ globals
 	trigger gg_trg_WeaponRunInit = null
 	trigger gg_trg_WeaponCDInit = null
 	trigger gg_trg_WeaponGetInit = null
+	trigger gg_trg____________________001 = null
+	trigger gg_trg_TestInit = null
+	trigger gg_trg_ToCode = null
+	trigger gg_trg_SetWoodMonsterValueID = null
+	trigger gg_trg_SpawnWoodMonster = null
+	trigger gg_trg_SpawnLgfMonsters = null
+	trigger gg_trg_LgfInit = null
+	trigger gg_trg_F4 = null
+	trigger gg_trg_PressKeyC = null
+	trigger gg_trg_QuestInit = null
+	trigger gg_trg_OpenArchiveChallenge = null
+	trigger gg_trg_ArchiveChallengeInit = null
+	trigger gg_trg_BossSkillTrig1_1 = null
+	trigger gg_trg_BossSkillTrig2_1 = null
+	trigger gg_trg_BossSkillTrig3_1 = null
+	trigger gg_trg_BossSkillTrig3_2 = null
+	trigger gg_trg_BossSkillTrig4_1 = null
+	trigger gg_trg_BossSkillTrig4_2 = null
+	trigger gg_trg_BossSkillTrig4_2_DamageAction = null
+	trigger gg_trg_BossSkillTrig5_1 = null
+	trigger gg_trg_BossSkillTrig5_2 = null
+	trigger gg_trg_BossSkillTrig6_1 = null
+	trigger gg_trg_BossSkillTrig6_2 = null
+	trigger gg_trg_BossSkillTrig6_3 = null
+	trigger gg_trg_BossSkillInit = null
+	trigger gg_trg_SeizeBody_15 = null
+	trigger gg_trg_SeizeBody_14 = null
+	trigger gg_trg_SeizeBody_13 = null
+	trigger gg_trg_SeizeBody_8 = null
+	trigger gg_trg_SeizeBody_3 = null
+	trigger gg_trg_SeizeBody_2 = null
+	trigger gg_trg_SeizeBodyLua = null
+	trigger gg_trg_SelectBMSync = null
+	trigger gg_trg_BuyBMSales = null
+	trigger gg_trg_SetBMSales = null
+	trigger gg_trg_BlackMarketInit = null
+	trigger gg_trg_CreateNormalEnemy = null
+	trigger gg_trg_SpawnAttackMonsters = null
+	trigger gg_trg_SpawnNormalMonsters = null
+	trigger gg_trg_WBInit = null
+	trigger gg_trg_UnitDead = null
+	trigger gg_trg_PressKeyEsc = null
+	trigger gg_trg_F3 = null
+	trigger gg_trg_F2 = null
+	trigger gg_trg_F1 = null
+	trigger gg_trg_HeroLvUp = null
+	trigger gg_trg_RecoverHp = null
+	trigger gg_trg_BackHome = null
+	trigger gg_trg_D___u = null
+	trigger gg_trg_D_Func_Effect = null
+	trigger gg_trg_ShowAttr = null
+	trigger gg_trg_HeroRelive = null
+	trigger gg_trg_HeroAttrInit = null
+	trigger gg_trg_ChangeAttrEvent = null
+	trigger gg_trg_DamageSystem = null
+	trigger gg_trg_AttackSystem = null
+	trigger gg_trg_001Timer = null
+	trigger gg_trg_002Timer = null
+	trigger gg_trg_01Timer = null
+	trigger gg_trg_05Timer = null
+	trigger gg_trg_1Timer = null
 	trigger gg_trg_GiveItem = null
 	trigger gg_trg_BabyFunction = null
 	trigger gg_trg_BabyMove = null
@@ -340,12 +364,6 @@ function InitGlobals takes nothing returns nothing
 		set udg_Hotkey[i] = 0
 		set i = i + 1
 	endloop
-	set i = 0
-	loop
-		exitwhen(i > 4)
-		set udg_DCD[i] = false
-		set i = i + 1
-	endloop
 	set udg_SLine_Stack_Top = 0
 	set udg_Bezier_Stack_Top = 0
 	set udg_CircleArc_Stack_Top = 0
@@ -370,33 +388,7 @@ function InitGlobals takes nothing returns nothing
 		set i = i + 1
 	endloop
 	set udg_Surrounds_Stack_Top = 0
-	set i = 0
-	loop
-		exitwhen(i > 4)
-		set udg_ProduceNormalEnemySpeed[i] = 1.00
-		set i = i + 1
-	endloop
-	set i = 0
-	loop
-		exitwhen(i > 4)
-		set udg_ProduceNormalEnemyCount[i] = 3
-		set i = i + 1
-	endloop
-	set udg_CurrentEnemyCount = 0
-	set udg_MaxEnemyCount = 200
 	set udg_IsGameStart = false
-	set i = 0
-	loop
-		exitwhen(i > 4)
-		set udg_ProduceEliteEnemySpeed[i] = 60.00
-		set i = i + 1
-	endloop
-	set i = 0
-	loop
-		exitwhen(i > 4)
-		set udg_ProduceEliteEnemyCount[i] = 1
-		set i = i + 1
-	endloop
 	set i = 0
 	loop
 		exitwhen(i > 4)
@@ -412,13 +404,7 @@ function InitGlobals takes nothing returns nothing
 	set i = 0
 	loop
 		exitwhen(i > 4)
-		set udg_KillEliteDiamondPro[i] = 20
-		set i = i + 1
-	endloop
-	set i = 0
-	loop
-		exitwhen(i > 4)
-		set udg_KillEliteDiamond[i] = 50.00
+		set udg_KillWoodDiamond[i] = 10.00
 		set i = i + 1
 	endloop
 	set i = 0
@@ -461,6 +447,60 @@ function InitGlobals takes nothing returns nothing
 		set udg_CurrentHeroSkin[i] = 0
 		set i = i + 1
 	endloop
+	set udg_CurrentMonsterWave = 0
+	set udg_SpawnNormalMonsters = false
+	set udg_LgfMaxAmount = 0
+	set i = 0
+	loop
+		exitwhen(i > 4)
+		set udg_LgfExtraMaxAmount[i] = 0
+		set i = i + 1
+	endloop
+	set udg_SpawnNormalMonstersCount = 0
+	set i = 0
+	loop
+		exitwhen(i > 4)
+		set udg_CurrentQuestIndex[i] = 1
+		set i = i + 1
+	endloop
+	set i = 0
+	loop
+		exitwhen(i > 1)
+		set udg_QuestMonsterGroup[i] = CreateGroup()
+		set i = i + 1
+	endloop
+	set i = 0
+	loop
+		exitwhen(i > 4)
+		set udg_IsInQuest[i] = false
+		set i = i + 1
+	endloop
+	set i = 0
+	loop
+		exitwhen(i > 1)
+		set udg_LgfMonsterGroup[i] = CreateGroup()
+		set i = i + 1
+	endloop
+	set i = 0
+	loop
+		exitwhen(i > 4)
+		set udg_LgfWoodMonsterRemainingKills[i] = 0
+		set i = i + 1
+	endloop
+	set i = 0
+	loop
+		exitwhen(i > 4)
+		set udg_LgfWoodMonsterReduceKills[i] = 0
+		set i = i + 1
+	endloop
+	set i = 0
+	loop
+		exitwhen(i > 4)
+		set udg_DrawCardCostReduce[i] = 0
+		set i = i + 1
+	endloop
+	set udg_CurrentWoodMonsterValueID = 151
+	set udg_LgfWoodMonsterRequiredKills = 0
 endfunction
 function InitRandomGroups takes nothing returns nothing
 	local integer curset
@@ -480,658 +520,22 @@ function CreateUnits takes nothing returns nothing
 	local integer unitID
 	local trigger t
 	local real life
-	set u = CreateUnit(Player(2),'h00H',-107.0,-1122.4,115.9)
+	set u = CreateUnit(Player(2),'h00H',6745.5,-3494.3,115.9)
 	set gg_unit_h00H_0116 = u
-	set u = CreateUnit(Player(15),'hfoo',-20182.9,7986.0,253.7)
-	set u = CreateUnit(Player(3),'h00H',964.5,45.7,200.4)
+	set u = CreateUnit(Player(3),'h00H',6767.8,1540.5,200.4)
 	set gg_unit_h00H_0115 = u
-	set u = CreateUnit(Player(15),'h00K',24.0,20.4,90.0)
+	set u = CreateUnit(Player(15),'h00K',1097.4,679.0,90.0)
 	set gg_unit_h00K_0018 = u
-	set u = CreateUnit(Player(1),'h00H',-999.5,230.1,19.5)
+	set u = CreateUnit(Player(1),'h00H',-5040.3,-3663.6,19.5)
 	set gg_unit_h00H_0108 = u
-	set u = CreateUnit(Player(15),'hfoo',-20331.3,8176.1,3.3)
-	set u = CreateUnit(Player(15),'hfoo',-20073.1,8190.1,42.9)
-	set u = CreateUnit(Player(15),'hfoo',-19822.7,8187.7,342.8)
-	set u = CreateUnit(Player(15),'Hblm',-14859.3,-12315.8,268.5)
-	set u = CreateUnit(Player(15),'hfoo',-13256.1,-13731.3,181.3)
-	set u = CreateUnit(Player(15),'Hpal',-14847.8,-14982.8,90.6)
-	set u = CreateUnit(Player(15),'hfoo',-20208.6,8398.6,293.1)
-	set u = CreateUnit(Player(15),'hfoo',-19955.1,8398.6,118.0)
-	set u = CreateUnit(Player(15),'hfoo',-19703.5,8401.1,299.5)
-	set u = CreateUnit(Player(15),'hfoo',-19668.1,7975.0,181.3)
-	set u = CreateUnit(Player(15),'hfoo',-13507.1,-13735.7,216.6)
-	set u = CreateUnit(Player(15),'hfoo',-19919.1,7970.6,216.6)
-	set u = CreateUnit(Player(0),'h00H',50.3,1559.8,293.3)
+	set u = CreateUnit(Player(4),'h04L',-1539.0,1850.3,232.4)
+	set u = CreateUnit(Player(4),'h04L',-1671.6,2210.1,231.0)
+	set u = CreateUnit(Player(4),'h04L',-1928.7,1943.3,249.7)
+	set u = CreateUnit(Player(0),'h00H',-5041.2,1568.4,293.3)
 	set gg_unit_h00H_0114 = u
-	set u = CreateUnit(Player(15),'Hpal',-27644.9,-17731.4,86.8)
-	set u = CreateUnit(Player(15),'Hblm',-27636.6,-17083.3,265.7)
-	set u = CreateUnit(Player(15),'hfoo',-27722.1,-12066.4,92.0)
-	set u = CreateUnit(Player(15),'hfoo',-27495.6,-12069.0,158.7)
-	set u = CreateUnit(Player(15),'hfoo',-27244.2,-12066.4,231.0)
-	set u = CreateUnit(Player(15),'hfoo',-26999.8,-12074.2,40.8)
-	set u = CreateUnit(Player(15),'hfoo',-27636.8,-12248.1,293.1)
-	set u = CreateUnit(Player(15),'hfoo',-27383.3,-12248.1,118.0)
-	set u = CreateUnit(Player(15),'hfoo',-27131.6,-12245.6,299.5)
-	set u = CreateUnit(Player(15),'hfoo',-27759.4,-12470.6,3.3)
-	set u = CreateUnit(Player(15),'hfoo',-27501.2,-12456.6,42.9)
-	set u = CreateUnit(Player(15),'hfoo',-27250.9,-12458.9,342.8)
-	set u = CreateUnit(Player(15),'hfoo',-26990.5,-12456.6,200.0)
-	set u = CreateUnit(Player(15),'hfoo',-27611.1,-12660.7,253.7)
-	set u = CreateUnit(Player(15),'hfoo',-27347.3,-12676.1,216.6)
-	set u = CreateUnit(Player(15),'hfoo',-27096.2,-12671.7,181.3)
-	set u = CreateUnit(Player(15),'Hpal',-27843.7,-13813.2,355.5)
-	set u = CreateUnit(Player(15),'hfoo',-27767.0,-15042.6,92.0)
-	set u = CreateUnit(Player(15),'hfoo',-27540.5,-15045.2,158.7)
-	set u = CreateUnit(Player(15),'hfoo',-27289.2,-15042.6,231.0)
-	set u = CreateUnit(Player(15),'hfoo',-27044.7,-15050.3,40.8)
-	set u = CreateUnit(Player(15),'hfoo',-27681.8,-15224.3,293.1)
-	set u = CreateUnit(Player(15),'hfoo',-27428.3,-15224.3,118.0)
-	set u = CreateUnit(Player(15),'hfoo',-27176.6,-15221.8,299.5)
-	set u = CreateUnit(Player(15),'hfoo',-27804.4,-15446.8,3.3)
-	set u = CreateUnit(Player(15),'hfoo',-27546.2,-15432.8,42.9)
-	set u = CreateUnit(Player(15),'hfoo',-27295.9,-15435.1,342.8)
-	set u = CreateUnit(Player(15),'hfoo',-27035.4,-15432.8,200.0)
-	set u = CreateUnit(Player(15),'hfoo',-27656.1,-15636.9,253.7)
-	set u = CreateUnit(Player(15),'hfoo',-27392.2,-15652.3,216.6)
-	set u = CreateUnit(Player(15),'hfoo',-27141.2,-15647.9,181.3)
-	set u = CreateUnit(Player(15),'Hpal',-23420.0,-14720.2,186.5)
-	set u = CreateUnit(Player(15),'Hblm',-24575.1,-15618.2,84.9)
-	set u = CreateUnit(Player(15),'Hblm',-25261.9,-17111.6,234.4)
-	set u = CreateUnit(Player(15),'Hpal',-25941.1,-17763.6,40.4)
-	set u = CreateUnit(Player(15),'Hblm',-23161.8,-17419.8,184.0)
-	set u = CreateUnit(Player(15),'Hpal',-23922.7,-17422.8,3.5)
-	set u = CreateUnit(Player(15),'Hblm',-21162.5,-17721.7,140.6)
-	set u = CreateUnit(Player(15),'Hpal',-21812.8,-17078.7,315.4)
-	set u = CreateUnit(Player(15),'Hblm',-26387.6,-13840.4,184.5)
-	set u = CreateUnit(Player(15),'hfoo',-24926.4,-12998.9,92.0)
-	set u = CreateUnit(Player(15),'hfoo',-24699.9,-13001.5,158.7)
-	set u = CreateUnit(Player(15),'hfoo',-24448.5,-12998.9,231.0)
-	set u = CreateUnit(Player(15),'hfoo',-24204.1,-13006.7,40.8)
-	set u = CreateUnit(Player(15),'hfoo',-24841.1,-13180.6,293.1)
-	set u = CreateUnit(Player(15),'hfoo',-24587.6,-13180.6,118.0)
-	set u = CreateUnit(Player(15),'hfoo',-24335.9,-13178.1,299.5)
-	set u = CreateUnit(Player(15),'hfoo',-24963.7,-13403.1,3.3)
-	set u = CreateUnit(Player(15),'hfoo',-24705.6,-13389.1,42.9)
-	set u = CreateUnit(Player(15),'hfoo',-24455.2,-13391.5,342.8)
-	set u = CreateUnit(Player(15),'hfoo',-24194.8,-13389.1,200.0)
-	set u = CreateUnit(Player(15),'hfoo',-24815.4,-13593.2,253.7)
-	set u = CreateUnit(Player(15),'hfoo',-24551.6,-13608.6,216.6)
-	set u = CreateUnit(Player(15),'hfoo',-24300.5,-13604.2,181.3)
-	set u = CreateUnit(Player(15),'hwtw',-27392.0,-13504.0,270.0)
-	set u = CreateUnit(Player(15),'hwtw',-27392.0,-14144.0,270.0)
-	set u = CreateUnit(Player(15),'hwtw',-25024.0,-14464.0,270.0)
-	set u = CreateUnit(Player(15),'hwtw',-19904.0,-13632.0,270.0)
-	set u = CreateUnit(Player(15),'hfoo',-22267.0,-12241.5,92.0)
-	set u = CreateUnit(Player(15),'hfoo',-22040.5,-12244.1,158.7)
-	set u = CreateUnit(Player(15),'hfoo',-21789.1,-12241.5,231.0)
-	set u = CreateUnit(Player(15),'hfoo',-21544.7,-12249.2,40.8)
-	set u = CreateUnit(Player(15),'hfoo',-22181.7,-12423.1,293.1)
-	set u = CreateUnit(Player(15),'hfoo',-21928.2,-12423.1,118.0)
-	set u = CreateUnit(Player(15),'hfoo',-21676.5,-12420.7,299.5)
-	set u = CreateUnit(Player(15),'hfoo',-22304.4,-12645.6,3.3)
-	set u = CreateUnit(Player(15),'hfoo',-22046.2,-12631.7,42.9)
-	set u = CreateUnit(Player(15),'hfoo',-21795.8,-12634.0,342.8)
-	set u = CreateUnit(Player(15),'hfoo',-21535.4,-12631.7,200.0)
-	set u = CreateUnit(Player(15),'hfoo',-22156.0,-12835.7,253.7)
-	set u = CreateUnit(Player(15),'hfoo',-21892.2,-12851.1,216.6)
-	set u = CreateUnit(Player(15),'hfoo',-21641.2,-12846.8,181.3)
-	set u = CreateUnit(Player(15),'hfoo',-22101.1,-15035.6,92.0)
-	set u = CreateUnit(Player(15),'hfoo',-21874.5,-15038.2,158.7)
-	set u = CreateUnit(Player(15),'hfoo',-21623.2,-15035.6,231.0)
-	set u = CreateUnit(Player(15),'hfoo',-21378.7,-15043.3,40.8)
-	set u = CreateUnit(Player(15),'hfoo',-22015.8,-15217.2,293.1)
-	set u = CreateUnit(Player(15),'hfoo',-21762.3,-15217.2,118.0)
-	set u = CreateUnit(Player(15),'hfoo',-21510.6,-15214.8,299.5)
-	set u = CreateUnit(Player(15),'hfoo',-22138.4,-15439.7,3.3)
-	set u = CreateUnit(Player(15),'hfoo',-21880.2,-15425.8,42.9)
-	set u = CreateUnit(Player(15),'hfoo',-21629.9,-15428.1,342.8)
-	set u = CreateUnit(Player(15),'hfoo',-21369.5,-15425.8,200.0)
-	set u = CreateUnit(Player(15),'hfoo',-21990.1,-15629.8,253.7)
-	set u = CreateUnit(Player(15),'hfoo',-21726.3,-15645.2,216.6)
-	set u = CreateUnit(Player(15),'hfoo',-21475.2,-15640.8,181.3)
-	set u = CreateUnit(Player(15),'Hblm',-19397.1,-12350.6,232.7)
-	set u = CreateUnit(Player(15),'hfoo',-19371.3,-14781.0,158.7)
-	set u = CreateUnit(Player(15),'hfoo',-19120.0,-14778.5,231.0)
-	set u = CreateUnit(Player(15),'hfoo',-18875.5,-14786.2,40.8)
-	set u = CreateUnit(Player(15),'hfoo',-19512.6,-14960.1,293.1)
-	set u = CreateUnit(Player(15),'hfoo',-19259.1,-14960.1,118.0)
-	set u = CreateUnit(Player(15),'hfoo',-19007.4,-14957.7,299.5)
-	set u = CreateUnit(Player(15),'hfoo',-19635.2,-15182.6,3.3)
-	set u = CreateUnit(Player(15),'hfoo',-19377.0,-15168.7,42.9)
-	set u = CreateUnit(Player(15),'hfoo',-19126.7,-15171.0,342.8)
-	set u = CreateUnit(Player(15),'hfoo',-18866.2,-15168.7,200.0)
-	set u = CreateUnit(Player(15),'hfoo',-19486.8,-15372.7,253.7)
-	set u = CreateUnit(Player(15),'hfoo',-19223.0,-15388.1,216.6)
-	set u = CreateUnit(Player(15),'hfoo',-18972.0,-15383.7,181.3)
-	set u = CreateUnit(Player(15),'Hpal',-20621.6,-13643.9,186.5)
-	set u = CreateUnit(Player(15),'hfoo',-16416.6,-13304.3,118.0)
-	set u = CreateUnit(Player(15),'hfoo',-16165.0,-13301.8,299.5)
-	set u = CreateUnit(Player(15),'hfoo',-16534.6,-13512.8,42.9)
-	set u = CreateUnit(Player(15),'hfoo',-16284.2,-13515.2,342.8)
-	set u = CreateUnit(Player(15),'hfoo',-16023.8,-13512.8,200.0)
-	set u = CreateUnit(Player(15),'hfoo',-16380.6,-13732.3,216.6)
-	set u = CreateUnit(Player(15),'hfoo',-16129.6,-13727.9,181.3)
-	set u = CreateUnit(Player(15),'hfoo',-13543.1,-13307.7,118.0)
-	set u = CreateUnit(Player(15),'hfoo',-13291.5,-13305.3,299.5)
-	set u = CreateUnit(Player(15),'hfoo',-13661.1,-13516.3,42.9)
-	set u = CreateUnit(Player(15),'hfoo',-13410.7,-13518.6,342.8)
-	set u = CreateUnit(Player(15),'hfoo',-13150.3,-13516.3,200.0)
-	set u = CreateUnit(Player(15),'Hblm',-4360.8,-4130.3,86.8)
-	set u = CreateUnit(Player(15),'Hblm',-1790.6,-4209.3,86.8)
-	set u = CreateUnit(Player(15),'Hblm',1797.0,-4200.1,89.9)
-	set u = CreateUnit(Player(15),'Hblm',4377.2,-4187.4,89.3)
-	set u = CreateUnit(Player(15),'ncp3',-15616.0,20224.0,270.0)
-	set u = CreateUnit(Player(15),'ncp3',-14336.0,20224.0,270.0)
-	set u = CreateUnit(Player(15),'ncp3',-13056.0,20224.0,270.0)
-	set u = CreateUnit(Player(15),'ncp3',-15616.0,18176.0,270.0)
-	set u = CreateUnit(Player(15),'ncp3',-14336.0,18176.0,270.0)
-	set u = CreateUnit(Player(15),'ncp3',-13056.0,18176.0,270.0)
-	set u = CreateUnit(Player(15),'Hpal',-16647.0,20215.9,355.5)
-	set u = CreateUnit(Player(15),'Hpal',-16633.2,18169.8,355.5)
-	set u = CreateUnit(Player(15),'Hblm',-6242.0,-2457.4,357.1)
-	set u = CreateUnit(Player(15),'Hblm',6261.0,-2513.1,180.8)
-	set u = CreateUnit(Player(15),'Hblm',-27108.8,4603.6,313.0)
-	set u = CreateUnit(Player(15),'Hblm',-24081.1,4603.6,224.9)
-	set u = CreateUnit(Player(15),'Hblm',-27140.7,2039.6,33.0)
-	set u = CreateUnit(Player(15),'Hblm',-24091.0,2043.2,139.3)
-	set u = CreateUnit(Player(15),'Hblm',-21727.8,3332.7,179.9)
-	set u = CreateUnit(Player(15),'Hblm',-27626.6,-528.2,275.4)
-	set u = CreateUnit(Player(15),'Hblm',-25085.8,-518.0,269.9)
-	set u = CreateUnit(Player(15),'Hblm',-27630.0,-4609.6,90.5)
-	set u = CreateUnit(Player(15),'Hblm',-25088.4,-5667.1,89.1)
-	set u = CreateUnit(Player(15),'Hblm',-22517.4,-3076.9,267.3)
-	set u = CreateUnit(Player(15),'Hblm',-27532.5,-7548.1,272.8)
-	set u = CreateUnit(Player(15),'Hblm',-27592.5,-10391.5,89.1)
-	set u = CreateUnit(Player(15),'Hblm',-23233.6,-7706.0,180.0)
-	set u = CreateUnit(Player(15),'Hblm',-21311.0,-8610.0,264.8)
-	set u = CreateUnit(Player(15),'Hpal',-25282.0,-8711.2,270.9)
-	set u = CreateUnit(Player(15),'hwtw',-25280.0,-8320.0,270.0)
-	set u = CreateUnit(Player(15),'hwtw',-26368.0,-2304.0,270.0)
-	set u = CreateUnit(Player(15),'Hpal',-26355.5,-2767.6,270.9)
-	set u = CreateUnit(Player(15),'Hpal',-25584.5,3281.5,270.9)
-	set u = CreateUnit(Player(15),'Hblm',-18437.8,-8687.3,355.1)
-	set u = CreateUnit(Player(15),'Hblm',-18442.1,-6138.0,351.3)
-	set u = CreateUnit(Player(15),'Hblm',-14316.2,-6152.5,184.2)
-	set u = CreateUnit(Player(15),'Hblm',-14319.0,-8754.7,179.1)
-	set u = CreateUnit(Player(15),'Hblm',-16375.0,-4121.2,264.8)
-	set u = CreateUnit(Player(15),'Hpal',-16359.2,-8698.0,270.9)
-	set u = CreateUnit(Player(15),'Hpal',-17525.8,4980.6,237.8)
-	set u = CreateUnit(Player(15),'hwtw',-17280.0,5248.0,270.0)
-	set u = CreateUnit(Player(15),'Hpal',-19383.9,1399.0,354.2)
-	set u = CreateUnit(Player(15),'hwtw',-19072.0,1728.0,270.0)
-	set u = CreateUnit(Player(15),'Hpal',-19342.5,-1210.7,328.4)
-	set u = CreateUnit(Player(15),'hwtw',-19584.0,-1024.0,270.0)
-	set u = CreateUnit(Player(15),'Hpal',-14334.0,4596.9,237.8)
-	set u = CreateUnit(Player(15),'hwtw',-14336.0,5120.0,270.0)
-	set u = CreateUnit(Player(15),'Hpal',-14596.9,-2552.9,358.1)
-	set u = CreateUnit(Player(15),'hwtw',-12416.0,-2816.0,270.0)
-	set u = CreateUnit(Player(15),'hwtw',-12288.0,0.0,270.0)
-	set u = CreateUnit(Player(15),'hwtw',-15104.0,2304.0,270.0)
-	set u = CreateUnit(Player(15),'hfoo',-25958.5,2805.8,92.0)
-	set u = CreateUnit(Player(15),'hfoo',-25731.9,2803.2,158.7)
-	set u = CreateUnit(Player(15),'hfoo',-26336.6,3473.1,231.0)
-	set u = CreateUnit(Player(15),'hfoo',-26092.1,3465.4,40.8)
-	set u = CreateUnit(Player(15),'hfoo',-24770.2,2901.1,216.6)
-	set u = CreateUnit(Player(15),'hfoo',-26475.7,3291.5,118.0)
-	set u = CreateUnit(Player(15),'hfoo',-26224.0,3293.9,299.5)
-	set u = CreateUnit(Player(15),'hfoo',-25034.0,2916.5,253.7)
-	set u = CreateUnit(Player(15),'hfoo',-25480.6,2805.8,231.0)
-	set u = CreateUnit(Player(15),'hfoo',-26343.3,3080.6,342.8)
-	set u = CreateUnit(Player(15),'hfoo',-26082.9,3082.9,200.0)
-	set u = CreateUnit(Player(15),'hfoo',-25236.1,2798.0,40.8)
-	set u = CreateUnit(Player(15),'hfoo',-26439.7,2863.4,216.6)
-	set u = CreateUnit(Player(15),'hfoo',-26188.6,2867.8,181.3)
-	set u = CreateUnit(Player(15),'hfoo',-24924.2,3120.6,42.9)
-	set u = CreateUnit(Player(15),'hfoo',-25182.4,3106.6,3.3)
-	set u = CreateUnit(Player(15),'hfoo',-25873.2,2624.1,293.1)
-	set u = CreateUnit(Player(15),'hfoo',-25226.9,2415.6,200.0)
-	set u = CreateUnit(Player(15),'hfoo',-25487.3,2413.3,342.8)
-	set u = CreateUnit(Player(15),'hfoo',-25737.6,2415.6,42.9)
-	set u = CreateUnit(Player(15),'hfoo',-25995.8,2401.6,3.3)
-	set u = CreateUnit(Player(15),'hfoo',-25983.3,3732.7,3.3)
-	set u = CreateUnit(Player(15),'hfoo',-25725.1,3746.7,42.9)
-	set u = CreateUnit(Player(15),'hfoo',-25474.8,3744.3,342.8)
-	set u = CreateUnit(Player(15),'hfoo',-25214.4,3746.7,200.0)
-	set u = CreateUnit(Player(15),'hfoo',-25835.0,3542.6,253.7)
-	set u = CreateUnit(Player(15),'hfoo',-25571.2,3527.2,216.6)
-	set u = CreateUnit(Player(15),'hfoo',-25320.1,3531.6,181.3)
-	set u = CreateUnit(Player(15),'hfoo',-25145.0,3510.8,92.0)
-	set u = CreateUnit(Player(15),'hfoo',-24918.5,3508.2,158.7)
-	set u = CreateUnit(Player(15),'hfoo',-25368.0,2626.6,299.5)
-	set u = CreateUnit(Player(15),'hfoo',-25619.7,2624.1,118.0)
-	set u = CreateUnit(Player(15),'hfoo',-25059.7,3329.1,293.1)
-	set u = CreateUnit(Player(15),'hfoo',-24806.2,3329.1,118.0)
-	set u = CreateUnit(Player(15),'hfoo',-26349.3,3932.4,342.8)
-	set u = CreateUnit(Player(15),'hfoo',-26088.9,3934.7,200.0)
-	set u = CreateUnit(Player(15),'hfoo',-26445.7,3715.2,216.6)
-	set u = CreateUnit(Player(15),'hfoo',-26194.7,3719.6,181.3)
-	set u = CreateUnit(Player(15),'hfoo',-24921.7,3942.5,342.8)
-	set u = CreateUnit(Player(15),'hfoo',-24661.3,3944.8,200.0)
-	set u = CreateUnit(Player(15),'hfoo',-25018.1,3725.3,216.6)
-	set u = CreateUnit(Player(15),'hfoo',-24767.1,3729.7,181.3)
-	set u = CreateUnit(Player(15),'hfoo',-24886.6,2672.6,342.8)
-	set u = CreateUnit(Player(15),'hfoo',-24626.2,2674.9,200.0)
-	set u = CreateUnit(Player(15),'hfoo',-24982.9,2455.5,216.6)
-	set u = CreateUnit(Player(15),'hfoo',-26236.2,2424.4,181.3)
-	set u = CreateUnit(Player(15),'hfoo',-26390.9,2637.1,342.8)
-	set u = CreateUnit(Player(15),'hfoo',-26130.5,2639.5,200.0)
-	set u = CreateUnit(Player(15),'hfoo',-18658.0,4440.6,92.0)
-	set u = CreateUnit(Player(15),'hfoo',-18431.5,4438.0,158.7)
-	set u = CreateUnit(Player(15),'hfoo',-18180.1,4440.6,231.0)
-	set u = CreateUnit(Player(15),'hfoo',-18355.8,4882.9,40.8)
-	set u = CreateUnit(Player(15),'hfoo',-18572.7,4259.0,293.1)
-	set u = CreateUnit(Player(15),'hfoo',-18319.2,4259.0,118.0)
-	set u = CreateUnit(Player(15),'hfoo',-18067.5,4261.4,299.5)
-	set u = CreateUnit(Player(15),'hfoo',-18695.3,4036.5,3.3)
-	set u = CreateUnit(Player(15),'hfoo',-18437.2,4050.4,42.9)
-	set u = CreateUnit(Player(15),'hfoo',-18186.8,4048.1,342.8)
-	set u = CreateUnit(Player(15),'hfoo',-17926.4,4050.4,200.0)
-	set u = CreateUnit(Player(15),'hfoo',-18547.0,3846.4,253.7)
-	set u = CreateUnit(Player(15),'hfoo',-18283.2,3831.0,216.6)
-	set u = CreateUnit(Player(15),'hfoo',-18032.1,3835.3,181.3)
-	set u = CreateUnit(Player(15),'hfoo',-18144.9,4995.5,92.0)
-	set u = CreateUnit(Player(15),'hfoo',-17918.3,4992.9,158.7)
-	set u = CreateUnit(Player(15),'hfoo',-17845.3,5159.8,231.0)
-	set u = CreateUnit(Player(15),'hfoo',-17397.5,3962.8,40.8)
-	set u = CreateUnit(Player(15),'hfoo',-18059.6,4813.8,293.1)
-	set u = CreateUnit(Player(15),'hfoo',-17806.1,4813.8,118.0)
-	set u = CreateUnit(Player(15),'hfoo',-17599.5,4676.7,299.5)
-	set u = CreateUnit(Player(15),'hfoo',-18182.2,4591.3,3.3)
-	set u = CreateUnit(Player(15),'hfoo',-17924.0,4605.3,42.9)
-	set u = CreateUnit(Player(15),'hfoo',-17603.5,4353.1,342.8)
-	set u = CreateUnit(Player(15),'hfoo',-17308.7,4545.1,200.0)
-	set u = CreateUnit(Player(15),'hfoo',-17884.4,4261.4,253.7)
-	set u = CreateUnit(Player(15),'hfoo',-17786.4,4449.6,216.6)
-	set u = CreateUnit(Player(15),'hfoo',-17404.3,4210.7,181.3)
-	set u = CreateUnit(Player(15),'hfoo',-17697.5,4135.7,216.6)
-	set u = CreateUnit(Player(15),'hfoo',-18492.8,4711.0,200.0)
-	set u = CreateUnit(Player(15),'hfoo',-18497.6,5071.4,200.0)
-	set u = CreateUnit(Player(15),'hfoo',-14248.0,4852.5,299.5)
-	set u = CreateUnit(Player(15),'hfoo',-14106.8,4641.5,200.0)
-	set u = CreateUnit(Player(15),'hfoo',-14212.6,4426.4,181.3)
-	set u = CreateUnit(Player(15),'hfoo',-13578.0,4553.8,40.8)
-	set u = CreateUnit(Player(15),'hfoo',-13783.9,4944.1,342.8)
-	set u = CreateUnit(Player(15),'hfoo',-14064.8,4852.5,253.7)
-	set u = CreateUnit(Player(15),'hfoo',-13966.8,5040.6,216.6)
-	set u = CreateUnit(Player(15),'hfoo',-13584.7,4801.8,181.3)
-	set u = CreateUnit(Player(15),'hfoo',-13878.0,4726.7,216.6)
-	set u = CreateUnit(Player(15),'hfoo',-15094.3,4830.9,299.5)
-	set u = CreateUnit(Player(15),'hfoo',-14953.1,4619.9,200.0)
-	set u = CreateUnit(Player(15),'hfoo',-15058.9,4404.8,181.3)
-	set u = CreateUnit(Player(15),'hfoo',-14424.3,4532.2,40.8)
-	set u = CreateUnit(Player(15),'hfoo',-14630.2,4922.5,342.8)
-	set u = CreateUnit(Player(15),'hfoo',-14911.1,4830.9,253.7)
-	set u = CreateUnit(Player(15),'hfoo',-14813.1,5019.0,216.6)
-	set u = CreateUnit(Player(15),'hfoo',-14431.0,4780.2,181.3)
-	set u = CreateUnit(Player(15),'hfoo',-14724.3,4705.1,216.6)
-	set u = CreateUnit(Player(15),'hfoo',-14901.9,4226.9,299.5)
-	set u = CreateUnit(Player(15),'hfoo',-14760.8,4015.9,200.0)
-	set u = CreateUnit(Player(15),'hfoo',-14866.6,3800.9,181.3)
-	set u = CreateUnit(Player(15),'hfoo',-14231.9,3928.3,40.8)
-	set u = CreateUnit(Player(15),'hfoo',-14437.9,4318.6,342.8)
-	set u = CreateUnit(Player(15),'hfoo',-14718.8,4226.9,253.7)
-	set u = CreateUnit(Player(15),'hfoo',-14620.8,4415.1,216.6)
-	set u = CreateUnit(Player(15),'hfoo',-14238.7,4176.2,181.3)
-	set u = CreateUnit(Player(15),'hfoo',-14531.9,4101.2,216.6)
-	set u = CreateUnit(Player(15),'hfoo',-14260.6,4355.0,299.5)
-	set u = CreateUnit(Player(15),'hfoo',-14119.4,4144.0,200.0)
-	set u = CreateUnit(Player(15),'hfoo',-13590.6,4056.3,40.8)
-	set u = CreateUnit(Player(15),'hfoo',-14077.5,4355.0,253.7)
-	set u = CreateUnit(Player(15),'hfoo',-13597.3,4304.2,181.3)
-	set u = CreateUnit(Player(15),'hfoo',-13890.6,4229.2,216.6)
-	set u = CreateUnit(Player(15),'hfoo',-13864.5,2165.9,92.0)
-	set u = CreateUnit(Player(15),'hfoo',-13637.9,2163.3,158.7)
-	set u = CreateUnit(Player(15),'hfoo',-13386.6,2165.9,231.0)
-	set u = CreateUnit(Player(15),'hfoo',-13779.2,1984.2,293.1)
-	set u = CreateUnit(Player(15),'hfoo',-13525.7,1984.2,118.0)
-	set u = CreateUnit(Player(15),'hfoo',-13274.0,1986.7,299.5)
-	set u = CreateUnit(Player(15),'hfoo',-13901.8,1761.7,3.3)
-	set u = CreateUnit(Player(15),'hfoo',-13643.6,1775.7,42.9)
-	set u = CreateUnit(Player(15),'hfoo',-13393.3,1773.4,342.8)
-	set u = CreateUnit(Player(15),'hfoo',-13132.9,1775.7,200.0)
-	set u = CreateUnit(Player(15),'hfoo',-13753.5,1571.6,253.7)
-	set u = CreateUnit(Player(15),'hfoo',-13489.7,1556.2,216.6)
-	set u = CreateUnit(Player(15),'hfoo',-13238.6,1560.6,181.3)
-	set u = CreateUnit(Player(15),'hfoo',-12604.0,1688.0,40.8)
-	set u = CreateUnit(Player(15),'hfoo',-12810.0,2078.3,342.8)
-	set u = CreateUnit(Player(15),'hfoo',-12515.2,2270.4,200.0)
-	set u = CreateUnit(Player(15),'hfoo',-13090.9,1986.7,253.7)
-	set u = CreateUnit(Player(15),'hfoo',-12992.9,2174.8,216.6)
-	set u = CreateUnit(Player(15),'hfoo',-12610.7,1936.0,181.3)
-	set u = CreateUnit(Player(15),'hfoo',-12904.0,1860.9,216.6)
-	set u = CreateUnit(Player(15),'hfoo',-14801.6,-144.2,92.0)
-	set u = CreateUnit(Player(15),'hfoo',-14575.1,-146.8,158.7)
-	set u = CreateUnit(Player(15),'hfoo',-14323.7,-144.2,231.0)
-	set u = CreateUnit(Player(15),'hfoo',-14716.3,-325.8,293.1)
-	set u = CreateUnit(Player(15),'hfoo',-14462.8,-325.8,118.0)
-	set u = CreateUnit(Player(15),'hfoo',-14211.2,-323.4,299.5)
-	set u = CreateUnit(Player(15),'hfoo',-14839.0,-548.3,3.3)
-	set u = CreateUnit(Player(15),'hfoo',-14580.8,-534.4,42.9)
-	set u = CreateUnit(Player(15),'hfoo',-14330.4,-536.7,342.8)
-	set u = CreateUnit(Player(15),'hfoo',-14070.0,-534.4,200.0)
-	set u = CreateUnit(Player(15),'hfoo',-14690.6,-738.4,253.7)
-	set u = CreateUnit(Player(15),'hfoo',-14426.8,-753.8,216.6)
-	set u = CreateUnit(Player(15),'hfoo',-14175.8,-749.5,181.3)
-	set u = CreateUnit(Player(15),'hfoo',-13541.1,-622.0,40.8)
-	set u = CreateUnit(Player(15),'hfoo',-13747.1,-231.7,342.8)
-	set u = CreateUnit(Player(15),'hfoo',-13452.3,-39.7,200.0)
-	set u = CreateUnit(Player(15),'hfoo',-14028.0,-323.4,253.7)
-	set u = CreateUnit(Player(15),'hfoo',-13930.0,-135.2,216.6)
-	set u = CreateUnit(Player(15),'hfoo',-13547.9,-374.1,181.3)
-	set u = CreateUnit(Player(15),'hfoo',-13841.2,-449.1,216.6)
-	set u = CreateUnit(Player(15),'hfoo',-13806.4,-2228.9,92.0)
-	set u = CreateUnit(Player(15),'hfoo',-13579.9,-2231.5,158.7)
-	set u = CreateUnit(Player(15),'hfoo',-13328.5,-2228.9,231.0)
-	set u = CreateUnit(Player(15),'hfoo',-13721.2,-2410.6,293.1)
-	set u = CreateUnit(Player(15),'hfoo',-13467.7,-2410.6,118.0)
-	set u = CreateUnit(Player(15),'hfoo',-13216.0,-2408.1,299.5)
-	set u = CreateUnit(Player(15),'hfoo',-13843.8,-2633.1,3.3)
-	set u = CreateUnit(Player(15),'hfoo',-13585.6,-2619.1,42.9)
-	set u = CreateUnit(Player(15),'hfoo',-13335.2,-2621.4,342.8)
-	set u = CreateUnit(Player(15),'hfoo',-13074.8,-2619.1,200.0)
-	set u = CreateUnit(Player(15),'hfoo',-13695.4,-2823.2,253.7)
-	set u = CreateUnit(Player(15),'hfoo',-13431.6,-2838.6,216.6)
-	set u = CreateUnit(Player(15),'hfoo',-13180.6,-2834.2,181.3)
-	set u = CreateUnit(Player(15),'hfoo',-12546.0,-2706.8,40.8)
-	set u = CreateUnit(Player(15),'hfoo',-12751.9,-2316.4,342.8)
-	set u = CreateUnit(Player(15),'hfoo',-12457.2,-2124.4,200.0)
-	set u = CreateUnit(Player(15),'hfoo',-13032.8,-2408.1,253.7)
-	set u = CreateUnit(Player(15),'hfoo',-12934.8,-2220.0,216.6)
-	set u = CreateUnit(Player(15),'hfoo',-12552.7,-2458.8,181.3)
-	set u = CreateUnit(Player(15),'hfoo',-12846.0,-2533.9,216.6)
-	set u = CreateUnit(Player(15),'hfoo',-18457.1,-1025.4,293.1)
-	set u = CreateUnit(Player(15),'hfoo',-18203.6,-1025.4,118.0)
-	set u = CreateUnit(Player(15),'hfoo',-17952.0,-1022.9,299.5)
-	set u = CreateUnit(Player(15),'hfoo',-18579.8,-1247.9,3.3)
-	set u = CreateUnit(Player(15),'hfoo',-18321.6,-1233.9,42.9)
-	set u = CreateUnit(Player(15),'hfoo',-18071.2,-1236.3,342.8)
-	set u = CreateUnit(Player(15),'hfoo',-17810.8,-1233.9,200.0)
-	set u = CreateUnit(Player(15),'hfoo',-18431.4,-1438.0,253.7)
-	set u = CreateUnit(Player(15),'hfoo',-18167.6,-1453.4,216.6)
-	set u = CreateUnit(Player(15),'hfoo',-17916.6,-1449.0,181.3)
-	set u = CreateUnit(Player(15),'hfoo',-17282.0,-1321.6,40.8)
-	set u = CreateUnit(Player(15),'hfoo',-17768.8,-1022.9,253.7)
-	set u = CreateUnit(Player(15),'hfoo',-17288.7,-1073.7,181.3)
-	set u = CreateUnit(Player(15),'hfoo',-17582.0,-1148.7,216.6)
-	set u = CreateUnit(Player(15),'hfoo',-19667.3,-2689.9,92.0)
-	set u = CreateUnit(Player(15),'hfoo',-19440.8,-2692.5,158.7)
-	set u = CreateUnit(Player(15),'hfoo',-19189.4,-2689.9,231.0)
-	set u = CreateUnit(Player(15),'hfoo',-19582.0,-2871.6,293.1)
-	set u = CreateUnit(Player(15),'hfoo',-19328.5,-2871.6,118.0)
-	set u = CreateUnit(Player(15),'hfoo',-19076.8,-2869.1,299.5)
-	set u = CreateUnit(Player(15),'hfoo',-19704.7,-3094.1,3.3)
-	set u = CreateUnit(Player(15),'hfoo',-19446.5,-3080.1,42.9)
-	set u = CreateUnit(Player(15),'hfoo',-19196.1,-3082.4,342.8)
-	set u = CreateUnit(Player(15),'hfoo',-19556.3,-3284.2,253.7)
-	set u = CreateUnit(Player(15),'hfoo',-19292.5,-3299.6,216.6)
-	set u = CreateUnit(Player(15),'hfoo',-19608.3,-2030.2,92.0)
-	set u = CreateUnit(Player(15),'hfoo',-19381.8,-2032.8,158.7)
-	set u = CreateUnit(Player(15),'hfoo',-19130.4,-2030.2,231.0)
-	set u = CreateUnit(Player(15),'hfoo',-19523.1,-2211.8,293.1)
-	set u = CreateUnit(Player(15),'hfoo',-19269.5,-2211.8,118.0)
-	set u = CreateUnit(Player(15),'hfoo',-19017.9,-2209.4,299.5)
-	set u = CreateUnit(Player(15),'hfoo',-19645.7,-2434.3,3.3)
-	set u = CreateUnit(Player(15),'hfoo',-19387.5,-2420.4,42.9)
-	set u = CreateUnit(Player(15),'hfoo',-19137.1,-2422.7,342.8)
-	set u = CreateUnit(Player(15),'hfoo',-19497.3,-2624.4,253.7)
-	set u = CreateUnit(Player(15),'hfoo',-19233.5,-2639.8,216.6)
-	set u = CreateUnit(Player(15),'hfoo',-27489.2,-1912.7,216.6)
-	set u = CreateUnit(Player(15),'hfoo',-27753.0,-1897.3,253.7)
-	set u = CreateUnit(Player(15),'hfoo',-27392.8,-1695.6,342.8)
-	set u = CreateUnit(Player(15),'hfoo',-27873.5,-3343.9,293.1)
-	set u = CreateUnit(Player(15),'hfoo',-27620.0,-3343.9,118.0)
-	set u = CreateUnit(Player(15),'hfoo',-27643.1,-1693.3,42.9)
-	set u = CreateUnit(Player(15),'hfoo',-27996.1,-3566.4,3.3)
-	set u = CreateUnit(Player(15),'hfoo',-27738.0,-3552.5,42.9)
-	set u = CreateUnit(Player(15),'hfoo',-27487.6,-3554.8,342.8)
-	set u = CreateUnit(Player(15),'hfoo',-27847.8,-3756.5,253.7)
-	set u = CreateUnit(Player(15),'hfoo',-27584.0,-3771.9,216.6)
-	set u = CreateUnit(Player(15),'hfoo',-25354.3,-1573.0,92.0)
-	set u = CreateUnit(Player(15),'hfoo',-25127.8,-1575.6,158.7)
-	set u = CreateUnit(Player(15),'hfoo',-24876.4,-1573.0,231.0)
-	set u = CreateUnit(Player(15),'hfoo',-25269.0,-1754.6,293.1)
-	set u = CreateUnit(Player(15),'hfoo',-25015.5,-1754.6,118.0)
-	set u = CreateUnit(Player(15),'hfoo',-24763.8,-1752.2,299.5)
-	set u = CreateUnit(Player(15),'hfoo',-25349.3,-4700.3,3.3)
-	set u = CreateUnit(Player(15),'hfoo',-25091.2,-4686.3,42.9)
-	set u = CreateUnit(Player(15),'hfoo',-24840.8,-4688.7,342.8)
-	set u = CreateUnit(Player(15),'hfoo',-25201.0,-4890.4,253.7)
-	set u = CreateUnit(Player(15),'hfoo',-24937.2,-4905.8,216.6)
-	set u = CreateUnit(Player(15),'hfoo',-22721.1,-3825.5,92.0)
-	set u = CreateUnit(Player(15),'hfoo',-22494.6,-3828.1,158.7)
-	set u = CreateUnit(Player(15),'hfoo',-22347.7,-4379.0,216.6)
-	set u = CreateUnit(Player(15),'hfoo',-22635.9,-4007.1,293.1)
-	set u = CreateUnit(Player(15),'hfoo',-22390.1,-3982.9,118.0)
-	set u = CreateUnit(Player(15),'hfoo',-22610.2,-4419.7,253.7)
-	set u = CreateUnit(Player(15),'hfoo',-22758.5,-4229.6,3.3)
-	set u = CreateUnit(Player(15),'hfoo',-22500.3,-4215.7,42.9)
-	set u = CreateUnit(Player(15),'hfoo',-27778.7,-1484.7,293.1)
-	set u = CreateUnit(Player(15),'hfoo',-27525.2,-1484.7,118.0)
-	set u = CreateUnit(Player(15),'hfoo',-27901.3,-1707.2,3.3)
-	set u = CreateUnit(Player(15),'hfoo',-27802.2,-9081.7,3.3)
-	set u = CreateUnit(Player(15),'hfoo',-27544.1,-9067.7,42.9)
-	set u = CreateUnit(Player(15),'hfoo',-27293.7,-9070.1,342.8)
-	set u = CreateUnit(Player(15),'hfoo',-21323.2,-9867.6,216.6)
-	set u = CreateUnit(Player(15),'hfoo',-21587.0,-9852.2,253.7)
-	set u = CreateUnit(Player(15),'hfoo',-27835.3,-8590.6,3.3)
-	set u = CreateUnit(Player(15),'hfoo',-27577.1,-8576.6,42.9)
-	set u = CreateUnit(Player(15),'hfoo',-27326.8,-8579.0,342.8)
-	set u = CreateUnit(Player(15),'hfoo',-27687.0,-8780.7,253.7)
-	set u = CreateUnit(Player(15),'hfoo',-27423.2,-8796.1,216.6)
-	set u = CreateUnit(Player(15),'hfoo',-21711.3,-10579.7,216.6)
-	set u = CreateUnit(Player(15),'hfoo',-21975.1,-10564.3,253.7)
-	set u = CreateUnit(Player(15),'hfoo',-21614.9,-10362.5,342.8)
-	set u = CreateUnit(Player(15),'hfoo',-21865.2,-10360.2,42.9)
-	set u = CreateUnit(Player(15),'hfoo',-22123.4,-10374.2,3.3)
-	set u = CreateUnit(Player(15),'hfoo',-24144.6,-10109.7,3.3)
-	set u = CreateUnit(Player(15),'hfoo',-23886.4,-10095.7,42.9)
-	set u = CreateUnit(Player(15),'hfoo',-23636.1,-10098.0,342.8)
-	set u = CreateUnit(Player(15),'hfoo',-23996.3,-10299.8,253.7)
-	set u = CreateUnit(Player(15),'hfoo',-23732.4,-10315.2,216.6)
-	set u = CreateUnit(Player(15),'hfoo',-22952.3,-10075.8,3.3)
-	set u = CreateUnit(Player(15),'hfoo',-22694.2,-10061.8,42.9)
-	set u = CreateUnit(Player(15),'hfoo',-22443.8,-10064.2,342.8)
-	set u = CreateUnit(Player(15),'hfoo',-22804.0,-10265.9,253.7)
-	set u = CreateUnit(Player(15),'hfoo',-22540.2,-10281.3,216.6)
-	set u = CreateUnit(Player(15),'hfoo',-23576.7,-10543.8,3.3)
-	set u = CreateUnit(Player(15),'hfoo',-23318.5,-10529.8,42.9)
-	set u = CreateUnit(Player(15),'hfoo',-23068.1,-10532.1,342.8)
-	set u = CreateUnit(Player(15),'hfoo',-23428.3,-10733.9,253.7)
-	set u = CreateUnit(Player(15),'hfoo',-23164.5,-10749.3,216.6)
-	set u = CreateUnit(Player(15),'hfoo',-24673.8,-8030.2,3.3)
-	set u = CreateUnit(Player(15),'hfoo',-24643.9,-7819.7,42.9)
-	set u = CreateUnit(Player(15),'hfoo',-24374.2,-7478.3,342.8)
-	set u = CreateUnit(Player(15),'hfoo',-24204.3,-8462.6,253.7)
-	set u = CreateUnit(Player(15),'hfoo',-24470.6,-7695.4,216.6)
-	set u = CreateUnit(Player(15),'hfoo',-21735.4,-9662.1,3.3)
-	set u = CreateUnit(Player(15),'hfoo',-21477.2,-9648.1,42.9)
-	set u = CreateUnit(Player(15),'hfoo',-21226.8,-9650.4,342.8)
-	set u = CreateUnit(Player(15),'hfoo',-22188.5,14157.9,181.3)
-	set u = CreateUnit(Player(15),'hfoo',-22439.5,14153.5,216.6)
-	set u = CreateUnit(Player(15),'hfoo',-22703.3,14168.9,253.7)
-	set u = CreateUnit(Player(15),'hfoo',-22343.1,14370.6,342.8)
-	set u = CreateUnit(Player(15),'hfoo',-22593.5,14372.9,42.9)
-	set u = CreateUnit(Player(15),'hfoo',-22851.6,14359.0,3.3)
-	set u = CreateUnit(Player(15),'hfoo',-22223.8,14583.9,299.5)
-	set u = CreateUnit(Player(15),'hfoo',-22475.5,14581.5,118.0)
-	set u = CreateUnit(Player(15),'hfoo',-22729.0,14581.5,293.1)
-	set u = CreateUnit(Player(15),'hfoo',-19236.4,14145.8,181.3)
-	set u = CreateUnit(Player(15),'hfoo',-19487.4,14141.4,216.6)
-	set u = CreateUnit(Player(15),'hfoo',-19751.2,14156.8,253.7)
-	set u = CreateUnit(Player(15),'hfoo',-19391.1,14358.6,342.8)
-	set u = CreateUnit(Player(15),'hfoo',-19641.4,14360.9,42.9)
-	set u = CreateUnit(Player(15),'hfoo',-19899.6,14346.9,3.3)
-	set u = CreateUnit(Player(15),'hfoo',-19271.8,14571.9,299.5)
-	set u = CreateUnit(Player(15),'hfoo',-19523.5,14569.4,118.0)
-	set u = CreateUnit(Player(15),'hfoo',-19777.0,14569.4,293.1)
-	set u = CreateUnit(Player(15),'hfoo',-20141.2,15531.6,118.0)
-	set u = CreateUnit(Player(15),'hfoo',-20394.7,15531.6,293.1)
-	set u = CreateUnit(Player(15),'hfoo',-21643.6,15108.0,181.3)
-	set u = CreateUnit(Player(15),'hfoo',-21894.6,15103.6,216.6)
-	set u = CreateUnit(Player(15),'hfoo',-22158.5,15119.0,253.7)
-	set u = CreateUnit(Player(15),'hfoo',-21798.3,15320.8,342.8)
-	set u = CreateUnit(Player(15),'hfoo',-22048.6,15323.1,42.9)
-	set u = CreateUnit(Player(15),'hfoo',-22306.8,15309.1,3.3)
-	set u = CreateUnit(Player(15),'hfoo',-21679.0,15534.1,299.5)
-	set u = CreateUnit(Player(15),'hfoo',-21930.7,15531.6,118.0)
-	set u = CreateUnit(Player(15),'hfoo',-22184.2,15531.6,293.1)
-	set u = CreateUnit(Player(15),'hfoo',-19889.6,15534.1,299.5)
-	set u = CreateUnit(Player(15),'hfoo',-20517.4,15309.1,3.3)
-	set u = CreateUnit(Player(15),'hfoo',-20259.2,15323.1,42.9)
-	set u = CreateUnit(Player(15),'hfoo',-20008.8,15320.8,342.8)
-	set u = CreateUnit(Player(15),'hfoo',-20369.0,15119.0,253.7)
-	set u = CreateUnit(Player(15),'hfoo',-21257.5,13446.7,3.3)
-	set u = CreateUnit(Player(15),'hfoo',-20105.2,15103.6,216.6)
-	set u = CreateUnit(Player(15),'hfoo',-19854.2,15108.0,181.3)
-	set u = CreateUnit(Player(15),'hfoo',-20669.7,15103.2,181.3)
-	set u = CreateUnit(Player(15),'hfoo',-19778.8,13250.4,181.3)
-	set u = CreateUnit(Player(15),'hfoo',-20029.9,13246.0,216.6)
-	set u = CreateUnit(Player(15),'hfoo',-20293.7,13261.4,253.7)
-	set u = CreateUnit(Player(15),'hfoo',-19933.5,13463.2,342.8)
-	set u = CreateUnit(Player(15),'hfoo',-27282.0,14139.9,181.3)
-	set u = CreateUnit(Player(15),'hfoo',-27533.1,14135.5,216.6)
-	set u = CreateUnit(Player(15),'hfoo',-27796.9,14150.9,253.7)
-	set u = CreateUnit(Player(15),'hfoo',-27202.4,13656.1,293.1)
-	set u = CreateUnit(Player(15),'hfoo',-26948.9,13656.1,118.0)
-	set u = CreateUnit(Player(15),'hfoo',-26697.2,13658.5,299.5)
-	set u = CreateUnit(Player(15),'hfoo',-27325.0,13433.6,3.3)
-	set u = CreateUnit(Player(15),'hfoo',-27066.9,13447.5,42.9)
-	set u = CreateUnit(Player(15),'hfoo',-26816.5,13445.2,342.8)
-	set u = CreateUnit(Player(15),'hfoo',-27176.7,13243.5,253.7)
-	set u = CreateUnit(Player(15),'hfoo',-26912.9,13228.1,216.6)
-	set u = CreateUnit(Player(15),'hfoo',-26661.8,13232.5,181.3)
-	set u = CreateUnit(Player(15),'hfoo',-27436.7,14352.6,342.8)
-	set u = CreateUnit(Player(15),'hfoo',-27687.1,14355.0,42.9)
-	set u = CreateUnit(Player(15),'hfoo',-27945.2,14341.0,3.3)
-	set u = CreateUnit(Player(15),'hfoo',-27317.4,14566.0,299.5)
-	set u = CreateUnit(Player(15),'hfoo',-27569.1,14563.5,118.0)
-	set u = CreateUnit(Player(15),'hfoo',-25413.0,13656.1,293.1)
-	set u = CreateUnit(Player(15),'hfoo',-25159.5,13656.1,118.0)
-	set u = CreateUnit(Player(15),'hfoo',-24907.8,13658.5,299.5)
-	set u = CreateUnit(Player(15),'hfoo',-25535.6,13433.6,3.3)
-	set u = CreateUnit(Player(15),'hfoo',-25277.4,13447.5,42.9)
-	set u = CreateUnit(Player(15),'hfoo',-25027.1,13445.2,342.8)
-	set u = CreateUnit(Player(15),'hfoo',-25387.3,13243.5,253.7)
-	set u = CreateUnit(Player(15),'hfoo',-25123.5,13228.1,216.6)
-	set u = CreateUnit(Player(15),'hfoo',-24872.4,13232.5,181.3)
-	set u = CreateUnit(Player(15),'hfoo',-27822.6,14563.5,293.1)
-	set u = CreateUnit(Player(15),'hfoo',-24330.0,14127.9,181.3)
-	set u = CreateUnit(Player(15),'hfoo',-24581.0,14123.5,216.6)
-	set u = CreateUnit(Player(15),'hfoo',-24844.8,14138.9,253.7)
-	set u = CreateUnit(Player(15),'hfoo',-24484.6,14340.6,342.8)
-	set u = CreateUnit(Player(15),'hfoo',-25763.3,15085.3,181.3)
-	set u = CreateUnit(Player(15),'hfoo',-24947.8,15090.1,181.3)
-	set u = CreateUnit(Player(15),'hfoo',-25198.8,15085.7,216.6)
-	set u = CreateUnit(Player(15),'hfoo',-26351.1,13428.8,3.3)
-	set u = CreateUnit(Player(15),'hfoo',-25462.6,15101.1,253.7)
-	set u = CreateUnit(Player(15),'hfoo',-25102.4,15302.8,342.8)
-	set u = CreateUnit(Player(15),'hfoo',-25352.8,15305.1,42.9)
-	set u = CreateUnit(Player(15),'hfoo',-25611.0,15291.2,3.3)
-	set u = CreateUnit(Player(15),'hfoo',-24983.2,15516.1,299.5)
-	set u = CreateUnit(Player(15),'hfoo',-24735.0,14342.9,42.9)
-	set u = CreateUnit(Player(15),'hfoo',-27277.8,15513.7,293.1)
-	set u = CreateUnit(Player(15),'hfoo',-27024.3,15513.7,118.0)
-	set u = CreateUnit(Player(15),'hfoo',-26772.6,15516.1,299.5)
-	set u = CreateUnit(Player(15),'hfoo',-27400.4,15291.2,3.3)
-	set u = CreateUnit(Player(15),'hfoo',-27142.2,15305.1,42.9)
-	set u = CreateUnit(Player(15),'hfoo',-26891.9,15302.8,342.8)
-	set u = CreateUnit(Player(15),'hfoo',-27252.1,15101.1,253.7)
-	set u = CreateUnit(Player(15),'hfoo',-26988.2,15085.7,216.6)
-	set u = CreateUnit(Player(15),'hfoo',-26737.2,15090.1,181.3)
-	set u = CreateUnit(Player(15),'hfoo',-25488.3,15513.7,293.1)
-	set u = CreateUnit(Player(15),'hfoo',-25234.8,15513.7,118.0)
-	set u = CreateUnit(Player(15),'hfoo',-24870.6,14551.5,293.1)
-	set u = CreateUnit(Player(15),'hfoo',-24617.1,14551.5,118.0)
-	set u = CreateUnit(Player(15),'hfoo',-24365.4,14553.9,299.5)
-	set u = CreateUnit(Player(15),'hfoo',-24993.2,14329.0,3.3)
-	set u = CreateUnit(Player(15),'hfoo',-22108.8,13674.0,293.1)
-	set u = CreateUnit(Player(15),'hfoo',-21855.3,13674.0,118.0)
-	set u = CreateUnit(Player(15),'hfoo',-21603.6,13676.5,299.5)
-	set u = CreateUnit(Player(15),'hfoo',-22231.5,13451.5,3.3)
-	set u = CreateUnit(Player(15),'hfoo',-21973.3,13465.5,42.9)
-	set u = CreateUnit(Player(15),'hfoo',-21722.9,13463.2,342.8)
-	set u = CreateUnit(Player(15),'hfoo',-22083.1,13261.4,253.7)
-	set u = CreateUnit(Player(15),'hfoo',-21819.3,13246.0,216.6)
-	set u = CreateUnit(Player(15),'hfoo',-21568.3,13250.4,181.3)
-	set u = CreateUnit(Player(15),'hfoo',-20319.4,13674.0,293.1)
-	set u = CreateUnit(Player(15),'hfoo',-20065.9,13674.0,118.0)
-	set u = CreateUnit(Player(15),'hfoo',-19814.2,13676.5,299.5)
-	set u = CreateUnit(Player(15),'hfoo',-20442.0,13451.5,3.3)
-	set u = CreateUnit(Player(15),'hfoo',-20183.8,13465.5,42.9)
-	set u = CreateUnit(Player(15),'hfoo',-27229.9,9540.4,293.1)
-	set u = CreateUnit(Player(15),'hfoo',-26976.4,9540.4,118.0)
-	set u = CreateUnit(Player(15),'hfoo',-26724.7,9542.8,299.5)
-	set u = CreateUnit(Player(15),'hfoo',-27352.5,9317.9,3.3)
-	set u = CreateUnit(Player(15),'hfoo',-27094.3,9331.8,42.9)
-	set u = CreateUnit(Player(15),'hfoo',-26844.0,9329.5,342.8)
-	set u = CreateUnit(Player(15),'hfoo',-27204.2,9127.8,253.7)
-	set u = CreateUnit(Player(15),'hfoo',-26940.4,9112.4,216.6)
-	set u = CreateUnit(Player(15),'hfoo',-26689.3,9116.7,181.3)
-	set u = CreateUnit(Player(15),'hfoo',-25440.5,9540.4,293.1)
-	set u = CreateUnit(Player(15),'hfoo',-25187.0,9540.4,118.0)
-	set u = CreateUnit(Player(15),'hfoo',-24935.3,9542.8,299.5)
-	set u = CreateUnit(Player(15),'hfoo',-25563.1,9317.9,3.3)
-	set u = CreateUnit(Player(15),'hfoo',-25304.9,9331.8,42.9)
-	set u = CreateUnit(Player(15),'hfoo',-25054.6,9329.5,342.8)
-	set u = CreateUnit(Player(15),'hfoo',-25414.8,9127.8,253.7)
-	set u = CreateUnit(Player(15),'hfoo',-25150.9,9112.4,216.6)
-	set u = CreateUnit(Player(15),'hfoo',-24899.9,9116.7,181.3)
-	set u = CreateUnit(Player(15),'hfoo',-25790.8,10969.6,181.3)
-	set u = CreateUnit(Player(15),'hfoo',-24975.2,10974.3,181.3)
-	set u = CreateUnit(Player(15),'hfoo',-25226.3,10970.0,216.6)
-	set u = CreateUnit(Player(15),'hfoo',-26378.6,9313.1,3.3)
-	set u = CreateUnit(Player(15),'hfoo',-25490.1,10985.4,253.7)
-	set u = CreateUnit(Player(15),'hfoo',-25129.9,11187.1,342.8)
-	set u = CreateUnit(Player(15),'hfoo',-25380.3,11189.4,42.9)
-	set u = CreateUnit(Player(15),'hfoo',-25638.4,11175.5,3.3)
-	set u = CreateUnit(Player(15),'hfoo',-25010.6,11400.4,299.5)
-	set u = CreateUnit(Player(15),'hfoo',-27305.2,11398.0,293.1)
-	set u = CreateUnit(Player(15),'hfoo',-27051.7,11398.0,118.0)
-	set u = CreateUnit(Player(15),'hfoo',-26800.1,11400.4,299.5)
-	set u = CreateUnit(Player(15),'hfoo',-27427.9,11175.5,3.3)
-	set u = CreateUnit(Player(15),'hfoo',-27169.7,11189.4,42.9)
-	set u = CreateUnit(Player(15),'hfoo',-26919.3,11187.1,342.8)
-	set u = CreateUnit(Player(15),'hfoo',-27279.5,10985.4,253.7)
-	set u = CreateUnit(Player(15),'hfoo',-27015.7,10970.0,216.6)
-	set u = CreateUnit(Player(15),'hfoo',-26764.7,10974.3,181.3)
-	set u = CreateUnit(Player(15),'hfoo',-25515.8,11398.0,293.1)
-	set u = CreateUnit(Player(15),'hfoo',-25262.3,11398.0,118.0)
-	set u = CreateUnit(Player(15),'hfoo',-24898.0,10435.8,293.1)
-	set u = CreateUnit(Player(15),'hfoo',-24644.5,10435.8,118.0)
-	set u = CreateUnit(Player(15),'hfoo',-24392.9,10438.2,299.5)
-	set u = CreateUnit(Player(15),'hfoo',-25020.7,10213.3,3.3)
-	set u = CreateUnit(Player(15),'hfoo',-24762.5,10227.2,42.9)
-	set u = CreateUnit(Player(15),'hfoo',-24512.1,10224.9,342.8)
-	set u = CreateUnit(Player(15),'hfoo',-24872.3,10023.2,253.7)
-	set u = CreateUnit(Player(15),'hfoo',-24608.5,10007.8,216.6)
-	set u = CreateUnit(Player(15),'hfoo',-24357.5,10012.2,181.3)
-	set u = CreateUnit(Player(15),'hfoo',-27850.1,10447.8,293.1)
-	set u = CreateUnit(Player(15),'hfoo',-27596.6,10447.8,118.0)
-	set u = CreateUnit(Player(15),'hfoo',-27344.9,10450.3,299.5)
-	set u = CreateUnit(Player(15),'hfoo',-27972.7,10225.3,3.3)
-	set u = CreateUnit(Player(15),'hfoo',-27714.5,10239.3,42.9)
-	set u = CreateUnit(Player(15),'hfoo',-27464.2,10236.9,342.8)
-	set u = CreateUnit(Player(15),'hfoo',-27824.4,10035.2,253.7)
-	set u = CreateUnit(Player(15),'hfoo',-27560.6,10019.8,216.6)
-	set u = CreateUnit(Player(15),'hfoo',-27309.5,10024.2,181.3)
-	set u = CreateUnit(Player(15),'hfoo',-22206.5,10402.4,293.1)
-	set u = CreateUnit(Player(15),'hfoo',-21953.0,10402.4,118.0)
-	set u = CreateUnit(Player(15),'hfoo',-21701.3,10404.8,299.5)
-	set u = CreateUnit(Player(15),'hfoo',-22329.1,10179.9,3.3)
-	set u = CreateUnit(Player(15),'hfoo',-22070.9,10193.8,42.9)
-	set u = CreateUnit(Player(15),'hfoo',-21820.6,10191.5,342.8)
-	set u = CreateUnit(Player(15),'hfoo',-22180.8,9989.8,253.7)
-	set u = CreateUnit(Player(15),'hfoo',-21916.9,9974.4,216.6)
-	set u = CreateUnit(Player(15),'hfoo',-21665.9,9978.8,181.3)
-	set u = CreateUnit(Player(15),'hfoo',-18194.1,10459.1,293.1)
-	set u = CreateUnit(Player(15),'hfoo',-17940.6,10459.1,118.0)
-	set u = CreateUnit(Player(15),'hfoo',-17688.9,10461.5,299.5)
-	set u = CreateUnit(Player(15),'hfoo',-18316.7,10236.6,3.3)
-	set u = CreateUnit(Player(15),'hfoo',-18058.6,10250.5,42.9)
-	set u = CreateUnit(Player(15),'hfoo',-17808.2,10248.2,342.8)
-	set u = CreateUnit(Player(15),'hfoo',-18168.4,10046.5,253.7)
-	set u = CreateUnit(Player(15),'hfoo',-17904.6,10031.1,216.6)
-	set u = CreateUnit(Player(15),'hfoo',-17653.6,10035.5,181.3)
+	set u = CreateUnit(Player(4),'h04L',-2043.7,1637.4,348.2)
+	set u = CreateUnit(Player(0),'h00J',2.0,3.1,37.3)
+	set u = CreateUnit(Player(4),'h04L',-1731.0,1470.3,175.1)
 endfunction
 function CreateRegions takes nothing returns nothing
 	local weathereffect we
@@ -2014,6 +1418,10 @@ endlibrary
 function StringFormat1 takes string str returns string
 	call GetTriggeringTrigger()
 	return ""
+endfunction
+function KillAttackBoss takes nothing returns nothing
+	call GetTriggeringTrigger()
+	return 
 endfunction
 // 游戏胜利
 function GameWin takes nothing returns nothing
@@ -3642,6 +3050,7 @@ endfunction
 //===========================================================================
 function InitTrig____________________001 takes nothing returns nothing
 	set gg_trg____________________001 = CreateTrigger()
+	call DzTriggerRegisterKeyEventTrg(gg_trg____________________001, 1, 'Q')
 	call TriggerAddAction(gg_trg____________________001, function Trig____________________001Actions)
 endfunction
 //===========================================================================
@@ -3663,6 +3072,164 @@ endfunction
 function InitTrig_ToCode takes nothing returns nothing
 	set gg_trg_ToCode = CreateTrigger()
 	call TriggerAddAction(gg_trg_ToCode, function Trig_ToCodeActions)
+endfunction
+//===========================================================================
+// Trigger: SetWoodMonsterValueID
+//===========================================================================
+function Trig_SetWoodMonsterValueIDActions takes nothing returns nothing
+	if ((ModuloInteger( R2I( udg_GameTime), 60) == 0) and (udg_CurrentWoodMonsterValueID < 180)) then
+		call SaveInteger(YDHT, 'h001', 0x200B34C8, udg_CurrentWoodMonsterValueID)
+	else
+	endif
+endfunction
+//===========================================================================
+function InitTrig_SetWoodMonsterValueID takes nothing returns nothing
+	set gg_trg_SetWoodMonsterValueID = CreateTrigger()
+	call TriggerAddAction(gg_trg_SetWoodMonsterValueID, function Trig_SetWoodMonsterValueIDActions)
+endfunction
+//===========================================================================
+// Trigger: SpawnWoodMonster
+//===========================================================================
+function Trig_SpawnWoodMonsterActions takes nothing returns nothing
+	local integer ydl_localvar_step = LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xCFDE6C76) 
+ set ydl_localvar_step = ydl_localvar_step + 3 
+ call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xCFDE6C76, ydl_localvar_step) 
+ call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xECE825E7, ydl_localvar_step)
+	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965, LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965))
+	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xA99320FA, (GetLocationX( udg_HomeEnemyPoints[LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965)]) + 0.00))
+	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xFDF65382, (GetLocationY( udg_HomeEnemyPoints[LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965)]) + 0.00))
+	call SaveUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB6A6EBAA, CreateUnit( ConvertedPlayer( (LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965) + 4)), 'h001', LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xA99320FA), LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xFDF65382), 270.00))
+	call IssuePointOrderLoc( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB6A6EBAA), "attack", udg_HomePoints[LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965)])
+	call FlushChildHashtable(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step)
+endfunction
+//===========================================================================
+function InitTrig_SpawnWoodMonster takes nothing returns nothing
+	set gg_trg_SpawnWoodMonster = CreateTrigger()
+	call TriggerAddAction(gg_trg_SpawnWoodMonster, function Trig_SpawnWoodMonsterActions)
+endfunction
+//===========================================================================
+// Trigger: SpawnLgfMonsters
+//===========================================================================
+function Trig_SpawnLgfMonstersActions takes nothing returns nothing
+	local integer ydul_count
+	local integer ydl_localvar_step = LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xCFDE6C76) 
+ set ydl_localvar_step = ydl_localvar_step + 3 
+ call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xCFDE6C76, ydl_localvar_step) 
+ call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xECE825E7, ydl_localvar_step)
+	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965, LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965))
+	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x40AA7251, (( udg_LgfMaxAmount) +( udg_LgfExtraMaxAmount[LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965)]) -( CountUnitsInGroup( udg_LgfMonsterGroup[LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965)]))))
+	set ydul_count = 1
+	loop
+		exitwhen ydul_count > LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x40AA7251)
+		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xA99320FA, (GetLocationX( udg_HomeEnemyPoints[LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965)]) + (GetRandomReal( -7.50, 7.50) * 100.00)))
+		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xFDF65382, (GetLocationY( udg_HomeEnemyPoints[LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965)]) + (GetRandomReal( -3.00, 3.00) * 100.00)))
+		call SaveUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB6A6EBAA, CreateUnit( ConvertedPlayer( (LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965) + 4)), 'h00I', LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xA99320FA), LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xFDF65382), 270.00))
+		call IssuePointOrderLoc( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB6A6EBAA), "attack", udg_HomePoints[LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965)])
+		call GroupAddUnit( udg_LgfMonsterGroup[LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965)], LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB6A6EBAA))
+		set ydul_count = ydul_count + 1
+	endloop
+	call FlushChildHashtable(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step)
+endfunction
+//===========================================================================
+function InitTrig_SpawnLgfMonsters takes nothing returns nothing
+	set gg_trg_SpawnLgfMonsters = CreateTrigger()
+	call TriggerAddAction(gg_trg_SpawnLgfMonsters, function Trig_SpawnLgfMonstersActions)
+endfunction
+//===========================================================================
+// Trigger: LgfInit
+//===========================================================================
+function Trig_LgfInitActions takes nothing returns nothing
+	set udg_LgfMaxAmount = GetIntegerFromExcel( "怪物数值", 41, "Value1")
+	call SaveInteger(YDHT, 'h00I', 0x200B34C8, 41)
+	call SaveInteger(YDHT, 'h001', 0x200B34C8, 151)
+	set udg_LgfMonsterGroup[1] = GetGroup()
+	set udg_LgfMonsterGroup[2] = GetGroup()
+	set udg_LgfMonsterGroup[3] = GetGroup()
+	set udg_LgfMonsterGroup[4] = GetGroup()
+	set udg_LgfWoodMonsterRequiredKills = GetIntegerFromExcel( "怪物数值", 151, "Value1")
+	set udg_LgfWoodMonsterRemainingKills[1] = udg_LgfWoodMonsterRequiredKills
+	set udg_LgfWoodMonsterRemainingKills[2] = udg_LgfWoodMonsterRequiredKills
+	set udg_LgfWoodMonsterRemainingKills[3] = udg_LgfWoodMonsterRequiredKills
+	set udg_LgfWoodMonsterRemainingKills[4] = udg_LgfWoodMonsterRequiredKills
+endfunction
+//===========================================================================
+function InitTrig_LgfInit takes nothing returns nothing
+	set gg_trg_LgfInit = CreateTrigger()
+	call TriggerAddAction(gg_trg_LgfInit, function Trig_LgfInitActions)
+endfunction
+//===========================================================================
+// Trigger: F4
+//===========================================================================
+function Trig_F4Func003A takes nothing returns nothing
+	call RemoveUnit( GetEnumUnit())
+endfunction
+function Trig_F4Actions takes nothing returns nothing
+	local integer ydl_localvar_step = LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xCFDE6C76) 
+ set ydl_localvar_step = ydl_localvar_step + 3 
+ call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xCFDE6C76, ydl_localvar_step) 
+ call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xECE825E7, ydl_localvar_step)
+	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965, GetConvertedPlayerId( DzGetTriggerKeyPlayer()))
+	call ForGroupBJ( udg_QuestMonsterGroup[LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965)],function Trig_F4Func003A)
+	set udg_IsInQuest[LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965)] = false
+	call FlushChildHashtable(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step)
+endfunction
+//===========================================================================
+function InitTrig_F4 takes nothing returns nothing
+	set gg_trg_F4 = CreateTrigger()
+	call DzTriggerRegisterKeyEventTrg(gg_trg_F4, 1, 115)
+	call TriggerAddAction(gg_trg_F4, function Trig_F4Actions)
+endfunction
+//===========================================================================
+// Trigger: PressKeyC
+//===========================================================================
+function Trig_PressKeyCActions takes nothing returns nothing
+	local integer ydul_count
+	local integer ydl_localvar_step = LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xCFDE6C76) 
+ set ydl_localvar_step = ydl_localvar_step + 3 
+ call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xCFDE6C76, ydl_localvar_step) 
+ call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xECE825E7, ydl_localvar_step)
+	call SavePlayerHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xA59BB4C6, DzGetTriggerKeyPlayer())
+	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965, GetConvertedPlayerId( LoadPlayerHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xA59BB4C6)))
+	call SaveUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075, udg_Hero[LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965)])
+	if ((udg_IsInQuest[LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965)] == false)) then
+		if ((udg_CurrentQuestIndex[LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965)] <= 40)) then
+			call SaveInteger(YDHT, 'h000', 0x200B34C8, (udg_CurrentQuestIndex[LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965)] + 90))
+			set ydul_count = 1
+			loop
+				exitwhen ydul_count > GetIntegerFromExcel( "怪物数值", (90 + udg_CurrentQuestIndex[LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965)]), "Value1")
+				call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xA99320FA, (GetLocationX( udg_HomeEnemyPoints[LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965)]) + (GetRandomReal( -7.50, 7.50) * 100.00)))
+				call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xFDF65382, (GetLocationY( udg_HomeEnemyPoints[LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965)]) + (GetRandomReal( -3.00, 3.00) * 100.00)))
+				call SaveUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB6A6EBAA, CreateUnit( ConvertedPlayer( (LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965) + 4)), 'h000', LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xA99320FA), LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xFDF65382), 270.00))
+				call IssuePointOrderLoc( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB6A6EBAA), "attack", udg_HomePoints[LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965)])
+				call GroupAddUnit( udg_QuestMonsterGroup[LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965)], LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB6A6EBAA))
+				set ydul_count = ydul_count + 1
+			endloop
+			set udg_IsInQuest[LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965)] = true
+		else
+		endif
+	else
+	endif
+	call FlushChildHashtable(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step)
+endfunction
+//===========================================================================
+function InitTrig_PressKeyC takes nothing returns nothing
+	set gg_trg_PressKeyC = CreateTrigger()
+	call DzTriggerRegisterKeyEventTrg(gg_trg_PressKeyC, 1, 'C')
+	call TriggerAddAction(gg_trg_PressKeyC, function Trig_PressKeyCActions)
+endfunction
+//===========================================================================
+// Trigger: QuestInit
+//===========================================================================
+function Trig_QuestInitActions takes nothing returns nothing
+	set udg_QuestMonsterGroup[1] = GetGroup()
+	set udg_QuestMonsterGroup[2] = GetGroup()
+	set udg_QuestMonsterGroup[3] = GetGroup()
+	set udg_QuestMonsterGroup[4] = GetGroup()
+endfunction
+//===========================================================================
+function InitTrig_QuestInit takes nothing returns nothing
+	set gg_trg_QuestInit = CreateTrigger()
+	call TriggerAddAction(gg_trg_QuestInit, function Trig_QuestInitActions)
 endfunction
 //===========================================================================
 // Trigger: OpenArchiveChallenge
@@ -3689,6 +3256,7 @@ endfunction
 //===========================================================================
 function InitTrig_OpenArchiveChallenge takes nothing returns nothing
 	set gg_trg_OpenArchiveChallenge = CreateTrigger()
+	call TriggerRegisterUnitEvent(gg_trg_OpenArchiveChallenge, gg_unit_h00K_0018, EVENT_UNIT_SPELL_EFFECT)
 	call TriggerAddAction(gg_trg_OpenArchiveChallenge, function Trig_OpenArchiveChallengeActions)
 endfunction
 //===========================================================================
@@ -3697,6 +3265,7 @@ endfunction
 function Trig_ArchiveChallengeInitActions takes nothing returns nothing
 	call SaveInteger(YDHT, 'h00L', 0x200B34C8, 180)
 	call SaveInteger(YDHT, 'h00M', 0x200B34C8, 181)
+	call ShowUnit( gg_unit_h00K_0018, false)
 endfunction
 //===========================================================================
 function InitTrig_ArchiveChallengeInit takes nothing returns nothing
@@ -3709,7 +3278,7 @@ endfunction
 function Trig_BossSkillTrig1_1Func010T takes nothing returns nothing
 	local integer ydl_triggerstep
 	local trigger ydl_trigger
-	call SaveReal(YDLOC, GetHandleId(GetExpiredTimer()), 0xC0ABED4A, (5.00 * Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetExpiredTimer()), 0x944CCEB0), 100)))
+	call SaveReal(YDLOC, GetHandleId(GetExpiredTimer()), 0xC0ABED4A, (5.00 * Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetExpiredTimer()), 0x944CCEB0), 1)))
 	set udg_Args_AttackType = ATTACK_TYPE_HERO
 	set udg_Args_DamageType = DAMAGE_TYPE_UNIVERSAL
 	set udg_Args_WeaponType = WEAPON_TYPE_WHOKNOWS
@@ -3766,7 +3335,7 @@ endfunction
 function Trig_BossSkillTrig2_1Func010T takes nothing returns nothing
 	local group ydl_group
 	local unit ydl_unit
-	call SaveReal(YDLOC, GetHandleId(GetExpiredTimer()), 0xC0ABED4A, (5.00 * Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetExpiredTimer()), 0x944CCEB0), 100)))
+	call SaveReal(YDLOC, GetHandleId(GetExpiredTimer()), 0xC0ABED4A, (5.00 * Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetExpiredTimer()), 0x944CCEB0), 1)))
 	call SaveEffectHandle(YDLOC, GetHandleId(GetExpiredTimer()), 0x94B57B64, AddSpecialEffect( "Survival\\BossSkill\\2\\1\\1.mdx", LoadReal(YDLOC, GetHandleId(GetExpiredTimer()), 0xECF5506B), LoadReal(YDLOC, GetHandleId(GetExpiredTimer()), 0x024FDF70)))
 	call EXSetEffectSpeed( LoadEffectHandle(YDLOC, GetHandleId(GetExpiredTimer()), 0x94B57B64), 1.50)
 	call YDWETimerDestroyEffect( 2.00, LoadEffectHandle(YDLOC, GetHandleId(GetExpiredTimer()), 0x94B57B64))
@@ -3826,7 +3395,7 @@ function Trig_BossSkillTrig3_1Func010T takes nothing returns nothing
 	local integer ydul_index
 	local integer ydl_triggerstep
 	local trigger ydl_trigger
-	call SaveReal(YDLOC, GetHandleId(GetExpiredTimer()), 0xC0ABED4A, (5.00 * Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetExpiredTimer()), 0x944CCEB0), 100)))
+	call SaveReal(YDLOC, GetHandleId(GetExpiredTimer()), 0xC0ABED4A, (5.00 * Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetExpiredTimer()), 0x944CCEB0), 1)))
 	if ((GetUnitState( LoadUnitHandle(YDLOC, GetHandleId(GetExpiredTimer()), 0x944CCEB0), UNIT_STATE_LIFE) > 0.00)) then
 		set ydul_index = 1
 		loop
@@ -3901,7 +3470,7 @@ endfunction
 function Trig_BossSkillTrig3_2Func012T takes nothing returns nothing
 	local group ydl_group
 	local unit ydl_unit
-	call SaveReal(YDLOC, GetHandleId(GetExpiredTimer()), 0xC0ABED4A, (5.00 * Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetExpiredTimer()), 0x944CCEB0), 100)))
+	call SaveReal(YDLOC, GetHandleId(GetExpiredTimer()), 0xC0ABED4A, (5.00 * Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetExpiredTimer()), 0x944CCEB0), 1)))
 	call SaveEffectHandle(YDLOC, GetHandleId(GetExpiredTimer()), 0xF8F856EA, AddSpecialEffect( "Survival\\BossSkill\\3\\2\\2.mdx", LoadReal(YDLOC, GetHandleId(GetExpiredTimer()), 0x4A8A0BFD), LoadReal(YDLOC, GetHandleId(GetExpiredTimer()), 0xD33436B0)))
 	call EXSetEffectSpeed( LoadEffectHandle(YDLOC, GetHandleId(GetExpiredTimer()), 0xF8F856EA), 1.20)
 	call EXSetEffectSize( LoadEffectHandle(YDLOC, GetHandleId(GetExpiredTimer()), 0xF8F856EA), 0.80)
@@ -3968,7 +3537,7 @@ endfunction
 function Trig_BossSkillTrig4_1Func009Func009T takes nothing returns nothing
 	local group ydl_group
 	local unit ydl_unit
-	call SaveReal(YDLOC, GetHandleId(GetExpiredTimer()), 0xC0ABED4A, (5.00 * Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetExpiredTimer()), 0x944CCEB0), 100)))
+	call SaveReal(YDLOC, GetHandleId(GetExpiredTimer()), 0xC0ABED4A, (5.00 * Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetExpiredTimer()), 0x944CCEB0), 1)))
 	call SaveEffectHandle(YDLOC, GetHandleId(GetExpiredTimer()), 0xF8F856EA, AddSpecialEffect( "Survival\\BossSkill\\4\\1\\1.mdx", LoadReal(YDLOC, GetHandleId(GetExpiredTimer()), 0xA99320FA), LoadReal(YDLOC, GetHandleId(GetExpiredTimer()), 0xFDF65382)))
 	call EXSetEffectSize( LoadEffectHandle(YDLOC, GetHandleId(GetExpiredTimer()), 0xF8F856EA), 1.20)
 	call EXSetEffectSpeed( LoadEffectHandle(YDLOC, GetHandleId(GetExpiredTimer()), 0xF8F856EA), 2.00)
@@ -4064,7 +3633,7 @@ function Trig_BossSkillTrig4_2Func014T takes nothing returns nothing
 	local integer ydl_triggerstep
 	local trigger ydl_trigger
 	local timer ydl_timer
-	call SaveReal(YDLOC, GetHandleId(GetExpiredTimer()), 0xC0ABED4A, (5.00 * Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetExpiredTimer()), 0x944CCEB0), 100)))
+	call SaveReal(YDLOC, GetHandleId(GetExpiredTimer()), 0xC0ABED4A, (5.00 * Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetExpiredTimer()), 0x944CCEB0), 1)))
 	set udg_Args_AttackType = ATTACK_TYPE_HERO
 	set udg_Args_DamageType = DAMAGE_TYPE_UNIVERSAL
 	set udg_Args_WeaponType = WEAPON_TYPE_WHOKNOWS
@@ -4162,7 +3731,7 @@ function Trig_BossSkillTrig5_1Func010T takes nothing returns nothing
 	local integer ydul_index
 	local integer ydl_triggerstep
 	local trigger ydl_trigger
-	call SaveReal(YDLOC, GetHandleId(GetExpiredTimer()), 0xC0ABED4A, (5.00 * Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetExpiredTimer()), 0x944CCEB0), 100)))
+	call SaveReal(YDLOC, GetHandleId(GetExpiredTimer()), 0xC0ABED4A, (5.00 * Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetExpiredTimer()), 0x944CCEB0), 1)))
 	if ((GetUnitState( LoadUnitHandle(YDLOC, GetHandleId(GetExpiredTimer()), 0x944CCEB0), UNIT_STATE_LIFE) > 0.00)) then
 		set ydul_index = 1
 		loop
@@ -4237,7 +3806,7 @@ endfunction
 function Trig_BossSkillTrig5_2Func009Func002Func001Func007T takes nothing returns nothing
 	local group ydl_group
 	local unit ydl_unit
-	call SaveReal(YDLOC, GetHandleId(GetExpiredTimer()), 0xC0ABED4A, (5.00 * Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetExpiredTimer()), 0x944CCEB0), 100)))
+	call SaveReal(YDLOC, GetHandleId(GetExpiredTimer()), 0xC0ABED4A, (5.00 * Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetExpiredTimer()), 0x944CCEB0), 1)))
 	call SaveEffectHandle(YDLOC, GetHandleId(GetExpiredTimer()), 0xF8F856EA, AddSpecialEffect( "Survival\\BossSkill\\5\\2\\1.mdx", LoadReal(YDLOC, GetHandleId(GetExpiredTimer()), 0xECF5506B), LoadReal(YDLOC, GetHandleId(GetExpiredTimer()), 0x024FDF70)))
 	call YDWETimerDestroyEffect( 2.00, LoadEffectHandle(YDLOC, GetHandleId(GetExpiredTimer()), 0xF8F856EA))
 	set ydl_group = CreateGroup()
@@ -4327,7 +3896,7 @@ function Trig_BossSkillTrig6_1Func010T takes nothing returns nothing
 	local integer ydul_index
 	local integer ydl_triggerstep
 	local trigger ydl_trigger
-	call SaveReal(YDLOC, GetHandleId(GetExpiredTimer()), 0xC0ABED4A, (5.00 * Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetExpiredTimer()), 0x944CCEB0), 100)))
+	call SaveReal(YDLOC, GetHandleId(GetExpiredTimer()), 0xC0ABED4A, (5.00 * Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetExpiredTimer()), 0x944CCEB0), 1)))
 	set ydul_index = 1
 	loop
 		exitwhen ydul_index > 12
@@ -4400,7 +3969,7 @@ function Trig_BossSkillTrig6_2Func010T takes nothing returns nothing
 	local integer ydul_index
 	local integer ydl_triggerstep
 	local trigger ydl_trigger
-	call SaveReal(YDLOC, GetHandleId(GetExpiredTimer()), 0xC0ABED4A, (5.00 * Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetExpiredTimer()), 0x944CCEB0), 100)))
+	call SaveReal(YDLOC, GetHandleId(GetExpiredTimer()), 0xC0ABED4A, (5.00 * Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetExpiredTimer()), 0x944CCEB0), 1)))
 	if ((GetUnitState( LoadUnitHandle(YDLOC, GetHandleId(GetExpiredTimer()), 0x944CCEB0), UNIT_STATE_LIFE) > 0.00)) then
 		set ydul_index = 1
 		loop
@@ -4483,7 +4052,7 @@ endfunction
 function Trig_BossSkillTrig6_3Func009Func009T takes nothing returns nothing
 	local group ydl_group
 	local unit ydl_unit
-	call SaveReal(YDLOC, GetHandleId(GetExpiredTimer()), 0xC0ABED4A, (5.00 * Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetExpiredTimer()), 0x944CCEB0), 100)))
+	call SaveReal(YDLOC, GetHandleId(GetExpiredTimer()), 0xC0ABED4A, (5.00 * Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetExpiredTimer()), 0x944CCEB0), 1)))
 	call SaveEffectHandle(YDLOC, GetHandleId(GetExpiredTimer()), 0xF8F856EA, AddSpecialEffect( "Survival\\BossSkill\\6\\3\\1.mdx", LoadReal(YDLOC, GetHandleId(GetExpiredTimer()), 0xA99320FA), LoadReal(YDLOC, GetHandleId(GetExpiredTimer()), 0xFDF65382)))
 	call EXSetEffectSize( LoadEffectHandle(YDLOC, GetHandleId(GetExpiredTimer()), 0xF8F856EA), 2.00)
 	call EXSetEffectSpeed( LoadEffectHandle(YDLOC, GetHandleId(GetExpiredTimer()), 0xF8F856EA), 1.50)
@@ -4596,43 +4165,369 @@ function InitTrig_BossSkillInit takes nothing returns nothing
 	call TriggerAddAction(gg_trg_BossSkillInit, function Trig_BossSkillInitActions)
 endfunction
 //===========================================================================
-// Trigger: SeizeBodySync
+// Trigger: SeizeBody_15
 //===========================================================================
-function Trig_SeizeBodySyncActions takes nothing returns nothing
+function Trig_SeizeBody_15Actions takes nothing returns nothing
+	local group ydl_group
+	local unit ydl_unit
 	local integer ydl_localvar_step = LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xCFDE6C76) 
  set ydl_localvar_step = ydl_localvar_step + 3 
  call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xCFDE6C76, ydl_localvar_step) 
  call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xECE825E7, ydl_localvar_step)
-	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965, GetConvertedPlayerId( DzGetTriggerSyncPlayer()))
-	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x6F96F2D2, S2I( DzGetTriggerSyncData()))
+	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x6F96F2D2, 15)
+	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965, LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965))
+	call SaveUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075, LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075))
+	call SaveUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x8867FB80, LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x8867FB80))
+	if ((LoadInteger(YDHT, GetHandleId( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075)), 0x292EBC6E) <= 0)) then
+		call SaveInteger(YDHT, GetHandleId( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075)), 0x292EBC6E, GetIntegerFromExcel( "夺舍", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x6F96F2D2), "Value1"))
+		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xFCBFDC12, GetUnitX( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x8867FB80)))
+		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE3CB2E3B, GetUnitY( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x8867FB80)))
+		call SaveEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA, AddSpecialEffect( "Survival\\HeroSkill\\15\\1.mdx", LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xFCBFDC12), LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE3CB2E3B)))
+		call DestroyEffect( LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA))
+		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A, (( Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 144)) *( Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 122)) *( GetRealFromExcel( "夺舍", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x6F96F2D2), "Value2"))))
+		//判断是否暴击
+		if ((GetRandomInt( 1, 100) <= R2I( Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 88)))) then
+			call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A, (( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A)) *( Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 125)) +( 0.00)))
+			set ydl_group = CreateGroup()
+			call GroupEnumUnitsInRange(ydl_group, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xFCBFDC12), LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE3CB2E3B), 300.00, null)
+			loop
+				set ydl_unit = FirstOfGroup(ydl_group)
+				exitwhen ydl_unit == null
+				call GroupRemoveUnit(ydl_group, ydl_unit)
+				if ((IsUnitEnemy( ydl_unit, Player(0)) == true)) then
+					call UnitDamageTarget( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), ydl_unit, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A), false, false, ATTACK_TYPE_NORMAL, DAMAGE_TYPE_UNIVERSAL, WEAPON_TYPE_METAL_LIGHT_CHOP)
+				else
+				endif
+			endloop
+			call DestroyGroup(ydl_group)
+		else
+			set ydl_group = CreateGroup()
+			call GroupEnumUnitsInRange(ydl_group, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xFCBFDC12), LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE3CB2E3B), 300.00, null)
+			loop
+				set ydl_unit = FirstOfGroup(ydl_group)
+				exitwhen ydl_unit == null
+				call GroupRemoveUnit(ydl_group, ydl_unit)
+				if ((IsUnitEnemy( ydl_unit, Player(0)) == true)) then
+					call UnitDamageTarget( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), ydl_unit, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A), false, false, ATTACK_TYPE_NORMAL, DAMAGE_TYPE_UNIVERSAL, WEAPON_TYPE_WHOKNOWS)
+				else
+				endif
+			endloop
+			call DestroyGroup(ydl_group)
+		endif
+	else
+	endif
+	call FlushChildHashtable(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step)
+	set ydl_group = null
+	set ydl_unit = null
+endfunction
+//===========================================================================
+function InitTrig_SeizeBody_15 takes nothing returns nothing
+	set gg_trg_SeizeBody_15 = CreateTrigger()
+	call TriggerAddAction(gg_trg_SeizeBody_15, function Trig_SeizeBody_15Actions)
+endfunction
+//===========================================================================
+// Trigger: SeizeBody_14
+//===========================================================================
+function Trig_SeizeBody_14Actions takes nothing returns nothing
+	local integer ydul_count
+	local integer ydl_triggerstep
+	local trigger ydl_trigger
+	local integer ydl_localvar_step = LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xCFDE6C76) 
+ set ydl_localvar_step = ydl_localvar_step + 3 
+ call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xCFDE6C76, ydl_localvar_step) 
+ call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xECE825E7, ydl_localvar_step)
+	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x6F96F2D2, 14)
+	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965, LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965))
+	call SaveUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075, LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075))
+	call SaveUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x8867FB80, LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x8867FB80))
+	if ((LoadInteger(YDHT, GetHandleId( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075)), 0xBD8ABB01) <= 0)) then
+		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xAB08DC2F, GetUnitX( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075)))
+		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x03973DD2, GetUnitY( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075)))
+		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x9966AD24, YDWEAngleBetweenUnits( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x8867FB80)))
+		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A, (( Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 143)) *( Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 121)) *( GetRealFromExcel( "夺舍", 14, "Value2"))))
+		call SaveInteger(YDHT, GetHandleId( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075)), 0xBD8ABB01, GetIntegerFromExcel( "夺舍", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x6F96F2D2), "Value1"))
+		//判断是否暴击
+		if ((GetRandomInt( 1, 100) <= R2I( Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 87)))) then
+			set udg_Args_WeaponType = WEAPON_TYPE_METAL_LIGHT_CHOP
+			call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A, (( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A)) *( Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 124)) +( 0.00)))
+		else
+			set udg_Args_WeaponType = WEAPON_TYPE_WHOKNOWS
+		endif
+		set udg_Args_AttackType = ATTACK_TYPE_HERO
+		set udg_Args_DamageType = DAMAGE_TYPE_UNIVERSAL
+		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x9966AD24, (( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x9966AD24))-( 60.00)))
+		set ydul_count = 1
+		loop
+			exitwhen ydul_count > 3
+			call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x9966AD24, (( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x9966AD24))+( 30.00)))
+			set ydl_trigger = gg_trg_SLine_Type1
+			set ydl_triggerstep = GetHandleId(ydl_trigger)*(LoadInteger(YDLOC, GetHandleId(ydl_trigger), 0xCFDE6C76) + 3)
+			call SaveReal(YDLOC, ydl_triggerstep, 0x9966AD24, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x9966AD24))
+			call SaveReal(YDLOC, ydl_triggerstep, 0xC0ABED4A, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A))
+			call SaveReal(YDLOC, ydl_triggerstep, 0xE6BB3831, 250.00)
+			call SaveReal(YDLOC, ydl_triggerstep, 0xB54F5BCB, 1.00)
+			call SaveReal(YDLOC, ydl_triggerstep, 0x0E20876F, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xAB08DC2F))
+			call SaveReal(YDLOC, ydl_triggerstep, 0x4FB814AA, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x03973DD2))
+			call SaveReal(YDLOC, ydl_triggerstep, 0xFB6E8B46, 30.00)
+			call SaveReal(YDLOC, ydl_triggerstep, 0xBEFD8BE8, 50.00)
+			call SaveReal(YDLOC, ydl_triggerstep, 0xC65482EE, 250.00)
+			call SaveReal(YDLOC, ydl_triggerstep, 0x47527379, 1000.00)
+			call SaveUnitHandle(YDLOC, ydl_triggerstep, 0x6EDB7E6F, LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075))
+			call SaveStr(YDLOC, ydl_triggerstep, 0x2480578D, "Survival\\HeroSkill\\14\\1.mdx")
+			call TriggerExecute(ydl_trigger)
+			set ydul_count = ydul_count + 1
+		endloop
+	else
+	endif
+	call FlushChildHashtable(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step)
+	set ydl_trigger = null
+endfunction
+//===========================================================================
+function InitTrig_SeizeBody_14 takes nothing returns nothing
+	set gg_trg_SeizeBody_14 = CreateTrigger()
+	call TriggerAddAction(gg_trg_SeizeBody_14, function Trig_SeizeBody_14Actions)
+endfunction
+//===========================================================================
+// Trigger: SeizeBody_13
+//===========================================================================
+function Trig_SeizeBody_13Actions takes nothing returns nothing
+	local group ydl_group
+	local unit ydl_unit
+	local integer ydl_localvar_step = LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xCFDE6C76) 
+ set ydl_localvar_step = ydl_localvar_step + 3 
+ call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xCFDE6C76, ydl_localvar_step) 
+ call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xECE825E7, ydl_localvar_step)
+	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x6F96F2D2, 13)
+	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965, LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965))
+	call SaveUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075, LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075))
+	call SaveUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x8867FB80, LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x8867FB80))
+	if ((LoadInteger(YDHT, GetHandleId( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075)), 0xDE3EFEB8) <= 0)) then
+		call SaveInteger(YDHT, GetHandleId( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075)), 0xDE3EFEB8, GetIntegerFromExcel( "夺舍", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x6F96F2D2), "Value1"))
+		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xFCBFDC12, GetUnitX( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x8867FB80)))
+		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE3CB2E3B, GetUnitY( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x8867FB80)))
+		call SaveEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA, AddSpecialEffect( "Survival\\HeroSkill\\13\\1.mdx", LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xFCBFDC12), LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE3CB2E3B)))
+		call EXSetEffectSize( LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA), 2.00)
+		call DestroyEffect( LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA))
+		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A, (( Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 142)) *( Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 121)) *( GetRealFromExcel( "夺舍", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x6F96F2D2), "Value2"))))
+		//判断是否暴击
+		if ((GetRandomInt( 1, 100) <= R2I( Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 87)))) then
+			call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A, (( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A)) *( Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 124)) +( 0.00)))
+			set ydl_group = CreateGroup()
+			call GroupEnumUnitsInRange(ydl_group, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xFCBFDC12), LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE3CB2E3B), 250.00, null)
+			loop
+				set ydl_unit = FirstOfGroup(ydl_group)
+				exitwhen ydl_unit == null
+				call GroupRemoveUnit(ydl_group, ydl_unit)
+				if ((IsUnitEnemy( ydl_unit, Player(0)) == true)) then
+					call UnitDamageTarget( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), ydl_unit, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A), false, false, ATTACK_TYPE_HERO, DAMAGE_TYPE_UNIVERSAL, WEAPON_TYPE_METAL_LIGHT_CHOP)
+				else
+				endif
+			endloop
+			call DestroyGroup(ydl_group)
+		else
+			set ydl_group = CreateGroup()
+			call GroupEnumUnitsInRange(ydl_group, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xFCBFDC12), LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE3CB2E3B), 250.00, null)
+			loop
+				set ydl_unit = FirstOfGroup(ydl_group)
+				exitwhen ydl_unit == null
+				call GroupRemoveUnit(ydl_group, ydl_unit)
+				if ((IsUnitEnemy( ydl_unit, Player(0)) == true)) then
+					call UnitDamageTarget( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), ydl_unit, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A), false, false, ATTACK_TYPE_HERO, DAMAGE_TYPE_UNIVERSAL, WEAPON_TYPE_WHOKNOWS)
+				else
+				endif
+			endloop
+			call DestroyGroup(ydl_group)
+		endif
+	else
+	endif
+	call FlushChildHashtable(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step)
+	set ydl_group = null
+	set ydl_unit = null
+endfunction
+//===========================================================================
+function InitTrig_SeizeBody_13 takes nothing returns nothing
+	set gg_trg_SeizeBody_13 = CreateTrigger()
+	call TriggerAddAction(gg_trg_SeizeBody_13, function Trig_SeizeBody_13Actions)
+endfunction
+//===========================================================================
+// Trigger: SeizeBody_8
+//===========================================================================
+function Trig_SeizeBody_8Actions takes nothing returns nothing
+	local integer ydl_localvar_step = LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xCFDE6C76) 
+ set ydl_localvar_step = ydl_localvar_step + 3 
+ call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xCFDE6C76, ydl_localvar_step) 
+ call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xECE825E7, ydl_localvar_step)
+	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x6F96F2D2, 8)
+	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965, LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965))
+	call SaveUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075, LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075))
+	if ((LoadInteger(YDHT, GetHandleId( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075)), 0xE251D8F2) <= 0)) then
+		call SaveEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA, AddSpecialEffect( "Survival\\HeroSkill\\8\\1.mdx", 0.00, 0.00))
+		call EXSetEffectSize( LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA), 1.50)
+		//加入堆栈
+		call SaveReal(YDHT, GetHandleId( LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA)), 0x492546AF, GetRealFromExcel( "夺舍", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x6F96F2D2), "Value3"))
+		call SaveUnitHandle(YDHT, GetHandleId( LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA)), 0x6EDB7E6F, LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075))
+		set udg_Follow_Stack_Top = (udg_Follow_Stack_Top + 1)
+		set udg_Follow_Stack_Effect[udg_Follow_Stack_Top] = LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA)
+		call SaveInteger(YDHT, GetHandleId( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075)), 0xD8358F0D, GetIntegerFromExcel( "夺舍", 8, "Value1"))
+		call SaveInteger(YDHT, GetHandleId( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075)), 0xA96A6C3F, GetIntegerFromExcel( "夺舍", 8, "Value3"))
+	else
+	endif
+	call FlushChildHashtable(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step)
+endfunction
+//===========================================================================
+function InitTrig_SeizeBody_8 takes nothing returns nothing
+	set gg_trg_SeizeBody_8 = CreateTrigger()
+	call TriggerAddAction(gg_trg_SeizeBody_8, function Trig_SeizeBody_8Actions)
+endfunction
+//===========================================================================
+// Trigger: SeizeBody_3
+//===========================================================================
+function Trig_SeizeBody_3Actions takes nothing returns nothing
+	local group ydl_group
+	local unit ydl_unit
+	local integer ydl_localvar_step = LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xCFDE6C76) 
+ set ydl_localvar_step = ydl_localvar_step + 3 
+ call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xCFDE6C76, ydl_localvar_step) 
+ call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xECE825E7, ydl_localvar_step)
+	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x6F96F2D2, 3)
+	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965, LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965))
+	call SaveUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075, LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075))
+	call SaveUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x8867FB80, LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x8867FB80))
+	if ((LoadInteger(YDHT, GetHandleId( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075)), 0xE251D8F2) <= 0)) then
+		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xFCBFDC12, GetUnitX( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x8867FB80)))
+		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE3CB2E3B, GetUnitY( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x8867FB80)))
+		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A, (( Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 144)) *( Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 122)) *( GetRealFromExcel( "夺舍", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x6F96F2D2), "Value2"))))
+		call SaveInteger(YDHT, GetHandleId( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075)), 0xE251D8F2, GetIntegerFromExcel( "夺舍", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x6F96F2D2), "Value1"))
+		call SaveEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA, AddSpecialEffect( "Survival\\HeroSkill\\3\\1.mdx", LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xFCBFDC12), LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE3CB2E3B)))
+		call EXSetEffectSize( LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA), 2.50)
+		call DestroyEffect( LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA))
+		//判断是否暴击
+		if ((GetRandomInt( 1, 100) <= R2I( Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 88)))) then
+			call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A, (( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A)) *( Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 125)) +( 0.00)))
+			set ydl_group = CreateGroup()
+			call GroupEnumUnitsInRange(ydl_group, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xFCBFDC12), LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE3CB2E3B), 400.00, null)
+			loop
+				set ydl_unit = FirstOfGroup(ydl_group)
+				exitwhen ydl_unit == null
+				call GroupRemoveUnit(ydl_group, ydl_unit)
+				if ((IsUnitEnemy( ydl_unit, Player(0)) == true)) then
+					call UnitDamageTarget( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), ydl_unit, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A), false, false, ATTACK_TYPE_NORMAL, DAMAGE_TYPE_UNIVERSAL, WEAPON_TYPE_METAL_LIGHT_CHOP)
+				else
+				endif
+			endloop
+			call DestroyGroup(ydl_group)
+		else
+			set ydl_group = CreateGroup()
+			call GroupEnumUnitsInRange(ydl_group, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xFCBFDC12), LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE3CB2E3B), 400.00, null)
+			loop
+				set ydl_unit = FirstOfGroup(ydl_group)
+				exitwhen ydl_unit == null
+				call GroupRemoveUnit(ydl_group, ydl_unit)
+				if ((IsUnitEnemy( ydl_unit, Player(0)) == true)) then
+					call UnitDamageTarget( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), ydl_unit, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A), false, false, ATTACK_TYPE_NORMAL, DAMAGE_TYPE_UNIVERSAL, WEAPON_TYPE_WHOKNOWS)
+				else
+				endif
+			endloop
+			call DestroyGroup(ydl_group)
+		endif
+	else
+	endif
+	call FlushChildHashtable(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step)
+	set ydl_group = null
+	set ydl_unit = null
+endfunction
+//===========================================================================
+function InitTrig_SeizeBody_3 takes nothing returns nothing
+	set gg_trg_SeizeBody_3 = CreateTrigger()
+	call TriggerAddAction(gg_trg_SeizeBody_3, function Trig_SeizeBody_3Actions)
+endfunction
+//===========================================================================
+// Trigger: SeizeBody_2
+//===========================================================================
+function Trig_SeizeBody_2Actions takes nothing returns nothing
+	local integer ydl_triggerstep
+	local trigger ydl_trigger
+	local integer ydl_localvar_step = LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xCFDE6C76) 
+ set ydl_localvar_step = ydl_localvar_step + 3 
+ call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xCFDE6C76, ydl_localvar_step) 
+ call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xECE825E7, ydl_localvar_step)
+	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x6F96F2D2, 2)
+	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965, LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965))
+	call SaveUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075, LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075))
+	call SaveUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x8867FB80, LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x8867FB80))
+	if ((LoadInteger(YDHT, GetHandleId( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075)), 0x90F06913) <= 0)) then
+		if ((GetRandomInt( 1, 100) <= GetIntegerFromExcel( "夺舍", 2, "Value2"))) then
+			call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xAB08DC2F, GetUnitX( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075)))
+			call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x03973DD2, GetUnitY( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075)))
+			call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x9966AD24, YDWEAngleBetweenUnits( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x8867FB80)))
+			call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A, (( Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 143)) *( Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 121)) *( GetRealFromExcel( "夺舍", 2, "Value3"))))
+			call SaveInteger(YDHT, GetHandleId( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075)), 0x90F06913, GetIntegerFromExcel( "夺舍", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x6F96F2D2), "Value1"))
+			//判断是否暴击
+			if ((GetRandomInt( 1, 100) <= R2I( Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 87)))) then
+				set udg_Args_WeaponType = WEAPON_TYPE_METAL_LIGHT_CHOP
+				call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A, (( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A)) *( Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 124)) +( 0.00)))
+			else
+				set udg_Args_WeaponType = WEAPON_TYPE_WHOKNOWS
+			endif
+			set udg_Args_AttackType = ATTACK_TYPE_HERO
+			set udg_Args_DamageType = DAMAGE_TYPE_UNIVERSAL
+			set ydl_trigger = gg_trg_SLine_Type1
+			set ydl_triggerstep = GetHandleId(ydl_trigger)*(LoadInteger(YDLOC, GetHandleId(ydl_trigger), 0xCFDE6C76) + 3)
+			call SaveReal(YDLOC, ydl_triggerstep, 0x9966AD24, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x9966AD24))
+			call SaveReal(YDLOC, ydl_triggerstep, 0xC0ABED4A, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A))
+			call SaveReal(YDLOC, ydl_triggerstep, 0xE6BB3831, 250.00)
+			call SaveReal(YDLOC, ydl_triggerstep, 0xB54F5BCB, 1.00)
+			call SaveReal(YDLOC, ydl_triggerstep, 0x0E20876F, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xAB08DC2F))
+			call SaveReal(YDLOC, ydl_triggerstep, 0x4FB814AA, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x03973DD2))
+			call SaveReal(YDLOC, ydl_triggerstep, 0xFB6E8B46, 30.00)
+			call SaveReal(YDLOC, ydl_triggerstep, 0xBEFD8BE8, 50.00)
+			call SaveReal(YDLOC, ydl_triggerstep, 0xC65482EE, 250.00)
+			call SaveReal(YDLOC, ydl_triggerstep, 0x47527379, 1000.00)
+			call SaveUnitHandle(YDLOC, ydl_triggerstep, 0x6EDB7E6F, LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075))
+			call SaveStr(YDLOC, ydl_triggerstep, 0x2480578D, "Survival\\HeroSkill\\2\\1.mdx")
+			call TriggerExecute(ydl_trigger)
+		else
+		endif
+	else
+	endif
+	call FlushChildHashtable(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step)
+	set ydl_trigger = null
+endfunction
+//===========================================================================
+function InitTrig_SeizeBody_2 takes nothing returns nothing
+	set gg_trg_SeizeBody_2 = CreateTrigger()
+	call TriggerAddAction(gg_trg_SeizeBody_2, function Trig_SeizeBody_2Actions)
+endfunction
+//===========================================================================
+// Trigger: SeizeBodyLua
+//===========================================================================
+function Trig_SeizeBodyLuaActions takes nothing returns nothing
+	local integer ydl_localvar_step = LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xCFDE6C76) 
+ set ydl_localvar_step = ydl_localvar_step + 3 
+ call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xCFDE6C76, ydl_localvar_step) 
+ call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xECE825E7, ydl_localvar_step)
+	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965, LoadInteger(YDHT, GetHandleId( GetTriggeringTrigger()), 0xB79E5965))
+	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x6F96F2D2, udg_CurrentSeizeBodyID[LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965)])
 	call SaveUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075, udg_Hero[LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965)])
-	call SaveInteger( udg_HTSeizeBodyID, LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965), udg_CurrentSeizeBodyID[LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965)], 0)
-	if ((GetStringFromExcel( "夺舍", udg_CurrentSeizeBodyID[LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965)], "Type") == "属性")) then
-		call ReduceUnitAttrStr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), GetStringFromExcel( "夺舍", udg_CurrentSeizeBodyID[LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965)], "Value1"))
-	else
-	endif
-	set udg_CurrentSeizeBodyID[LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965)] = LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x6F96F2D2)
-	call SaveInteger( udg_HTSeizeBodyID, LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965), udg_CurrentSeizeBodyID[LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965)], 1)
-	if ((GetStringFromExcel( "夺舍", udg_CurrentSeizeBodyID[LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965)], "Type") == "属性")) then
-		call AddUnitAttrStr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), GetStringFromExcel( "夺舍", udg_CurrentSeizeBodyID[LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965)], "Value1"))
-	else
-	endif
+	call AddUnitAttrStr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), GetStringFromExcel( "夺舍", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x6F96F2D2), "Attr"))
 	call SaveStr(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x4D9039EC, GetStringFromExcel( "夺舍", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x6F96F2D2), "Model"))
 	call SaveStr(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x7C181E3A, GetStringFromExcel( "夺舍", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x6F96F2D2), "Name"))
 	call SaveStr(YDHT, GetHandleId( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075)), 0xEBD1A75F, LoadStr(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x4D9039EC))
 	call SaveStr(YDHT, GetHandleId( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075)), 0xAC6659BB, LoadStr(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x7C181E3A))
 	if ((udg_CurrentHeroSkin[LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965)] == 0)) then
-		call SetUnitModel( udg_Hero[LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965)], LoadStr(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x4D9039EC))
+		call SetUnitModel( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), LoadStr(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x4D9039EC))
 		call SaveStr(YDHT, GetHandleId( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075)), 0x4D9039EC, LoadStr(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x4D9039EC))
 		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB54F5BCB, GetRealFromExcel( "夺舍", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x6F96F2D2), "ModelSize"))
-		call SetUnitScale( udg_Hero[LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965)], LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB54F5BCB), LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB54F5BCB), LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB54F5BCB))
+		call SetUnitScale( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB54F5BCB), LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB54F5BCB), LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB54F5BCB))
 		call SetUnitName( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), LoadStr(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x7C181E3A))
 	else
 	endif
 	call SaveStr(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x4B4BA3BB, GetStringFromExcel( "夺舍", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x6F96F2D2), "Tips"))
-	call SaveStr(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x4B4BA3BB, (( (( "|cff00f5a4[")+( LoadStr(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x7C181E3A))+( "]|r|n")))+( LoadStr(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x4B4BA3BB))+( "|n|n|ca7848484每提升25级开启一次夺舍;|n夺舍效果不继承;|n每次夺舍结束之后会将之前已夺舍的重新加入夺舍名单")))
+	call SaveStr(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x4B4BA3BB, (( (( "|cff00f5a4[")+( LoadStr(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x7C181E3A))+( "]|r|n")))+( LoadStr(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x4B4BA3BB))+( "|n|n|ca7848484每提升25级开启一次夺舍;|n每次夺舍会吞噬上次夺舍的技能")))
+	call SaveStr(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF4AF2106, GetStringFromExcel( "夺舍", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x6F96F2D2), "Icon"))
 	if ((udg_Player[LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965)] == GetLocalPlayer())) then
-		call YDWESetUnitAbilityDataString( udg_Hero[LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965)], 'A01G', 1, 218, LoadStr(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x4B4BA3BB))
+		call YDWESetUnitAbilityDataString( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 'A01G', 1, 218, LoadStr(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x4B4BA3BB))
+		call YDWESetUnitAbilityDataString( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 'A01G', 1, 204, LoadStr(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF4AF2106))
 	else
 	endif
 	call SelectUnitForPlayerSingle( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), udg_Player[LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965)])
@@ -4641,13 +4536,27 @@ function Trig_SeizeBodySyncActions takes nothing returns nothing
 	call YDWETimerDestroyEffect( 2, LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA))
 	call MoveLocation( udg_BackHomeP, GetUnitX( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075)), GetUnitY( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075)))
 	call PanCameraToTimedLocForPlayer( udg_Player[LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965)], udg_BackHomeP, 0.00)
+	if ((LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x6F96F2D2) == 1)) then
+		call SaveEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA, AddSpecialEffect( "Survival\\HeroSkill\\1\\1.mdx", LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x0E20876F), LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x4FB814AA)))
+		call EXSetEffectSize( LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA), 1.00)
+		//加入堆栈
+		call SaveReal(YDHT, GetHandleId( LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA)), 0x492546AF, 9999.00)
+		call SaveUnitHandle(YDHT, GetHandleId( LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA)), 0x6EDB7E6F, LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075))
+		set udg_Follow_Stack_Top = (udg_Follow_Stack_Top + 1)
+		set udg_Follow_Stack_Effect[udg_Follow_Stack_Top] = LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA)
+	else
+	endif
+	if ((LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x6F96F2D2) == 5)) then
+		set udg_DrawCardCostReduce[LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965)] = (udg_DrawCardCostReduce[LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965)] + GetRealFromExcel( "夺舍", 5, "Value3"))
+		set udg_PlayerDiamond[LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965)] = (udg_PlayerDiamond[LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965)] + I2R( GetRandomInt( GetIntegerFromExcel( "夺舍", 5, "Value1"), GetIntegerFromExcel( "夺舍", 5, "Value2"))))
+	else
+	endif
 	call FlushChildHashtable(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step)
 endfunction
 //===========================================================================
-function InitTrig_SeizeBodySync takes nothing returns nothing
-	set gg_trg_SeizeBodySync = CreateTrigger()
-	call DzTriggerRegisterSyncData(gg_trg_SeizeBodySync, "SeizeBody", false)
-	call TriggerAddAction(gg_trg_SeizeBodySync, function Trig_SeizeBodySyncActions)
+function InitTrig_SeizeBodyLua takes nothing returns nothing
+	set gg_trg_SeizeBodyLua = CreateTrigger()
+	call TriggerAddAction(gg_trg_SeizeBodyLua, function Trig_SeizeBodyLuaActions)
 endfunction
 //===========================================================================
 // Trigger: SelectBMSync
@@ -4701,20 +4610,6 @@ function Trig_BuyBMSalesActions takes nothing returns nothing
 				call SaveStr(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x486F849F, (( "触发黑市免费购买!!!")+( "")+( "")))
 				call AddMessage(LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965), LoadStr(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x486F849F))
 			else
-				if ((LoadInteger( udg_HTSeizeBodyID, LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965), 3) == 1)) then
-					if ((GetRandomInt( 1, 100) == GetIntegerFromExcel( "夺舍", 3, "Value1"))) then
-						call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xA02F757A, GetIntegerFromExcel( "夺舍", 3, "Value2"))
-						call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x6A2C2609, GetIntegerFromExcel( "夺舍", 3, "Value3"))
-						call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x005BA438, (I2R( GetRandomInt( LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xA02F757A), LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x6A2C2609))) + 0.01))
-						call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB0B2675D, (LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x1A964D7F) + LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x005BA438)))
-						//发送消息提示
-						call SaveStr(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x486F849F, (( "返还金币|cfaffff00")+( I2S( R2I( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB0B2675D))))+( "")))
-						call AddMessage(LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965), LoadStr(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x486F849F))
-						call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x1A964D7F, (LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x1A964D7F) - LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB0B2675D)))
-					else
-					endif
-				else
-				endif
 				set udg_PlayerGold[LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965)] = (udg_PlayerGold[LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965)] - LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x1A964D7F))
 			endif
 			call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x53BEBEFA, (LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x53BEBEFA) + 1))
@@ -4831,9 +4726,6 @@ function Trig_BlackMarketInitActions takes nothing returns nothing
 	set udg_BlackMarketSkill[6] = 'A013'
 	set udg_BlackMarketSkill[7] = 'A014'
 	set udg_BlackMarketSkill[8] = 'A015'
-	set udg_BlackMarketSkill[9] = 'A016'
-	set udg_BlackMarketSkill[10] = 'A017'
-	set udg_BlackMarketSkill[11] = 'A018'
 	set udg_BlackMarketSkill[12] = 'A019'
 	set udg_BlackMarket[1] = gg_unit_h00H_0114
 	set udg_BlackMarket[2] = gg_unit_h00H_0108
@@ -4846,7 +4738,6 @@ function Trig_BlackMarketInitActions takes nothing returns nothing
 		call EXSetEffectZ( LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA), 80.00)
 		call EXSetEffectSize( LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA), 0.80)
 		call SaveEffectHandle(YDHT, GetHandleId( udg_BlackMarket[ydul_index]), 0xF337C144, LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA))
-		call Effect_Show( LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA), false)
 		set ydul_index = ydul_index + 1
 	endloop
 	set ydul_count = 1
@@ -4863,154 +4754,93 @@ function InitTrig_BlackMarketInit takes nothing returns nothing
 	call TriggerAddAction(gg_trg_BlackMarketInit, function Trig_BlackMarketInitActions)
 endfunction
 //===========================================================================
-// Trigger: CreateNormalEnemy
+// Trigger: SpawnAttackMonsters
 //===========================================================================
-function Trig_CreateNormalEnemyActions takes nothing returns nothing
-	local integer ydul_playerID
-	local integer ydul_count
-	local integer ydl_localvar_step = LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xCFDE6C76) 
- set ydl_localvar_step = ydl_localvar_step + 3 
- call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xCFDE6C76, ydl_localvar_step) 
- call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xECE825E7, ydl_localvar_step)
-	set ydul_playerID = 1
-	loop
-		exitwhen ydul_playerID > 4
-		call SaveUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075, udg_Hero[ydul_playerID])
-		call SavePlayerHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xA59BB4C6, udg_Player[ydul_playerID])
-		call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965, ydul_playerID)
-		if ((udg_Hero[LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965)] != null)) then
-			call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x1CA61CEC, LoadReal(YDHT, GetHandleId( LoadPlayerHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xA59BB4C6)), 0x28B8D578))
-			call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x1CA61CEC, (LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x1CA61CEC) + 0.10))
-			if ((LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x1CA61CEC) >= udg_ProduceNormalEnemySpeed[ydul_playerID])) then
-				call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x59831F26, (( R2I( udg_GameTime)) /( 60) +( 1)))
-				call SaveInteger(YDHT, 'h004', 0x200B34C8, (LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x59831F26) + 20))
-				call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x59831F26, (( R2I( udg_GameTime)) /( 300) +( 1)))
-				call SaveInteger(YDHT, udg_RemoteEnemyType[LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x59831F26)], 0x200B34C8, (LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x59831F26) + 60))
-				call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xAB08DC2F, GetUnitX( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075)))
-				call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x03973DD2, GetUnitY( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075)))
-				set ydul_count = 1
-				loop
-					exitwhen ydul_count > udg_ProduceNormalEnemyCount[LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965)]
-					call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x5FCC4134, GetRandomReal( 3000.00, 4000.00))
-					call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x9966AD24, (( udg_PositionAngle[LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965)])+( ( GetRandomReal( -13.00, 13.00)))))
-					call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xA99320FA, (( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x5FCC4134)) *( CosBJ( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x9966AD24))) +( 0)))
-					call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xFDF65382, (( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x5FCC4134)) *( SinBJ( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x9966AD24))) +( 0)))
-					if ((GetRandomInt( 1, 100) <= 90)) then
-						call SaveUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB6A6EBAA, CreateUnit( ConvertedPlayer( (LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965) + 4)), 'h004', LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xA99320FA), LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xFDF65382), 0))
-					else
-						call SaveUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB6A6EBAA, CreateUnit( ConvertedPlayer( (LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965) + 4)), udg_RemoteEnemyType[LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x59831F26)], LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xA99320FA), LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xFDF65382), 0))
-					endif
-					call IssuePointOrder( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB6A6EBAA), "attack", LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xAB08DC2F), LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x03973DD2))
-					set ydul_count = ydul_count + 1
-				endloop
-				set udg_CurrentEnemyCount = (udg_CurrentEnemyCount + udg_ProduceNormalEnemyCount[LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965)])
-				call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x1CA61CEC, 0.00)
-			else
-			endif
-			call SaveReal(YDHT, GetHandleId( LoadPlayerHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xA59BB4C6)), 0x28B8D578, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x1CA61CEC))
-		else
-		endif
-		set ydul_playerID = ydul_playerID + 1
-	endloop
-	call FlushChildHashtable(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step)
-endfunction
-//===========================================================================
-function InitTrig_CreateNormalEnemy takes nothing returns nothing
-	set gg_trg_CreateNormalEnemy = CreateTrigger()
-	call TriggerAddAction(gg_trg_CreateNormalEnemy, function Trig_CreateNormalEnemyActions)
-endfunction
-//===========================================================================
-// Trigger: CreateEliteAndBoss
-//===========================================================================
-function Trig_CreateEliteAndBossActions takes nothing returns nothing
-	local integer ydul_playerID
-	local integer ydul_count
+function Trig_SpawnAttackMonstersActions takes nothing returns nothing
 	local integer ydul_index
 	local integer ydl_localvar_step = LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xCFDE6C76) 
  set ydl_localvar_step = ydl_localvar_step + 3 
  call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xCFDE6C76, ydl_localvar_step) 
  call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xECE825E7, ydl_localvar_step)
-	set ydul_playerID = 1
-	loop
-		exitwhen ydul_playerID > 4
-		call SaveUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075, udg_Hero[ydul_playerID])
-		call SavePlayerHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xA59BB4C6, udg_Player[ydul_playerID])
-		call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965, ydul_playerID)
-		if ((udg_Hero[LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965)] != null)) then
-			call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x1CA61CEC, LoadReal(YDHT, GetHandleId( LoadPlayerHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xA59BB4C6)), 0x7E7545CE))
-			call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x1CA61CEC, (LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x1CA61CEC) + 1.00))
-			if ((LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x1CA61CEC) >= udg_ProduceEliteEnemySpeed[LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965)])) then
-				call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x59831F26, (( R2I( udg_GameTime)) /( 300) +( 1)))
-				call SaveInteger(YDHT, 'h00B', 0x200B34C8, (LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x59831F26) + 70))
-				set ydul_count = 1
-				loop
-					exitwhen ydul_count > udg_ProduceEliteEnemyCount[LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965)]
-					call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x5FCC4134, GetRandomReal( 3500.00, 4500.00))
-					call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x9966AD24, (( udg_PositionAngle[LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965)])+( ( GetRandomReal( -13.00, 13.00)))))
-					call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xA99320FA, (( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x5FCC4134)) *( CosBJ( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x9966AD24))) +( 0)))
-					call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xFDF65382, (( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x5FCC4134)) *( SinBJ( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x9966AD24))) +( 0)))
-					call SaveUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB6A6EBAA, CreateUnit( ConvertedPlayer( (LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965) + 4)), 'h00B', LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xA99320FA), LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xFDF65382), 0))
-					call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xAB08DC2F, GetUnitX( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075)))
-					call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x03973DD2, GetUnitY( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075)))
-					call IssuePointOrder( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB6A6EBAA), "attack", LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xAB08DC2F), LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x03973DD2))
-					set udg_CurrentEnemyCount = (udg_CurrentEnemyCount + 1)
-					set ydul_count = ydul_count + 1
-				endloop
-				call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x1CA61CEC, 0.00)
-			else
-			endif
-			call SaveReal(YDHT, GetHandleId( LoadPlayerHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xA59BB4C6)), 0x7E7545CE, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x1CA61CEC))
-			call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x1CA61CEC, LoadReal(YDHT, GetHandleId( LoadPlayerHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xA59BB4C6)), 0x5FA03472))
-			call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x1CA61CEC, (LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x1CA61CEC) + 1.00))
-			if ((LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x1CA61CEC) >= 300.00)) then
-				call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x59831F26, (( R2I( udg_GameTime)) /( 300) +( 0)))
-				call SaveInteger(YDHT, 'h00C', 0x200B34C8, (LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x59831F26) + 80))
-				call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x5FCC4134, GetRandomReal( 3000.00, 4000.00))
-				call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x9966AD24, (( udg_PositionAngle[LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965)])+( 0.00)))
-				call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xA99320FA, (( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x5FCC4134)) *( CosBJ( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x9966AD24))) +( 0)))
-				call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xFDF65382, (( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x5FCC4134)) *( SinBJ( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x9966AD24))) +( 0)))
-				call SaveUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB6A6EBAA, CreateUnit( ConvertedPlayer( (LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965) + 4)), 'h00C', LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xA99320FA), LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xFDF65382), 0))
-				call SaveInteger(YDHT, GetHandleId( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB6A6EBAA)), 0x6F96F2D2, (LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x59831F26) + 80))
-				call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x6CFAA723, GetIntegerFromExcel( "怪物数值", (LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x59831F26) + 80), "技能数量"))
-				set ydul_index = 1
-				loop
-					exitwhen ydul_index > LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x6CFAA723)
-					call UnitAddAbility( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB6A6EBAA), udg_BossSkillVest[(( (LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x59831F26) - 1)) *( 5) +( ydul_index))])
-					set ydul_index = ydul_index + 1
-				endloop
-				call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xAB08DC2F, GetUnitX( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075)))
-				call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x03973DD2, GetUnitY( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075)))
-				call IssuePointOrder( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB6A6EBAA), "attack", LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xAB08DC2F), LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x03973DD2))
-				set udg_CurrentEnemyCount = (udg_CurrentEnemyCount + 1)
-				call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x1CA61CEC, 0.00)
-				call SaveStr(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x486F849F, "Boss来袭!!!击败可提升黑市等级并获得大量钻石")
-				call AddMessage(LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965), LoadStr(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x486F849F))
-				call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x19F17B30, (( LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x59831F26)) +( 0) +( 80)))
-				call BossComing(LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965), LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x19F17B30))
-			else
-			endif
-			call SaveReal(YDHT, GetHandleId( LoadPlayerHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xA59BB4C6)), 0x5FA03472, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x1CA61CEC))
+	if ((ModuloInteger( R2I( udg_GameTime), 120) == 0)) then
+		set udg_CurrentMonsterWave = (udg_CurrentMonsterWave + 1)
+		call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x59831F26, (( 20) +( udg_CurrentMonsterWave) +( 0)))
+		call SaveInteger(YDHT, 'h00B', 0x200B34C8, (LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x59831F26) + 0))
+		call SaveInteger(YDHT, 'h00I', 0x200B34C8, (udg_CurrentMonsterWave + 41))
+		set udg_LgfMaxAmount = GetIntegerFromExcel( "怪物数值", (41 + udg_CurrentMonsterWave), "Value1")
+		set udg_SpawnNormalMonstersCount = 15
+		set udg_SpawnNormalMonsters = true
+		if ((ModuloInteger( udg_CurrentMonsterWave, 3) == 0)) then
+			call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB96A30C1, (( udg_CurrentMonsterWave) /( 3) +( 0)))
+			call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x59831F26, (( 80) +( LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB96A30C1)) +( 0)))
+			call SaveInteger(YDHT, 'h00C', 0x200B34C8, (LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x59831F26) + 0))
+			call SaveUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB6A6EBAA, CreateUnit( Player(4), 'h00C', 0.00, 5900.00, 270.00))
+			call IssuePointOrder( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB6A6EBAA), "attack", 0.00, 0.00)
+			call SaveInteger(YDHT, GetHandleId( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB6A6EBAA)), 0x6F96F2D2, (LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x59831F26) + 0))
+			call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x6CFAA723, GetIntegerFromExcel( "怪物数值", (LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x59831F26) + 0), "技能数量"))
+			set ydul_index = 1
+			loop
+				exitwhen ydul_index > LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x6CFAA723)
+				call UnitAddAbility( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB6A6EBAA), udg_BossSkillVest[(( (LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB96A30C1) - 1)) *( 5) +( ydul_index))])
+				set ydul_index = ydul_index + 1
+			endloop
+			call SaveStr(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x486F849F, "Boss来袭!!!")
+			call AddMessage(0, LoadStr(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x486F849F))
+			call BossComing(0, LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x59831F26))
 		else
 		endif
-		set ydul_playerID = ydul_playerID + 1
-	endloop
+	else
+	endif
 	call FlushChildHashtable(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step)
 endfunction
 //===========================================================================
-function InitTrig_CreateEliteAndBoss takes nothing returns nothing
-	set gg_trg_CreateEliteAndBoss = CreateTrigger()
-	call TriggerAddAction(gg_trg_CreateEliteAndBoss, function Trig_CreateEliteAndBossActions)
+function InitTrig_SpawnAttackMonsters takes nothing returns nothing
+	set gg_trg_SpawnAttackMonsters = CreateTrigger()
+	call TriggerAddAction(gg_trg_SpawnAttackMonsters, function Trig_SpawnAttackMonstersActions)
+endfunction
+//===========================================================================
+// Trigger: SpawnNormalMonsters
+//===========================================================================
+function Trig_SpawnNormalMonstersActions takes nothing returns nothing
+	local integer ydul_count
+	local integer ydl_localvar_step = LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xCFDE6C76) 
+ set ydl_localvar_step = ydl_localvar_step + 3 
+ call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xCFDE6C76, ydl_localvar_step) 
+ call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xECE825E7, ydl_localvar_step)
+	if ((udg_SpawnNormalMonsters == true)) then
+		set ydul_count = 1
+		loop
+			exitwhen ydul_count > 3
+			call SaveUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB6A6EBAA, CreateUnit( Player(4), 'h00B', (( I2R( (ydul_count - 2))) *( 300.00) +( 0)), 6150.00, 270.00))
+			call IssuePointOrder( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB6A6EBAA), "attack", 0.00, 0.00)
+			set ydul_count = ydul_count + 1
+		endloop
+		set udg_SpawnNormalMonstersCount = (udg_SpawnNormalMonstersCount - 1)
+		if ((udg_SpawnNormalMonstersCount <= 0)) then
+			set udg_SpawnNormalMonsters = false
+		else
+		endif
+	else
+	endif
+	call FlushChildHashtable(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step)
+endfunction
+//===========================================================================
+function InitTrig_SpawnNormalMonsters takes nothing returns nothing
+	set gg_trg_SpawnNormalMonsters = CreateTrigger()
+	call TriggerAddAction(gg_trg_SpawnNormalMonsters, function Trig_SpawnNormalMonstersActions)
 endfunction
 //===========================================================================
 // Trigger: WBInit
 //===========================================================================
 function Trig_WBInitActions takes nothing returns nothing
-	set udg_RemoteEnemyType[1] = 'h005'
-	set udg_RemoteEnemyType[2] = 'h006'
-	set udg_RemoteEnemyType[3] = 'h007'
-	set udg_RemoteEnemyType[4] = 'h008'
-	set udg_RemoteEnemyType[5] = 'h009'
-	set udg_RemoteEnemyType[6] = 'h00A'
+	set udg_HomeEnemyPoints[1] = Location( -5888.00, 3073.00)
+	set udg_HomeEnemyPoints[2] = Location( -5888.00, -2043.00)
+	set udg_HomeEnemyPoints[3] = Location( 5888.00, -2043.00)
+	set udg_HomeEnemyPoints[4] = Location( 5888.00, 3073.00)
+	set udg_HomePoints[1] = Location( -5888.00, 1022.00)
+	set udg_HomePoints[2] = Location( -5888.00, -4092.00)
+	set udg_HomePoints[3] = Location( 5888.00, -4091.00)
+	set udg_HomePoints[4] = Location( 5888.00, 1022.00)
 endfunction
 //===========================================================================
 function InitTrig_WBInit takes nothing returns nothing
@@ -5021,6 +4851,138 @@ endfunction
 // Trigger: UnitDead
 //===========================================================================
 function Trig_UnitDeadActions takes nothing returns nothing
+	local integer ydl_triggerstep
+	local trigger ydl_trigger
+	local integer ydul_index
+	local integer ydl_localvar_step = LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xCFDE6C76) 
+ set ydl_localvar_step = ydl_localvar_step + 3 
+ call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xCFDE6C76, ydl_localvar_step) 
+ call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xECE825E7, ydl_localvar_step)
+	if ((IsUnitEnemy( GetDyingUnit(), Player(0)) == true)) then
+		call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x2E5BFC40, GetConvertedPlayerId( GetOwningPlayer( GetDyingUnit())))
+		call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x54EB5B10, GetConvertedPlayerId( GetOwningPlayer( GetKillingUnitBJ())))
+		call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965, (LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x2E5BFC40) - 4))
+		call SaveUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075, udg_Hero[LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965)])
+		call SaveUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB10E728E, GetKillingUnitBJ())
+		if ((GetUnitTypeId( GetDyingUnit()) == 'h000')) then
+			call GroupRemoveUnit( udg_QuestMonsterGroup[LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965)], GetDyingUnit())
+			if ((CountUnitsInGroup( udg_QuestMonsterGroup[LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965)]) == 0)) then
+				set udg_IsInQuest[LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965)] = false
+				set udg_CurrentQuestIndex[LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965)] = (udg_CurrentQuestIndex[LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965)] + 1)
+			else
+			endif
+		else
+		endif
+		if ((GetUnitTypeId( GetDyingUnit()) == 'h00I')) then
+			call GroupRemoveUnit( udg_LgfMonsterGroup[LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965)], GetDyingUnit())
+			set udg_LgfWoodMonsterRemainingKills[LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965)] = (udg_LgfWoodMonsterRemainingKills[LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965)] - 1)
+			if ((udg_LgfWoodMonsterRemainingKills[LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965)] <= 0)) then
+				set udg_LgfWoodMonsterRemainingKills[LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965)] = (udg_LgfWoodMonsterRequiredKills - udg_LgfWoodMonsterReduceKills[LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965)])
+				set ydl_trigger = gg_trg_SpawnWoodMonster
+				set ydl_triggerstep = GetHandleId(ydl_trigger)*(LoadInteger(YDLOC, GetHandleId(ydl_trigger), 0xCFDE6C76) + 3)
+				call SaveInteger(YDLOC, ydl_triggerstep, 0xB79E5965, LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965))
+				call TriggerExecute(ydl_trigger)
+			else
+			endif
+		else
+		endif
+		if ((GetUnitTypeId( GetDyingUnit()) == 'h001')) then
+			if (true) then
+				call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xA813C8FF, (( udg_KillWoodDiamond[LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965)]) *( (( 1.00) +( 0.01) *( Unit_GetAttr( udg_Hero[LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965)], 69)))) +( 0)))
+				set udg_PlayerDiamond[LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965)] = (udg_PlayerDiamond[LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965)] + LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xA813C8FF))
+				call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xA99320FA, GetUnitX( GetDyingUnit()))
+				call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xFDF65382, GetUnitY( GetDyingUnit()))
+				call SaveEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA, AddSpecialEffect( "Survival\\OtherEffect\\FallDiamond\\1.mdx", LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xA99320FA), LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xFDF65382)))
+				call EXSetEffectSize( LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA), 2.00)
+				call DestroyEffect( LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA))
+			else
+			endif
+		else
+		endif
+		if ((LoadBoolean(YDHT, GetHandleId( GetTriggerUnit()), 0x24B6F8FF) == true)) then
+			call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xA813C8FF, (( udg_KillBossDiamond[LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965)]) *( (( 1.00) +( 0.01) *( Unit_GetAttr( udg_Hero[LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965)], 69)))) +( 0)))
+			set udg_PlayerDiamond[LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965)] = (udg_PlayerDiamond[LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965)] + LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xA813C8FF))
+			call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xA99320FA, GetUnitX( GetDyingUnit()))
+			call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xFDF65382, GetUnitY( GetDyingUnit()))
+			call SaveEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA, AddSpecialEffect( "Survival\\OtherEffect\\FallDiamond\\1.mdx", LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xA99320FA), LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xFDF65382)))
+			call DestroyEffect( LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA))
+			if ((LoadInteger(YDHT, GetHandleId( GetDyingUnit()), 0x6F96F2D2) == 85)) then
+				call ShowUnit( gg_unit_h00K_0018, true)
+				call GameWin()
+			else
+			endif
+			call KillAttackBoss()
+			call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x19F17B30, LoadInteger(YDHT, GetUnitTypeId( GetDyingUnit()), 0x200B34C8))
+			if ((LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x19F17B30) >= 180)) then
+				call KillArchiveBoss(LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x19F17B30))
+			else
+			endif
+		else
+		endif
+		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x86E403D6, (( 1.00) *( (( 1.00) +( 0.01) *( Unit_GetAttr( udg_Hero[LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x54EB5B10)], 68)))) +( 0)))
+		set udg_PlayerKills[LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x54EB5B10)] = (udg_PlayerKills[LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x54EB5B10)] + LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x86E403D6))
+		if ((Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB10E728E), 21) > 0.00)) then
+			call Unit_SetAttrBJ( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB10E728E), 1, 0, Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB10E728E), 21))
+		else
+		endif
+		if ((Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB10E728E), 23) > 0.00)) then
+			call Unit_SetAttrBJ( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB10E728E), 2, 0, Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB10E728E), 23))
+		else
+		endif
+		if ((Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB10E728E), 22) > 0.00)) then
+			call Unit_SetAttrBJ( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB10E728E), 3, 0, Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB10E728E), 22))
+		else
+		endif
+		if ((Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB10E728E), 24) > 0.00)) then
+			call Unit_SetAttrBJ( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB10E728E), 4, 0, Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB10E728E), 24))
+		else
+		endif
+		if ((Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB10E728E), 25) > 0.00)) then
+			call Unit_SetAttrBJ( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB10E728E), 5, 0, Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB10E728E), 25))
+		else
+		endif
+		if ((Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB10E728E), 26) > 0.00)) then
+			call Unit_SetAttrBJ( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB10E728E), 6, 0, Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB10E728E), 26))
+		else
+		endif
+		if ((Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB10E728E), 27) > 0.00)) then
+			call Unit_SetAttrBJ( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB10E728E), 7, 0, Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB10E728E), 27))
+		else
+		endif
+		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x571B6555, LoadReal(YDHT, GetHandleId( GetTriggerUnit()), 0x571B6555))
+		call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x571B6555, R2I( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x571B6555)))
+		set ydul_index = 1
+		loop
+			exitwhen ydul_index > 10
+			call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x080306DC, GetUnitLevel( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075)))
+			if ((DzGetUnitNeededXP( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), (LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x080306DC) + 1)) < (GetHeroXP( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075)) + LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x571B6555)))) then
+				call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x60CA04BC, (DzGetUnitNeededXP( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), (LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x080306DC) + 0)) - GetHeroXP( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075))))
+				call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x571B6555, (LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x571B6555) - LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x60CA04BC)))
+				call AddHeroXP( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x60CA04BC), true)
+			else
+				call AddHeroXP( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x571B6555), true)
+				exitwhen true
+			endif
+			set ydul_index = ydul_index + 1
+		endloop
+		call FlushChildHashtable(YDHT, GetHandleId( GetDyingUnit()))
+		call RemoveUnit( GetDyingUnit())
+	else
+		call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965, GetConvertedPlayerId( GetOwningPlayer( GetDyingUnit())))
+		if ((GetTriggerUnit() == udg_Hero[GetConvertedPlayerId( GetOwningPlayer( GetTriggerUnit()))])) then
+			if ((udg_HeroImmediatelyRelive[LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965)] > 0)) then
+				set udg_HeroImmediatelyRelive[LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965)] = (udg_HeroImmediatelyRelive[LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965)] - 1)
+				call SaveReal(YDHT, GetHandleId( GetTriggerUnit()), 0x6FB310A4, 0.50)
+			else
+				call SaveEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA, LoadEffectHandle(YDHT, GetHandleId( GetTriggerUnit()), 0x5A37D7E8))
+				call Effect_Show( LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA), true)
+				call SaveReal(YDHT, GetHandleId( GetTriggerUnit()), 0x6FB310A4, 5.00)
+			endif
+		else
+		endif
+	endif
+	call FlushChildHashtable(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step)
+	set ydl_trigger = null
 endfunction
 //===========================================================================
 function InitTrig_UnitDead takes nothing returns nothing
@@ -5029,9 +4991,9 @@ function InitTrig_UnitDead takes nothing returns nothing
 	call TriggerAddAction(gg_trg_UnitDead, function Trig_UnitDeadActions)
 endfunction
 //===========================================================================
-// Trigger: PressKeyA
+// Trigger: PressKeyEsc
 //===========================================================================
-function Trig_PressKeyAActions takes nothing returns nothing
+function Trig_PressKeyEscActions takes nothing returns nothing
 	local integer ydl_localvar_step = LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xCFDE6C76) 
  set ydl_localvar_step = ydl_localvar_step + 3 
  call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xCFDE6C76, ydl_localvar_step) 
@@ -5050,10 +5012,32 @@ function Trig_PressKeyAActions takes nothing returns nothing
 	call FlushChildHashtable(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step)
 endfunction
 //===========================================================================
-function InitTrig_PressKeyA takes nothing returns nothing
-	set gg_trg_PressKeyA = CreateTrigger()
-	call DzTriggerRegisterKeyEventTrg(gg_trg_PressKeyA, 1, 27)
-	call TriggerAddAction(gg_trg_PressKeyA, function Trig_PressKeyAActions)
+function InitTrig_PressKeyEsc takes nothing returns nothing
+	set gg_trg_PressKeyEsc = CreateTrigger()
+	call DzTriggerRegisterKeyEventTrg(gg_trg_PressKeyEsc, 1, 27)
+	call TriggerAddAction(gg_trg_PressKeyEsc, function Trig_PressKeyEscActions)
+endfunction
+//===========================================================================
+// Trigger: F3
+//===========================================================================
+function Trig_F3Actions takes nothing returns nothing
+	local integer ydl_localvar_step = LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xCFDE6C76) 
+ set ydl_localvar_step = ydl_localvar_step + 3 
+ call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xCFDE6C76, ydl_localvar_step) 
+ call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xECE825E7, ydl_localvar_step)
+	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965, GetConvertedPlayerId( DzGetTriggerKeyPlayer()))
+	call SelectUnitForPlayerSingle( udg_Hero[LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965)], udg_Player[LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965)])
+	call SetUnitPositionLoc( udg_Hero[LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965)], udg_HomePoints[LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965)])
+	call PanCameraToTimedLocForPlayer( udg_Player[LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965)], udg_HomePoints[LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965)], 0.00)
+	call SaveEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA, AddSpecialEffectLoc( "Survival\\OtherEffect\\BackHome\\1.mdx", udg_HomePoints[LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965)]))
+	call DestroyEffect( LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA))
+	call FlushChildHashtable(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step)
+endfunction
+//===========================================================================
+function InitTrig_F3 takes nothing returns nothing
+	set gg_trg_F3 = CreateTrigger()
+	call DzTriggerRegisterKeyEventTrg(gg_trg_F3, 1, 114)
+	call TriggerAddAction(gg_trg_F3, function Trig_F3Actions)
 endfunction
 //===========================================================================
 // Trigger: F2
@@ -5176,7 +5160,7 @@ function Trig_BackHomeActions takes nothing returns nothing
 	call SavePlayerHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xA59BB4C6, GetOwningPlayer( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075)))
 	call SaveUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075, GetSpellAbilityUnit())
 	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965, GetConvertedPlayerId( GetOwningPlayer( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075))))
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x5FCC4134, 1200.00)
+	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x5FCC4134, 600.00)
 	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xA99320FA, (( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x5FCC4134)) *( CosBJ( udg_PositionAngle[LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965)])) +( 0)))
 	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xFDF65382, (( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x5FCC4134)) *( SinBJ( udg_PositionAngle[LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965)])) +( 0)))
 	call SetUnitX( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xA99320FA))
@@ -5274,7 +5258,7 @@ function Trig_D___uActions takes nothing returns nothing
 		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x0E20876F, GetUnitX( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075)))
 		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x4FB814AA, GetUnitY( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075)))
 		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x9966AD24, Atan2BJ( (LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xA9CA5988) - LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x4FB814AA)), (LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF17A5750) - LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x0E20876F))))
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x47527379, RMinBJ( 1000.00, DistanceBetweenPoints_XY( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x0E20876F), LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x4FB814AA), LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF17A5750), LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xA9CA5988))))
+		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x47527379, RMinBJ( 1500.00, DistanceBetweenPoints_XY( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x0E20876F), LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x4FB814AA), LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF17A5750), LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xA9CA5988))))
 		call SaveStr(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x2480578D, LoadStr(YDHT, GetHandleId( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075)), 0x4D9039EC))
 		call SaveEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA, AddSpecialEffect( LoadStr(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x2480578D), LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x0E20876F), LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x4FB814AA)))
 		call Effect_SetAnimation( LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA), "walk", "")
@@ -5376,13 +5360,6 @@ function Trig_HeroReliveActions takes nothing returns nothing
 					call PanCameraToTimedLocForPlayer( udg_Player[ydul_playerID], udg_BackHomeP, 0)
 					call ReviveHero( udg_Hero[ydul_playerID], LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xA99320FA), LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xFDF65382), true)
 					call SelectUnitForPlayerSingle( udg_Hero[ydul_playerID], udg_Player[ydul_playerID])
-					if ((LoadInteger( udg_HTSeizeBodyID, LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965), 6) == 1)) then
-						call SaveStr(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x917820E0, GetStringFromExcel( "夺舍", 6, "Value1"))
-						call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x7212AF29, GetRealFromExcel( "夺舍", 6, "Value2"))
-						call AddUnitAttrStr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), LoadStr(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x917820E0))
-						call ReduceAttrAfterTime(LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), LoadStr(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x917820E0), LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x7212AF29))
-					else
-					endif
 				else
 				endif
 			else
@@ -5413,7 +5390,7 @@ function Trig_HeroAttrInitActions takes nothing returns nothing
 		if ((GetPlayerSlotState( ConvertedPlayer( ydul_playerID)) == PLAYER_SLOT_STATE_PLAYING) and (GetPlayerController( ConvertedPlayer( ydul_playerID)) == MAP_CONTROL_USER)) then
 			call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965, ydul_playerID)
 			call SetPlayerAlliance( Player(PLAYER_NEUTRAL_PASSIVE), udg_Player[LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965)], ALLIANCE_SHARED_CONTROL, true)
-			call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x5FCC4134, 1200.00)
+			call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x5FCC4134, 600.00)
 			call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xA99320FA, (( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x5FCC4134)) *( CosBJ( udg_PositionAngle[LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965)])) +( 0)))
 			call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xFDF65382, (( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x5FCC4134)) *( SinBJ( udg_PositionAngle[LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965)])) +( 0)))
 			call SaveUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075, CreateUnit( udg_Player[LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965)], 'E00Y', LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xA99320FA), LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xFDF65382), (( udg_PositionAngle[LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965)])+( 0.00))))
@@ -5421,24 +5398,30 @@ function Trig_HeroAttrInitActions takes nothing returns nothing
 			call MoveLocation( udg_BackHomeP, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xA99320FA), LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xFDF65382))
 			call PanCameraToTimedLocForPlayer( udg_Player[LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965)], udg_BackHomeP, 0.00)
 			call SelectUnitForPlayerSingle( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), udg_Player[LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965)])
-			call Unit_SetAttrBJ( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 1, 2, 1000.00)
-			call Unit_SetAttrBJ( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 2, 2, 5.00)
+			call Unit_SetAttrBJ( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 2, 2, 1000.00)
+			call Unit_SetAttrBJ( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 1, 2, 5.00)
 			call Unit_SetAttrBJ( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 3, 2, 5.00)
+			call Unit_SetAttrBJ( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 8, 2, 10.00)
+			call Unit_SetAttrBJ( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 9, 2, 100.00)
 			call Unit_SetAttrBJ( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 4, 2, 5.00)
 			call Unit_SetAttrBJ( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 5, 2, 5.00)
-			call Unit_SetAttrBJ( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 8, 2, 100.00)
-			call Unit_SetAttrBJ( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 9, 2, 5.00)
-			call Unit_SetAttrBJ( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 18, 2, 5.00)
-			call Unit_SetAttrBJ( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 6, 2, 10.00)
-			call Unit_SetAttrBJ( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 17, 2, 350.00)
-			call Unit_SetAttrBJ( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 10, 2, 100.00)
-			call Unit_SetAttrBJ( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 11, 2, 1.00)
-			call Unit_SetAttrBJ( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 12, 2, 500.00)
-			call Unit_SetAttrBJ( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 90, 2, 1.00)
-			call Unit_SetAttrBJ( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 91, 2, 1.00)
-			call Unit_SetAttrBJ( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 92, 2, 1.00)
-			call Unit_SetAttrBJ( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 93, 2, 1.00)
-			call Unit_SetAttrBJ( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 94, 2, 1.00)
+			call Unit_SetAttrBJ( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 6, 2, 5.00)
+			call Unit_SetAttrBJ( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 10, 2, 1.00)
+			call Unit_SetAttrBJ( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 11, 2, 800.00)
+			call Unit_SetAttrBJ( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 12, 2, 4.00)
+			call Unit_SetAttrBJ( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 13, 2, 20.00)
+			call Unit_SetAttrBJ( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 121, 2, 1.00)
+			call Unit_SetAttrBJ( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 122, 2, 1.00)
+			call Unit_SetAttrBJ( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 123, 2, 1.00)
+			call Unit_SetAttrBJ( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 128, 2, 1.00)
+			call Unit_SetAttrBJ( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 124, 2, 1.00)
+			call Unit_SetAttrBJ( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 125, 2, 1.00)
+			call Unit_SetAttrBJ( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 126, 2, 1.00)
+			call Unit_SetAttrBJ( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 126, 2, 1.00)
+			call Unit_SetAttrBJ( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 14, 2, 0.50)
+			call Unit_SetAttrBJ( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 91, 2, 100.00)
+			call Unit_SetAttrBJ( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 90, 2, 100.00)
+			call Unit_SetAttrBJ( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 89, 2, 100.00)
 			call SaveStr(YDHT, GetHandleId( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075)), 0x4D9039EC, (EXExecuteScript("(require'jass.slk').unit[" + I2S( GetUnitTypeId( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075))) + "]." + "file")))
 			call SaveStr(YDHT, GetHandleId( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075)), 0xEBD1A75F, (EXExecuteScript("(require'jass.slk').unit[" + I2S( GetUnitTypeId( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075))) + "]." + "file")))
 			call SaveStr(YDHT, GetHandleId( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075)), 0xAC6659BB, GetUnitName( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075)))
@@ -5481,152 +5464,132 @@ endfunction
 //===========================================================================
 function Trig_ChangeAttrEventFunc002Conditions takes nothing returns nothing
 	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xBBE80D5D, GetUnitLifePercent( Unit_AttrEvent_GetUnit()))
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xD89DD821, (( Unit_GetAttr( Unit_AttrEvent_GetUnit(), 1)) *( (( 1.00) +( 0.01) *( Unit_GetAttr( Unit_AttrEvent_GetUnit(), 50)))) +( 0)))
+	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xD89DD821, (( Unit_GetAttr( Unit_AttrEvent_GetUnit(), 2)) *( (( 1.00) +( 0.01) *( Unit_GetAttr( Unit_AttrEvent_GetUnit(), 63)))) +( 0)))
 	call SetUnitState( Unit_AttrEvent_GetUnit(), UNIT_STATE_MAX_LIFE, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xD89DD821))
 	call SetUnitState( Unit_AttrEvent_GetUnit(), UNIT_STATE_LIFE, (( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xD89DD821)) *( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xBBE80D5D)) *( 0.01)))
 endfunction
 function Trig_ChangeAttrEventFunc004Conditions takes nothing returns nothing
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger()), 0x7AE5C8FB, (( Unit_GetAttr( Unit_AttrEvent_GetUnit(), 2)) *( (( 1.00) +( 0.01) *( Unit_GetAttr( Unit_AttrEvent_GetUnit(), 51)))) +( 0)))
+	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger()), 0x7AE5C8FB, (( Unit_GetAttr( Unit_AttrEvent_GetUnit(), 3)) *( (( 1.00) +( 0.01) *( Unit_GetAttr( Unit_AttrEvent_GetUnit(), 62)))) +( 0)))
 	call SetUnitState( Unit_AttrEvent_GetUnit(), ConvertUnitState(0x20), LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger()), 0x7AE5C8FB))
 endfunction
 function Trig_ChangeAttrEventFunc006Conditions takes nothing returns nothing
-	call SetUnitState( Unit_AttrEvent_GetUnit(), UNIT_STATE_MAX_MANA, Unit_GetAttr( Unit_AttrEvent_GetUnit(), 8))
+	call Unit_SetAttrBJ( Unit_AttrEvent_GetUnit(), 145, 2, Unit_GetAttr( Unit_AttrEvent_GetUnit(), 101))
 endfunction
 function Trig_ChangeAttrEventFunc008Conditions takes nothing returns nothing
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xB608BD73, (( Unit_GetAttr( Unit_AttrEvent_GetUnit(), 6)) *( (( 1.00) +( 0.01) *( Unit_GetAttr( Unit_AttrEvent_GetUnit(), 52)))) +( 0)))
-	call Unit_SetAttrBJ( Unit_AttrEvent_GetUnit(), 104, 2, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xB608BD73))
+	if ((Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xE6E64075), 12) > 10)) then
+		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xB921ECF7, (( (Unit_GetAttr( Unit_AttrEvent_GetUnit(), 12) - 10.00)) *( 0.05) -( 0.00)))
+		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xD4E08062, (( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xB921ECF7)) -( LoadReal(YDHT, GetHandleId( Unit_AttrEvent_GetUnit()), 0xB921ECF7)) -( 0.00)))
+		call SaveReal(YDHT, GetHandleId( Unit_AttrEvent_GetUnit()), 0xB921ECF7, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xB921ECF7))
+		call Unit_SetAttrBJ( Unit_AttrEvent_GetUnit(), 14, 0, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xD4E08062))
+	else
+	endif
 endfunction
 function Trig_ChangeAttrEventFunc010Conditions takes nothing returns nothing
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger()), 0x08001B1F, (( Unit_GetAttr( Unit_AttrEvent_GetUnit(), 3)) *( (( 1.00) +( 0.01) *( Unit_GetAttr( Unit_AttrEvent_GetUnit(), 53)))) +( 0)))
-	call Unit_SetAttrBJ( Unit_AttrEvent_GetUnit(), 101, 2, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger()), 0x08001B1F))
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger()), 0x79CDFF3A, (( 5.00) *( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger()), 0x08001B1F)) -( LoadReal(YDHT, GetHandleId( Unit_AttrEvent_GetUnit()), 0x0B487F9D))))
-	call Unit_SetAttrBJ( Unit_AttrEvent_GetUnit(), 1, 0, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger()), 0x79CDFF3A))
-	call SaveReal(YDHT, GetHandleId( Unit_AttrEvent_GetUnit()), 0x0B487F9D, (5.00 * LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger()), 0x08001B1F)))
+	if ((Unit_GetAttr( Unit_AttrEvent_GetUnit(), 7) > 0.00)) then
+		call Unit_SetAttrBJ( Unit_AttrEvent_GetUnit(), 4, 0, Unit_GetAttr( Unit_AttrEvent_GetUnit(), 7))
+		call Unit_SetAttrBJ( Unit_AttrEvent_GetUnit(), 5, 0, Unit_GetAttr( Unit_AttrEvent_GetUnit(), 7))
+		call Unit_SetAttrBJ( Unit_AttrEvent_GetUnit(), 6, 0, Unit_GetAttr( Unit_AttrEvent_GetUnit(), 7))
+		call Unit_SetAttr( Unit_AttrEvent_GetUnit(), 7, 0)
+	else
+	endif
 endfunction
 function Trig_ChangeAttrEventFunc012Conditions takes nothing returns nothing
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xDB00F13B, (( Unit_GetAttr( Unit_AttrEvent_GetUnit(), 4)) *( (( 1.00) +( 0.01) *( Unit_GetAttr( Unit_AttrEvent_GetUnit(), 54)))) +( 0)))
-	call Unit_SetAttrBJ( Unit_AttrEvent_GetUnit(), 102, 2, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xDB00F13B))
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger()), 0x79CDFF3A, (( 0.01) *( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xDB00F13B)) -( LoadReal(YDHT, GetHandleId( Unit_AttrEvent_GetUnit()), 0x4973D65A))))
+	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger()), 0x08001B1F, (( Unit_GetAttr( Unit_AttrEvent_GetUnit(), 4)) *( (( 1.00) +( 0.01) *( Unit_GetAttr( Unit_AttrEvent_GetUnit(), 64)))) +( 0)))
+	call Unit_SetAttrBJ( Unit_AttrEvent_GetUnit(), 142, 2, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger()), 0x08001B1F))
+	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger()), 0x1703458A, (( 5.00) *( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger()), 0x08001B1F)) +( 0.00)))
+	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger()), 0x79CDFF3A, (( 0.00) +( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger()), 0x1703458A)) -( LoadReal(YDHT, GetHandleId( Unit_AttrEvent_GetUnit()), 0x0B487F9D))))
 	call Unit_SetAttrBJ( Unit_AttrEvent_GetUnit(), 2, 0, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger()), 0x79CDFF3A))
-	call SaveReal(YDHT, GetHandleId( Unit_AttrEvent_GetUnit()), 0x4973D65A, (0.01 * LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xDB00F13B)))
+	call SaveReal(YDHT, GetHandleId( Unit_AttrEvent_GetUnit()), 0x0B487F9D, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger()), 0x1703458A))
+	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger()), 0x1703458A, (( 0.00) +( I2R( R2I( (( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger()), 0x08001B1F))/( 10.00))))) +( 0.00)))
+	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger()), 0x79CDFF3A, (( 0.00) +( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger()), 0x1703458A)) -( LoadReal(YDHT, GetHandleId( Unit_AttrEvent_GetUnit()), 0xCB6894FD))))
+	call Unit_SetAttrBJ( Unit_AttrEvent_GetUnit(), 8, 0, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger()), 0x1703458A))
+	call SaveReal(YDHT, GetHandleId( Unit_AttrEvent_GetUnit()), 0xCB6894FD, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger()), 0x1703458A))
 endfunction
 function Trig_ChangeAttrEventFunc014Conditions takes nothing returns nothing
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger()), 0x51BF50B2, (( Unit_GetAttr( Unit_AttrEvent_GetUnit(), 5)) *( (( 1.00) +( 0.01) *( Unit_GetAttr( Unit_AttrEvent_GetUnit(), 55)))) +( 0)))
-	call Unit_SetAttrBJ( Unit_AttrEvent_GetUnit(), 103, 2, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger()), 0x51BF50B2))
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger()), 0x79CDFF3A, (( 0.25) *( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger()), 0x51BF50B2)) -( LoadReal(YDHT, GetHandleId( Unit_AttrEvent_GetUnit()), 0x9D43C9B2))))
-	call Unit_SetAttrBJ( Unit_AttrEvent_GetUnit(), 6, 0, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger()), 0x79CDFF3A))
-	call SaveReal(YDHT, GetHandleId( Unit_AttrEvent_GetUnit()), 0x9D43C9B2, (0.25 * LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger()), 0x51BF50B2)))
+	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xDB00F13B, (( Unit_GetAttr( Unit_AttrEvent_GetUnit(), 5)) *( (( 1.00) +( 0.01) *( Unit_GetAttr( Unit_AttrEvent_GetUnit(), 65)))) +( 0)))
+	call Unit_SetAttrBJ( Unit_AttrEvent_GetUnit(), 143, 2, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xDB00F13B))
+	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger()), 0x1703458A, (( 0.00) +( I2R( R2I( (( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xDB00F13B))/( 10000.00))))) +( 0.00)))
+	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger()), 0x79CDFF3A, (( 0.00) +( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger()), 0x1703458A)) -( LoadReal(YDHT, GetHandleId( Unit_AttrEvent_GetUnit()), 0x38B98463))))
+	call Unit_SetAttrBJ( Unit_AttrEvent_GetUnit(), 9, 0, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger()), 0x1703458A))
+	call Unit_SetAttrBJ( Unit_AttrEvent_GetUnit(), 81, 0, (LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger()), 0x1703458A) * 0.10))
+	call SaveReal(YDHT, GetHandleId( Unit_AttrEvent_GetUnit()), 0x38B98463, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger()), 0x1703458A))
 endfunction
 function Trig_ChangeAttrEventFunc016Conditions takes nothing returns nothing
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger()), 0x84C53A3B, (( Unit_GetAttr( Unit_AttrEvent_GetUnit(), 19)) *( (( 1.00) +( 0.01) *( Unit_GetAttr( Unit_AttrEvent_GetUnit(), 61)))) +( 0)))
-	call Unit_SetAttrBJ( Unit_AttrEvent_GetUnit(), 100, 2, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger()), 0x84C53A3B))
+	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger()), 0x51BF50B2, (( Unit_GetAttr( Unit_AttrEvent_GetUnit(), 6)) *( (( 1.00) +( 0.01) *( Unit_GetAttr( Unit_AttrEvent_GetUnit(), 66)))) +( 0)))
+	call Unit_SetAttrBJ( Unit_AttrEvent_GetUnit(), 144, 2, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger()), 0x51BF50B2))
+	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger()), 0x1703458A, (( 0.00) +( I2R( R2I( (( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger()), 0x51BF50B2))/( 10000.00))))) +( 0.00)))
+	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger()), 0x79CDFF3A, (( 0.00) +( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger()), 0x1703458A)) -( LoadReal(YDHT, GetHandleId( Unit_AttrEvent_GetUnit()), 0x098771B6))))
+	call Unit_SetAttrBJ( Unit_AttrEvent_GetUnit(), 82, 0, (LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger()), 0x1703458A) * 0.10))
+	call Unit_SetAttrBJ( Unit_AttrEvent_GetUnit(), 83, 0, (LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger()), 0x1703458A) * 0.10))
+	call SaveReal(YDHT, GetHandleId( Unit_AttrEvent_GetUnit()), 0x098771B6, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger()), 0x1703458A))
 endfunction
 function Trig_ChangeAttrEventFunc018Conditions takes nothing returns nothing
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger()), 0x7E574853, (( Unit_GetAttr( Unit_AttrEvent_GetUnit(), 12)) +( 0.00) +( 0)))
-	call SetUnitState( Unit_AttrEvent_GetUnit(), ConvertUnitState(0x16), LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger()), 0x7E574853))
-	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xB79E5965, GetConvertedPlayerId( GetOwningPlayer( Unit_AttrEvent_GetUnit())))
+	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger()), 0x84C53A3B, (( Unit_GetAttr( Unit_AttrEvent_GetUnit(), 1)) *( (( 1.00) +( 0.01) *( Unit_GetAttr( Unit_AttrEvent_GetUnit(), 61)))) +( 0)))
+	call Unit_SetAttrBJ( Unit_AttrEvent_GetUnit(), 141, 2, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger()), 0x84C53A3B))
 endfunction
 function Trig_ChangeAttrEventFunc020Conditions takes nothing returns nothing
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xFE8EBF61, (( Unit_GetAttr( Unit_AttrEvent_GetUnit(), 11)) +( 0.00) +( 0)))
+	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger()), 0x7E574853, (( Unit_GetAttr( Unit_AttrEvent_GetUnit(), 11)) +( 0.00) +( 0)))
+	call SetUnitAcquireRange( Unit_AttrEvent_GetUnit(), LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger()), 0x7E574853))
+	call SetUnitState( Unit_AttrEvent_GetUnit(), ConvertUnitState(0x16), LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger()), 0x7E574853))
+endfunction
+function Trig_ChangeAttrEventFunc022Conditions takes nothing returns nothing
+	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xFE8EBF61, (( Unit_GetAttr( Unit_AttrEvent_GetUnit(), 10)) +( 0.00) +( 0)))
 	if ((LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xFE8EBF61) <= 0.25)) then
 		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xFE8EBF61, 0.25)
 	else
 	endif
 	call SetUnitState( Unit_AttrEvent_GetUnit(), ConvertUnitState(0x25), LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xFE8EBF61))
 endfunction
-function Trig_ChangeAttrEventFunc022Conditions takes nothing returns nothing
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xD3B112CF, (( Unit_GetAttr( Unit_AttrEvent_GetUnit(), 10)) /( 100.00) +( 0)))
+function Trig_ChangeAttrEventFunc024Conditions takes nothing returns nothing
+	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xD3B112CF, (( Unit_GetAttr( Unit_AttrEvent_GetUnit(), 9)) /( 100.00) +( 0)))
 	call SetUnitState( Unit_AttrEvent_GetUnit(), ConvertUnitState(0x51), LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xD3B112CF))
 endfunction
-function Trig_ChangeAttrEventFunc024Conditions takes nothing returns nothing
-	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xB79E5965, GetConvertedPlayerId( GetOwningPlayer( Unit_AttrEvent_GetUnit())))
-endfunction
 function Trig_ChangeAttrEventFunc026Conditions takes nothing returns nothing
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger()), 0x1C0AC51F, (( Unit_GetAttr( Unit_AttrEvent_GetUnit(), 17)) *( (( 1.00) +( 0.01) *( Unit_GetAttr( Unit_AttrEvent_GetUnit(), 60)))) +( 0)))
-	call SetUnitMoveSpeed( Unit_AttrEvent_GetUnit(), LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger()), 0x1C0AC51F))
+	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger()), 0x4F49C30C, (( (( 1.00) +( 0.01) *( Unit_GetAttr( Unit_AttrEvent_GetUnit(), 84)))) *( (( 1.00) +( 0.01) *( Unit_GetAttr( Unit_AttrEvent_GetUnit(), 85)))) +( 0)))
+	call Unit_SetAttrBJ( Unit_AttrEvent_GetUnit(), 121, 2, (( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger()), 0x4F49C30C)) *( (( 1.00) +( 0.01) *( Unit_GetAttr( Unit_AttrEvent_GetUnit(), 82)))) +( 0)))
+	call Unit_SetAttrBJ( Unit_AttrEvent_GetUnit(), 122, 2, (( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger()), 0x4F49C30C)) *( (( 1.00) +( 0.01) *( Unit_GetAttr( Unit_AttrEvent_GetUnit(), 83)))) +( 0)))
+	call Unit_SetAttrBJ( Unit_AttrEvent_GetUnit(), 123, 2, (( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger()), 0x4F49C30C)) *( (( 1.00) +( 0.01) *( Unit_GetAttr( Unit_AttrEvent_GetUnit(), 81)))) +( 0)))
+	call Unit_SetAttrBJ( Unit_AttrEvent_GetUnit(), 128, 2, (( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger()), 0x4F49C30C)) *( (( 1.00) +( 0.01) *( Unit_GetAttr( Unit_AttrEvent_GetUnit(), 92)))) +( 0)))
+	call Unit_SetAttrBJ( Unit_AttrEvent_GetUnit(), 127, 2, (( Unit_GetAttr( Unit_AttrEvent_GetUnit(), 123)) *( Unit_GetAttr( Unit_AttrEvent_GetUnit(), 14)) +( 0)))
 endfunction
 function Trig_ChangeAttrEventFunc028Conditions takes nothing returns nothing
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger()), 0x4F49C30C, (( (( 1.00) +( 0.01) *( Unit_GetAttr( Unit_AttrEvent_GetUnit(), 71)))) *( (( 1.00) +( 0.01) *( Unit_GetAttr( Unit_AttrEvent_GetUnit(), 70)))) +( 0)))
-	call Unit_SetAttrBJ( Unit_AttrEvent_GetUnit(), 90, 2, (( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger()), 0x4F49C30C)) *( (( 1.00) +( 0.01) *( Unit_GetAttr( Unit_AttrEvent_GetUnit(), 72)))) +( 0)))
-	call Unit_SetAttrBJ( Unit_AttrEvent_GetUnit(), 91, 2, (( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger()), 0x4F49C30C)) *( (( 1.00) +( 0.01) *( Unit_GetAttr( Unit_AttrEvent_GetUnit(), 73)))) +( 0)))
-	call Unit_SetAttrBJ( Unit_AttrEvent_GetUnit(), 92, 2, (( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger()), 0x4F49C30C)) *( (( 1.00) +( 0.01) *( Unit_GetAttr( Unit_AttrEvent_GetUnit(), 74)))) +( 0)))
+	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xAB71752E, (( (( 1.00) +( 0.01) *( Unit_GetAttr( Unit_AttrEvent_GetUnit(), 90)))) +( 0.00) +( 0)))
+	call Unit_SetAttrBJ( Unit_AttrEvent_GetUnit(), 124, 2, (( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xAB71752E)) +( 0.00) +( 0)))
 endfunction
 function Trig_ChangeAttrEventFunc030Conditions takes nothing returns nothing
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xAB71752E, (( (( 1.00) +( 0.01) *( Unit_GetAttr( Unit_AttrEvent_GetUnit(), 76)))) +( 0.00) +( 0)))
-	call Unit_SetAttrBJ( Unit_AttrEvent_GetUnit(), 93, 2, (( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xAB71752E)) +( 0.00) +( 0)))
+	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xAB71752E, (( (( 1.00) +( 0.01) *( Unit_GetAttr( Unit_AttrEvent_GetUnit(), 91)))) +( 0.00) +( 0)))
+	call Unit_SetAttrBJ( Unit_AttrEvent_GetUnit(), 125, 2, (( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xAB71752E)) +( 0.00) +( 0)))
 endfunction
 function Trig_ChangeAttrEventFunc032Conditions takes nothing returns nothing
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xAB71752E, (( (( 1.00) +( 0.01) *( Unit_GetAttr( Unit_AttrEvent_GetUnit(), 78)))) +( 0.00) +( 0)))
-	call Unit_SetAttrBJ( Unit_AttrEvent_GetUnit(), 94, 2, (( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xAB71752E)) +( 0.00) +( 0)))
+	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xAB71752E, (( (( 1.00) +( 0.01) *( Unit_GetAttr( Unit_AttrEvent_GetUnit(), 89)))) +( 0.00) +( 0)))
+	call Unit_SetAttrBJ( Unit_AttrEvent_GetUnit(), 126, 2, (( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xAB71752E)) +( 0.00) +( 0)))
 endfunction
 function Trig_ChangeAttrEventFunc034Conditions takes nothing returns nothing
-	if ((Unit_GetAttr( Unit_AttrEvent_GetUnit(), 110) > 0.00)) then
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xE1132952, (( (( 1.00) +( 0.01) *( Unit_GetAttr( Unit_AttrEvent_GetUnit(), 110)))) *( Unit_GetAttr( Unit_AttrEvent_GetUnit(), 3)) +( 0)))
-		call Unit_SetAttrBJ( Unit_AttrEvent_GetUnit(), 3, 2, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xE1132952))
-		call Unit_SetAttrBJ( Unit_AttrEvent_GetUnit(), Unit_AttrEvent_GetAttr(), 2, 0.00)
-	else
-	endif
+	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xD4E08062, (( 100.00) /( (( 100.00) +( 1.00) *( Unit_GetAttr( Unit_AttrEvent_GetUnit(), 15)))) +( 0)))
+	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xD4E08062, RMinBJ( 0.20, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xD4E08062)))
+	call Unit_SetAttrBJ( Unit_AttrEvent_GetUnit(), 129, 2, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xD4E08062))
 endfunction
 function Trig_ChangeAttrEventFunc036Conditions takes nothing returns nothing
-	if ((Unit_GetAttr( Unit_AttrEvent_GetUnit(), 111) > 0.00)) then
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xE1132952, (( (( 1.00) +( 0.01) *( Unit_GetAttr( Unit_AttrEvent_GetUnit(), 111)))) *( Unit_GetAttr( Unit_AttrEvent_GetUnit(), 4)) +( 0)))
-		call Unit_SetAttrBJ( Unit_AttrEvent_GetUnit(), 4, 2, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xE1132952))
+	if ((Unit_GetAttr( Unit_AttrEvent_GetUnit(), 161) > 0.00)) then
+		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xD4E08062, (( 1.00) +( Unit_GetAttr( Unit_AttrEvent_GetUnit(), 161)) *( 0.01)))
+		call Unit_SetAttrBJ( Unit_AttrEvent_GetUnit(), 4, 3, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xD4E08062))
+		call Unit_SetAttrBJ( Unit_AttrEvent_GetUnit(), 161, 2, 0.00)
 	else
 	endif
 endfunction
 function Trig_ChangeAttrEventFunc038Conditions takes nothing returns nothing
-	if ((Unit_GetAttr( Unit_AttrEvent_GetUnit(), 112) > 0.00)) then
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xE1132952, (( (( 1.00) +( 0.01) *( Unit_GetAttr( Unit_AttrEvent_GetUnit(), 112)))) *( Unit_GetAttr( Unit_AttrEvent_GetUnit(), 5)) +( 0)))
-		call Unit_SetAttrBJ( Unit_AttrEvent_GetUnit(), 5, 2, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xE1132952))
+	if ((Unit_GetAttr( Unit_AttrEvent_GetUnit(), 162) > 0.00)) then
+		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xD4E08062, (( 1.00) +( Unit_GetAttr( Unit_AttrEvent_GetUnit(), 162)) *( 0.01)))
+		call Unit_SetAttrBJ( Unit_AttrEvent_GetUnit(), 5, 3, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xD4E08062))
+		call Unit_SetAttrBJ( Unit_AttrEvent_GetUnit(), 162, 2, 0.00)
 	else
 	endif
 endfunction
 function Trig_ChangeAttrEventFunc040Conditions takes nothing returns nothing
-	if ((Unit_GetAttr( Unit_AttrEvent_GetUnit(), 113) > 0.00)) then
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xE1132952, (( (( 1.00) +( 0.01) *( Unit_GetAttr( Unit_AttrEvent_GetUnit(), 113)))) *( Unit_GetAttr( Unit_AttrEvent_GetUnit(), 2)) +( 0)))
-		call Unit_SetAttrBJ( Unit_AttrEvent_GetUnit(), 2, 2, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xE1132952))
-	else
-	endif
-endfunction
-function Trig_ChangeAttrEventFunc042Conditions takes nothing returns nothing
-	if ((Unit_GetAttr( Unit_AttrEvent_GetUnit(), 114) > 0.00)) then
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xE1132952, (( (( 1.00) +( 0.01) *( Unit_GetAttr( Unit_AttrEvent_GetUnit(), 114)))) *( Unit_GetAttr( Unit_AttrEvent_GetUnit(), 6)) +( 0)))
-		call Unit_SetAttrBJ( Unit_AttrEvent_GetUnit(), 6, 2, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xE1132952))
-	else
-	endif
-endfunction
-function Trig_ChangeAttrEventFunc044Conditions takes nothing returns nothing
-	if ((Unit_GetAttr( Unit_AttrEvent_GetUnit(), 115) > 0.00)) then
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xE1132952, (( (( 1.00) +( 0.01) *( Unit_GetAttr( Unit_AttrEvent_GetUnit(), 115)))) *( Unit_GetAttr( Unit_AttrEvent_GetUnit(), 20)) +( 0)))
-		call Unit_SetAttrBJ( Unit_AttrEvent_GetUnit(), 20, 2, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xE1132952))
-	else
-	endif
-endfunction
-function Trig_ChangeAttrEventFunc046Conditions takes nothing returns nothing
-	if ((Unit_GetAttr( Unit_AttrEvent_GetUnit(), 116) > 0.00)) then
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xE1132952, (( (( 1.00) +( 0.01) *( Unit_GetAttr( Unit_AttrEvent_GetUnit(), 116)))) *( Unit_GetAttr( Unit_AttrEvent_GetUnit(), 14)) +( 0)))
-		call Unit_SetAttrBJ( Unit_AttrEvent_GetUnit(), 14, 2, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xE1132952))
-	else
-	endif
-endfunction
-function Trig_ChangeAttrEventFunc048Conditions takes nothing returns nothing
-	if ((Unit_GetAttr( Unit_AttrEvent_GetUnit(), 117) > 0.00)) then
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xE1132952, (( (( 1.00) +( 0.01) *( Unit_GetAttr( Unit_AttrEvent_GetUnit(), 117)))) *( Unit_GetAttr( Unit_AttrEvent_GetUnit(), 1)) +( 0)))
-		call Unit_SetAttrBJ( Unit_AttrEvent_GetUnit(), 1, 2, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xE1132952))
-	else
-	endif
-endfunction
-function Trig_ChangeAttrEventFunc050Conditions takes nothing returns nothing
-	if ((Unit_GetAttr( Unit_AttrEvent_GetUnit(), 118) > 0.00)) then
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xE1132952, (( (( 1.00) +( 0.01) *( Unit_GetAttr( Unit_AttrEvent_GetUnit(), 118)))) *( Unit_GetAttr( Unit_AttrEvent_GetUnit(), 16)) +( 0)))
-		call Unit_SetAttrBJ( Unit_AttrEvent_GetUnit(), 16, 2, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xE1132952))
-	else
-	endif
-endfunction
-function Trig_ChangeAttrEventFunc052Conditions takes nothing returns nothing
-	if ((Unit_GetAttr( Unit_AttrEvent_GetUnit(), 119) > 0.00)) then
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xE1132952, (( (( 1.00) +( 0.01) *( Unit_GetAttr( Unit_AttrEvent_GetUnit(), 119)))) *( Unit_GetAttr( Unit_AttrEvent_GetUnit(), 18)) +( 0)))
-		call Unit_SetAttrBJ( Unit_AttrEvent_GetUnit(), 18, 2, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xE1132952))
+	if ((Unit_GetAttr( Unit_AttrEvent_GetUnit(), 163) > 0.00)) then
+		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xD4E08062, (( 1.00) +( Unit_GetAttr( Unit_AttrEvent_GetUnit(), 163)) *( 0.01)))
+		call Unit_SetAttrBJ( Unit_AttrEvent_GetUnit(), 6, 3, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xD4E08062))
+		call Unit_SetAttrBJ( Unit_AttrEvent_GetUnit(), 163, 2, 0.00)
 	else
 	endif
 endfunction
@@ -5640,146 +5603,119 @@ function Trig_ChangeAttrEventActions takes nothing returns nothing
 	set ydl_trigger = CreateTrigger()
 	call SaveReal(YDLOC, GetHandleId(ydl_trigger), 0xD89DD821, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xD89DD821))
 	call SaveReal(YDLOC, GetHandleId(ydl_trigger), 0xBBE80D5D, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xBBE80D5D))
-	call Unit_AttrEvent(ydl_trigger, 1)
-	call Unit_AttrEvent(ydl_trigger, 50)
+	call Unit_AttrEvent(ydl_trigger, 2)
+	call Unit_AttrEvent(ydl_trigger, 63)
 	call TriggerAddCondition( ydl_trigger, Condition(function Trig_ChangeAttrEventFunc002Conditions))
 	//护甲, 护甲加成%
 	set ydl_trigger = CreateTrigger()
 	call SaveReal(YDLOC, GetHandleId(ydl_trigger), 0x7AE5C8FB, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x7AE5C8FB))
-	call Unit_AttrEvent(ydl_trigger, 2)
-	call Unit_AttrEvent(ydl_trigger, 51)
+	call Unit_AttrEvent(ydl_trigger, 3)
+	call Unit_AttrEvent(ydl_trigger, 62)
 	call TriggerAddCondition( ydl_trigger, Condition(function Trig_ChangeAttrEventFunc004Conditions))
-	//法力值
+	//每秒回血
 	set ydl_trigger = CreateTrigger()
-	call Unit_AttrEvent(ydl_trigger, 8)
+	call Unit_AttrEvent(ydl_trigger, 101)
 	call TriggerAddCondition( ydl_trigger, Condition(function Trig_ChangeAttrEventFunc006Conditions))
-	//每秒回血, 每秒回血加成%
+	//多重数量
 	set ydl_trigger = CreateTrigger()
-	call SaveReal(YDLOC, GetHandleId(ydl_trigger), 0xB608BD73, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB608BD73))
-	call Unit_AttrEvent(ydl_trigger, 6)
-	call Unit_AttrEvent(ydl_trigger, 52)
+	call SaveReal(YDLOC, GetHandleId(ydl_trigger), 0xD4E08062, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xD4E08062))
+	call SaveUnitHandle(YDLOC, GetHandleId(ydl_trigger), 0xE6E64075, LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075))
+	call SaveReal(YDLOC, GetHandleId(ydl_trigger), 0xB921ECF7, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB921ECF7))
+	call Unit_AttrEvent(ydl_trigger, 12)
 	call TriggerAddCondition( ydl_trigger, Condition(function Trig_ChangeAttrEventFunc008Conditions))
+	//全属
+	set ydl_trigger = CreateTrigger()
+	call Unit_AttrEvent(ydl_trigger, 7)
+	call TriggerAddCondition( ydl_trigger, Condition(function Trig_ChangeAttrEventFunc010Conditions))
 	//力量, 力量加成%
 	set ydl_trigger = CreateTrigger()
 	call SaveReal(YDLOC, GetHandleId(ydl_trigger), 0x79CDFF3A, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x79CDFF3A))
 	call SaveReal(YDLOC, GetHandleId(ydl_trigger), 0x08001B1F, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x08001B1F))
-	call Unit_AttrEvent(ydl_trigger, 3)
-	call Unit_AttrEvent(ydl_trigger, 53)
-	call TriggerAddCondition( ydl_trigger, Condition(function Trig_ChangeAttrEventFunc010Conditions))
+	call SaveReal(YDLOC, GetHandleId(ydl_trigger), 0x1703458A, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x1703458A))
+	call Unit_AttrEvent(ydl_trigger, 4)
+	call Unit_AttrEvent(ydl_trigger, 64)
+	call TriggerAddCondition( ydl_trigger, Condition(function Trig_ChangeAttrEventFunc012Conditions))
 	//敏捷, 敏捷加成%
 	set ydl_trigger = CreateTrigger()
-	call SaveReal(YDLOC, GetHandleId(ydl_trigger), 0x79CDFF3A, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x79CDFF3A))
 	call SaveReal(YDLOC, GetHandleId(ydl_trigger), 0xDB00F13B, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xDB00F13B))
-	call Unit_AttrEvent(ydl_trigger, 4)
-	call Unit_AttrEvent(ydl_trigger, 54)
-	call TriggerAddCondition( ydl_trigger, Condition(function Trig_ChangeAttrEventFunc012Conditions))
+	call SaveReal(YDLOC, GetHandleId(ydl_trigger), 0x1703458A, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x1703458A))
+	call Unit_AttrEvent(ydl_trigger, 5)
+	call Unit_AttrEvent(ydl_trigger, 65)
+	call TriggerAddCondition( ydl_trigger, Condition(function Trig_ChangeAttrEventFunc014Conditions))
 	//智力, 智力加成%
 	set ydl_trigger = CreateTrigger()
-	call SaveReal(YDLOC, GetHandleId(ydl_trigger), 0x79CDFF3A, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x79CDFF3A))
 	call SaveReal(YDLOC, GetHandleId(ydl_trigger), 0x51BF50B2, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x51BF50B2))
-	call Unit_AttrEvent(ydl_trigger, 5)
-	call Unit_AttrEvent(ydl_trigger, 55)
-	call TriggerAddCondition( ydl_trigger, Condition(function Trig_ChangeAttrEventFunc014Conditions))
+	call SaveReal(YDLOC, GetHandleId(ydl_trigger), 0x1703458A, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x1703458A))
+	call Unit_AttrEvent(ydl_trigger, 6)
+	call Unit_AttrEvent(ydl_trigger, 66)
+	call TriggerAddCondition( ydl_trigger, Condition(function Trig_ChangeAttrEventFunc016Conditions))
 	//攻击, 攻击加成%
 	set ydl_trigger = CreateTrigger()
 	call SaveReal(YDLOC, GetHandleId(ydl_trigger), 0x84C53A3B, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x84C53A3B))
-	call Unit_AttrEvent(ydl_trigger, 19)
+	call Unit_AttrEvent(ydl_trigger, 1)
 	call Unit_AttrEvent(ydl_trigger, 61)
-	call TriggerAddCondition( ydl_trigger, Condition(function Trig_ChangeAttrEventFunc016Conditions))
+	call TriggerAddCondition( ydl_trigger, Condition(function Trig_ChangeAttrEventFunc018Conditions))
 	//攻击距离
 	set ydl_trigger = CreateTrigger()
 	call SaveReal(YDLOC, GetHandleId(ydl_trigger), 0x7E574853, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x7E574853))
-	call Unit_AttrEvent(ydl_trigger, 12)
-	call TriggerAddCondition( ydl_trigger, Condition(function Trig_ChangeAttrEventFunc018Conditions))
+	call Unit_AttrEvent(ydl_trigger, 11)
+	call TriggerAddCondition( ydl_trigger, Condition(function Trig_ChangeAttrEventFunc020Conditions))
 	//攻击间隔
 	set ydl_trigger = CreateTrigger()
 	call SaveReal(YDLOC, GetHandleId(ydl_trigger), 0xFE8EBF61, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xFE8EBF61))
-	call Unit_AttrEvent(ydl_trigger, 11)
-	call TriggerAddCondition( ydl_trigger, Condition(function Trig_ChangeAttrEventFunc020Conditions))
+	call Unit_AttrEvent(ydl_trigger, 10)
+	call TriggerAddCondition( ydl_trigger, Condition(function Trig_ChangeAttrEventFunc022Conditions))
 	//攻击速度
 	set ydl_trigger = CreateTrigger()
 	call SaveReal(YDLOC, GetHandleId(ydl_trigger), 0xD3B112CF, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xD3B112CF))
-	call Unit_AttrEvent(ydl_trigger, 10)
-	call TriggerAddCondition( ydl_trigger, Condition(function Trig_ChangeAttrEventFunc022Conditions))
-	//冷却急速
-	set ydl_trigger = CreateTrigger()
-	call Unit_AttrEvent(ydl_trigger, 13)
+	call Unit_AttrEvent(ydl_trigger, 9)
 	call TriggerAddCondition( ydl_trigger, Condition(function Trig_ChangeAttrEventFunc024Conditions))
-	//移动速度, 移速加成%
-	set ydl_trigger = CreateTrigger()
-	call SaveReal(YDLOC, GetHandleId(ydl_trigger), 0x1C0AC51F, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x1C0AC51F))
-	call Unit_AttrEvent(ydl_trigger, 17)
-	call Unit_AttrEvent(ydl_trigger, 60)
-	call TriggerAddCondition( ydl_trigger, Condition(function Trig_ChangeAttrEventFunc026Conditions))
-	//物理伤害, 法术伤害, 真实伤害, 最终伤害, 伤害加深
+	//物理伤害, 法术伤害,  攻击伤害, 最终伤害, 绝对伤害
 	set ydl_trigger = CreateTrigger()
 	call SaveReal(YDLOC, GetHandleId(ydl_trigger), 0x4F49C30C, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x4F49C30C))
-	call Unit_AttrEvent(ydl_trigger, 70)
-	call Unit_AttrEvent(ydl_trigger, 71)
-	call Unit_AttrEvent(ydl_trigger, 72)
-	call Unit_AttrEvent(ydl_trigger, 73)
-	call Unit_AttrEvent(ydl_trigger, 74)
-	call TriggerAddCondition( ydl_trigger, Condition(function Trig_ChangeAttrEventFunc028Conditions))
+	call Unit_AttrEvent(ydl_trigger, 81)
+	call Unit_AttrEvent(ydl_trigger, 82)
+	call Unit_AttrEvent(ydl_trigger, 83)
+	call Unit_AttrEvent(ydl_trigger, 84)
+	call Unit_AttrEvent(ydl_trigger, 85)
+	call Unit_AttrEvent(ydl_trigger, 14)
+	call Unit_AttrEvent(ydl_trigger, 92)
+	call TriggerAddCondition( ydl_trigger, Condition(function Trig_ChangeAttrEventFunc026Conditions))
 	//物理暴击伤害
 	set ydl_trigger = CreateTrigger()
 	call SaveReal(YDLOC, GetHandleId(ydl_trigger), 0xAB71752E, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xAB71752E))
-	call Unit_AttrEvent(ydl_trigger, 76)
-	call TriggerAddCondition( ydl_trigger, Condition(function Trig_ChangeAttrEventFunc030Conditions))
-	//法术暴击伤害
+	call Unit_AttrEvent(ydl_trigger, 90)
+	call TriggerAddCondition( ydl_trigger, Condition(function Trig_ChangeAttrEventFunc028Conditions))
+	//法术暴伤
 	set ydl_trigger = CreateTrigger()
 	call SaveReal(YDLOC, GetHandleId(ydl_trigger), 0xAB71752E, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xAB71752E))
-	call Unit_AttrEvent(ydl_trigger, 78)
+	call Unit_AttrEvent(ydl_trigger, 91)
+	call TriggerAddCondition( ydl_trigger, Condition(function Trig_ChangeAttrEventFunc030Conditions))
+	//攻击暴伤
+	set ydl_trigger = CreateTrigger()
+	call SaveReal(YDLOC, GetHandleId(ydl_trigger), 0xAB71752E, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xAB71752E))
+	call Unit_AttrEvent(ydl_trigger, 89)
 	call TriggerAddCondition( ydl_trigger, Condition(function Trig_ChangeAttrEventFunc032Conditions))
-	//当前力量%
+	//技能急速
 	set ydl_trigger = CreateTrigger()
-	call SaveReal(YDLOC, GetHandleId(ydl_trigger), 0xE1132952, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE1132952))
-	call Unit_AttrEvent(ydl_trigger, 110)
+	call SaveReal(YDLOC, GetHandleId(ydl_trigger), 0xD4E08062, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xD4E08062))
+	call Unit_AttrEvent(ydl_trigger, 15)
 	call TriggerAddCondition( ydl_trigger, Condition(function Trig_ChangeAttrEventFunc034Conditions))
-	//当前敏捷%
+	//当前力量
 	set ydl_trigger = CreateTrigger()
-	call SaveReal(YDLOC, GetHandleId(ydl_trigger), 0xE1132952, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE1132952))
-	call Unit_AttrEvent(ydl_trigger, 111)
+	call SaveReal(YDLOC, GetHandleId(ydl_trigger), 0xD4E08062, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xD4E08062))
+	call Unit_AttrEvent(ydl_trigger, 161)
 	call TriggerAddCondition( ydl_trigger, Condition(function Trig_ChangeAttrEventFunc036Conditions))
-	//当前智力%
+	//当前敏捷
 	set ydl_trigger = CreateTrigger()
-	call SaveReal(YDLOC, GetHandleId(ydl_trigger), 0xE1132952, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE1132952))
-	call Unit_AttrEvent(ydl_trigger, 112)
+	call SaveReal(YDLOC, GetHandleId(ydl_trigger), 0xD4E08062, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xD4E08062))
+	call Unit_AttrEvent(ydl_trigger, 162)
 	call TriggerAddCondition( ydl_trigger, Condition(function Trig_ChangeAttrEventFunc038Conditions))
-	//当前护甲%
+	//当前智力
 	set ydl_trigger = CreateTrigger()
-	call SaveReal(YDLOC, GetHandleId(ydl_trigger), 0xE1132952, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE1132952))
-	call Unit_AttrEvent(ydl_trigger, 113)
+	call SaveReal(YDLOC, GetHandleId(ydl_trigger), 0xD4E08062, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xD4E08062))
+	call Unit_AttrEvent(ydl_trigger, 163)
 	call TriggerAddCondition( ydl_trigger, Condition(function Trig_ChangeAttrEventFunc040Conditions))
-	//当前每秒回血%
-	set ydl_trigger = CreateTrigger()
-	call SaveReal(YDLOC, GetHandleId(ydl_trigger), 0xE1132952, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE1132952))
-	call Unit_AttrEvent(ydl_trigger, 114)
-	call TriggerAddCondition( ydl_trigger, Condition(function Trig_ChangeAttrEventFunc042Conditions))
-	//当前伤害范围%
-	set ydl_trigger = CreateTrigger()
-	call SaveReal(YDLOC, GetHandleId(ydl_trigger), 0xE1132952, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE1132952))
-	call Unit_AttrEvent(ydl_trigger, 115)
-	call TriggerAddCondition( ydl_trigger, Condition(function Trig_ChangeAttrEventFunc044Conditions))
-	//当前持续时间%
-	set ydl_trigger = CreateTrigger()
-	call SaveReal(YDLOC, GetHandleId(ydl_trigger), 0xE1132952, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE1132952))
-	call Unit_AttrEvent(ydl_trigger, 116)
-	call TriggerAddCondition( ydl_trigger, Condition(function Trig_ChangeAttrEventFunc046Conditions))
-	//当前生命%
-	set ydl_trigger = CreateTrigger()
-	call SaveReal(YDLOC, GetHandleId(ydl_trigger), 0xE1132952, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE1132952))
-	call Unit_AttrEvent(ydl_trigger, 117)
-	call TriggerAddCondition( ydl_trigger, Condition(function Trig_ChangeAttrEventFunc048Conditions))
-	//当前运气%
-	set ydl_trigger = CreateTrigger()
-	call SaveReal(YDLOC, GetHandleId(ydl_trigger), 0xE1132952, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE1132952))
-	call Unit_AttrEvent(ydl_trigger, 118)
-	call TriggerAddCondition( ydl_trigger, Condition(function Trig_ChangeAttrEventFunc050Conditions))
-	//当前每秒金币%
-	set ydl_trigger = CreateTrigger()
-	call SaveReal(YDLOC, GetHandleId(ydl_trigger), 0xE1132952, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE1132952))
-	call Unit_AttrEvent(ydl_trigger, 119)
-	call TriggerAddCondition( ydl_trigger, Condition(function Trig_ChangeAttrEventFunc052Conditions))
 	call FlushChildHashtable(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step)
 	set ydl_trigger = null
 endfunction
@@ -5809,9 +5745,11 @@ function Trig_AttackSystemFunc001Func003Func002Func005Func003T takes nothing ret
 	call DestroyTimer(GetExpiredTimer())
 endfunction
 function Trig_AttackSystemActions takes nothing returns nothing
-	local timer ydl_timer
 	local integer ydl_triggerstep
 	local trigger ydl_trigger
+	local group ydl_group
+	local unit ydl_unit
+	local timer ydl_timer
 	local integer ydl_localvar_step = LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xCFDE6C76) 
  set ydl_localvar_step = ydl_localvar_step + 3 
  call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xCFDE6C76, ydl_localvar_step) 
@@ -5821,14 +5759,92 @@ function Trig_AttackSystemActions takes nothing returns nothing
 			call SaveUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075, GetAttacker())
 			call SaveUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x8867FB80, GetAttackedUnitBJ())
 			call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965, GetConvertedPlayerId( GetOwningPlayer( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075))))
+			call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xAB08DC2F, GetUnitX( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075)))
+			call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x03973DD2, GetUnitY( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075)))
+			//多重攻击
+			if ((GetRandomInt( 1, 100) <= R2I( Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 13)))) then
+				call SaveStr(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF476C7E8, (EXExecuteScript("(require'jass.slk').unit[" + I2S( GetUnitTypeId( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075))) + "]." + "Missileart")))
+				call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB7279243, 0)
+				call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x83BA8BAB, IMinBJ( 10, R2I( Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 12))))
+				call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A, (( Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 141)) *( Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 127)) +( 0.00)))
+				set ydl_group = CreateGroup()
+				call GroupEnumUnitsInRange(ydl_group, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xAB08DC2F), LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x03973DD2), Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 11), null)
+				loop
+					set ydl_unit = FirstOfGroup(ydl_group)
+					exitwhen ydl_unit == null
+					call GroupRemoveUnit(ydl_group, ydl_unit)
+					if ((IsUnitEnemy( ydl_unit, ConvertedPlayer( GetConvertedPlayerId( LoadPlayerHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965)))) == true) and (ydl_unit != LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x8867FB80)) and (IsUnitAliveBJ( ydl_unit) == true)) then
+						set udg_Args_AttackType = ATTACK_TYPE_PIERCE
+						set udg_Args_DamageType = DAMAGE_TYPE_UNIVERSAL
+						set udg_Args_WeaponType = WEAPON_TYPE_WHOKNOWS
+						set ydl_trigger = gg_trg_SLine_Type2
+						set ydl_triggerstep = GetHandleId(ydl_trigger)*(LoadInteger(YDLOC, GetHandleId(ydl_trigger), 0xCFDE6C76) + 3)
+						call SaveReal(YDLOC, ydl_triggerstep, 0xC0ABED4A, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A))
+						call SaveReal(YDLOC, ydl_triggerstep, 0x0E20876F, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xAB08DC2F))
+						call SaveReal(YDLOC, ydl_triggerstep, 0x4FB814AA, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x03973DD2))
+						call SaveReal(YDLOC, ydl_triggerstep, 0xFB6E8B46, 30.00)
+						call SaveUnitHandle(YDLOC, ydl_triggerstep, 0x6EDB7E6F, LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075))
+						call SaveUnitHandle(YDLOC, ydl_triggerstep, 0xFC4D8276, ydl_unit)
+						call SaveStr(YDLOC, ydl_triggerstep, 0x2480578D, LoadStr(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF476C7E8))
+						call SaveReal(YDLOC, ydl_triggerstep, 0xBEFD8BE8, 50.00)
+						call TriggerExecute(ydl_trigger)
+						call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB7279243, (LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB7279243) + 1))
+						if ((LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB7279243) >= LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x83BA8BAB))) then
+							exitwhen true
+						else
+						endif
+					else
+					endif
+				endloop
+				call DestroyGroup(ydl_group)
+			else
+			endif
+			if ((LoadInteger( udg_HTSeizeBodyID, LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965), 2) == 1)) then
+				set ydl_trigger = gg_trg_SeizeBody_2
+				set ydl_triggerstep = GetHandleId(ydl_trigger)*(LoadInteger(YDLOC, GetHandleId(ydl_trigger), 0xCFDE6C76) + 3)
+				call SaveInteger(YDLOC, ydl_triggerstep, 0xB79E5965, LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965))
+				call SaveUnitHandle(YDLOC, ydl_triggerstep, 0xE6E64075, LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075))
+				call SaveUnitHandle(YDLOC, ydl_triggerstep, 0x8867FB80, LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x8867FB80))
+				call TriggerExecute(ydl_trigger)
+			else
+			endif
+			if ((LoadInteger( udg_HTSeizeBodyID, LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965), 3) == 1)) then
+				set ydl_trigger = gg_trg_SeizeBody_3
+				set ydl_triggerstep = GetHandleId(ydl_trigger)*(LoadInteger(YDLOC, GetHandleId(ydl_trigger), 0xCFDE6C76) + 3)
+				call SaveInteger(YDLOC, ydl_triggerstep, 0xB79E5965, LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965))
+				call SaveUnitHandle(YDLOC, ydl_triggerstep, 0xE6E64075, LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075))
+				call SaveUnitHandle(YDLOC, ydl_triggerstep, 0x8867FB80, LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x8867FB80))
+				call TriggerExecute(ydl_trigger)
+			else
+			endif
+			if ((LoadInteger( udg_HTSeizeBodyID, LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965), 15) == 1)) then
+				set ydl_trigger = gg_trg_SeizeBody_15
+				set ydl_triggerstep = GetHandleId(ydl_trigger)*(LoadInteger(YDLOC, GetHandleId(ydl_trigger), 0xCFDE6C76) + 3)
+				call SaveInteger(YDLOC, ydl_triggerstep, 0xB79E5965, LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965))
+				call SaveUnitHandle(YDLOC, ydl_triggerstep, 0xE6E64075, LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075))
+				call SaveUnitHandle(YDLOC, ydl_triggerstep, 0x8867FB80, LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x8867FB80))
+				call TriggerExecute(ydl_trigger)
+			else
+			endif
+			if ((LoadInteger( udg_HTSeizeBodyID, LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965), 14) == 1)) then
+				set ydl_trigger = gg_trg_SeizeBody_14
+				set ydl_triggerstep = GetHandleId(ydl_trigger)*(LoadInteger(YDLOC, GetHandleId(ydl_trigger), 0xCFDE6C76) + 3)
+				call SaveInteger(YDLOC, ydl_triggerstep, 0xB79E5965, LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965))
+				call SaveUnitHandle(YDLOC, ydl_triggerstep, 0xE6E64075, LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075))
+				call SaveUnitHandle(YDLOC, ydl_triggerstep, 0x8867FB80, LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x8867FB80))
+				call TriggerExecute(ydl_trigger)
+			else
+			endif
 		else
 		endif
 		if ((LoadBoolean(YDHT, GetHandleId( GetAttackedUnitBJ()), 0x24B6F8FF) == true)) then
 			call SaveUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x944CCEB0, GetAttackedUnitBJ())
 			if ((LoadBoolean(YDHT, GetHandleId( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x944CCEB0)), 0x4472E961) == true)) then
 				call FlushChildHashtable(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step)
-	set ydl_timer = null
 	set ydl_trigger = null
+	set ydl_group = null
+	set ydl_unit = null
+	set ydl_timer = null
 				return
 			else
 				call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x19F17B30, LoadInteger(YDHT, GetHandleId( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x944CCEB0)), 0x6F96F2D2))
@@ -5856,12 +5872,23 @@ function Trig_AttackSystemActions takes nothing returns nothing
 			call SaveUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075, GetAttackedUnitBJ())
 			call SaveUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x8867FB80, GetAttacker())
 			call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965, GetConvertedPlayerId( GetOwningPlayer( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075))))
+			if ((LoadInteger( udg_HTSeizeBodyID, LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965), 13) == 1)) then
+				set ydl_trigger = gg_trg_SeizeBody_13
+				set ydl_triggerstep = GetHandleId(ydl_trigger)*(LoadInteger(YDLOC, GetHandleId(ydl_trigger), 0xCFDE6C76) + 3)
+				call SaveInteger(YDLOC, ydl_triggerstep, 0xB79E5965, LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965))
+				call SaveUnitHandle(YDLOC, ydl_triggerstep, 0xE6E64075, LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075))
+				call SaveUnitHandle(YDLOC, ydl_triggerstep, 0x8867FB80, LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x8867FB80))
+				call TriggerExecute(ydl_trigger)
+			else
+			endif
 		else
 		endif
 	endif
 	call FlushChildHashtable(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step)
-	set ydl_timer = null
 	set ydl_trigger = null
+	set ydl_group = null
+	set ydl_unit = null
+	set ydl_timer = null
 endfunction
 //===========================================================================
 function InitTrig_AttackSystem takes nothing returns nothing
@@ -5959,6 +5986,10 @@ endfunction
 //===========================================================================
 function Trig_1TimerActions takes nothing returns nothing
 	local integer ydul_playerID
+	local group ydl_group
+	local unit ydl_unit
+	local integer ydl_triggerstep
+	local trigger ydl_trigger
 	local integer ydl_localvar_step = LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xCFDE6C76) 
  set ydl_localvar_step = ydl_localvar_step + 3 
  call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xCFDE6C76, ydl_localvar_step) 
@@ -5966,3674 +5997,130 @@ function Trig_1TimerActions takes nothing returns nothing
 	set ydul_playerID = 1
 	loop
 		exitwhen ydul_playerID > 4
-		call SaveUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075, udg_Hero[ydul_playerID])
-		call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965, ydul_playerID)
 		if ((GetPlayerSlotState( udg_Player[ydul_playerID]) == PLAYER_SLOT_STATE_PLAYING) and (udg_Hero[ydul_playerID] != null)) then
-			call Unit_SetAttrBJ( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 1, 0, Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 43))
-			call Unit_SetAttrBJ( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 3, 0, Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 40))
-			call Unit_SetAttrBJ( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 4, 0, Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 41))
-			call Unit_SetAttrBJ( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 5, 0, Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 42))
-			call Unit_SetAttrBJ( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 2, 0, Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 44))
-			call SetUnitLifeBJ( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), (GetUnitState( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), UNIT_STATE_LIFE) + Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 6)))
-			call SetUnitLifePercentBJ( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), (( Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 7)) +( GetUnitLifePercent( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075))) +( 0)))
-			call SetUnitState( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), UNIT_STATE_MANA, (( GetUnitState( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), UNIT_STATE_MANA)) +( Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 9)) +( 0)))
-			call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x9DA51395, (( Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 18)) *( (( 1.00) +( 0.01) *( Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 57)))) +( 0)))
+			call SaveUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075, udg_Hero[ydul_playerID])
+			call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965, ydul_playerID)
+			call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xAB08DC2F, GetUnitX( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075)))
+			call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x03973DD2, GetUnitY( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075)))
+			call Unit_SetAttrBJ( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 1, 0, Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 41))
+			call Unit_SetAttrBJ( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 3, 0, Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 42))
+			call Unit_SetAttrBJ( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 4, 0, Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 44))
+			call Unit_SetAttrBJ( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 5, 0, Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 45))
+			call Unit_SetAttrBJ( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 6, 0, Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 46))
+			call Unit_SetAttrBJ( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 7, 0, Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 47))
+			call SetUnitLifeBJ( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), (GetUnitState( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), UNIT_STATE_LIFE) + Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 43)))
+			call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x9DA51395, (( Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 48)) *( (( 1.00) +( 0.01) *( Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 67)))) +( 0)))
 			set udg_PlayerGold[ydul_playerID] = (udg_PlayerGold[ydul_playerID] + LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x9DA51395))
+			call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x86E403D6, (( Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 49)) *( (( 1.00) +( 0.01) *( Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 68)))) +( 0)))
+			set udg_PlayerKills[ydul_playerID] = (udg_PlayerKills[ydul_playerID] + LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x86E403D6))
+			call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xA813C8FF, (( Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 50)) *( (( 1.00) +( 0.01) *( Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 69)))) +( 0)))
+			set udg_PlayerDiamond[ydul_playerID] = (udg_PlayerDiamond[ydul_playerID] + LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xA813C8FF))
+			call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE13ED6E1, (( Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 101)) *( (( 1.00) +( 0.01) *( Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 102)))) +( 0)))
+			call SetUnitState( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), UNIT_STATE_LIFE, (GetUnitState( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), UNIT_STATE_LIFE) + LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE13ED6E1)))
+			if ((LoadInteger( udg_HTSeizeBodyID, LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965), 1) == 1)) then
+				call SaveInteger(YDHT, GetHandleId( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075)), 0x4AAC5F6E, (LoadInteger(YDHT, GetHandleId( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075)), 0x4AAC5F6E) + 1))
+				if ((LoadInteger(YDHT, GetHandleId( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075)), 0x4AAC5F6E) >= GetIntegerFromExcel( "夺舍", 1, "Value1"))) then
+					call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A, (( Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 142)) *( Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 121)) *( GetRealFromExcel( "夺舍", 1, "Value2"))))
+					if ((GetRandomReal( 0, 100.00) < Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 87))) then
+						call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A, (( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A)) *( Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 124)) +( 0)))
+						set ydl_group = CreateGroup()
+						call GroupEnumUnitsInRange(ydl_group, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xAB08DC2F), LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x03973DD2), 250.00, null)
+						loop
+							set ydl_unit = FirstOfGroup(ydl_group)
+							exitwhen ydl_unit == null
+							call GroupRemoveUnit(ydl_group, ydl_unit)
+							if ((IsUnitEnemy( ydl_unit, Player(0)) == true)) then
+								call UnitDamageTarget( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), ydl_unit, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A), false, false, ATTACK_TYPE_HERO, DAMAGE_TYPE_UNIVERSAL, WEAPON_TYPE_METAL_LIGHT_CHOP)
+							else
+							endif
+						endloop
+						call DestroyGroup(ydl_group)
+					else
+						set ydl_group = CreateGroup()
+						call GroupEnumUnitsInRange(ydl_group, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xAB08DC2F), LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x03973DD2), 250.00, null)
+						loop
+							set ydl_unit = FirstOfGroup(ydl_group)
+							exitwhen ydl_unit == null
+							call GroupRemoveUnit(ydl_group, ydl_unit)
+							if ((IsUnitEnemy( ydl_unit, Player(0)) == true)) then
+								call UnitDamageTarget( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), ydl_unit, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A), false, false, ATTACK_TYPE_HERO, DAMAGE_TYPE_UNIVERSAL, WEAPON_TYPE_WHOKNOWS)
+							else
+							endif
+						endloop
+						call DestroyGroup(ydl_group)
+					endif
+					call SaveInteger(YDHT, GetHandleId( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075)), 0xA5A9234A, 0)
+				else
+				endif
+			else
+			endif
+			if ((LoadInteger( udg_HTSeizeBodyID, LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965), 2) == 1)) then
+				call SaveInteger(YDHT, GetHandleId( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075)), 0x90F06913, (LoadInteger(YDHT, GetHandleId( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075)), 0x90F06913) - 1))
+			else
+			endif
+			if ((LoadInteger( udg_HTSeizeBodyID, LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965), 3) == 1)) then
+				call SaveInteger(YDHT, GetHandleId( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075)), 0xE251D8F2, (LoadInteger(YDHT, GetHandleId( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075)), 0xE251D8F2) - 1))
+			else
+			endif
+			if ((LoadInteger( udg_HTSeizeBodyID, LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965), 13) == 1)) then
+				call SaveInteger(YDHT, GetHandleId( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075)), 0xDE3EFEB8, (LoadInteger(YDHT, GetHandleId( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075)), 0xDE3EFEB8) - 1))
+			else
+			endif
+			if ((LoadInteger( udg_HTSeizeBodyID, LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965), 14) == 1)) then
+				call SaveInteger(YDHT, GetHandleId( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075)), 0xBD8ABB01, (LoadInteger(YDHT, GetHandleId( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075)), 0xBD8ABB01) - 1))
+			else
+			endif
+			if ((LoadInteger( udg_HTSeizeBodyID, LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965), 15) == 1)) then
+				call SaveInteger(YDHT, GetHandleId( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075)), 0x292EBC6E, (LoadInteger(YDHT, GetHandleId( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075)), 0x292EBC6E) - 1))
+			else
+			endif
+			if ((LoadInteger( udg_HTSeizeBodyID, LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965), 8) == 1)) then
+				call SaveInteger(YDHT, GetHandleId( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075)), 0xD8358F0D, (LoadInteger(YDHT, GetHandleId( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075)), 0xD8358F0D) - 1))
+				call SaveInteger(YDHT, GetHandleId( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075)), 0xA96A6C3F, (LoadInteger(YDHT, GetHandleId( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075)), 0xBB2EAA30) - 1))
+				if ((LoadInteger(YDHT, GetHandleId( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075)), 0xD8358F0D) <= 0)) then
+					set ydl_trigger = gg_trg_SeizeBody_8
+					set ydl_triggerstep = GetHandleId(ydl_trigger)*(LoadInteger(YDLOC, GetHandleId(ydl_trigger), 0xCFDE6C76) + 3)
+					call SaveUnitHandle(YDLOC, ydl_triggerstep, 0xE6E64075, LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075))
+					call SaveInteger(YDLOC, ydl_triggerstep, 0xB79E5965, LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965))
+					call TriggerExecute(ydl_trigger)
+				else
+				endif
+			else
+			endif
+			if ((udg_IsGameStart == true)) then
+				//练功房刷怪
+				set ydl_trigger = gg_trg_SpawnLgfMonsters
+				set ydl_triggerstep = GetHandleId(ydl_trigger)*(LoadInteger(YDLOC, GetHandleId(ydl_trigger), 0xCFDE6C76) + 3)
+				call SaveInteger(YDLOC, ydl_triggerstep, 0xB79E5965, LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965))
+				call TriggerExecute(ydl_trigger)
+			else
+			endif
 		else
 		endif
 		set ydul_playerID = ydul_playerID + 1
 	endloop
-	//刷精英怪和boss
+	//刷进攻怪和boss
+	if ((udg_IsGameStart == true)) then
+		set ydl_trigger = gg_trg_SpawnAttackMonsters
+		set ydl_triggerstep = GetHandleId(ydl_trigger)*(LoadInteger(YDLOC, GetHandleId(ydl_trigger), 0xCFDE6C76) + 3)
+		call TriggerExecute(ydl_trigger)
+		set ydl_trigger = gg_trg_SpawnNormalMonsters
+		set ydl_triggerstep = GetHandleId(ydl_trigger)*(LoadInteger(YDLOC, GetHandleId(ydl_trigger), 0xCFDE6C76) + 3)
+		call TriggerExecute(ydl_trigger)
+		set ydl_trigger = gg_trg_SetWoodMonsterValueID
+		set ydl_triggerstep = GetHandleId(ydl_trigger)*(LoadInteger(YDLOC, GetHandleId(ydl_trigger), 0xCFDE6C76) + 3)
+		call TriggerExecute(ydl_trigger)
+	else
+	endif
 	call FlushChildHashtable(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step)
+	set ydl_group = null
+	set ydl_unit = null
+	set ydl_trigger = null
 endfunction
 //===========================================================================
 function InitTrig_1Timer takes nothing returns nothing
 	set gg_trg_1Timer = CreateTrigger()
 	call TriggerAddAction(gg_trg_1Timer, function Trig_1TimerActions)
-endfunction
-//===========================================================================
-// Trigger: Weapon_1
-//===========================================================================
-function Trig_Weapon_1Actions takes nothing returns nothing
-	local integer ydl_triggerstep
-	local trigger ydl_trigger
-	local integer ydul_count
-	local integer ydl_localvar_step = LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xCFDE6C76) 
- set ydl_localvar_step = ydl_localvar_step + 3 
- call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xCFDE6C76, ydl_localvar_step) 
- call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xECE825E7, ydl_localvar_step)
-	call SaveUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075, LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075))
-	call SaveUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xFC4D8276, LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xFC4D8276))
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x9966AD24, ( YDWEAngleBetweenUnits( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xFC4D8276))))
-	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965, GetConvertedPlayerId( GetOwningPlayer( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075))))
-	//判断是否暴击, 设置伤害
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281, GetRealFromExcel( "兵器", 1, "DamageValue"))
-	if ((LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE088B116) >= 2)) then
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281, (LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281) + GetRealFromExcel( "兵器", 1, "2级数值")))
-	else
-	endif
-	if ((LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE088B116) >= 4)) then
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281, (LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281) + GetRealFromExcel( "兵器", 1, "4级数值")))
-	else
-	endif
-	if ((LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE088B116) >= 6)) then
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281, (LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281) + GetRealFromExcel( "兵器", 1, "6级数值")))
-	else
-	endif
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A, (( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281)) *( Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 102)) *( Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 90))))
-	if ((GetRandomInt( 1, 100) <= R2I( Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 75)))) then
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A, (( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A)) *( Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 93)) +( 0.00)))
-		set udg_Args_WeaponType = WEAPON_TYPE_METAL_LIGHT_CHOP
-	else
-		set udg_Args_WeaponType = WEAPON_TYPE_WHOKNOWS
-	endif
-	set udg_Args_AttackType = ATTACK_TYPE_HERO
-	set udg_Args_DamageType = DAMAGE_TYPE_UNIVERSAL
-	set ydl_trigger = gg_trg_SLine_Type1
-	set ydl_triggerstep = GetHandleId(ydl_trigger)*(LoadInteger(YDLOC, GetHandleId(ydl_trigger), 0xCFDE6C76) + 3)
-	call SaveReal(YDLOC, ydl_triggerstep, 0x9966AD24, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x9966AD24))
-	call SaveReal(YDLOC, ydl_triggerstep, 0xC0ABED4A, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A))
-	call SaveReal(YDLOC, ydl_triggerstep, 0x0E20876F, GetUnitX( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075)))
-	call SaveReal(YDLOC, ydl_triggerstep, 0x4FB814AA, GetUnitY( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075)))
-	call SaveReal(YDLOC, ydl_triggerstep, 0xFB6E8B46, 30.00)
-	call SaveReal(YDLOC, ydl_triggerstep, 0xC65482EE, 100.00)
-	call SaveReal(YDLOC, ydl_triggerstep, 0x47527379, 1200.00)
-	call SaveUnitHandle(YDLOC, ydl_triggerstep, 0x6EDB7E6F, LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075))
-	call SaveStr(YDLOC, ydl_triggerstep, 0x2480578D, "Survival\\WeaponEffect\\1\\1.mdx")
-	call SaveBoolean(YDLOC, ydl_triggerstep, 0x2624EB23, true)
-	call SaveReal(YDLOC, ydl_triggerstep, 0xE6BB3831, 100.00)
-	call SaveTriggerHandle(YDLOC, ydl_triggerstep, 0x7B5473E1, gg_trg_Weapon_1_EndAction)
-	call TriggerExecute(ydl_trigger)
-	//判断额外弹道数量
-	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB7279243, 0)
-	if ((LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE088B116) >= 8)) then
-		call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB7279243, 1)
-	else
-	endif
-	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB7279243, (LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB7279243) + R2I( Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 15))))
-	set ydul_count = 1
-	loop
-		exitwhen ydul_count > LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB7279243)
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x9966AD24, ( GetRandomDirectionDeg()))
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A, (( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281)) *( Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 102)) *( Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 90))))
-		if ((GetRandomInt( 1, 100) <= R2I( Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 75)))) then
-			set udg_Args_WeaponType = WEAPON_TYPE_METAL_LIGHT_CHOP
-			call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A, (( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A)) *( Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 93)) +( 0.00)))
-		else
-			set udg_Args_WeaponType = WEAPON_TYPE_WHOKNOWS
-		endif
-		set udg_Args_AttackType = ATTACK_TYPE_HERO
-		set udg_Args_DamageType = DAMAGE_TYPE_UNIVERSAL
-		set ydl_trigger = gg_trg_SLine_Type1
-		set ydl_triggerstep = GetHandleId(ydl_trigger)*(LoadInteger(YDLOC, GetHandleId(ydl_trigger), 0xCFDE6C76) + 3)
-		call SaveReal(YDLOC, ydl_triggerstep, 0x9966AD24, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x9966AD24))
-		call SaveReal(YDLOC, ydl_triggerstep, 0xC0ABED4A, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A))
-		call SaveReal(YDLOC, ydl_triggerstep, 0xE6BB3831, 100.00)
-		call SaveReal(YDLOC, ydl_triggerstep, 0x0E20876F, GetUnitX( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075)))
-		call SaveReal(YDLOC, ydl_triggerstep, 0x4FB814AA, GetUnitY( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075)))
-		call SaveReal(YDLOC, ydl_triggerstep, 0xFB6E8B46, 30.00)
-		call SaveReal(YDLOC, ydl_triggerstep, 0xC65482EE, 100.00)
-		call SaveReal(YDLOC, ydl_triggerstep, 0x47527379, 1200.00)
-		call SaveUnitHandle(YDLOC, ydl_triggerstep, 0x6EDB7E6F, LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075))
-		call SaveStr(YDLOC, ydl_triggerstep, 0x2480578D, "Survival\\WeaponEffect\\1\\1.mdx")
-		call SaveBoolean(YDLOC, ydl_triggerstep, 0x2624EB23, true)
-		call SaveTriggerHandle(YDLOC, ydl_triggerstep, 0x7B5473E1, gg_trg_Weapon_1_EndAction)
-		call TriggerExecute(ydl_trigger)
-		set ydul_count = ydul_count + 1
-	endloop
-	call FlushChildHashtable(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step)
-	set ydl_trigger = null
-endfunction
-//===========================================================================
-function InitTrig_Weapon_1 takes nothing returns nothing
-	set gg_trg_Weapon_1 = CreateTrigger()
-	call TriggerAddAction(gg_trg_Weapon_1, function Trig_Weapon_1Actions)
-endfunction
-//===========================================================================
-// Trigger: Weapon_1_EndAction
-//===========================================================================
-function Trig_Weapon_1_EndActionActions takes nothing returns nothing
-	local integer ydl_triggerstep
-	local trigger ydl_trigger
-	local group ydl_group
-	local unit ydl_unit
-	local integer ydl_localvar_step = LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xCFDE6C76) 
- set ydl_localvar_step = ydl_localvar_step + 3 
- call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xCFDE6C76, ydl_localvar_step) 
- call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xECE825E7, ydl_localvar_step)
-	call SaveEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA, LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA))
-	call GroupClear( LoadGroupHandle(YDHT, GetHandleId( LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA)), 0x9E80183F))
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x9966AD24, LoadReal(YDHT, GetHandleId( LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA)), 0x9966AD24))
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x9966AD24, (LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x9966AD24) + GetRandomReal( 120.00, 240.00)))
-	call EXEffectMatReset( LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA))
-	call EXEffectMatRotateZ( LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA), LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x9966AD24))
-	set udg_Args_AttackType = ATTACK_TYPE_HERO
-	set udg_Args_DamageType = DAMAGE_TYPE_UNIVERSAL
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x0E20876F, EXGetEffectX( LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA)))
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x4FB814AA, EXGetEffectY( LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA)))
-	call SaveUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075, LoadUnitHandle(YDHT, GetHandleId( LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA)), 0x6EDB7E6F))
-	//判断是否暴击, 设置伤害
-	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965, GetConvertedPlayerId( GetOwningPlayer( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075))))
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281, GetRealFromExcel( "兵器", 1, "DamageValue"))
-	if ((LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE088B116) >= 2)) then
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281, (LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281) + GetRealFromExcel( "兵器", 1, "2级数值")))
-	else
-	endif
-	if ((LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE088B116) >= 4)) then
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281, (LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281) + GetRealFromExcel( "兵器", 1, "4级数值")))
-	else
-	endif
-	if ((LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE088B116) >= 6)) then
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281, (LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281) + GetRealFromExcel( "兵器", 1, "6级数值")))
-	else
-	endif
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A, (( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281)) *( Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 102)) *( Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 90))))
-	if ((GetRandomInt( 1, 100) <= R2I( Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 75)))) then
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A, (( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A)) *( Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 93)) +( 0.00)))
-		set udg_Args_WeaponType = WEAPON_TYPE_METAL_LIGHT_CHOP
-	else
-		set udg_Args_WeaponType = WEAPON_TYPE_WHOKNOWS
-	endif
-	set ydl_trigger = gg_trg_SLine_Type1
-	set ydl_triggerstep = GetHandleId(ydl_trigger)*(LoadInteger(YDLOC, GetHandleId(ydl_trigger), 0xCFDE6C76) + 3)
-	call SaveReal(YDLOC, ydl_triggerstep, 0x9966AD24, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x9966AD24))
-	call SaveReal(YDLOC, ydl_triggerstep, 0xC0ABED4A, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A))
-	call SaveReal(YDLOC, ydl_triggerstep, 0xE6BB3831, LoadReal(YDHT, GetHandleId( LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA)), 0xE6BB3831))
-	call SaveReal(YDLOC, ydl_triggerstep, 0x0E20876F, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x0E20876F))
-	call SaveReal(YDLOC, ydl_triggerstep, 0x4FB814AA, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x4FB814AA))
-	call SaveReal(YDLOC, ydl_triggerstep, 0xFB6E8B46, LoadReal(YDHT, GetHandleId( LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA)), 0xFB6E8B46))
-	call SaveReal(YDLOC, ydl_triggerstep, 0xC65482EE, LoadReal(YDHT, GetHandleId( LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA)), 0xC65482EE))
-	call SaveReal(YDLOC, ydl_triggerstep, 0x47527379, 1200.00)
-	call SaveUnitHandle(YDLOC, ydl_triggerstep, 0x6EDB7E6F, LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075))
-	call SaveBoolean(YDLOC, ydl_triggerstep, 0x2624EB23, true)
-	call SaveBoolean(YDLOC, ydl_triggerstep, 0xD7F63C43, true)
-	call SaveEffectHandle(YDLOC, ydl_triggerstep, 0xF8F856EA, LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA))
-	call SaveTriggerHandle(YDLOC, ydl_triggerstep, 0x7B5473E1, gg_trg_Weapon_1_EndAction2)
-	call TriggerExecute(ydl_trigger)
-	//超限效果
-	if (true) then
-		call SaveEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x94B57B64, AddSpecialEffect( "Survival\\WeaponEffect\\1\\2.mdx", LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x0E20876F), LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x4FB814AA)))
-		call DestroyEffect( LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x94B57B64))
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A, (( 4.00) *( Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 102)) *( Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 90))))
-		if ((GetRandomInt( 1, 100) <= R2I( Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 75)))) then
-			call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A, (( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A)) *( Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 93)) +( 0.00)))
-			set ydl_group = CreateGroup()
-			call GroupEnumUnitsInRange(ydl_group, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x0E20876F), LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x4FB814AA), 300.00, null)
-			loop
-				set ydl_unit = FirstOfGroup(ydl_group)
-				exitwhen ydl_unit == null
-				call GroupRemoveUnit(ydl_group, ydl_unit)
-				if ((IsUnitEnemy( ydl_unit, ConvertedPlayer( GetConvertedPlayerId( GetOwningPlayer( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075))))) == true)) then
-					call UnitDamageTarget( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), ydl_unit, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A), false, false, ATTACK_TYPE_HERO, DAMAGE_TYPE_UNIVERSAL, WEAPON_TYPE_METAL_LIGHT_CHOP)
-				else
-				endif
-			endloop
-			call DestroyGroup(ydl_group)
-		else
-			set ydl_group = CreateGroup()
-			call GroupEnumUnitsInRange(ydl_group, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x0E20876F), LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x4FB814AA), 300.00, null)
-			loop
-				set ydl_unit = FirstOfGroup(ydl_group)
-				exitwhen ydl_unit == null
-				call GroupRemoveUnit(ydl_group, ydl_unit)
-				if ((IsUnitEnemy( ydl_unit, ConvertedPlayer( GetConvertedPlayerId( GetOwningPlayer( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075))))) == true)) then
-					call UnitDamageTarget( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), ydl_unit, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A), false, false, ATTACK_TYPE_HERO, DAMAGE_TYPE_UNIVERSAL, WEAPON_TYPE_WHOKNOWS)
-				else
-				endif
-			endloop
-			call DestroyGroup(ydl_group)
-		endif
-	else
-	endif
-	call FlushChildHashtable(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step)
-	set ydl_trigger = null
-	set ydl_group = null
-	set ydl_unit = null
-endfunction
-//===========================================================================
-function InitTrig_Weapon_1_EndAction takes nothing returns nothing
-	set gg_trg_Weapon_1_EndAction = CreateTrigger()
-	call TriggerAddAction(gg_trg_Weapon_1_EndAction, function Trig_Weapon_1_EndActionActions)
-endfunction
-//===========================================================================
-// Trigger: Weapon_1_EndAction2
-//===========================================================================
-function Trig_Weapon_1_EndAction2Actions takes nothing returns nothing
-	local integer ydl_localvar_step = LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xCFDE6C76) 
- set ydl_localvar_step = ydl_localvar_step + 3 
- call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xCFDE6C76, ydl_localvar_step) 
- call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xECE825E7, ydl_localvar_step)
-	call SaveEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA, LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA))
-	call SaveBoolean(YDHT, GetHandleId( LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA)), 0x605B0368, false)
-	call FlushChildHashtable(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step)
-endfunction
-//===========================================================================
-function InitTrig_Weapon_1_EndAction2 takes nothing returns nothing
-	set gg_trg_Weapon_1_EndAction2 = CreateTrigger()
-	call TriggerAddAction(gg_trg_Weapon_1_EndAction2, function Trig_Weapon_1_EndAction2Actions)
-endfunction
-//===========================================================================
-// Trigger: Weapon_1_CD
-//===========================================================================
-function Trig_Weapon_1_CDActions takes nothing returns nothing
-	local integer ydl_localvar_step = LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xCFDE6C76) 
- set ydl_localvar_step = ydl_localvar_step + 3 
- call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xCFDE6C76, ydl_localvar_step) 
- call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xECE825E7, ydl_localvar_step)
-	call SaveUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075, LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075))
-	call SaveUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xD39F08B6, LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xD39F08B6))
-	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE, 1)
-	call SaveStr(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xAAC4C797, GetStringFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "需求属性"))
-	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x9BDB3720, GetIntegerFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "需求值"))
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x887B1FA4, GetRealFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "减少值"))
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x7E1A9366, GetRealFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "至多生效值"))
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xD3B112CF, Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), Str_GetAttr( LoadStr(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xAAC4C797))))
-	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xCB848F87, 1)
-	if (true) then
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x7E1A9366, GetRealFromExcel( "专精天赋", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xCB848F87), "Value1"))
-	else
-	endif
-	if ((LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xD3B112CF) > LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x7E1A9366))) then
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xD3B112CF, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x7E1A9366))
-	else
-	endif
-	call SetUnitState( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xD39F08B6), ConvertUnitState(0x25), (( GetRealFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "触发间隔")) -( I2R( (( R2I( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xD3B112CF)))/( LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x9BDB3720))))) *( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x887B1FA4))))
-	call FlushChildHashtable(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step)
-endfunction
-//===========================================================================
-function InitTrig_Weapon_1_CD takes nothing returns nothing
-	set gg_trg_Weapon_1_CD = CreateTrigger()
-	call TriggerAddAction(gg_trg_Weapon_1_CD, function Trig_Weapon_1_CDActions)
-endfunction
-//===========================================================================
-// Trigger: Weapon_2
-//===========================================================================
-function Trig_Weapon_2Actions takes nothing returns nothing
-	local integer ydl_localvar_step = LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xCFDE6C76) 
- set ydl_localvar_step = ydl_localvar_step + 3 
- call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xCFDE6C76, ydl_localvar_step) 
- call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xECE825E7, ydl_localvar_step)
-	call SaveUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075, LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075))
-	call SaveUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xFC4D8276, LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xFC4D8276))
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xECF5506B, GetUnitX( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xFC4D8276)))
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x024FDF70, GetUnitY( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xFC4D8276)))
-	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965, GetConvertedPlayerId( GetOwningPlayer( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075))))
-	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE, 2)
-	//造成伤害
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281, GetRealFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "DamageValue"))
-	if ((LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE088B116) >= 2)) then
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281, (LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281) + GetRealFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "2级数值")))
-	else
-	endif
-	if ((LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE088B116) >= 4)) then
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281, (LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281) + GetRealFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "4级数值")))
-	else
-	endif
-	if ((LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE088B116) >= 6)) then
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281, (LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281) + GetRealFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "6级数值")))
-	else
-	endif
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A, (( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281)) *( Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 101)) *( Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 92))))
-	call SaveEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA, AddSpecialEffect( "Survival\\WeaponEffect\\2\\2.mdx", LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xECF5506B), LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x024FDF70)))
-	call SaveInteger(YDHT, GetHandleId( LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA)), 0xA7FB4EDA, 1)
-	call SaveReal(YDHT, GetHandleId( LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA)), 0xC0ABED4A, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A))
-	call SaveUnitHandle(YDHT, GetHandleId( LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA)), 0x6EDB7E6F, LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075))
-	call SaveReal(YDHT, GetHandleId( LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA)), 0x2966415C, 3.00)
-	call SaveReal(YDHT, GetHandleId( LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA)), 0x17BB2B5F, 1.00)
-	call SaveReal(YDHT, GetHandleId( LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA)), 0xE6BB3831, 600.00)
-	call SaveReal(YDHT, GetHandleId( LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA)), 0xECF5506B, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xECF5506B))
-	call SaveReal(YDHT, GetHandleId( LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA)), 0x024FDF70, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x024FDF70))
-	//超限
-	if (true) then
-		call SaveTriggerHandle(YDHT, GetHandleId( LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA)), 0xACE50C20, gg_trg_Weapon_2_DamageAction)
-	else
-	endif
-	set udg_RangeDD_Stack_Top = (udg_RangeDD_Stack_Top + 1)
-	set udg_RangeDD_Stack_Effect[udg_RangeDD_Stack_Top] = LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA)
-	set udg_RangeDD_DamageType[udg_RangeDD_Stack_Top] = DAMAGE_TYPE_UNIVERSAL
-	set udg_RangeDD_AttackType[udg_RangeDD_Stack_Top] = ATTACK_TYPE_PIERCE
-	set udg_RangeDD_WeaponType[udg_RangeDD_Stack_Top] = WEAPON_TYPE_WHOKNOWS
-	//鲨鱼特效
-	call SaveEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA, AddSpecialEffect( "Survival\\WeaponEffect\\2\\1.mdx", LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xECF5506B), LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x024FDF70)))
-	call EXSetEffectSize( LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA), 0.50)
-	call SaveReal(YDHT, GetHandleId( LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA)), 0xF7CB8077, 3.00)
-	call SaveReal(YDHT, GetHandleId( LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA)), 0x32457EA2, 500.00)
-	call SaveReal(YDHT, GetHandleId( LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA)), 0x279DE3F0, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xECF5506B))
-	call SaveReal(YDHT, GetHandleId( LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA)), 0xC27AF500, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x024FDF70))
-	call SaveReal(YDHT, GetHandleId( LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA)), 0xCD8D3D70, 1.50)
-	call SaveReal(YDHT, GetHandleId( LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA)), 0xF7E8EEF1, 360.00)
-	set udg_CircleArc_Stack_Top = (udg_CircleArc_Stack_Top + 1)
-	set udg_CircleArc_Stack_Effect[udg_CircleArc_Stack_Top] = LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA)
-	call SaveEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA, AddSpecialEffect( "Survival\\WeaponEffect\\2\\1.mdx", LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xECF5506B), LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x024FDF70)))
-	call EXSetEffectSize( LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA), 0.30)
-	call SaveReal(YDHT, GetHandleId( LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA)), 0xF7CB8077, 3.00)
-	call SaveReal(YDHT, GetHandleId( LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA)), 0xAD29F6F2, -1.00)
-	call SaveReal(YDHT, GetHandleId( LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA)), 0x32457EA2, 200.00)
-	call SaveReal(YDHT, GetHandleId( LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA)), 0xCD8D3D70, 1.00)
-	call SaveReal(YDHT, GetHandleId( LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA)), 0x279DE3F0, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xECF5506B))
-	call SaveReal(YDHT, GetHandleId( LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA)), 0xC27AF500, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x024FDF70))
-	call SaveReal(YDHT, GetHandleId( LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA)), 0xF7E8EEF1, 360.00)
-	call SaveReal(YDHT, GetHandleId( LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA)), 0x95D6A763, 180.00)
-	set udg_CircleArc_Stack_Top = (udg_CircleArc_Stack_Top + 1)
-	set udg_CircleArc_Stack_Effect[udg_CircleArc_Stack_Top] = LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA)
-	call FlushChildHashtable(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step)
-endfunction
-//===========================================================================
-function InitTrig_Weapon_2 takes nothing returns nothing
-	set gg_trg_Weapon_2 = CreateTrigger()
-	call TriggerAddAction(gg_trg_Weapon_2, function Trig_Weapon_2Actions)
-endfunction
-//===========================================================================
-// Trigger: Weapon_2_DamageAction
-//===========================================================================
-function Trig_Weapon_2_DamageActionActions takes nothing returns nothing
-	local integer ydl_localvar_step = LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xCFDE6C76) 
- set ydl_localvar_step = ydl_localvar_step + 3 
- call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xCFDE6C76, ydl_localvar_step) 
- call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xECE825E7, ydl_localvar_step)
-	call SaveEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA, LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA))
-	call SaveUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xFC4D8276, LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xFC4D8276))
-	if ((GetUnitState( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xFC4D8276), UNIT_STATE_LIFE) > 0.00)) then
-		call IssueTargetOrder( udg_DebuffVest[2], "slow", LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xFC4D8276))
-	else
-	endif
-	call FlushChildHashtable(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step)
-endfunction
-//===========================================================================
-function InitTrig_Weapon_2_DamageAction takes nothing returns nothing
-	set gg_trg_Weapon_2_DamageAction = CreateTrigger()
-	call TriggerAddAction(gg_trg_Weapon_2_DamageAction, function Trig_Weapon_2_DamageActionActions)
-endfunction
-//===========================================================================
-// Trigger: Weapon_2_CD
-//===========================================================================
-function Trig_Weapon_2_CDActions takes nothing returns nothing
-	local integer ydl_localvar_step = LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xCFDE6C76) 
- set ydl_localvar_step = ydl_localvar_step + 3 
- call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xCFDE6C76, ydl_localvar_step) 
- call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xECE825E7, ydl_localvar_step)
-	call SaveUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075, LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075))
-	call SaveUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xD39F08B6, LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xD39F08B6))
-	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965, GetConvertedPlayerId( GetOwningPlayer( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075))))
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x3B60835B, GetRealFromExcel( "兵器", 2, "触发间隔"))
-	if ((LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE088B116) >= 7)) then
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x3B60835B, (LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x3B60835B) - GetRealFromExcel( "兵器", 2, "7级数值")))
-	else
-	endif
-	if ((LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE088B116) >= 8)) then
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x3B60835B, (LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x3B60835B) - GetRealFromExcel( "兵器", 2, "8级数值")))
-	else
-	endif
-	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xCB848F87, 2)
-	if (true) then
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x3B60835B, (LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x3B60835B) - GetRealFromExcel( "专精天赋", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xCB848F87), "Value1")))
-	else
-	endif
-	call SetUnitState( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xD39F08B6), ConvertUnitState(0x25), LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x3B60835B))
-	call FlushChildHashtable(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step)
-endfunction
-//===========================================================================
-function InitTrig_Weapon_2_CD takes nothing returns nothing
-	set gg_trg_Weapon_2_CD = CreateTrigger()
-	call TriggerAddAction(gg_trg_Weapon_2_CD, function Trig_Weapon_2_CDActions)
-endfunction
-//===========================================================================
-// Trigger: Weapon_3
-//===========================================================================
-function Trig_Weapon_3Func028T takes nothing returns nothing
-	local group ydl_group
-	local unit ydl_unit
-	call SaveReal(YDLOC, GetHandleId(GetExpiredTimer()), 0x1CA61CEC, (LoadReal(YDLOC, GetHandleId(GetExpiredTimer()), 0x1CA61CEC) + 1.00))
-	if ((LoadReal(YDLOC, GetHandleId(GetExpiredTimer()), 0x1CA61CEC) <= 6.00)) then
-		call SaveReal(YDLOC, GetHandleId(GetExpiredTimer()), 0x71A400F9, EXGetEffectX( LoadEffectHandle(YDLOC, GetHandleId(GetExpiredTimer()), 0xF8F856EA)))
-		call SaveReal(YDLOC, GetHandleId(GetExpiredTimer()), 0xC738EF47, EXGetEffectY( LoadEffectHandle(YDLOC, GetHandleId(GetExpiredTimer()), 0xF8F856EA)))
-		set ydl_group = CreateGroup()
-		call GroupEnumUnitsInRange(ydl_group, LoadReal(YDLOC, GetHandleId(GetExpiredTimer()), 0x71A400F9), LoadReal(YDLOC, GetHandleId(GetExpiredTimer()), 0xC738EF47), (300.00 * LoadReal(YDLOC, GetHandleId(GetExpiredTimer()), 0x5B0BDD27)), null)
-		loop
-			set ydl_unit = FirstOfGroup(ydl_group)
-			exitwhen ydl_unit == null
-			call GroupRemoveUnit(ydl_group, ydl_unit)
-			if ((IsUnitEnemy( ydl_unit, ConvertedPlayer( GetConvertedPlayerId( GetOwningPlayer( LoadUnitHandle(YDLOC, GetHandleId(GetExpiredTimer()), 0xE6E64075))))) == true) and (GetUnitAbilityLevel( ydl_unit, 'Avul') == 0)) then
-				call SetUnitPosition( ydl_unit, LoadReal(YDLOC, GetHandleId(GetExpiredTimer()), 0x71A400F9), LoadReal(YDLOC, GetHandleId(GetExpiredTimer()), 0xC738EF47))
-			else
-			endif
-		endloop
-		call DestroyGroup(ydl_group)
-	else
-		//超限
-		if (true) then
-			call SaveInteger(YDLOC, GetHandleId(GetExpiredTimer()), 0x58A8D929, 30)
-			call SaveInteger(YDLOC, GetHandleId(GetExpiredTimer()), 0xCB848F87, 3)
-			if (true) then
-				call SaveInteger(YDLOC, GetHandleId(GetExpiredTimer()), 0x58A8D929, GetIntegerFromExcel( "专精天赋", LoadInteger(YDLOC, GetHandleId(GetExpiredTimer()), 0xCB848F87), "Value1"))
-			else
-			endif
-			if ((GetRandomInt( 1, 100) <= LoadInteger(YDLOC, GetHandleId(GetExpiredTimer()), 0x58A8D929))) then
-				call SaveEffectHandle(YDLOC, GetHandleId(GetExpiredTimer()), 0xF8F856EA, AddSpecialEffect( "Survival\\WeaponEffect\\3\\1.mdx", LoadReal(YDLOC, GetHandleId(GetExpiredTimer()), 0x71A400F9), LoadReal(YDLOC, GetHandleId(GetExpiredTimer()), 0xC738EF47)))
-				call EXSetEffectSize( LoadEffectHandle(YDLOC, GetHandleId(GetExpiredTimer()), 0xF8F856EA), (0.30 * LoadReal(YDLOC, GetHandleId(GetExpiredTimer()), 0x5B0BDD27)))
-				call DestroyEffect( LoadEffectHandle(YDLOC, GetHandleId(GetExpiredTimer()), 0xF8F856EA))
-				//爆炸, 眩晕
-				call SaveReal(YDLOC, GetHandleId(GetExpiredTimer()), 0xC0ABED4A, (( LoadReal(YDLOC, GetHandleId(GetExpiredTimer()), 0xB1C6C281)) *( Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetExpiredTimer()), 0xE6E64075), 103)) *( Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetExpiredTimer()), 0xE6E64075), 91))))
-				if ((GetRandomInt( 1, 100) <= R2I( Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetExpiredTimer()), 0xE6E64075), 77)))) then
-					call SaveReal(YDLOC, GetHandleId(GetExpiredTimer()), 0xC0ABED4A, (( LoadReal(YDLOC, GetHandleId(GetExpiredTimer()), 0xC0ABED4A)) *( Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetExpiredTimer()), 0xE6E64075), 94)) +( 0.00)))
-					set ydl_group = CreateGroup()
-					call GroupEnumUnitsInRange(ydl_group, LoadReal(YDLOC, GetHandleId(GetExpiredTimer()), 0x71A400F9), LoadReal(YDLOC, GetHandleId(GetExpiredTimer()), 0xC738EF47), (500.00 * LoadReal(YDLOC, GetHandleId(GetExpiredTimer()), 0x5B0BDD27)), null)
-					loop
-						set ydl_unit = FirstOfGroup(ydl_group)
-						exitwhen ydl_unit == null
-						call GroupRemoveUnit(ydl_group, ydl_unit)
-						if ((IsUnitEnemy( ydl_unit, ConvertedPlayer( GetConvertedPlayerId( GetOwningPlayer( LoadUnitHandle(YDLOC, GetHandleId(GetExpiredTimer()), 0xE6E64075))))) == true)) then
-							call UnitDamageTarget( LoadUnitHandle(YDLOC, GetHandleId(GetExpiredTimer()), 0xE6E64075), ydl_unit, LoadReal(YDLOC, GetHandleId(GetExpiredTimer()), 0xC0ABED4A), false, false, ATTACK_TYPE_NORMAL, DAMAGE_TYPE_UNIVERSAL, WEAPON_TYPE_METAL_LIGHT_CHOP)
-							call IssueTargetOrder( udg_DebuffVest[1], "thunderbolt", ydl_unit)
-						else
-						endif
-					endloop
-					call DestroyGroup(ydl_group)
-				else
-					set ydl_group = CreateGroup()
-					call GroupEnumUnitsInRange(ydl_group, LoadReal(YDLOC, GetHandleId(GetExpiredTimer()), 0x71A400F9), LoadReal(YDLOC, GetHandleId(GetExpiredTimer()), 0xC738EF47), (500.00 * LoadReal(YDLOC, GetHandleId(GetExpiredTimer()), 0x5B0BDD27)), null)
-					loop
-						set ydl_unit = FirstOfGroup(ydl_group)
-						exitwhen ydl_unit == null
-						call GroupRemoveUnit(ydl_group, ydl_unit)
-						if ((IsUnitEnemy( ydl_unit, ConvertedPlayer( GetConvertedPlayerId( GetOwningPlayer( LoadUnitHandle(YDLOC, GetHandleId(GetExpiredTimer()), 0xE6E64075))))) == true)) then
-							call UnitDamageTarget( LoadUnitHandle(YDLOC, GetHandleId(GetExpiredTimer()), 0xE6E64075), ydl_unit, LoadReal(YDLOC, GetHandleId(GetExpiredTimer()), 0xC0ABED4A), false, false, ATTACK_TYPE_NORMAL, DAMAGE_TYPE_UNIVERSAL, WEAPON_TYPE_WHOKNOWS)
-							call IssueTargetOrder( udg_DebuffVest[1], "thunderbolt", ydl_unit)
-						else
-						endif
-					endloop
-					call DestroyGroup(ydl_group)
-				endif
-			else
-				call FlushChildHashtable(YDLOC, GetHandleId(GetExpiredTimer()))
-				call DestroyTimer(GetExpiredTimer())
-			endif
-		else
-			call FlushChildHashtable(YDLOC, GetHandleId(GetExpiredTimer()))
-			call DestroyTimer(GetExpiredTimer())
-		endif
-	endif
-	set ydl_group = null
-	set ydl_unit = null
-endfunction
-function Trig_Weapon_3Actions takes nothing returns nothing
-	local integer ydl_triggerstep
-	local trigger ydl_trigger
-	local timer ydl_timer
-	local integer ydl_localvar_step = LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xCFDE6C76) 
- set ydl_localvar_step = ydl_localvar_step + 3 
- call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xCFDE6C76, ydl_localvar_step) 
- call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xECE825E7, ydl_localvar_step)
-	call SaveUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075, LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075))
-	call SaveUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xFC4D8276, LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xFC4D8276))
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xECF5506B, GetUnitX( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xFC4D8276)))
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x024FDF70, GetUnitY( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xFC4D8276)))
-	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965, GetConvertedPlayerId( GetOwningPlayer( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075))))
-	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE, 3)
-	//造成伤害
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281, GetRealFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "DamageValue"))
-	if ((LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE088B116) >= 2)) then
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281, (LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281) + GetRealFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "2级数值")))
-	else
-	endif
-	if ((LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE088B116) >= 4)) then
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281, (LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281) + GetRealFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "4级数值")))
-	else
-	endif
-	if ((LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE088B116) >= 6)) then
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281, (LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281) + GetRealFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "6级数值")))
-	else
-	endif
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A, (( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281)) *( Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 103)) *( Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 91))))
-	//-------------------
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x9966AD24, ( YDWEAngleBetweenUnits( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xFC4D8276))))
-	if ((GetRandomInt( 1, 100) <= R2I( Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 77)))) then
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A, (( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A)) *( Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 94)) +( 0.00)))
-		set udg_Args_WeaponType = WEAPON_TYPE_METAL_LIGHT_CHOP
-	else
-		set udg_Args_WeaponType = WEAPON_TYPE_WHOKNOWS
-	endif
-	set udg_Args_AttackType = ATTACK_TYPE_NORMAL
-	set udg_Args_DamageType = DAMAGE_TYPE_UNIVERSAL
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x0E20876F, GetUnitX( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075)))
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x4FB814AA, GetUnitY( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075)))
-	call SaveEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA, AddSpecialEffect( "Survival\\WeaponEffect\\3\\1.mdx", LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x0E20876F), LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x4FB814AA)))
-	call EXEffectMatRotateZ( LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA), LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x9966AD24))
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x5B0BDD27, Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 20))
-	if ((LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE088B116) >= 8)) then
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x5B0BDD27, (LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x5B0BDD27) + GetRealFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "8级数值")))
-	else
-	endif
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x5B0BDD27, (( 1.00) +( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x5B0BDD27)) *( 0.01)))
-	call EXSetEffectSize( LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA), (0.30 * LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x5B0BDD27)))
-	set ydl_trigger = gg_trg_SLine_Type4
-	set ydl_triggerstep = GetHandleId(ydl_trigger)*(LoadInteger(YDLOC, GetHandleId(ydl_trigger), 0xCFDE6C76) + 3)
-	call SaveReal(YDLOC, ydl_triggerstep, 0x9966AD24, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x9966AD24))
-	call SaveReal(YDLOC, ydl_triggerstep, 0xC0ABED4A, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A))
-	call SaveReal(YDLOC, ydl_triggerstep, 0x0E20876F, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x0E20876F))
-	call SaveReal(YDLOC, ydl_triggerstep, 0x4FB814AA, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x4FB814AA))
-	call SaveReal(YDLOC, ydl_triggerstep, 0xE6BB3831, (500.00 * LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x5B0BDD27)))
-	call SaveReal(YDLOC, ydl_triggerstep, 0xFB6E8B46, 30.00)
-	call SaveReal(YDLOC, ydl_triggerstep, 0x47527379, 900.00)
-	call SaveUnitHandle(YDLOC, ydl_triggerstep, 0x6EDB7E6F, LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075))
-	call SaveEffectHandle(YDLOC, ydl_triggerstep, 0xF8F856EA, LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA))
-	call SaveBoolean(YDLOC, ydl_triggerstep, 0xD7F63C43, true)
-	call TriggerExecute(ydl_trigger)
-	set ydl_timer = CreateTimer()
-	call SaveReal(YDLOC, GetHandleId(ydl_timer), 0x1CA61CEC, 0.00)
-	call SaveReal(YDLOC, GetHandleId(ydl_timer), 0xB1C6C281, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281))
-	call SaveReal(YDLOC, GetHandleId(ydl_timer), 0xC0ABED4A, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A))
-	call SaveReal(YDLOC, GetHandleId(ydl_timer), 0x5B0BDD27, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x5B0BDD27))
-	call SaveEffectHandle(YDLOC, GetHandleId(ydl_timer), 0xF8F856EA, LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA))
-	call SaveReal(YDLOC, GetHandleId(ydl_timer), 0x71A400F9, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x71A400F9))
-	call SaveReal(YDLOC, GetHandleId(ydl_timer), 0xC738EF47, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC738EF47))
-	call SaveUnitHandle(YDLOC, GetHandleId(ydl_timer), 0xE6E64075, LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075))
-	call SaveInteger(YDLOC, GetHandleId(ydl_timer), 0x58A8D929, LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x58A8D929))
-	call SaveInteger(YDLOC, GetHandleId(ydl_timer), 0xCB848F87, LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xCB848F87))
-	call TimerStart(ydl_timer, 0.10, true, function Trig_Weapon_3Func028T)
-	call FlushChildHashtable(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step)
-	set ydl_trigger = null
-	set ydl_timer = null
-endfunction
-//===========================================================================
-function InitTrig_Weapon_3 takes nothing returns nothing
-	set gg_trg_Weapon_3 = CreateTrigger()
-	call TriggerAddAction(gg_trg_Weapon_3, function Trig_Weapon_3Actions)
-endfunction
-//===========================================================================
-// Trigger: Weapon_3_CD
-//===========================================================================
-function Trig_Weapon_3_CDActions takes nothing returns nothing
-	local integer ydl_localvar_step = LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xCFDE6C76) 
- set ydl_localvar_step = ydl_localvar_step + 3 
- call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xCFDE6C76, ydl_localvar_step) 
- call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xECE825E7, ydl_localvar_step)
-	call SaveUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075, LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075))
-	call SaveUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xD39F08B6, LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xD39F08B6))
-	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965, GetConvertedPlayerId( GetOwningPlayer( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075))))
-	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE, 3)
-	call SaveStr(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xAAC4C797, GetStringFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "需求属性"))
-	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x9BDB3720, GetIntegerFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "需求值"))
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x887B1FA4, GetRealFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "减少值"))
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x7E1A9366, GetRealFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "至多生效值"))
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xD3B112CF, Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), Str_GetAttr( LoadStr(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xAAC4C797))))
-	if ((LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xD3B112CF) > LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x7E1A9366))) then
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xD3B112CF, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x7E1A9366))
-	else
-	endif
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x3B60835B, GetRealFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "触发间隔"))
-	call SetUnitState( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xD39F08B6), ConvertUnitState(0x25), (( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x3B60835B)) -( I2R( (( R2I( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xD3B112CF)))/( LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x9BDB3720))))) *( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x887B1FA4))))
-	call FlushChildHashtable(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step)
-endfunction
-//===========================================================================
-function InitTrig_Weapon_3_CD takes nothing returns nothing
-	set gg_trg_Weapon_3_CD = CreateTrigger()
-	call TriggerAddAction(gg_trg_Weapon_3_CD, function Trig_Weapon_3_CDActions)
-endfunction
-//===========================================================================
-// Trigger: Weapon_4_Get
-//===========================================================================
-function Trig_Weapon_4_GetActions takes nothing returns nothing
-	local integer ydl_localvar_step = LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xCFDE6C76) 
- set ydl_localvar_step = ydl_localvar_step + 3 
- call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xCFDE6C76, ydl_localvar_step) 
- call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xECE825E7, ydl_localvar_step)
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xAB08DC2F, GetUnitX( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075)))
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x03973DD2, GetUnitY( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075)))
-	call SaveUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB6A6EBAA, CreateUnit( ConvertedPlayer( LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965)), 'h000', LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xAB08DC2F), LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x03973DD2), 0))
-	call SaveUnitHandle(YDHT, GetHandleId( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075)), 0x6FA38A77, LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB6A6EBAA))
-	call FlushChildHashtable(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step)
-endfunction
-//===========================================================================
-function InitTrig_Weapon_4_Get takes nothing returns nothing
-	set gg_trg_Weapon_4_Get = CreateTrigger()
-	call TriggerAddAction(gg_trg_Weapon_4_Get, function Trig_Weapon_4_GetActions)
-endfunction
-//===========================================================================
-// Trigger: Weapon_4
-//===========================================================================
-function Trig_Weapon_4Actions takes nothing returns nothing
-	local integer ydul_count
-	local group ydl_group
-	local unit ydl_unit
-	local integer ydl_localvar_step = LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xCFDE6C76) 
- set ydl_localvar_step = ydl_localvar_step + 3 
- call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xCFDE6C76, ydl_localvar_step) 
- call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xECE825E7, ydl_localvar_step)
-	call SaveUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075, LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075))
-	call SaveUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xFC4D8276, LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xFC4D8276))
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xECF5506B, GetUnitX( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xFC4D8276)))
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x024FDF70, GetUnitY( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xFC4D8276)))
-	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965, GetConvertedPlayerId( GetOwningPlayer( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075))))
-	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE, 4)
-	//计算伤害
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281, GetRealFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "DamageValue"))
-	if ((LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE088B116) >= 2)) then
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281, (LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281) + GetRealFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "2级数值")))
-	else
-	endif
-	if ((LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE088B116) >= 4)) then
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281, (LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281) + GetRealFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "4级数值")))
-	else
-	endif
-	if ((LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE088B116) >= 6)) then
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281, (LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281) + GetRealFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "6级数值")))
-	else
-	endif
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A, (( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281)) *( Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 103)) *( Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 91))))
-	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xCB848F87, 4)
-	if (true) then
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A, (( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A)) *( GetRealFromExcel( "专精天赋", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xCB848F87), "Value1")) +( 0.00)))
-	else
-	endif
-	//伤害范围
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x5B0BDD27, Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 20))
-	if ((LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE088B116) >= 8)) then
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x5B0BDD27, (LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x5B0BDD27) + GetRealFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "8级数值")))
-	else
-	endif
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x5B0BDD27, (( 1.00) +( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x5B0BDD27)) *( 0.01)))
-	//歼灭打击
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x47527379, 400.00)
-	if ((GetRandomInt( 1, 100) <= R2I( Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 77)))) then
-		//暴击
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A, (( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A)) *( Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 94)) +( 0.00)))
-		set ydul_count = 1
-		loop
-			exitwhen ydul_count > 4
-			call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x9966AD24, (( 45.00) +( 90.00) *( I2R( ydul_count))))
-			call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xA99320FA, (( GetUnitX( LoadUnitHandle(YDHT, GetHandleId( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075)), 0x6FA38A77))) +( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x47527379)) *( CosBJ( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x9966AD24)))))
-			call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xFDF65382, (( GetUnitY( LoadUnitHandle(YDHT, GetHandleId( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075)), 0x6FA38A77))) +( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x47527379)) *( SinBJ( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x9966AD24)))))
-			call SaveEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA, AddSpecialEffect( "Survival\\WeaponEffect\\4\\1.mdx", LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xA99320FA), LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xFDF65382)))
-			call EXSetEffectSize( LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA), (0.80 * LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x5B0BDD27)))
-			call YDWETimerDestroyEffect( 3.00, LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA))
-			set ydl_group = CreateGroup()
-			call GroupEnumUnitsInRange(ydl_group, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xA99320FA), LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xFDF65382), (500.00 * LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x5B0BDD27)), null)
-			loop
-				set ydl_unit = FirstOfGroup(ydl_group)
-				exitwhen ydl_unit == null
-				call GroupRemoveUnit(ydl_group, ydl_unit)
-				if ((IsUnitEnemy( ydl_unit, ConvertedPlayer( LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965))) == true)) then
-					call UnitDamageTarget( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), ydl_unit, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A), false, false, ATTACK_TYPE_NORMAL, DAMAGE_TYPE_UNIVERSAL, WEAPON_TYPE_METAL_LIGHT_CHOP)
-				else
-				endif
-			endloop
-			call DestroyGroup(ydl_group)
-			//超限
-			if (true) then
-				call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xA99320FA, (( GetUnitX( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075))) +( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x47527379)) *( CosBJ( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x9966AD24)))))
-				call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xFDF65382, (( GetUnitY( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075))) +( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x47527379)) *( SinBJ( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x9966AD24)))))
-				call SaveEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA, AddSpecialEffect( "Survival\\WeaponEffect\\4\\1.mdx", LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xA99320FA), LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xFDF65382)))
-				call EXSetEffectSize( LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA), (0.80 * LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x5B0BDD27)))
-				call YDWETimerDestroyEffect( 3.00, LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA))
-				set ydl_group = CreateGroup()
-				call GroupEnumUnitsInRange(ydl_group, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xA99320FA), LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xFDF65382), (500.00 * LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x5B0BDD27)), null)
-				loop
-					set ydl_unit = FirstOfGroup(ydl_group)
-					exitwhen ydl_unit == null
-					call GroupRemoveUnit(ydl_group, ydl_unit)
-					if ((IsUnitEnemy( ydl_unit, ConvertedPlayer( LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965))) == true)) then
-						call UnitDamageTarget( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), ydl_unit, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A), false, false, ATTACK_TYPE_NORMAL, DAMAGE_TYPE_UNIVERSAL, WEAPON_TYPE_METAL_LIGHT_CHOP)
-					else
-					endif
-				endloop
-				call DestroyGroup(ydl_group)
-			else
-			endif
-			set ydul_count = ydul_count + 1
-		endloop
-	else
-		//不暴击
-		set ydul_count = 1
-		loop
-			exitwhen ydul_count > 4
-			call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x9966AD24, (( 45.00) +( 90.00) *( I2R( ydul_count))))
-			call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xA99320FA, (( GetUnitX( LoadUnitHandle(YDHT, GetHandleId( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075)), 0x6FA38A77))) +( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x47527379)) *( CosBJ( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x9966AD24)))))
-			call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xFDF65382, (( GetUnitY( LoadUnitHandle(YDHT, GetHandleId( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075)), 0x6FA38A77))) +( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x47527379)) *( SinBJ( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x9966AD24)))))
-			call SaveEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA, AddSpecialEffect( "Survival\\WeaponEffect\\4\\1.mdx", LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xA99320FA), LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xFDF65382)))
-			call EXSetEffectSize( LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA), (0.80 * LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x5B0BDD27)))
-			call YDWETimerDestroyEffect( 3.00, LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA))
-			set ydl_group = CreateGroup()
-			call GroupEnumUnitsInRange(ydl_group, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xA99320FA), LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xFDF65382), (500.00 * LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x5B0BDD27)), null)
-			loop
-				set ydl_unit = FirstOfGroup(ydl_group)
-				exitwhen ydl_unit == null
-				call GroupRemoveUnit(ydl_group, ydl_unit)
-				if ((IsUnitEnemy( ydl_unit, ConvertedPlayer( LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965))) == true)) then
-					call UnitDamageTarget( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), ydl_unit, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A), false, false, ATTACK_TYPE_NORMAL, DAMAGE_TYPE_UNIVERSAL, WEAPON_TYPE_WHOKNOWS)
-				else
-				endif
-			endloop
-			call DestroyGroup(ydl_group)
-			//超限
-			if (true) then
-				call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xA99320FA, (( GetUnitX( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075))) +( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x47527379)) *( CosBJ( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x9966AD24)))))
-				call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xFDF65382, (( GetUnitY( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075))) +( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x47527379)) *( SinBJ( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x9966AD24)))))
-				call SaveEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA, AddSpecialEffect( "Survival\\WeaponEffect\\4\\1.mdx", LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xA99320FA), LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xFDF65382)))
-				call EXSetEffectSize( LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA), (0.80 * LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x5B0BDD27)))
-				call YDWETimerDestroyEffect( 3.00, LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA))
-				set ydl_group = CreateGroup()
-				call GroupEnumUnitsInRange(ydl_group, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xA99320FA), LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xFDF65382), (500.00 * LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x5B0BDD27)), null)
-				loop
-					set ydl_unit = FirstOfGroup(ydl_group)
-					exitwhen ydl_unit == null
-					call GroupRemoveUnit(ydl_group, ydl_unit)
-					if ((IsUnitEnemy( ydl_unit, ConvertedPlayer( LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965))) == true)) then
-						call UnitDamageTarget( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), ydl_unit, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A), false, false, ATTACK_TYPE_NORMAL, DAMAGE_TYPE_UNIVERSAL, WEAPON_TYPE_METAL_LIGHT_CHOP)
-					else
-					endif
-				endloop
-				call DestroyGroup(ydl_group)
-			else
-			endif
-			set ydul_count = ydul_count + 1
-		endloop
-	endif
-	call FlushChildHashtable(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step)
-	set ydl_group = null
-	set ydl_unit = null
-endfunction
-//===========================================================================
-function InitTrig_Weapon_4 takes nothing returns nothing
-	set gg_trg_Weapon_4 = CreateTrigger()
-	call TriggerAddAction(gg_trg_Weapon_4, function Trig_Weapon_4Actions)
-endfunction
-//===========================================================================
-// Trigger: Weapon_4_CD
-//===========================================================================
-function Trig_Weapon_4_CDActions takes nothing returns nothing
-	local integer ydl_localvar_step = LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xCFDE6C76) 
- set ydl_localvar_step = ydl_localvar_step + 3 
- call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xCFDE6C76, ydl_localvar_step) 
- call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xECE825E7, ydl_localvar_step)
-	call SaveUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075, LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075))
-	call SaveUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xD39F08B6, LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xD39F08B6))
-	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965, GetConvertedPlayerId( GetOwningPlayer( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075))))
-	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE, 4)
-	call SaveStr(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xAAC4C797, GetStringFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "需求属性"))
-	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x9BDB3720, GetIntegerFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "需求值"))
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x887B1FA4, GetRealFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "减少值"))
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x7E1A9366, GetRealFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "至多生效值"))
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xD3B112CF, Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), Str_GetAttr( LoadStr(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xAAC4C797))))
-	if ((LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xD3B112CF) > LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x7E1A9366))) then
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xD3B112CF, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x7E1A9366))
-	else
-	endif
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x3B60835B, GetRealFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "触发间隔"))
-	call SetUnitState( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xD39F08B6), ConvertUnitState(0x25), (( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x3B60835B)) -( I2R( (( R2I( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xD3B112CF)))/( LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x9BDB3720))))) *( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x887B1FA4))))
-	call FlushChildHashtable(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step)
-endfunction
-//===========================================================================
-function InitTrig_Weapon_4_CD takes nothing returns nothing
-	set gg_trg_Weapon_4_CD = CreateTrigger()
-	call TriggerAddAction(gg_trg_Weapon_4_CD, function Trig_Weapon_4_CDActions)
-endfunction
-//===========================================================================
-// Trigger: Weapon_5
-//===========================================================================
-function Trig_Weapon_5Actions takes nothing returns nothing
-	local integer ydl_triggerstep
-	local trigger ydl_trigger
-	local integer ydl_localvar_step = LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xCFDE6C76) 
- set ydl_localvar_step = ydl_localvar_step + 3 
- call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xCFDE6C76, ydl_localvar_step) 
- call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xECE825E7, ydl_localvar_step)
-	call SaveUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075, LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075))
-	call SaveUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xFC4D8276, LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xFC4D8276))
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xECF5506B, GetUnitX( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xFC4D8276)))
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x024FDF70, GetUnitY( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xFC4D8276)))
-	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965, GetConvertedPlayerId( GetOwningPlayer( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075))))
-	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE, 5)
-	//计算伤害
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281, GetRealFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "DamageValue"))
-	if ((LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE088B116) >= 2)) then
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281, (LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281) + GetRealFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "2级数值")))
-	else
-	endif
-	if ((LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE088B116) >= 4)) then
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281, (LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281) + GetRealFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "4级数值")))
-	else
-	endif
-	if ((LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE088B116) >= 6)) then
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281, (LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281) + GetRealFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "6级数值")))
-	else
-	endif
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A, (( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281)) *( Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 102)) *( Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 90))))
-	//伤害范围
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x5B0BDD27, Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 20))
-	if ((LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE088B116) >= 8)) then
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x5B0BDD27, (LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x5B0BDD27) + GetRealFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "8级数值")))
-	else
-	endif
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x5B0BDD27, (( 1.00) +( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x5B0BDD27)) *( 0.01)))
-	//击退敌人
-	if ((GetRandomInt( 1, 100) <= R2I( Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 75)))) then
-		//暴击
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A, (( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A)) *( Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 93)) +( 0.00)))
-		set udg_Args_WeaponType = WEAPON_TYPE_METAL_LIGHT_CHOP
-	else
-		set udg_Args_WeaponType = WEAPON_TYPE_WHOKNOWS
-	endif
-	//加入堆栈
-	set udg_Args_AttackType = ATTACK_TYPE_HERO
-	set udg_Args_DamageType = DAMAGE_TYPE_UNIVERSAL
-	//计算初始位置
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xBFFBB2C5, GetRandomReal( 0, 360.00))
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xAB08DC2F, (( GetUnitX( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075))) +( 0.00) +( 0)))
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x03973DD2, (( GetUnitY( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075))) +( 0.00) +( 0)))
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x71A400F9, (( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xAB08DC2F)) +( 2000.00) *( CosBJ( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xBFFBB2C5)))))
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC738EF47, (( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x03973DD2)) +( 2000.00) *( SinBJ( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xBFFBB2C5)))))
-	set ydl_trigger = gg_trg_SLine_Type1
-	set ydl_triggerstep = GetHandleId(ydl_trigger)*(LoadInteger(YDLOC, GetHandleId(ydl_trigger), 0xCFDE6C76) + 3)
-	call SaveReal(YDLOC, ydl_triggerstep, 0x9966AD24, ( Atan2BJ( (LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x03973DD2) - LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC738EF47)), (LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xAB08DC2F) - LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x71A400F9)))))
-	call SaveReal(YDLOC, ydl_triggerstep, 0xC0ABED4A, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A))
-	call SaveReal(YDLOC, ydl_triggerstep, 0x0E20876F, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x71A400F9))
-	call SaveReal(YDLOC, ydl_triggerstep, 0x4FB814AA, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC738EF47))
-	call SaveReal(YDLOC, ydl_triggerstep, 0xFB6E8B46, 30.00)
-	call SaveReal(YDLOC, ydl_triggerstep, 0xC65482EE, 300.00)
-	call SaveReal(YDLOC, ydl_triggerstep, 0x47527379, 2000.00)
-	call SaveReal(YDLOC, ydl_triggerstep, 0xB54F5BCB, (0.60 * LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x5B0BDD27)))
-	call SaveUnitHandle(YDLOC, ydl_triggerstep, 0x6EDB7E6F, LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075))
-	call SaveStr(YDLOC, ydl_triggerstep, 0x2480578D, "Survival\\WeaponEffect\\5\\1.mdx")
-	call SaveReal(YDLOC, ydl_triggerstep, 0xE6BB3831, (300.00 * LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x5B0BDD27)))
-	call SaveTriggerHandle(YDLOC, ydl_triggerstep, 0x4F719503, gg_trg_Weapon_5_DamageAction)
-	//超限
-	if (true) then
-		call SaveTriggerHandle(YDLOC, ydl_triggerstep, 0x7B5473E1, gg_trg_Weapon_5_EndAction)
-	else
-	endif
-	call TriggerExecute(ydl_trigger)
-	call FlushChildHashtable(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step)
-	set ydl_trigger = null
-endfunction
-//===========================================================================
-function InitTrig_Weapon_5 takes nothing returns nothing
-	set gg_trg_Weapon_5 = CreateTrigger()
-	call TriggerAddAction(gg_trg_Weapon_5, function Trig_Weapon_5Actions)
-endfunction
-//===========================================================================
-// Trigger: Weapon_5_DamageAction
-//===========================================================================
-function Trig_Weapon_5_DamageActionActions takes nothing returns nothing
-	local integer ydl_localvar_step = LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xCFDE6C76) 
- set ydl_localvar_step = ydl_localvar_step + 3 
- call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xCFDE6C76, ydl_localvar_step) 
- call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xECE825E7, ydl_localvar_step)
-	call SaveEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA, LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA))
-	call SaveUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xFC4D8276, LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xFC4D8276))
-	if ((GetUnitState( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xFC4D8276), UNIT_STATE_LIFE) > 0.00)) then
-		call SaveUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075, LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075))
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x71A400F9, EXGetEffectX( LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA)))
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC738EF47, EXGetEffectY( LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA)))
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xECF5506B, GetUnitX( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xFC4D8276)))
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x024FDF70, GetUnitY( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xFC4D8276)))
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x47BE4973, Atan2BJ( (LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x024FDF70) - LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC738EF47)), (LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xECF5506B) - LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x71A400F9))))
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x22AA94E3, LoadReal(YDHT, GetHandleId( LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA)), 0x9966AD24))
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x9966AD24, (LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x22AA94E3) + 90.00))
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xDCD57FAE, (LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x22AA94E3) - 90.00))
-		if ((RAbsBJ( (LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x47BE4973) - LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x9966AD24))) > RAbsBJ( (LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x47BE4973) - LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xDCD57FAE))))) then
-			call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x9966AD24, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xDCD57FAE))
-		else
-		endif
-		call SetUnitPosition( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xFC4D8276), (( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xECF5506B)) +( 200.00) *( CosBJ( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x9966AD24)))), (( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x024FDF70)) +( 200.00) *( SinBJ( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x9966AD24)))))
-	else
-	endif
-	call FlushChildHashtable(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step)
-endfunction
-//===========================================================================
-function InitTrig_Weapon_5_DamageAction takes nothing returns nothing
-	set gg_trg_Weapon_5_DamageAction = CreateTrigger()
-	call TriggerAddAction(gg_trg_Weapon_5_DamageAction, function Trig_Weapon_5_DamageActionActions)
-endfunction
-//===========================================================================
-// Trigger: Weapon_5_CD
-//===========================================================================
-function Trig_Weapon_5_CDActions takes nothing returns nothing
-	local integer ydl_localvar_step = LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xCFDE6C76) 
- set ydl_localvar_step = ydl_localvar_step + 3 
- call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xCFDE6C76, ydl_localvar_step) 
- call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xECE825E7, ydl_localvar_step)
-	call SaveUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075, LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075))
-	call SaveUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xD39F08B6, LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xD39F08B6))
-	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965, GetConvertedPlayerId( GetOwningPlayer( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075))))
-	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE, 5)
-	call SaveStr(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xAAC4C797, GetStringFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "需求属性"))
-	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x9BDB3720, GetIntegerFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "需求值"))
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x887B1FA4, GetRealFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "减少值"))
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x7E1A9366, GetRealFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "至多生效值"))
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xD3B112CF, Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), Str_GetAttr( LoadStr(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xAAC4C797))))
-	if ((LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xD3B112CF) > LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x7E1A9366))) then
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xD3B112CF, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x7E1A9366))
-	else
-	endif
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x3B60835B, GetRealFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "触发间隔"))
-	call SetUnitState( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xD39F08B6), ConvertUnitState(0x25), (( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x3B60835B)) -( I2R( (( R2I( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xD3B112CF)))/( LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x9BDB3720))))) *( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x887B1FA4))))
-	call FlushChildHashtable(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step)
-endfunction
-//===========================================================================
-function InitTrig_Weapon_5_CD takes nothing returns nothing
-	set gg_trg_Weapon_5_CD = CreateTrigger()
-	call TriggerAddAction(gg_trg_Weapon_5_CD, function Trig_Weapon_5_CDActions)
-endfunction
-//===========================================================================
-// Trigger: Weapon_5_EndAction
-//===========================================================================
-function Trig_Weapon_5_EndActionFunc013T takes nothing returns nothing
-	local integer ydul_count
-	local integer ydl_triggerstep
-	local trigger ydl_trigger
-	//伤害值
-	call SaveReal(YDLOC, GetHandleId(GetExpiredTimer()), 0xC0ABED4A, (( 10.00) *( Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetExpiredTimer()), 0xE6E64075), 102)) *( Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetExpiredTimer()), 0xE6E64075), 90))))
-	if ((GetRandomInt( 1, 100) <= R2I( Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetExpiredTimer()), 0xE6E64075), 75)))) then
-		//暴击
-		call SaveReal(YDLOC, GetHandleId(GetExpiredTimer()), 0xC0ABED4A, (( LoadReal(YDLOC, GetHandleId(GetExpiredTimer()), 0xC0ABED4A)) *( Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetExpiredTimer()), 0xE6E64075), 93)) +( 0.00)))
-		set udg_Args_AttackType = ATTACK_TYPE_HERO
-		set udg_Args_DamageType = DAMAGE_TYPE_UNIVERSAL
-		set udg_Args_WeaponType = WEAPON_TYPE_METAL_LIGHT_CHOP
-		set ydul_count = 1
-		loop
-			exitwhen ydul_count > 8
-			call SaveReal(YDLOC, GetHandleId(GetExpiredTimer()), 0x9966AD24, I2R( (ydul_count * 45)))
-			set ydl_trigger = gg_trg_SLine_Type5
-			set ydl_triggerstep = GetHandleId(ydl_trigger)*(LoadInteger(YDLOC, GetHandleId(ydl_trigger), 0xCFDE6C76) + 3)
-			call SaveReal(YDLOC, ydl_triggerstep, 0x9966AD24, LoadReal(YDLOC, GetHandleId(GetExpiredTimer()), 0x9966AD24))
-			call SaveReal(YDLOC, ydl_triggerstep, 0xC0ABED4A, LoadReal(YDLOC, GetHandleId(GetExpiredTimer()), 0xC0ABED4A))
-			call SaveReal(YDLOC, ydl_triggerstep, 0xE6BB3831, (300.00 * LoadReal(YDLOC, GetHandleId(GetExpiredTimer()), 0x5B0BDD27)))
-			call SaveReal(YDLOC, ydl_triggerstep, 0xC8F77CB8, (80.00 * LoadReal(YDLOC, GetHandleId(GetExpiredTimer()), 0x5B0BDD27)))
-			call SaveReal(YDLOC, ydl_triggerstep, 0x0E20876F, LoadReal(YDLOC, GetHandleId(GetExpiredTimer()), 0x0E20876F))
-			call SaveReal(YDLOC, ydl_triggerstep, 0x4FB814AA, LoadReal(YDLOC, GetHandleId(GetExpiredTimer()), 0x4FB814AA))
-			call SaveReal(YDLOC, ydl_triggerstep, 0xFB6E8B46, 30.00)
-			call SaveReal(YDLOC, ydl_triggerstep, 0x47527379, 1500.00)
-			call SaveUnitHandle(YDLOC, ydl_triggerstep, 0x6EDB7E6F, LoadUnitHandle(YDLOC, GetHandleId(GetExpiredTimer()), 0xE6E64075))
-			call SaveStr(YDLOC, ydl_triggerstep, 0x2480578D, "Survival\\WeaponEffect\\5\\2.mdx")
-			call SaveReal(YDLOC, ydl_triggerstep, 0xB54F5BCB, (0.80 * LoadReal(YDLOC, GetHandleId(GetExpiredTimer()), 0x5B0BDD27)))
-			call TriggerExecute(ydl_trigger)
-			set ydul_count = ydul_count + 1
-		endloop
-	else
-		set udg_Args_AttackType = ATTACK_TYPE_HERO
-		set udg_Args_DamageType = DAMAGE_TYPE_UNIVERSAL
-		set udg_Args_WeaponType = WEAPON_TYPE_WHOKNOWS
-		set ydul_count = 1
-		loop
-			exitwhen ydul_count > 8
-			call SaveReal(YDLOC, GetHandleId(GetExpiredTimer()), 0x9966AD24, I2R( (ydul_count * 45)))
-			set ydl_trigger = gg_trg_SLine_Type5
-			set ydl_triggerstep = GetHandleId(ydl_trigger)*(LoadInteger(YDLOC, GetHandleId(ydl_trigger), 0xCFDE6C76) + 3)
-			call SaveReal(YDLOC, ydl_triggerstep, 0x9966AD24, LoadReal(YDLOC, GetHandleId(GetExpiredTimer()), 0x9966AD24))
-			call SaveReal(YDLOC, ydl_triggerstep, 0xC0ABED4A, LoadReal(YDLOC, GetHandleId(GetExpiredTimer()), 0xC0ABED4A))
-			call SaveReal(YDLOC, ydl_triggerstep, 0xE6BB3831, (300.00 * LoadReal(YDLOC, GetHandleId(GetExpiredTimer()), 0x5B0BDD27)))
-			call SaveReal(YDLOC, ydl_triggerstep, 0xC8F77CB8, (80.00 * LoadReal(YDLOC, GetHandleId(GetExpiredTimer()), 0x5B0BDD27)))
-			call SaveReal(YDLOC, ydl_triggerstep, 0x0E20876F, LoadReal(YDLOC, GetHandleId(GetExpiredTimer()), 0x0E20876F))
-			call SaveReal(YDLOC, ydl_triggerstep, 0x4FB814AA, LoadReal(YDLOC, GetHandleId(GetExpiredTimer()), 0x4FB814AA))
-			call SaveReal(YDLOC, ydl_triggerstep, 0xFB6E8B46, 30.00)
-			call SaveReal(YDLOC, ydl_triggerstep, 0x47527379, 1200.00)
-			call SaveUnitHandle(YDLOC, ydl_triggerstep, 0x6EDB7E6F, LoadUnitHandle(YDLOC, GetHandleId(GetExpiredTimer()), 0xE6E64075))
-			call SaveStr(YDLOC, ydl_triggerstep, 0x2480578D, "Survival\\WeaponEffect\\5\\2.mdx")
-			call SaveReal(YDLOC, ydl_triggerstep, 0xB54F5BCB, (0.80 * LoadReal(YDLOC, GetHandleId(GetExpiredTimer()), 0x5B0BDD27)))
-			call TriggerExecute(ydl_trigger)
-			set ydul_count = ydul_count + 1
-		endloop
-	endif
-	call SaveReal(YDLOC, GetHandleId(GetExpiredTimer()), 0x1CA61CEC, (LoadReal(YDLOC, GetHandleId(GetExpiredTimer()), 0x1CA61CEC) + 1.00))
-	if ((LoadReal(YDLOC, GetHandleId(GetExpiredTimer()), 0x1CA61CEC) >= LoadReal(YDLOC, GetHandleId(GetExpiredTimer()), 0x590092FD))) then
-		call FlushChildHashtable(YDLOC, GetHandleId(GetExpiredTimer()))
-		call DestroyTimer(GetExpiredTimer())
-	else
-	endif
-	set ydl_trigger = null
-endfunction
-function Trig_Weapon_5_EndActionActions takes nothing returns nothing
-	local timer ydl_timer
-	local integer ydl_localvar_step = LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xCFDE6C76) 
- set ydl_localvar_step = ydl_localvar_step + 3 
- call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xCFDE6C76, ydl_localvar_step) 
- call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xECE825E7, ydl_localvar_step)
-	call SaveEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA, LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA))
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x0E20876F, EXGetEffectX( LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA)))
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x4FB814AA, EXGetEffectY( LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA)))
-	call SaveUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075, LoadUnitHandle(YDHT, GetHandleId( LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA)), 0x6EDB7E6F))
-	//伤害范围
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x5B0BDD27, Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 20))
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x5B0BDD27, (LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x5B0BDD27) + GetRealFromExcel( "兵器", 5, "8级数值")))
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x5B0BDD27, (( 1.00) +( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x5B0BDD27)) *( 0.01)))
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x1CA61CEC, 0.00)
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x590092FD, 2.00)
-	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xCB848F87, 5)
-	if (true) then
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x590092FD, GetRealFromExcel( "专精天赋", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xCB848F87), "Value1"))
-	else
-	endif
-	set ydl_timer = CreateTimer()
-	call SaveReal(YDLOC, GetHandleId(ydl_timer), 0x590092FD, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x590092FD))
-	call SaveReal(YDLOC, GetHandleId(ydl_timer), 0x0E20876F, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x0E20876F))
-	call SaveReal(YDLOC, GetHandleId(ydl_timer), 0x4FB814AA, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x4FB814AA))
-	call SaveUnitHandle(YDLOC, GetHandleId(ydl_timer), 0xE6E64075, LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075))
-	call SaveReal(YDLOC, GetHandleId(ydl_timer), 0x5B0BDD27, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x5B0BDD27))
-	call SaveReal(YDLOC, GetHandleId(ydl_timer), 0x9966AD24, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x9966AD24))
-	call SaveReal(YDLOC, GetHandleId(ydl_timer), 0xC0ABED4A, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A))
-	call SaveReal(YDLOC, GetHandleId(ydl_timer), 0x1CA61CEC, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x1CA61CEC))
-	call TimerStart(ydl_timer, 0.50, true, function Trig_Weapon_5_EndActionFunc013T)
-	call FlushChildHashtable(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step)
-	set ydl_timer = null
-endfunction
-//===========================================================================
-function InitTrig_Weapon_5_EndAction takes nothing returns nothing
-	set gg_trg_Weapon_5_EndAction = CreateTrigger()
-	call TriggerAddAction(gg_trg_Weapon_5_EndAction, function Trig_Weapon_5_EndActionActions)
-endfunction
-//===========================================================================
-// Trigger: Weapon_6
-//===========================================================================
-function Trig_Weapon_6Actions takes nothing returns nothing
-	local integer ydl_triggerstep
-	local trigger ydl_trigger
-	local integer ydul_count
-	local integer ydl_localvar_step = LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xCFDE6C76) 
- set ydl_localvar_step = ydl_localvar_step + 3 
- call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xCFDE6C76, ydl_localvar_step) 
- call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xECE825E7, ydl_localvar_step)
-	call SaveUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075, LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075))
-	call SaveUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xFC4D8276, LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xFC4D8276))
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xECF5506B, GetUnitX( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xFC4D8276)))
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x024FDF70, GetUnitY( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xFC4D8276)))
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x0E20876F, GetUnitX( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075)))
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x4FB814AA, GetUnitY( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075)))
-	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965, GetConvertedPlayerId( GetOwningPlayer( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075))))
-	//兵器ID
-	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE, 6)
-	//兵器等级
-	//计算伤害
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281, GetRealFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "DamageValue"))
-	if ((LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE088B116) >= 2)) then
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281, (LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281) + GetRealFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "2级数值")))
-	else
-	endif
-	if ((LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE088B116) >= 4)) then
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281, (LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281) + GetRealFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "4级数值")))
-	else
-	endif
-	if ((LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE088B116) >= 6)) then
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281, (LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281) + GetRealFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "6级数值")))
-	else
-	endif
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A, (( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281)) *( Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 102)) *( Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 90))))
-	//伤害范围
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x5B0BDD27, Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 20))
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x5B0BDD27, (( 1.00) +( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x5B0BDD27)) *( 0.01)))
-	//发射数量
-	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB7279243, R2I( Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 15)))
-	if ((LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE088B116) >= 8)) then
-		call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB7279243, (LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB7279243) + GetIntegerFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "8级数值")))
-	else
-	endif
-	set udg_Args_AttackType = ATTACK_TYPE_HERO
-	set udg_Args_DamageType = DAMAGE_TYPE_UNIVERSAL
-	//判断暴击
-	if ((GetRandomInt( 1, 100) <= R2I( Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 75)))) then
-		set udg_Args_WeaponType = WEAPON_TYPE_METAL_LIGHT_CHOP
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A, (( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A)) *( Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 93)) +( 0.00)))
-	else
-		set udg_Args_WeaponType = WEAPON_TYPE_WHOKNOWS
-	endif
-	//加入堆栈
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x9966AD24, ( YDWEAngleBetweenUnits( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xFC4D8276))))
-	set ydl_trigger = gg_trg_SLine_Type5
-	set ydl_triggerstep = GetHandleId(ydl_trigger)*(LoadInteger(YDLOC, GetHandleId(ydl_trigger), 0xCFDE6C76) + 3)
-	call SaveReal(YDLOC, ydl_triggerstep, 0x9966AD24, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x9966AD24))
-	call SaveReal(YDLOC, ydl_triggerstep, 0xC0ABED4A, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A))
-	call SaveReal(YDLOC, ydl_triggerstep, 0xE6BB3831, (300.00 * LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x5B0BDD27)))
-	call SaveReal(YDLOC, ydl_triggerstep, 0xC8F77CB8, (80.00 * LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x5B0BDD27)))
-	call SaveReal(YDLOC, ydl_triggerstep, 0x0E20876F, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x0E20876F))
-	call SaveReal(YDLOC, ydl_triggerstep, 0x4FB814AA, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x4FB814AA))
-	call SaveReal(YDLOC, ydl_triggerstep, 0xFB6E8B46, 30.00)
-	call SaveReal(YDLOC, ydl_triggerstep, 0x47527379, 1500.00)
-	call SaveUnitHandle(YDLOC, ydl_triggerstep, 0x6EDB7E6F, LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075))
-	call SaveStr(YDLOC, ydl_triggerstep, 0x2480578D, "Survival\\WeaponEffect\\6\\1.mdx")
-	call SaveStr(YDLOC, ydl_triggerstep, 0x5FE51B0F, "Survival\\WeaponEffect\\6\\2.mdx")
-	call SaveReal(YDLOC, ydl_triggerstep, 0x51B46464, (0.50 * LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x5B0BDD27)))
-	call SaveReal(YDLOC, ydl_triggerstep, 0xB54F5BCB, (1.50 * LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x5B0BDD27)))
-	call SaveTriggerHandle(YDLOC, ydl_triggerstep, 0x4F719503, gg_trg_Weapon_6_DamageAction)
-	call TriggerExecute(ydl_trigger)
-	//额外弹道
-	set ydul_count = 1
-	loop
-		exitwhen ydul_count > LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB7279243)
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x9966AD24, ( GetRandomDirectionDeg()))
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A, (( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281)) *( Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 102)) *( Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 90))))
-		set udg_Args_AttackType = ATTACK_TYPE_HERO
-		set udg_Args_DamageType = DAMAGE_TYPE_UNIVERSAL
-		if ((GetRandomInt( 1, 100) <= R2I( Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 75)))) then
-			set udg_Args_WeaponType = WEAPON_TYPE_METAL_LIGHT_CHOP
-			call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A, (( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A)) *( Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 93)) +( 0.00)))
-		else
-			set udg_Args_WeaponType = WEAPON_TYPE_WHOKNOWS
-		endif
-		set ydl_trigger = gg_trg_SLine_Type5
-		set ydl_triggerstep = GetHandleId(ydl_trigger)*(LoadInteger(YDLOC, GetHandleId(ydl_trigger), 0xCFDE6C76) + 3)
-		call SaveReal(YDLOC, ydl_triggerstep, 0x9966AD24, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x9966AD24))
-		call SaveReal(YDLOC, ydl_triggerstep, 0xC0ABED4A, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A))
-		call SaveReal(YDLOC, ydl_triggerstep, 0xE6BB3831, (300.00 * LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x5B0BDD27)))
-		call SaveReal(YDLOC, ydl_triggerstep, 0xC8F77CB8, (80.00 * LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x5B0BDD27)))
-		call SaveReal(YDLOC, ydl_triggerstep, 0x0E20876F, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x0E20876F))
-		call SaveReal(YDLOC, ydl_triggerstep, 0x4FB814AA, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x4FB814AA))
-		call SaveReal(YDLOC, ydl_triggerstep, 0xFB6E8B46, 30.00)
-		call SaveReal(YDLOC, ydl_triggerstep, 0x47527379, 1500.00)
-		call SaveUnitHandle(YDLOC, ydl_triggerstep, 0x6EDB7E6F, LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075))
-		call SaveStr(YDLOC, ydl_triggerstep, 0x2480578D, "Survival\\WeaponEffect\\6\\1.mdx")
-		call SaveStr(YDLOC, ydl_triggerstep, 0x5FE51B0F, "Survival\\WeaponEffect\\6\\2.mdx")
-		call SaveReal(YDLOC, ydl_triggerstep, 0x51B46464, (0.50 * LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x5B0BDD27)))
-		call SaveReal(YDLOC, ydl_triggerstep, 0xB54F5BCB, (1.50 * LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x5B0BDD27)))
-		call SaveTriggerHandle(YDLOC, ydl_triggerstep, 0x4F719503, gg_trg_Weapon_6_DamageAction)
-		call TriggerExecute(ydl_trigger)
-		set ydul_count = ydul_count + 1
-	endloop
-	call FlushChildHashtable(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step)
-	set ydl_trigger = null
-endfunction
-//===========================================================================
-function InitTrig_Weapon_6 takes nothing returns nothing
-	set gg_trg_Weapon_6 = CreateTrigger()
-	call TriggerAddAction(gg_trg_Weapon_6, function Trig_Weapon_6Actions)
-endfunction
-//===========================================================================
-// Trigger: Weapon_6_DamageAction
-//===========================================================================
-function Trig_Weapon_6_DamageActionActions takes nothing returns nothing
-	local integer ydl_localvar_step = LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xCFDE6C76) 
- set ydl_localvar_step = ydl_localvar_step + 3 
- call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xCFDE6C76, ydl_localvar_step) 
- call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xECE825E7, ydl_localvar_step)
-	call SaveEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA, LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA))
-	call SaveUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xFC4D8276, LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xFC4D8276))
-	call SaveUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075, LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075))
-	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE, 6)
-	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965, GetConvertedPlayerId( GetOwningPlayer( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075))))
-	if ((GetUnitState( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xFC4D8276), UNIT_STATE_LIFE) > 0.00)) then
-		if (true) then
-			call IssueTargetOrder( udg_DebuffVest[3], "thunderbolt", LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xFC4D8276))
-		else
-			call IssueTargetOrder( udg_DebuffVest[1], "thunderbolt", LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xFC4D8276))
-		endif
-	else
-	endif
-	call FlushChildHashtable(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step)
-endfunction
-//===========================================================================
-function InitTrig_Weapon_6_DamageAction takes nothing returns nothing
-	set gg_trg_Weapon_6_DamageAction = CreateTrigger()
-	call TriggerAddAction(gg_trg_Weapon_6_DamageAction, function Trig_Weapon_6_DamageActionActions)
-endfunction
-//===========================================================================
-// Trigger: Weapon_6_CD
-//===========================================================================
-function Trig_Weapon_6_CDActions takes nothing returns nothing
-	local integer ydl_localvar_step = LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xCFDE6C76) 
- set ydl_localvar_step = ydl_localvar_step + 3 
- call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xCFDE6C76, ydl_localvar_step) 
- call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xECE825E7, ydl_localvar_step)
-	call SaveUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075, LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075))
-	call SaveUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xD39F08B6, LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xD39F08B6))
-	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965, GetConvertedPlayerId( GetOwningPlayer( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075))))
-	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE, 6)
-	call SaveStr(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xAAC4C797, GetStringFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "需求属性"))
-	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x9BDB3720, GetIntegerFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "需求值"))
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x887B1FA4, GetRealFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "减少值"))
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x7E1A9366, GetRealFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "至多生效值"))
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xD3B112CF, Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), Str_GetAttr( LoadStr(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xAAC4C797))))
-	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xCB848F87, 6)
-	if (true) then
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x7E1A9366, GetRealFromExcel( "专精天赋", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xCB848F87), "Value1"))
-	else
-	endif
-	if ((LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xD3B112CF) > LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x7E1A9366))) then
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xD3B112CF, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x7E1A9366))
-	else
-	endif
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x3B60835B, GetRealFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "触发间隔"))
-	call SetUnitState( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xD39F08B6), ConvertUnitState(0x25), (( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x3B60835B)) -( I2R( (( R2I( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xD3B112CF)))/( LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x9BDB3720))))) *( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x887B1FA4))))
-	call FlushChildHashtable(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step)
-endfunction
-//===========================================================================
-function InitTrig_Weapon_6_CD takes nothing returns nothing
-	set gg_trg_Weapon_6_CD = CreateTrigger()
-	call TriggerAddAction(gg_trg_Weapon_6_CD, function Trig_Weapon_6_CDActions)
-endfunction
-//===========================================================================
-// Trigger: Weapon_7
-//===========================================================================
-function Trig_Weapon_7Actions takes nothing returns nothing
-	local group ydl_group
-	local unit ydl_unit
-	local integer ydl_triggerstep
-	local trigger ydl_trigger
-	local integer ydl_localvar_step = LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xCFDE6C76) 
- set ydl_localvar_step = ydl_localvar_step + 3 
- call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xCFDE6C76, ydl_localvar_step) 
- call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xECE825E7, ydl_localvar_step)
-	call SaveUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075, LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075))
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x0E20876F, GetUnitX( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075)))
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x4FB814AA, GetUnitY( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075)))
-	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965, GetConvertedPlayerId( GetOwningPlayer( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075))))
-	//兵器ID
-	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE, 7)
-	//兵器等级
-	//获得的属性基础值
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xABA2C925, GetRealFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "DamageValue"))
-	if ((LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE088B116) >= 7)) then
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xABA2C925, (LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xABA2C925) + GetRealFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "7级数值")))
-	else
-	endif
-	//发射数量
-	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB7279243, R2I( Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 15)))
-	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB7279243, (LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB7279243) + 2))
-	if ((LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE088B116) >= 8)) then
-		call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB7279243, (LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB7279243) + GetIntegerFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "8级数值")))
-	else
-	endif
-	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xCB848F87, 7)
-	if (true) then
-		call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB7279243, (LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB7279243) + 1))
-	else
-	endif
-	//判断是否超限
-	if (true) then
-		call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB7279243, (LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB7279243) * 2))
-	else
-	endif
-	//选取敌人
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xDEB8C415, 0.00)
-	set ydl_group = CreateGroup()
-	call GroupEnumUnitsInRange(ydl_group, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x0E20876F), LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x4FB814AA), (Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 12) + 100.00), null)
-	loop
-		set ydl_unit = FirstOfGroup(ydl_group)
-		exitwhen ydl_unit == null
-		call GroupRemoveUnit(ydl_group, ydl_unit)
-		if ((IsUnitEnemy( ydl_unit, udg_Player[LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965)]) == true) and (LoadBoolean(YDHT, GetHandleId( ydl_unit), 0x95522F36) == true)) then
-			call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xFCBFDC12, GetUnitX( ydl_unit))
-			call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE3CB2E3B, GetUnitY( ydl_unit))
-			call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x9966AD24, ( YDWEAngleBetweenUnits( ydl_unit, LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075))))
-			call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xFEE0735B, (( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x9966AD24))+( ( GetRandomReal( -180.00, 180.00)))))
-			call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xAE620A96, 1000.00)
-			call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x58B247EB, (( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xFCBFDC12)) +( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xAE620A96)) *( CosBJ( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xFEE0735B)))))
-			call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x536D1A67, (( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE3CB2E3B)) +( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xAE620A96)) *( SinBJ( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xFEE0735B)))))
-			call SaveStr(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x2480578D, LoadStr(YDHT, GetHandleId( ydl_unit), 0x4D9039EC))
-			call SaveEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA, AddSpecialEffect( LoadStr(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x2480578D), LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xFCBFDC12), LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE3CB2E3B)))
-			call Effect_SetColor( LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA), 50, 50, 50, 100)
-			call EXSetEffectSize( LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA), 1.50)
-			set ydl_trigger = gg_trg_Bezier_Type1
-			set ydl_triggerstep = GetHandleId(ydl_trigger)*(LoadInteger(YDLOC, GetHandleId(ydl_trigger), 0xCFDE6C76) + 3)
-			call SaveReal(YDLOC, ydl_triggerstep, 0x9966AD24, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x9966AD24))
-			call SaveReal(YDLOC, ydl_triggerstep, 0xC0ABED4A, 0.00)
-			call SaveReal(YDLOC, ydl_triggerstep, 0xCCF9373D, 10.00)
-			call SaveReal(YDLOC, ydl_triggerstep, 0x371E266B, 500.00)
-			call SaveReal(YDLOC, ydl_triggerstep, 0xB3A05229, 50.00)
-			call SaveReal(YDLOC, ydl_triggerstep, 0x0E20876F, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xFCBFDC12))
-			call SaveReal(YDLOC, ydl_triggerstep, 0x4FB814AA, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE3CB2E3B))
-			call SaveReal(YDLOC, ydl_triggerstep, 0xECF5506B, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x0E20876F))
-			call SaveReal(YDLOC, ydl_triggerstep, 0x024FDF70, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x4FB814AA))
-			call SaveReal(YDLOC, ydl_triggerstep, 0x58B247EB, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x58B247EB))
-			call SaveReal(YDLOC, ydl_triggerstep, 0x536D1A67, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x536D1A67))
-			call SaveReal(YDLOC, ydl_triggerstep, 0xFB6E8B46, 0.03)
-			call SaveReal(YDLOC, ydl_triggerstep, 0xBEFD8BE8, 10.00)
-			call SaveUnitHandle(YDLOC, ydl_triggerstep, 0x6EDB7E6F, LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075))
-			call SaveUnitHandle(YDLOC, ydl_triggerstep, 0xFC4D8276, LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075))
-			call SaveBoolean(YDLOC, ydl_triggerstep, 0xD7F63C43, true)
-			call SaveEffectHandle(YDLOC, ydl_triggerstep, 0xF8F856EA, LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA))
-			call TriggerExecute(ydl_trigger)
-			call UnitDamageTarget( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), ydl_unit, GetUnitState( ydl_unit, UNIT_STATE_LIFE), false, false, ATTACK_TYPE_PIERCE, DAMAGE_TYPE_UNIVERSAL, WEAPON_TYPE_WHOKNOWS)
-			call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xDEB8C415, (LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xABA2C925) + LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xDEB8C415)))
-			call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB7279243, (LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB7279243) - 1))
-			if ((LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB7279243) <= 0)) then
-				exitwhen true
-			else
-			endif
-		else
-		endif
-	endloop
-	call DestroyGroup(ydl_group)
-	call Unit_SetAttrBJ( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 5, 0, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xDEB8C415))
-	call FlushChildHashtable(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step)
-	set ydl_group = null
-	set ydl_unit = null
-	set ydl_trigger = null
-endfunction
-//===========================================================================
-function InitTrig_Weapon_7 takes nothing returns nothing
-	set gg_trg_Weapon_7 = CreateTrigger()
-	call TriggerAddAction(gg_trg_Weapon_7, function Trig_Weapon_7Actions)
-endfunction
-//===========================================================================
-// Trigger: Weapon_7_CD
-//===========================================================================
-function Trig_Weapon_7_CDActions takes nothing returns nothing
-	local integer ydl_localvar_step = LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xCFDE6C76) 
- set ydl_localvar_step = ydl_localvar_step + 3 
- call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xCFDE6C76, ydl_localvar_step) 
- call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xECE825E7, ydl_localvar_step)
-	call SaveUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075, LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075))
-	call SaveUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xD39F08B6, LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xD39F08B6))
-	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965, GetConvertedPlayerId( GetOwningPlayer( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075))))
-	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE, 7)
-	call SaveStr(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xAAC4C797, GetStringFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "需求属性"))
-	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x9BDB3720, GetIntegerFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "需求值"))
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x887B1FA4, GetRealFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "减少值"))
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x7E1A9366, GetRealFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "至多生效值"))
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xD3B112CF, Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), Str_GetAttr( LoadStr(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xAAC4C797))))
-	if ((LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xD3B112CF) > LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x7E1A9366))) then
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xD3B112CF, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x7E1A9366))
-	else
-	endif
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x3B60835B, GetRealFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "触发间隔"))
-	call SetUnitState( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xD39F08B6), ConvertUnitState(0x25), (( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x3B60835B)) -( I2R( (( R2I( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xD3B112CF)))/( LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x9BDB3720))))) *( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x887B1FA4))))
-	call FlushChildHashtable(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step)
-endfunction
-//===========================================================================
-function InitTrig_Weapon_7_CD takes nothing returns nothing
-	set gg_trg_Weapon_7_CD = CreateTrigger()
-	call TriggerAddAction(gg_trg_Weapon_7_CD, function Trig_Weapon_7_CDActions)
-endfunction
-//===========================================================================
-// Trigger: Weapon_8_Get
-//===========================================================================
-function Trig_Weapon_8_GetActions takes nothing returns nothing
-	local integer ydl_localvar_step = LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xCFDE6C76) 
- set ydl_localvar_step = ydl_localvar_step + 3 
- call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xCFDE6C76, ydl_localvar_step) 
- call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xECE825E7, ydl_localvar_step)
-	call SaveReal(YDHT, GetHandleId( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075)), 0x0BC75C20, 0.05)
-	call FlushChildHashtable(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step)
-endfunction
-//===========================================================================
-function InitTrig_Weapon_8_Get takes nothing returns nothing
-	set gg_trg_Weapon_8_Get = CreateTrigger()
-	call TriggerAddAction(gg_trg_Weapon_8_Get, function Trig_Weapon_8_GetActions)
-endfunction
-//===========================================================================
-// Trigger: Weapon_8
-//===========================================================================
-function Trig_Weapon_8Func028T takes nothing returns nothing
-	local integer ydul_count
-	local integer ydl_triggerstep
-	local trigger ydl_trigger
-	call SaveInteger(YDLOC, GetHandleId(GetExpiredTimer()), 0x1CA61CEC, (LoadInteger(YDLOC, GetHandleId(GetExpiredTimer()), 0x1CA61CEC) + 1))
-	if ((LoadInteger(YDLOC, GetHandleId(GetExpiredTimer()), 0x1CA61CEC) > LoadInteger(YDLOC, GetHandleId(GetExpiredTimer()), 0xB7279243))) then
-		call FlushChildHashtable(YDLOC, GetHandleId(GetExpiredTimer()))
-		call DestroyTimer(GetExpiredTimer())
-	else
-		set ydul_count = 0
-		loop
-			exitwhen ydul_count > 6
-			call SaveReal(YDLOC, GetHandleId(GetExpiredTimer()), 0x71A400F9, (( LoadReal(YDLOC, GetHandleId(GetExpiredTimer()), 0x0E20876F)) +( (200.00 * I2R( ydul_count))) *( CosBJ( (( LoadReal(YDLOC, GetHandleId(GetExpiredTimer()), 0x9966AD24))+( 90.00))))))
-			call SaveReal(YDLOC, GetHandleId(GetExpiredTimer()), 0xC738EF47, (( LoadReal(YDLOC, GetHandleId(GetExpiredTimer()), 0x4FB814AA)) +( (200.00 * I2R( ydul_count))) *( SinBJ( (( LoadReal(YDLOC, GetHandleId(GetExpiredTimer()), 0x9966AD24))+( 90.00))))))
-			set udg_Args_AttackType = ATTACK_TYPE_PIERCE
-			set udg_Args_DamageType = DAMAGE_TYPE_UNIVERSAL
-			set udg_Args_WeaponType = WEAPON_TYPE_WHOKNOWS
-			set ydl_trigger = gg_trg_SLine_Type1
-			set ydl_triggerstep = GetHandleId(ydl_trigger)*(LoadInteger(YDLOC, GetHandleId(ydl_trigger), 0xCFDE6C76) + 3)
-			call SaveReal(YDLOC, ydl_triggerstep, 0x9966AD24, LoadReal(YDLOC, GetHandleId(GetExpiredTimer()), 0x9966AD24))
-			call SaveReal(YDLOC, ydl_triggerstep, 0xC0ABED4A, LoadReal(YDLOC, GetHandleId(GetExpiredTimer()), 0xC0ABED4A))
-			call SaveReal(YDLOC, ydl_triggerstep, 0x0E20876F, LoadReal(YDLOC, GetHandleId(GetExpiredTimer()), 0x71A400F9))
-			call SaveReal(YDLOC, ydl_triggerstep, 0x4FB814AA, LoadReal(YDLOC, GetHandleId(GetExpiredTimer()), 0xC738EF47))
-			call SaveReal(YDLOC, ydl_triggerstep, 0xFB6E8B46, 20.00)
-			call SaveReal(YDLOC, ydl_triggerstep, 0x62018695, 40.00)
-			call SaveReal(YDLOC, ydl_triggerstep, 0xB54F5BCB, 0.80)
-			call SaveReal(YDLOC, ydl_triggerstep, 0x06CBF27D, 200.00)
-			call SaveReal(YDLOC, ydl_triggerstep, 0xC65482EE, 110.00)
-			call SaveReal(YDLOC, ydl_triggerstep, 0x47527379, 1200.00)
-			call SaveUnitHandle(YDLOC, ydl_triggerstep, 0x6EDB7E6F, LoadUnitHandle(YDLOC, GetHandleId(GetExpiredTimer()), 0xE6E64075))
-			call SaveStr(YDLOC, ydl_triggerstep, 0x2480578D, "Survival\\WeaponEffect\\8\\1.mdx")
-			call SaveReal(YDLOC, ydl_triggerstep, 0xE6BB3831, 110.00)
-			if ((LoadInteger(YDLOC, GetHandleId(GetExpiredTimer()), 0x1CA61CEC) == LoadInteger(YDLOC, GetHandleId(GetExpiredTimer()), 0xB7279243))) then
-				call SaveStr(YDLOC, ydl_triggerstep, 0x5FE51B0F, "Survival\\WeaponEffect\\8\\2.mdx")
-			else
-			endif
-			call TriggerExecute(ydl_trigger)
-			set ydul_count = ydul_count + 1
-		endloop
-	endif
-	set ydl_trigger = null
-endfunction
-function Trig_Weapon_8Actions takes nothing returns nothing
-	local timer ydl_timer
-	local integer ydl_localvar_step = LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xCFDE6C76) 
- set ydl_localvar_step = ydl_localvar_step + 3 
- call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xCFDE6C76, ydl_localvar_step) 
- call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xECE825E7, ydl_localvar_step)
-	call SaveUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075, LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075))
-	call SaveUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xFC4D8276, LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xFC4D8276))
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xECF5506B, GetUnitX( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xFC4D8276)))
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x024FDF70, GetUnitY( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xFC4D8276)))
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x0E20876F, GetUnitX( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075)))
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x4FB814AA, GetUnitY( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075)))
-	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965, GetConvertedPlayerId( GetOwningPlayer( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075))))
-	//兵器ID
-	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE, 8)
-	//兵器等级
-	//计算伤害
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281, GetRealFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "DamageValue"))
-	if ((LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE088B116) >= 2)) then
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281, (LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281) + GetRealFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "2级数值")))
-	else
-	endif
-	if ((LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE088B116) >= 4)) then
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281, (LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281) + GetRealFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "4级数值")))
-	else
-	endif
-	if ((LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE088B116) >= 6)) then
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281, (LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281) + GetRealFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "6级数值")))
-	else
-	endif
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A, (( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281)) *( Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 101)) *( Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 92))))
-	//发射数量
-	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB7279243, R2I( Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 15)))
-	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB7279243, (LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB7279243) + 3))
-	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xCB848F87, 8)
-	if (true) then
-		call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB7279243, (LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB7279243) + 1))
-	else
-	endif
-	//发射
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x9966AD24, YDWEAngleBetweenUnits( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xFC4D8276)))
-	//设置初始位置
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x0E20876F, (( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x0E20876F)) +( -500.00) *( CosBJ( (( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x9966AD24))+( 90.00))))))
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x4FB814AA, (( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x4FB814AA)) +( -500.00) *( SinBJ( (( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x9966AD24))+( 90.00))))))
-	set ydl_timer = CreateTimer()
-	call SaveReal(YDLOC, GetHandleId(ydl_timer), 0xC0ABED4A, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A))
-	call SaveInteger(YDLOC, GetHandleId(ydl_timer), 0x1CA61CEC, 0)
-	call SaveReal(YDLOC, GetHandleId(ydl_timer), 0x9966AD24, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x9966AD24))
-	call SaveInteger(YDLOC, GetHandleId(ydl_timer), 0xB7279243, LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB7279243))
-	call SaveReal(YDLOC, GetHandleId(ydl_timer), 0x71A400F9, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x71A400F9))
-	call SaveReal(YDLOC, GetHandleId(ydl_timer), 0xC738EF47, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC738EF47))
-	call SaveUnitHandle(YDLOC, GetHandleId(ydl_timer), 0xE6E64075, LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075))
-	call SaveReal(YDLOC, GetHandleId(ydl_timer), 0x0E20876F, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x0E20876F))
-	call SaveReal(YDLOC, GetHandleId(ydl_timer), 0x4FB814AA, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x4FB814AA))
-	call TimerStart(ydl_timer, 0.30, true, function Trig_Weapon_8Func028T)
-	call FlushChildHashtable(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step)
-	set ydl_timer = null
-endfunction
-//===========================================================================
-function InitTrig_Weapon_8 takes nothing returns nothing
-	set gg_trg_Weapon_8 = CreateTrigger()
-	call TriggerAddAction(gg_trg_Weapon_8, function Trig_Weapon_8Actions)
-endfunction
-//===========================================================================
-// Trigger: Weapon_8_CD
-//===========================================================================
-function Trig_Weapon_8_CDActions takes nothing returns nothing
-	local integer ydl_localvar_step = LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xCFDE6C76) 
- set ydl_localvar_step = ydl_localvar_step + 3 
- call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xCFDE6C76, ydl_localvar_step) 
- call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xECE825E7, ydl_localvar_step)
-	call SaveUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075, LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075))
-	call SaveUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xD39F08B6, LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xD39F08B6))
-	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965, GetConvertedPlayerId( GetOwningPlayer( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075))))
-	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE, 8)
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x3B60835B, GetRealFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "触发间隔"))
-	if ((LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE088B116) >= 8)) then
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x3B60835B, (LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x3B60835B) - GetRealFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "8级数值")))
-	else
-	endif
-	call SetUnitState( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xD39F08B6), ConvertUnitState(0x25), LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x3B60835B))
-	call FlushChildHashtable(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step)
-endfunction
-//===========================================================================
-function InitTrig_Weapon_8_CD takes nothing returns nothing
-	set gg_trg_Weapon_8_CD = CreateTrigger()
-	call TriggerAddAction(gg_trg_Weapon_8_CD, function Trig_Weapon_8_CDActions)
-endfunction
-//===========================================================================
-// Trigger: Weapon_9
-//===========================================================================
-function Trig_Weapon_9Func026T takes nothing returns nothing
-	local group ydl_group
-	local unit ydl_unit
-	local integer ydl_triggerstep
-	local trigger ydl_trigger
-	call SaveUnitHandle(YDLOC, GetHandleId(GetExpiredTimer()), 0xE6E64075, LoadUnitHandle(YDLOC, GetHandleId(GetExpiredTimer()), 0xE6E64075))
-	call SaveReal(YDLOC, GetHandleId(GetExpiredTimer()), 0x0E20876F, GetUnitX( LoadUnitHandle(YDLOC, GetHandleId(GetExpiredTimer()), 0xE6E64075)))
-	call SaveReal(YDLOC, GetHandleId(GetExpiredTimer()), 0x4FB814AA, GetUnitY( LoadUnitHandle(YDLOC, GetHandleId(GetExpiredTimer()), 0xE6E64075)))
-	call SaveReal(YDLOC, GetHandleId(GetExpiredTimer()), 0x9966AD24, GetRandomDirectionDeg())
-	call SaveReal(YDLOC, GetHandleId(GetExpiredTimer()), 0x5FCC4134, GetRandomReal( 0, 1000.00))
-	call SaveReal(YDLOC, GetHandleId(GetExpiredTimer()), 0xA99320FA, (( LoadReal(YDLOC, GetHandleId(GetExpiredTimer()), 0x0E20876F)) +( LoadReal(YDLOC, GetHandleId(GetExpiredTimer()), 0x5FCC4134)) *( CosBJ( LoadReal(YDLOC, GetHandleId(GetExpiredTimer()), 0x9966AD24)))))
-	call SaveReal(YDLOC, GetHandleId(GetExpiredTimer()), 0xFDF65382, (( LoadReal(YDLOC, GetHandleId(GetExpiredTimer()), 0x4FB814AA)) +( LoadReal(YDLOC, GetHandleId(GetExpiredTimer()), 0x5FCC4134)) *( SinBJ( LoadReal(YDLOC, GetHandleId(GetExpiredTimer()), 0x9966AD24)))))
-	//创建特效
-	call SaveEffectHandle(YDLOC, GetHandleId(GetExpiredTimer()), 0xF8F856EA, AddSpecialEffect( "Survival\\WeaponEffect\\9\\1.mdx", LoadReal(YDLOC, GetHandleId(GetExpiredTimer()), 0xA99320FA), LoadReal(YDLOC, GetHandleId(GetExpiredTimer()), 0xFDF65382)))
-	call EXSetEffectSize( LoadEffectHandle(YDLOC, GetHandleId(GetExpiredTimer()), 0xF8F856EA), (1.50 * LoadReal(YDLOC, GetHandleId(GetExpiredTimer()), 0x5B0BDD27)))
-	call DestroyEffect( LoadEffectHandle(YDLOC, GetHandleId(GetExpiredTimer()), 0xF8F856EA))
-	//计算伤害
-	call SaveReal(YDLOC, GetHandleId(GetExpiredTimer()), 0xC0ABED4A, (( LoadReal(YDLOC, GetHandleId(GetExpiredTimer()), 0xB1C6C281)) *( Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetExpiredTimer()), 0xE6E64075), 103)) *( Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetExpiredTimer()), 0xE6E64075), 91))))
-	//判断暴击
-	if ((GetRandomInt( 1, 100) <= R2I( Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetExpiredTimer()), 0xE6E64075), 77)))) then
-		call SaveReal(YDLOC, GetHandleId(GetExpiredTimer()), 0xC0ABED4A, (( LoadReal(YDLOC, GetHandleId(GetExpiredTimer()), 0xC0ABED4A)) *( Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetExpiredTimer()), 0xE6E64075), 94)) +( 0.00)))
-		set ydl_group = CreateGroup()
-		call GroupEnumUnitsInRange(ydl_group, LoadReal(YDLOC, GetHandleId(GetExpiredTimer()), 0xA99320FA), LoadReal(YDLOC, GetHandleId(GetExpiredTimer()), 0xFDF65382), (300.00 * LoadReal(YDLOC, GetHandleId(GetExpiredTimer()), 0x5B0BDD27)), null)
-		loop
-			set ydl_unit = FirstOfGroup(ydl_group)
-			exitwhen ydl_unit == null
-			call GroupRemoveUnit(ydl_group, ydl_unit)
-			if ((IsUnitEnemy( ydl_unit, ConvertedPlayer( GetConvertedPlayerId( GetOwningPlayer( LoadUnitHandle(YDLOC, GetHandleId(GetExpiredTimer()), 0xE6E64075))))) == true)) then
-				call UnitDamageTarget( LoadUnitHandle(YDLOC, GetHandleId(GetExpiredTimer()), 0xE6E64075), ydl_unit, LoadReal(YDLOC, GetHandleId(GetExpiredTimer()), 0xC0ABED4A), false, false, ATTACK_TYPE_NORMAL, DAMAGE_TYPE_UNIVERSAL, WEAPON_TYPE_METAL_LIGHT_CHOP)
-			else
-			endif
-		endloop
-		call DestroyGroup(ydl_group)
-	else
-		//造成伤害
-		set ydl_group = CreateGroup()
-		call GroupEnumUnitsInRange(ydl_group, LoadReal(YDLOC, GetHandleId(GetExpiredTimer()), 0xA99320FA), LoadReal(YDLOC, GetHandleId(GetExpiredTimer()), 0xFDF65382), (300.00 * LoadReal(YDLOC, GetHandleId(GetExpiredTimer()), 0x5B0BDD27)), null)
-		loop
-			set ydl_unit = FirstOfGroup(ydl_group)
-			exitwhen ydl_unit == null
-			call GroupRemoveUnit(ydl_group, ydl_unit)
-			if ((IsUnitEnemy( ydl_unit, ConvertedPlayer( GetConvertedPlayerId( GetOwningPlayer( LoadUnitHandle(YDLOC, GetHandleId(GetExpiredTimer()), 0xE6E64075))))) == true)) then
-				call UnitDamageTarget( LoadUnitHandle(YDLOC, GetHandleId(GetExpiredTimer()), 0xE6E64075), ydl_unit, LoadReal(YDLOC, GetHandleId(GetExpiredTimer()), 0xC0ABED4A), false, false, ATTACK_TYPE_NORMAL, DAMAGE_TYPE_UNIVERSAL, WEAPON_TYPE_WHOKNOWS)
-			else
-			endif
-		endloop
-		call DestroyGroup(ydl_group)
-	endif
-	//判断是否超限
-	if (true) then
-		if ((GetRandomInt( 1, 100) <= 40)) then
-			set udg_Args_AttackType = ATTACK_TYPE_NORMAL
-			set udg_Args_DamageType = DAMAGE_TYPE_UNIVERSAL
-			set ydl_trigger = gg_trg_RDD_Type1
-			set ydl_triggerstep = GetHandleId(ydl_trigger)*(LoadInteger(YDLOC, GetHandleId(ydl_trigger), 0xCFDE6C76) + 3)
-			call SaveReal(YDLOC, ydl_triggerstep, 0xC0ABED4A, (( 3.00) *( Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetExpiredTimer()), 0xE6E64075), 103)) *( Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetExpiredTimer()), 0xE6E64075), 91))))
-			call SaveReal(YDLOC, ydl_triggerstep, 0xE6BB3831, (300.00 * LoadReal(YDLOC, GetHandleId(GetExpiredTimer()), 0x5B0BDD27)))
-			call SaveReal(YDLOC, ydl_triggerstep, 0xB54F5BCB, (1.50 * LoadReal(YDLOC, GetHandleId(GetExpiredTimer()), 0x5B0BDD27)))
-			call SaveUnitHandle(YDLOC, ydl_triggerstep, 0x6EDB7E6F, LoadUnitHandle(YDLOC, GetHandleId(GetExpiredTimer()), 0xE6E64075))
-			call SaveStr(YDLOC, ydl_triggerstep, 0x2480578D, "Survival\\WeaponEffect\\9\\2.mdx")
-			call SaveStr(YDLOC, ydl_triggerstep, 0x727826BB, "法术暴击率%")
-			call SaveReal(YDLOC, ydl_triggerstep, 0x2966415C, (2.00 * (( 1.00) +( 0.01) *( Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetExpiredTimer()), 0xE6E64075), 14)))))
-			call SaveReal(YDLOC, ydl_triggerstep, 0x17BB2B5F, 0.50)
-			call SaveReal(YDLOC, ydl_triggerstep, 0xECF5506B, LoadReal(YDLOC, GetHandleId(GetExpiredTimer()), 0xA99320FA))
-			call SaveReal(YDLOC, ydl_triggerstep, 0x024FDF70, LoadReal(YDLOC, GetHandleId(GetExpiredTimer()), 0xFDF65382))
-			call TriggerExecute(ydl_trigger)
-		else
-		endif
-	else
-	endif
-	//结束
-	call SaveReal(YDLOC, GetHandleId(GetExpiredTimer()), 0x1CA61CEC, (LoadReal(YDLOC, GetHandleId(GetExpiredTimer()), 0x1CA61CEC) + 0.50))
-	if ((LoadReal(YDLOC, GetHandleId(GetExpiredTimer()), 0x1CA61CEC) >= LoadReal(YDLOC, GetHandleId(GetExpiredTimer()), 0x2966415C))) then
-		call FlushChildHashtable(YDLOC, GetHandleId(GetExpiredTimer()))
-		call DestroyTimer(GetExpiredTimer())
-	else
-	endif
-	set ydl_group = null
-	set ydl_unit = null
-	set ydl_trigger = null
-endfunction
-function Trig_Weapon_9Actions takes nothing returns nothing
-	local timer ydl_timer
-	local integer ydl_localvar_step = LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xCFDE6C76) 
- set ydl_localvar_step = ydl_localvar_step + 3 
- call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xCFDE6C76, ydl_localvar_step) 
- call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xECE825E7, ydl_localvar_step)
-	call SaveUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075, LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075))
-	call SaveUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xFC4D8276, LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xFC4D8276))
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xECF5506B, GetUnitX( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xFC4D8276)))
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x024FDF70, GetUnitY( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xFC4D8276)))
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x0E20876F, GetUnitX( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075)))
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x4FB814AA, GetUnitY( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075)))
-	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965, GetConvertedPlayerId( GetOwningPlayer( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075))))
-	//兵器ID
-	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE, 9)
-	//兵器等级
-	//计算伤害
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281, GetRealFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "DamageValue"))
-	if ((LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE088B116) >= 2)) then
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281, (LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281) + GetRealFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "2级数值")))
-	else
-	endif
-	if ((LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE088B116) >= 4)) then
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281, (LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281) + GetRealFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "4级数值")))
-	else
-	endif
-	if ((LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE088B116) >= 6)) then
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281, (LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281) + GetRealFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "6级数值")))
-	else
-	endif
-	//伤害范围
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x5B0BDD27, Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 20))
-	if ((LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE088B116) >= 8)) then
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x5B0BDD27, (LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x5B0BDD27) + GetRealFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "8级数值")))
-	else
-	endif
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x5B0BDD27, (( 1.00) +( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x5B0BDD27)) *( 0.01)))
-	//持续时间
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x2966415C, 3.00)
-	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xCB848F87, 9)
-	if (true) then
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x2966415C, (LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x2966415C) + GetRealFromExcel( "专精天赋", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xCB848F87), "Value1")))
-	else
-	endif
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x2966415C, (LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x2966415C) * (( 1.00) +( 0.01) *( Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 14)))))
-	set ydl_timer = CreateTimer()
-	call SaveReal(YDLOC, GetHandleId(ydl_timer), 0x1CA61CEC, 0.00)
-	call SaveReal(YDLOC, GetHandleId(ydl_timer), 0x9966AD24, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x9966AD24))
-	call SaveReal(YDLOC, GetHandleId(ydl_timer), 0xB1C6C281, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281))
-	call SaveReal(YDLOC, GetHandleId(ydl_timer), 0xC0ABED4A, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A))
-	call SaveReal(YDLOC, GetHandleId(ydl_timer), 0x5B0BDD27, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x5B0BDD27))
-	call SaveReal(YDLOC, GetHandleId(ydl_timer), 0x5FCC4134, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x5FCC4134))
-	call SaveReal(YDLOC, GetHandleId(ydl_timer), 0x2966415C, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x2966415C))
-	call SaveEffectHandle(YDLOC, GetHandleId(ydl_timer), 0xF8F856EA, LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA))
-	call SaveUnitHandle(YDLOC, GetHandleId(ydl_timer), 0xE6E64075, LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075))
-	call SaveReal(YDLOC, GetHandleId(ydl_timer), 0x0E20876F, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x0E20876F))
-	call SaveReal(YDLOC, GetHandleId(ydl_timer), 0x4FB814AA, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x4FB814AA))
-	call SaveReal(YDLOC, GetHandleId(ydl_timer), 0xA99320FA, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xA99320FA))
-	call SaveReal(YDLOC, GetHandleId(ydl_timer), 0xFDF65382, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xFDF65382))
-	call TimerStart(ydl_timer, 0.50, true, function Trig_Weapon_9Func026T)
-	call FlushChildHashtable(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step)
-	set ydl_timer = null
-endfunction
-//===========================================================================
-function InitTrig_Weapon_9 takes nothing returns nothing
-	set gg_trg_Weapon_9 = CreateTrigger()
-	call TriggerAddAction(gg_trg_Weapon_9, function Trig_Weapon_9Actions)
-endfunction
-//===========================================================================
-// Trigger: Weapon_9_CD
-//===========================================================================
-function Trig_Weapon_9_CDActions takes nothing returns nothing
-	local integer ydl_localvar_step = LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xCFDE6C76) 
- set ydl_localvar_step = ydl_localvar_step + 3 
- call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xCFDE6C76, ydl_localvar_step) 
- call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xECE825E7, ydl_localvar_step)
-	call SaveUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075, LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075))
-	call SaveUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xD39F08B6, LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xD39F08B6))
-	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965, GetConvertedPlayerId( GetOwningPlayer( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075))))
-	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE, 9)
-	call SaveStr(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xAAC4C797, GetStringFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "需求属性"))
-	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x9BDB3720, GetIntegerFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "需求值"))
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x887B1FA4, GetRealFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "减少值"))
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x7E1A9366, GetRealFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "至多生效值"))
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xD3B112CF, Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), Str_GetAttr( LoadStr(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xAAC4C797))))
-	if ((LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xD3B112CF) > LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x7E1A9366))) then
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xD3B112CF, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x7E1A9366))
-	else
-	endif
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x3B60835B, GetRealFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "触发间隔"))
-	call SetUnitState( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xD39F08B6), ConvertUnitState(0x25), (( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x3B60835B)) -( I2R( (( R2I( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xD3B112CF)))/( LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x9BDB3720))))) *( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x887B1FA4))))
-	call FlushChildHashtable(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step)
-endfunction
-//===========================================================================
-function InitTrig_Weapon_9_CD takes nothing returns nothing
-	set gg_trg_Weapon_9_CD = CreateTrigger()
-	call TriggerAddAction(gg_trg_Weapon_9_CD, function Trig_Weapon_9_CDActions)
-endfunction
-//===========================================================================
-// Trigger: Weapon_10
-//===========================================================================
-function Trig_Weapon_10Actions takes nothing returns nothing
-	local integer ydul_count
-	local integer ydl_triggerstep
-	local trigger ydl_trigger
-	local integer ydl_localvar_step = LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xCFDE6C76) 
- set ydl_localvar_step = ydl_localvar_step + 3 
- call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xCFDE6C76, ydl_localvar_step) 
- call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xECE825E7, ydl_localvar_step)
-	call SaveUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075, LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075))
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x0E20876F, GetUnitX( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075)))
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x4FB814AA, GetUnitY( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075)))
-	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965, GetConvertedPlayerId( GetOwningPlayer( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075))))
-	//兵器ID
-	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE, 10)
-	//兵器等级
-	//计算伤害
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281, GetRealFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "DamageValue"))
-	if ((LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE088B116) >= 2)) then
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281, (LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281) + GetRealFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "2级数值")))
-	else
-	endif
-	if ((LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE088B116) >= 4)) then
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281, (LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281) + GetRealFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "4级数值")))
-	else
-	endif
-	if ((LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE088B116) >= 6)) then
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281, (LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281) + GetRealFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "6级数值")))
-	else
-	endif
-	//额外弹道
-	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB7279243, R2I( Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 15)))
-	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB7279243, (LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB7279243) + 2))
-	if ((LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE088B116) >= 8)) then
-		call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB7279243, (LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB7279243) + R2I( GetRealFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "8级数值"))))
-	else
-	endif
-	set ydul_count = 1
-	loop
-		exitwhen ydul_count > LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB7279243)
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x9966AD24, ( GetRandomDirectionDeg()))
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A, (( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281)) *( Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 103)) *( Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 91))))
-		if ((GetRandomInt( 1, 100) <= R2I( Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 77)))) then
-			set udg_Args_WeaponType = WEAPON_TYPE_METAL_LIGHT_CHOP
-			call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A, (( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A)) *( Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 94)) +( 0.00)))
-		else
-			set udg_Args_WeaponType = WEAPON_TYPE_WHOKNOWS
-		endif
-		set udg_Args_AttackType = ATTACK_TYPE_HERO
-		set udg_Args_DamageType = DAMAGE_TYPE_UNIVERSAL
-		set ydl_trigger = gg_trg_SLine_Type1
-		set ydl_triggerstep = GetHandleId(ydl_trigger)*(LoadInteger(YDLOC, GetHandleId(ydl_trigger), 0xCFDE6C76) + 3)
-		call SaveReal(YDLOC, ydl_triggerstep, 0x9966AD24, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x9966AD24))
-		call SaveReal(YDLOC, ydl_triggerstep, 0xC0ABED4A, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A))
-		call SaveReal(YDLOC, ydl_triggerstep, 0xE6BB3831, 100.00)
-		call SaveReal(YDLOC, ydl_triggerstep, 0x0E20876F, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x0E20876F))
-		call SaveReal(YDLOC, ydl_triggerstep, 0x4FB814AA, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x4FB814AA))
-		call SaveReal(YDLOC, ydl_triggerstep, 0xFB6E8B46, 30.00)
-		call SaveReal(YDLOC, ydl_triggerstep, 0xC65482EE, 100.00)
-		call SaveReal(YDLOC, ydl_triggerstep, 0x47527379, 1000.00)
-		call SaveUnitHandle(YDLOC, ydl_triggerstep, 0x6EDB7E6F, LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075))
-		call SaveStr(YDLOC, ydl_triggerstep, 0x2480578D, "Survival\\WeaponEffect\\10\\1.mdx")
-		//判断是否超限
-		if (true) then
-			call SaveTriggerHandle(YDLOC, ydl_triggerstep, 0x7B5473E1, gg_trg_Weapon_10_EndAction)
-		else
-		endif
-		call TriggerExecute(ydl_trigger)
-		set ydul_count = ydul_count + 1
-	endloop
-	call FlushChildHashtable(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step)
-	set ydl_trigger = null
-endfunction
-//===========================================================================
-function InitTrig_Weapon_10 takes nothing returns nothing
-	set gg_trg_Weapon_10 = CreateTrigger()
-	call TriggerAddAction(gg_trg_Weapon_10, function Trig_Weapon_10Actions)
-endfunction
-//===========================================================================
-// Trigger: Weapon_10_EndAction
-//===========================================================================
-function Trig_Weapon_10_EndActionActions takes nothing returns nothing
-	local group ydl_group
-	local unit ydl_unit
-	local integer ydl_localvar_step = LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xCFDE6C76) 
- set ydl_localvar_step = ydl_localvar_step + 3 
- call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xCFDE6C76, ydl_localvar_step) 
- call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xECE825E7, ydl_localvar_step)
-	call SaveEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA, LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA))
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x0E20876F, EXGetEffectX( LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA)))
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x4FB814AA, EXGetEffectY( LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA)))
-	call SaveUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075, LoadUnitHandle(YDHT, GetHandleId( LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA)), 0x6EDB7E6F))
-	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x58A8D929, 30)
-	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xCB848F87, 1)
-	if (true) then
-		call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x58A8D929, GetIntegerFromExcel( "专精天赋", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xCB848F87), "Value1"))
-	else
-	endif
-	if ((GetRandomInt( 1, 100) <= 0)) then
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A, (( 5.00) *( Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 103)) *( Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 91))))
-		set udg_Args_AttackType = ATTACK_TYPE_NORMAL
-		set udg_Args_DamageType = DAMAGE_TYPE_UNIVERSAL
-		if ((GetRandomInt( 1, 100) <= R2I( Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 77)))) then
-			set udg_Args_WeaponType = WEAPON_TYPE_METAL_LIGHT_CHOP
-			call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A, (( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A)) *( Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 94)) +( 0.00)))
-		else
-			set udg_Args_WeaponType = WEAPON_TYPE_WHOKNOWS
-		endif
-		call SaveEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA, AddSpecialEffect( "Survival\\WeaponEffect\\10\\2.mdx", LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x0E20876F), LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x4FB814AA)))
-		call EXSetEffectSize( LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA), 3.50)
-		call DestroyEffect( LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA))
-		set ydl_group = CreateGroup()
-		call GroupEnumUnitsInRange(ydl_group, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x0E20876F), LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x4FB814AA), 700.00, null)
-		loop
-			set ydl_unit = FirstOfGroup(ydl_group)
-			exitwhen ydl_unit == null
-			call GroupRemoveUnit(ydl_group, ydl_unit)
-			if ((IsUnitEnemy( ydl_unit, ConvertedPlayer( GetConvertedPlayerId( GetOwningPlayer( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075))))) == true)) then
-				call UnitDamageTarget( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), ydl_unit, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A), false, false, udg_Args_AttackType, udg_Args_DamageType, udg_Args_WeaponType)
-			else
-			endif
-		endloop
-		call DestroyGroup(ydl_group)
-	else
-	endif
-	call FlushChildHashtable(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step)
-	set ydl_group = null
-	set ydl_unit = null
-endfunction
-//===========================================================================
-function InitTrig_Weapon_10_EndAction takes nothing returns nothing
-	set gg_trg_Weapon_10_EndAction = CreateTrigger()
-	call TriggerAddAction(gg_trg_Weapon_10_EndAction, function Trig_Weapon_10_EndActionActions)
-endfunction
-//===========================================================================
-// Trigger: Weapon_10_CD
-//===========================================================================
-function Trig_Weapon_10_CDActions takes nothing returns nothing
-	local integer ydl_localvar_step = LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xCFDE6C76) 
- set ydl_localvar_step = ydl_localvar_step + 3 
- call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xCFDE6C76, ydl_localvar_step) 
- call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xECE825E7, ydl_localvar_step)
-	call SaveUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075, LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075))
-	call SaveUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xD39F08B6, LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xD39F08B6))
-	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965, GetConvertedPlayerId( GetOwningPlayer( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075))))
-	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE, 10)
-	call SaveStr(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xAAC4C797, GetStringFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "需求属性"))
-	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x9BDB3720, GetIntegerFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "需求值"))
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x887B1FA4, GetRealFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "减少值"))
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x7E1A9366, GetRealFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "至多生效值"))
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xD3B112CF, Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), Str_GetAttr( LoadStr(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xAAC4C797))))
-	if ((LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xD3B112CF) > LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x7E1A9366))) then
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xD3B112CF, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x7E1A9366))
-	else
-	endif
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x3B60835B, GetRealFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "触发间隔"))
-	call SetUnitState( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xD39F08B6), ConvertUnitState(0x25), (( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x3B60835B)) -( I2R( (( R2I( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xD3B112CF)))/( LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x9BDB3720))))) *( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x887B1FA4))))
-	call FlushChildHashtable(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step)
-endfunction
-//===========================================================================
-function InitTrig_Weapon_10_CD takes nothing returns nothing
-	set gg_trg_Weapon_10_CD = CreateTrigger()
-	call TriggerAddAction(gg_trg_Weapon_10_CD, function Trig_Weapon_10_CDActions)
-endfunction
-//===========================================================================
-// Trigger: Weapon_11
-//===========================================================================
-function Trig_Weapon_11Actions takes nothing returns nothing
-	local group ydl_group
-	local unit ydl_unit
-	local integer ydul_i
-	local integer ydl_localvar_step = LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xCFDE6C76) 
- set ydl_localvar_step = ydl_localvar_step + 3 
- call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xCFDE6C76, ydl_localvar_step) 
- call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xECE825E7, ydl_localvar_step)
-	call SaveUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075, LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075))
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x0E20876F, GetUnitX( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075)))
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x4FB814AA, GetUnitY( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075)))
-	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965, GetConvertedPlayerId( GetOwningPlayer( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075))))
-	//兵器ID
-	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE, 11)
-	//兵器等级
-	//计算伤害
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281, GetRealFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "DamageValue"))
-	if ((LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE088B116) >= 2)) then
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281, (LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281) + GetRealFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "2级数值")))
-	else
-	endif
-	if ((LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE088B116) >= 4)) then
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281, (LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281) + GetRealFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "4级数值")))
-	else
-	endif
-	if ((LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE088B116) >= 6)) then
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281, (LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281) + GetRealFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "6级数值")))
-	else
-	endif
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A, (( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281)) *( Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 101)) *( Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 92))))
-	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xCB848F87, 11)
-	if (true) then
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A, (( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A)) *( GetRealFromExcel( "专精天赋", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xCB848F87), "Value1")) +( 0.00)))
-	else
-	endif
-	//额外弹道
-	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB7279243, R2I( Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 15)))
-	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB7279243, (LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB7279243) + 2))
-	if ((LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE088B116) >= 7)) then
-		call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB7279243, (LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB7279243) + GetIntegerFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "7级数值")))
-	else
-	endif
-	//伤害范围
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x5B0BDD27, Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 20))
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x5B0BDD27, (( 1.00) +( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x5B0BDD27)) *( 0.01)))
-	//判断是否超限
-	if (true) then
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x5B0BDD27, (( 0.00) +( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x5B0BDD27)) *( 1.50)))
-	else
-	endif
-	//选取敌人造成伤害
-	call SaveGroupHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x9E80183F, GetGroup())
-	set ydl_group = CreateGroup()
-	call GroupEnumUnitsInRange(ydl_group, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x0E20876F), LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x4FB814AA), (Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 12) + 100.00), null)
-	loop
-		set ydl_unit = FirstOfGroup(ydl_group)
-		exitwhen ydl_unit == null
-		call GroupRemoveUnit(ydl_group, ydl_unit)
-		if ((IsUnitEnemy( ydl_unit, ConvertedPlayer( GetConvertedPlayerId( GetOwningPlayer( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075))))) == true)) then
-			call GroupAddUnit( LoadGroupHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x9E80183F), ydl_unit)
-		else
-		endif
-	endloop
-	call DestroyGroup(ydl_group)
-	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x648DC97A, (LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB7279243) + 0))
-	set ydul_i = 1
-	loop
-		exitwhen ydul_i > LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x648DC97A)
-		call SaveUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x8867FB80, GroupPickRandomUnit( LoadGroupHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x9E80183F)))
-		if ((IsUnitEnemy( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x8867FB80), ConvertedPlayer( GetConvertedPlayerId( GetOwningPlayer( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075))))) == true)) then
-			call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xFCBFDC12, GetUnitX( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x8867FB80)))
-			call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE3CB2E3B, GetUnitY( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x8867FB80)))
-			call SaveEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA, AddSpecialEffect( "Survival\\WeaponEffect\\11\\1.mdx", LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xFCBFDC12), LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE3CB2E3B)))
-			call EXSetEffectSize( LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA), (1.00 * LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x5B0BDD27)))
-			call DestroyEffect( LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA))
-			set ydl_group = CreateGroup()
-			call GroupEnumUnitsInRange(ydl_group, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xFCBFDC12), LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE3CB2E3B), (150.00 * LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x5B0BDD27)), null)
-			loop
-				set ydl_unit = FirstOfGroup(ydl_group)
-				exitwhen ydl_unit == null
-				call GroupRemoveUnit(ydl_group, ydl_unit)
-				if ((IsUnitEnemy( ydl_unit, ConvertedPlayer( GetConvertedPlayerId( GetOwningPlayer( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075))))) == true)) then
-					call UnitDamageTarget( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), ydl_unit, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A), false, false, ATTACK_TYPE_PIERCE, DAMAGE_TYPE_UNIVERSAL, WEAPON_TYPE_WHOKNOWS)
-				else
-				endif
-			endloop
-			call DestroyGroup(ydl_group)
-			//结束
-			call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB7279243, (LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB7279243) - 1))
-			call GroupRemoveUnit( LoadGroupHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x9E80183F), LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x8867FB80))
-		else
-		endif
-		if (((CountUnitsInGroup( LoadGroupHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x9E80183F)) <= 0) or (LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB7279243) <= 0))) then
-			call RecycleGroup(LoadGroupHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x9E80183F))
-			exitwhen true
-		else
-		endif
-		set ydul_i = ydul_i + 1
-	endloop
-	call RecycleGroup(LoadGroupHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x9E80183F))
-	call FlushChildHashtable(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step)
-	set ydl_group = null
-	set ydl_unit = null
-endfunction
-//===========================================================================
-function InitTrig_Weapon_11 takes nothing returns nothing
-	set gg_trg_Weapon_11 = CreateTrigger()
-	call TriggerAddAction(gg_trg_Weapon_11, function Trig_Weapon_11Actions)
-endfunction
-//===========================================================================
-// Trigger: Weapon_11_CD
-//===========================================================================
-function Trig_Weapon_11_CDActions takes nothing returns nothing
-	local integer ydl_localvar_step = LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xCFDE6C76) 
- set ydl_localvar_step = ydl_localvar_step + 3 
- call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xCFDE6C76, ydl_localvar_step) 
- call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xECE825E7, ydl_localvar_step)
-	call SaveUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075, LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075))
-	call SaveUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xD39F08B6, LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xD39F08B6))
-	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965, GetConvertedPlayerId( GetOwningPlayer( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075))))
-	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE, 11)
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x3B60835B, GetRealFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "触发间隔"))
-	if ((LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE088B116) >= 8)) then
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x3B60835B, (LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x3B60835B) - GetRealFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "8级数值")))
-	else
-	endif
-	call SetUnitState( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xD39F08B6), ConvertUnitState(0x25), LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x3B60835B))
-	call FlushChildHashtable(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step)
-endfunction
-//===========================================================================
-function InitTrig_Weapon_11_CD takes nothing returns nothing
-	set gg_trg_Weapon_11_CD = CreateTrigger()
-	call TriggerAddAction(gg_trg_Weapon_11_CD, function Trig_Weapon_11_CDActions)
-endfunction
-//===========================================================================
-// Trigger: Weapon_12
-//===========================================================================
-function Trig_Weapon_12Actions takes nothing returns nothing
-	local integer ydul_count
-	local integer ydl_triggerstep
-	local trigger ydl_trigger
-	local integer ydl_localvar_step = LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xCFDE6C76) 
- set ydl_localvar_step = ydl_localvar_step + 3 
- call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xCFDE6C76, ydl_localvar_step) 
- call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xECE825E7, ydl_localvar_step)
-	call SaveUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075, LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075))
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x0E20876F, GetUnitX( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075)))
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x4FB814AA, GetUnitY( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075)))
-	call SaveUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xFC4D8276, LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xFC4D8276))
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xECF5506B, GetUnitX( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xFC4D8276)))
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x024FDF70, GetUnitY( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xFC4D8276)))
-	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965, GetConvertedPlayerId( GetOwningPlayer( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075))))
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x9966AD24, ( YDWEAngleBetweenUnits( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xFC4D8276))))
-	//兵器ID
-	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE, 12)
-	//兵器等级
-	//计算伤害
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281, GetRealFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "DamageValue"))
-	if ((LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE088B116) >= 2)) then
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281, (LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281) + GetRealFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "2级数值")))
-	else
-	endif
-	if ((LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE088B116) >= 4)) then
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281, (LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281) + GetRealFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "4级数值")))
-	else
-	endif
-	if ((LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE088B116) >= 6)) then
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281, (LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281) + GetRealFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "6级数值")))
-	else
-	endif
-	//额外弹道
-	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB7279243, R2I( Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 15)))
-	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB7279243, (LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB7279243) + 2))
-	if ((LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE088B116) >= 8)) then
-		call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB7279243, (LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB7279243) + GetIntegerFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "8级数值")))
-	else
-	endif
-	set ydul_count = 1
-	loop
-		exitwhen ydul_count > LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB7279243)
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A, (( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281)) *( Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 102)) *( Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 90))))
-		//判断是否暴击
-		if ((GetRandomInt( 1, 100) <= R2I( Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 75)))) then
-			set udg_Args_WeaponType = WEAPON_TYPE_METAL_LIGHT_CHOP
-			call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A, (( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A)) *( Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 93)) +( 0.00)))
-		else
-			set udg_Args_WeaponType = WEAPON_TYPE_WHOKNOWS
-		endif
-		set udg_Args_AttackType = ATTACK_TYPE_HERO
-		set udg_Args_DamageType = DAMAGE_TYPE_UNIVERSAL
-		if ((GetRandomInt( 0, 1) == 0)) then
-			call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x34A57EBC, 1.00)
-		else
-			call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x34A57EBC, -1.00)
-		endif
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xFEE0735B, (( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x9966AD24))+( ( (GetRandomReal( 45.00, 180.00) * LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x34A57EBC))))))
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xAE620A96, 1000.00)
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x58B247EB, (( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x0E20876F)) +( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xAE620A96)) *( CosBJ( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xFEE0735B)))))
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x536D1A67, (( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x4FB814AA)) +( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xAE620A96)) *( SinBJ( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xFEE0735B)))))
-		set ydl_trigger = gg_trg_Bezier_Type1
-		set ydl_triggerstep = GetHandleId(ydl_trigger)*(LoadInteger(YDLOC, GetHandleId(ydl_trigger), 0xCFDE6C76) + 3)
-		call SaveReal(YDLOC, ydl_triggerstep, 0x9966AD24, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x9966AD24))
-		call SaveReal(YDLOC, ydl_triggerstep, 0xC0ABED4A, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A))
-		call SaveReal(YDLOC, ydl_triggerstep, 0xCCF9373D, 10.00)
-		call SaveReal(YDLOC, ydl_triggerstep, 0x371E266B, 500.00)
-		call SaveReal(YDLOC, ydl_triggerstep, 0xB3A05229, 50.00)
-		call SaveReal(YDLOC, ydl_triggerstep, 0xBEFD8BE8, 10.00)
-		call SaveReal(YDLOC, ydl_triggerstep, 0x0E20876F, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x0E20876F))
-		call SaveReal(YDLOC, ydl_triggerstep, 0x4FB814AA, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x4FB814AA))
-		call SaveReal(YDLOC, ydl_triggerstep, 0xECF5506B, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xECF5506B))
-		call SaveReal(YDLOC, ydl_triggerstep, 0x024FDF70, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x024FDF70))
-		call SaveReal(YDLOC, ydl_triggerstep, 0x58B247EB, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x58B247EB))
-		call SaveReal(YDLOC, ydl_triggerstep, 0x536D1A67, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x536D1A67))
-		call SaveReal(YDLOC, ydl_triggerstep, 0xFB6E8B46, 0.02)
-		call SaveReal(YDLOC, ydl_triggerstep, 0x62018695, 0.04)
-		call SaveReal(YDLOC, ydl_triggerstep, 0x06CBF27D, 0.20)
-		call SaveUnitHandle(YDLOC, ydl_triggerstep, 0x6EDB7E6F, LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075))
-		call SaveUnitHandle(YDLOC, ydl_triggerstep, 0xFC4D8276, LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xFC4D8276))
-		call SaveStr(YDLOC, ydl_triggerstep, 0x2480578D, "Survival\\WeaponEffect\\12\\1.mdx")
-		call SaveReal(YDLOC, ydl_triggerstep, 0xB54F5BCB, 2.00)
-		call TriggerExecute(ydl_trigger)
-		set ydul_count = ydul_count + 1
-	endloop
-	call FlushChildHashtable(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step)
-	set ydl_trigger = null
-endfunction
-//===========================================================================
-function InitTrig_Weapon_12 takes nothing returns nothing
-	set gg_trg_Weapon_12 = CreateTrigger()
-	call TriggerAddAction(gg_trg_Weapon_12, function Trig_Weapon_12Actions)
-endfunction
-//===========================================================================
-// Trigger: Weapon_12_CD
-//===========================================================================
-function Trig_Weapon_12_CDActions takes nothing returns nothing
-	local integer ydl_localvar_step = LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xCFDE6C76) 
- set ydl_localvar_step = ydl_localvar_step + 3 
- call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xCFDE6C76, ydl_localvar_step) 
- call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xECE825E7, ydl_localvar_step)
-	call SaveUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075, LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075))
-	call SaveUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xD39F08B6, LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xD39F08B6))
-	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965, GetConvertedPlayerId( GetOwningPlayer( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075))))
-	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE, 12)
-	call SaveStr(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xAAC4C797, GetStringFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "需求属性"))
-	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x9BDB3720, GetIntegerFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "需求值"))
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x887B1FA4, GetRealFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "减少值"))
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x7E1A9366, GetRealFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "至多生效值"))
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xD3B112CF, Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), Str_GetAttr( LoadStr(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xAAC4C797))))
-	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xCB848F87, 12)
-	if (true) then
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x7E1A9366, GetRealFromExcel( "专精天赋", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xCB848F87), "Value1"))
-	else
-	endif
-	if ((LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xD3B112CF) > LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x7E1A9366))) then
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xD3B112CF, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x7E1A9366))
-	else
-	endif
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x3B60835B, GetRealFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "触发间隔"))
-	//判断是否超限
-	if (true) then
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x3B60835B, (( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x3B60835B)) -( 1.00) +( 0.00)))
-	else
-	endif
-	call SetUnitState( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xD39F08B6), ConvertUnitState(0x25), (( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x3B60835B)) -( I2R( (( R2I( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xD3B112CF)))/( LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x9BDB3720))))) *( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x887B1FA4))))
-	call FlushChildHashtable(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step)
-endfunction
-//===========================================================================
-function InitTrig_Weapon_12_CD takes nothing returns nothing
-	set gg_trg_Weapon_12_CD = CreateTrigger()
-	call TriggerAddAction(gg_trg_Weapon_12_CD, function Trig_Weapon_12_CDActions)
-endfunction
-//===========================================================================
-// Trigger: Weapon_13
-//===========================================================================
-function Trig_Weapon_13Actions takes nothing returns nothing
-	local group ydl_group
-	local unit ydl_unit
-	local integer ydul_i
-	local integer ydl_triggerstep
-	local trigger ydl_trigger
-	local integer ydl_localvar_step = LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xCFDE6C76) 
- set ydl_localvar_step = ydl_localvar_step + 3 
- call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xCFDE6C76, ydl_localvar_step) 
- call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xECE825E7, ydl_localvar_step)
-	call SaveUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075, LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075))
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x0E20876F, GetUnitX( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075)))
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x4FB814AA, GetUnitY( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075)))
-	call SaveUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xFC4D8276, LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xFC4D8276))
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xECF5506B, GetUnitX( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xFC4D8276)))
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x024FDF70, GetUnitY( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xFC4D8276)))
-	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965, GetConvertedPlayerId( GetOwningPlayer( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075))))
-	//兵器ID
-	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE, 13)
-	//兵器等级
-	//计算伤害
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281, GetRealFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "DamageValue"))
-	if ((LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE088B116) >= 2)) then
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281, (LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281) + GetRealFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "2级数值")))
-	else
-	endif
-	if ((LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE088B116) >= 4)) then
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281, (LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281) + GetRealFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "4级数值")))
-	else
-	endif
-	if ((LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE088B116) >= 6)) then
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281, (LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281) + GetRealFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "6级数值")))
-	else
-	endif
-	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xCB848F87, 13)
-	if (true) then
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281, (( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281)) *( GetRealFromExcel( "专精天赋", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xCB848F87), "Value1")) +( 0.00)))
-	else
-	endif
-	//额外弹道
-	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB7279243, R2I( Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 15)))
-	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB7279243, (LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB7279243) + 2))
-	if ((LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE088B116) >= 8)) then
-		call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB7279243, (LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB7279243) + GetIntegerFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "8级数值")))
-	else
-	endif
-	call SaveGroupHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x9E80183F, GetGroup())
-	set ydl_group = CreateGroup()
-	call GroupEnumUnitsInRange(ydl_group, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x0E20876F), LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x4FB814AA), (Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 12) + 100.00), null)
-	loop
-		set ydl_unit = FirstOfGroup(ydl_group)
-		exitwhen ydl_unit == null
-		call GroupRemoveUnit(ydl_group, ydl_unit)
-		if ((IsUnitEnemy( ydl_unit, ConvertedPlayer( GetConvertedPlayerId( GetOwningPlayer( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075))))) == true)) then
-			call GroupAddUnit( LoadGroupHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x9E80183F), ydl_unit)
-		else
-		endif
-	endloop
-	call DestroyGroup(ydl_group)
-	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x648DC97A, (LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB7279243) + 0))
-	set ydul_i = 1
-	loop
-		exitwhen ydul_i > LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x648DC97A)
-		call SaveUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x8867FB80, GroupPickRandomUnit( LoadGroupHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x9E80183F)))
-		if ((IsUnitEnemy( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x8867FB80), ConvertedPlayer( GetConvertedPlayerId( GetOwningPlayer( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075))))) == true) and (LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x8867FB80) != null)) then
-			call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A, (( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281)) *( Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 103)) *( Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 91))))
-			//判断是否暴击
-			if ((GetRandomInt( 1, 100) <= R2I( Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 77)))) then
-				set udg_Args_WeaponType = WEAPON_TYPE_METAL_LIGHT_CHOP
-				call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A, (( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A)) *( Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 94)) +( 0.00)))
-			else
-				set udg_Args_WeaponType = WEAPON_TYPE_WHOKNOWS
-			endif
-			set udg_Args_DamageType = DAMAGE_TYPE_UNIVERSAL
-			set udg_Args_AttackType = ATTACK_TYPE_NORMAL
-			call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x9966AD24, ( YDWEAngleBetweenUnits( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x8867FB80))))
-			set ydl_trigger = gg_trg_SLine_Type2
-			set ydl_triggerstep = GetHandleId(ydl_trigger)*(LoadInteger(YDLOC, GetHandleId(ydl_trigger), 0xCFDE6C76) + 3)
-			call SaveReal(YDLOC, ydl_triggerstep, 0x9966AD24, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x9966AD24))
-			call SaveReal(YDLOC, ydl_triggerstep, 0xC0ABED4A, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A))
-			call SaveReal(YDLOC, ydl_triggerstep, 0x0E20876F, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x0E20876F))
-			call SaveReal(YDLOC, ydl_triggerstep, 0x4FB814AA, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x4FB814AA))
-			call SaveReal(YDLOC, ydl_triggerstep, 0xFB6E8B46, 30.00)
-			call SaveUnitHandle(YDLOC, ydl_triggerstep, 0x6EDB7E6F, LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075))
-			call SaveUnitHandle(YDLOC, ydl_triggerstep, 0xFC4D8276, LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x8867FB80))
-			call SaveStr(YDLOC, ydl_triggerstep, 0x2480578D, "Survival\\WeaponEffect\\13\\1.mdx")
-			call SaveReal(YDLOC, ydl_triggerstep, 0xB54F5BCB, 0.20)
-			call SaveReal(YDLOC, ydl_triggerstep, 0xBEFD8BE8, 20.00)
-			//判断是否超限
-			if (true) then
-				call SaveTriggerHandle(YDLOC, ydl_triggerstep, 0x7B5473E1, gg_trg_Weapon_13_EndAction)
-				call SaveBoolean(YDLOC, ydl_triggerstep, 0x2624EB23, true)
-			else
-			endif
-			call TriggerExecute(ydl_trigger)
-			//结束
-			call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB7279243, (LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB7279243) - 1))
-			call GroupRemoveUnit( LoadGroupHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x9E80183F), LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x8867FB80))
-		else
-		endif
-		if (((CountUnitsInGroup( LoadGroupHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x9E80183F)) <= 0) or (LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB7279243) <= 0))) then
-			call RecycleGroup(LoadGroupHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x9E80183F))
-			exitwhen true
-		else
-		endif
-		set ydul_i = ydul_i + 1
-	endloop
-	call FlushChildHashtable(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step)
-	set ydl_group = null
-	set ydl_unit = null
-	set ydl_trigger = null
-endfunction
-//===========================================================================
-function InitTrig_Weapon_13 takes nothing returns nothing
-	set gg_trg_Weapon_13 = CreateTrigger()
-	call TriggerAddAction(gg_trg_Weapon_13, function Trig_Weapon_13Actions)
-endfunction
-//===========================================================================
-// Trigger: Weapon_13_EndAction
-//===========================================================================
-function Trig_Weapon_13_EndActionActions takes nothing returns nothing
-	local integer ydl_triggerstep
-	local trigger ydl_trigger
-	local integer ydl_localvar_step = LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xCFDE6C76) 
- set ydl_localvar_step = ydl_localvar_step + 3 
- call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xCFDE6C76, ydl_localvar_step) 
- call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xECE825E7, ydl_localvar_step)
-	call SaveEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA, LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA))
-	call SaveUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075, LoadUnitHandle(YDHT, GetHandleId( LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA)), 0x6EDB7E6F))
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x9966AD24, LoadReal(YDHT, GetHandleId( LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA)), 0x9966AD24))
-	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965, GetConvertedPlayerId( GetOwningPlayer( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075))))
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x0E20876F, EXGetEffectX( LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA)))
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x4FB814AA, EXGetEffectY( LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA)))
-	//伤害范围
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x5B0BDD27, Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 20))
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x5B0BDD27, (( 1.00) +( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x5B0BDD27)) *( 0.01)))
-	//伤害
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A, (( 3.00) *( Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 103)) *( Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 91))))
-	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xCB848F87, 13)
-	if (true) then
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A, (( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A)) *( GetRealFromExcel( "专精天赋", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xCB848F87), "Value1")) +( 0.00)))
-	else
-	endif
-	//判断暴击
-	if ((GetRandomInt( 1, 100) <= R2I( Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 77)))) then
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A, (( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A)) *( Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 94)) +( 0.00)))
-		set udg_Args_WeaponType = WEAPON_TYPE_METAL_LIGHT_CHOP
-	else
-		set udg_Args_WeaponType = WEAPON_TYPE_WHOKNOWS
-	endif
-	set udg_Args_AttackType = ATTACK_TYPE_NORMAL
-	set udg_Args_DamageType = DAMAGE_TYPE_UNIVERSAL
-	call EXSetEffectSize( LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA), (0.50 * LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x5B0BDD27)))
-	set ydl_trigger = gg_trg_SLine_Type1
-	set ydl_triggerstep = GetHandleId(ydl_trigger)*(LoadInteger(YDLOC, GetHandleId(ydl_trigger), 0xCFDE6C76) + 3)
-	call SaveEffectHandle(YDLOC, ydl_triggerstep, 0xF8F856EA, LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA))
-	call SaveReal(YDLOC, ydl_triggerstep, 0x9966AD24, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x9966AD24))
-	call SaveReal(YDLOC, ydl_triggerstep, 0xE6BB3831, (150.00 * LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x5B0BDD27)))
-	call SaveReal(YDLOC, ydl_triggerstep, 0xC0ABED4A, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A))
-	call SaveReal(YDLOC, ydl_triggerstep, 0x0E20876F, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x0E20876F))
-	call SaveReal(YDLOC, ydl_triggerstep, 0x4FB814AA, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x4FB814AA))
-	call SaveReal(YDLOC, ydl_triggerstep, 0xFB6E8B46, 30.00)
-	call SaveReal(YDLOC, ydl_triggerstep, 0xC65482EE, 100.00)
-	call SaveReal(YDLOC, ydl_triggerstep, 0x47527379, 1000.00)
-	call SaveUnitHandle(YDLOC, ydl_triggerstep, 0x6EDB7E6F, LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075))
-	call SaveBoolean(YDLOC, ydl_triggerstep, 0x2624EB23, true)
-	call SaveGroupHandle(YDLOC, ydl_triggerstep, 0x9E80183F, ( GetGroup()))
-	call SaveBoolean(YDLOC, ydl_triggerstep, 0xD7F63C43, true)
-	call SaveTriggerHandle(YDLOC, ydl_triggerstep, 0x7B5473E1, gg_trg_Weapon_1_EndAction2)
-	call TriggerExecute(ydl_trigger)
-	call FlushChildHashtable(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step)
-	set ydl_trigger = null
-endfunction
-//===========================================================================
-function InitTrig_Weapon_13_EndAction takes nothing returns nothing
-	set gg_trg_Weapon_13_EndAction = CreateTrigger()
-	call TriggerAddAction(gg_trg_Weapon_13_EndAction, function Trig_Weapon_13_EndActionActions)
-endfunction
-//===========================================================================
-// Trigger: Weapon_13_CD
-//===========================================================================
-function Trig_Weapon_13_CDActions takes nothing returns nothing
-	local integer ydl_localvar_step = LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xCFDE6C76) 
- set ydl_localvar_step = ydl_localvar_step + 3 
- call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xCFDE6C76, ydl_localvar_step) 
- call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xECE825E7, ydl_localvar_step)
-	call SaveUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075, LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075))
-	call SaveUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xD39F08B6, LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xD39F08B6))
-	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965, GetConvertedPlayerId( GetOwningPlayer( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075))))
-	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE, 13)
-	call SaveStr(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xAAC4C797, GetStringFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "需求属性"))
-	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x9BDB3720, GetIntegerFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "需求值"))
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x887B1FA4, GetRealFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "减少值"))
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x7E1A9366, GetRealFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "至多生效值"))
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xD3B112CF, Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), Str_GetAttr( LoadStr(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xAAC4C797))))
-	if ((LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xD3B112CF) > LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x7E1A9366))) then
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xD3B112CF, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x7E1A9366))
-	else
-	endif
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x3B60835B, GetRealFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "触发间隔"))
-	call SetUnitState( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xD39F08B6), ConvertUnitState(0x25), (( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x3B60835B)) -( I2R( (( R2I( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xD3B112CF)))/( LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x9BDB3720))))) *( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x887B1FA4))))
-	call FlushChildHashtable(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step)
-endfunction
-//===========================================================================
-function InitTrig_Weapon_13_CD takes nothing returns nothing
-	set gg_trg_Weapon_13_CD = CreateTrigger()
-	call TriggerAddAction(gg_trg_Weapon_13_CD, function Trig_Weapon_13_CDActions)
-endfunction
-//===========================================================================
-// Trigger: Weapon_14
-//===========================================================================
-function Trig_Weapon_14Actions takes nothing returns nothing
-	local integer ydul_count
-	local integer ydl_triggerstep
-	local trigger ydl_trigger
-	local integer ydl_localvar_step = LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xCFDE6C76) 
- set ydl_localvar_step = ydl_localvar_step + 3 
- call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xCFDE6C76, ydl_localvar_step) 
- call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xECE825E7, ydl_localvar_step)
-	call SaveUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075, LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075))
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x0E20876F, GetUnitX( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075)))
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x4FB814AA, GetUnitY( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075)))
-	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965, GetConvertedPlayerId( GetOwningPlayer( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075))))
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x9966AD24, ( GetUnitFacing( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075))))
-	//兵器ID
-	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE, 14)
-	//兵器等级
-	//计算伤害
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281, GetRealFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "DamageValue"))
-	if ((LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE088B116) >= 2)) then
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281, (LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281) + GetRealFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "2级数值")))
-	else
-	endif
-	if ((LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE088B116) >= 4)) then
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281, (LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281) + GetRealFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "4级数值")))
-	else
-	endif
-	if ((LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE088B116) >= 6)) then
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281, (LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281) + GetRealFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "6级数值")))
-	else
-	endif
-	//额外弹道
-	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB7279243, R2I( Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 15)))
-	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB7279243, (LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB7279243) + 2))
-	if ((LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE088B116) >= 8)) then
-		call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB7279243, (LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB7279243) + GetIntegerFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "8级数值")))
-	else
-	endif
-	//加入堆栈
-	set ydul_count = 1
-	loop
-		exitwhen ydul_count > LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB7279243)
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A, (( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281)) *( Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 102)) *( Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 90))))
-		//判断是否暴击
-		if ((GetRandomInt( 1, 100) <= R2I( Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 75)))) then
-			set udg_Args_WeaponType = WEAPON_TYPE_METAL_LIGHT_CHOP
-			call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A, (( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A)) *( Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 93)) +( 0.00)))
-		else
-			set udg_Args_WeaponType = WEAPON_TYPE_WHOKNOWS
-		endif
-		set udg_Args_AttackType = ATTACK_TYPE_HERO
-		set udg_Args_DamageType = DAMAGE_TYPE_UNIVERSAL
-		//随机位置
-		if ((ydul_count > 1)) then
-			call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xBFFBB2C5, (LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x9966AD24) + GetRandomReal( -90.00, 90.00)))
-			call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xA9F034E3, GetRandomReal( 100.00, 400.00))
-			call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x71A400F9, (( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x0E20876F)) +( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xA9F034E3)) *( CosBJ( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xBFFBB2C5)))))
-			call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC738EF47, (( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x4FB814AA)) +( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xA9F034E3)) *( SinBJ( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xBFFBB2C5)))))
-		else
-			call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x71A400F9, (( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x0E20876F)) +( 0.00) *( 0.00)))
-			call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC738EF47, (( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x4FB814AA)) +( 0.00) *( 0.00)))
-		endif
-		set ydl_trigger = gg_trg_SLine_Type1
-		set ydl_triggerstep = GetHandleId(ydl_trigger)*(LoadInteger(YDLOC, GetHandleId(ydl_trigger), 0xCFDE6C76) + 3)
-		call SaveReal(YDLOC, ydl_triggerstep, 0x9966AD24, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x9966AD24))
-		call SaveReal(YDLOC, ydl_triggerstep, 0xC0ABED4A, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A))
-		call SaveReal(YDLOC, ydl_triggerstep, 0xE6BB3831, 100.00)
-		call SaveReal(YDLOC, ydl_triggerstep, 0xB54F5BCB, 1.50)
-		call SaveReal(YDLOC, ydl_triggerstep, 0x0E20876F, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x71A400F9))
-		call SaveReal(YDLOC, ydl_triggerstep, 0x4FB814AA, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC738EF47))
-		call SaveReal(YDLOC, ydl_triggerstep, 0xFB6E8B46, 30.00)
-		call SaveReal(YDLOC, ydl_triggerstep, 0xBEFD8BE8, 50.00)
-		call SaveReal(YDLOC, ydl_triggerstep, 0xC65482EE, 100.00)
-		call SaveReal(YDLOC, ydl_triggerstep, 0x47527379, 1500.00)
-		call SaveUnitHandle(YDLOC, ydl_triggerstep, 0x6EDB7E6F, LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075))
-		call SaveStr(YDLOC, ydl_triggerstep, 0x2480578D, "Survival\\WeaponEffect\\14\\1.mdx")
-		call TriggerExecute(ydl_trigger)
-		//判断是否超限
-		if (true) then
-			call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A, (( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281)) *( Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 102)) *( Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 90))))
-			//判断是否暴击
-			if ((GetRandomInt( 1, 100) <= R2I( Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 75)))) then
-				set udg_Args_WeaponType = WEAPON_TYPE_METAL_LIGHT_CHOP
-				call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A, (( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A)) *( Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 93)) +( 0.00)))
-			else
-				set udg_Args_WeaponType = WEAPON_TYPE_WHOKNOWS
-			endif
-			set udg_Args_AttackType = ATTACK_TYPE_HERO
-			set udg_Args_DamageType = DAMAGE_TYPE_UNIVERSAL
-			call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xDCD57FAE, (LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x9966AD24) + 180.00))
-			//随机位置
-			if ((ydul_count > 1)) then
-				call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xBFFBB2C5, (LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x9966AD24) + GetRandomReal( -90.00, 90.00)))
-				call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xA9F034E3, GetRandomReal( 100.00, 400.00))
-				call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x71A400F9, (( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x0E20876F)) +( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xA9F034E3)) *( CosBJ( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xBFFBB2C5)))))
-				call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC738EF47, (( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x4FB814AA)) +( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xA9F034E3)) *( SinBJ( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xBFFBB2C5)))))
-			else
-				call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x71A400F9, (( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x0E20876F)) +( 0.00) *( 0.00)))
-				call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC738EF47, (( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x4FB814AA)) +( 0.00) *( 0.00)))
-			endif
-			set ydl_trigger = gg_trg_SLine_Type1
-			set ydl_triggerstep = GetHandleId(ydl_trigger)*(LoadInteger(YDLOC, GetHandleId(ydl_trigger), 0xCFDE6C76) + 3)
-			call SaveReal(YDLOC, ydl_triggerstep, 0x9966AD24, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xDCD57FAE))
-			call SaveReal(YDLOC, ydl_triggerstep, 0xC0ABED4A, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A))
-			call SaveReal(YDLOC, ydl_triggerstep, 0xE6BB3831, 100.00)
-			call SaveReal(YDLOC, ydl_triggerstep, 0xB54F5BCB, 1.50)
-			call SaveReal(YDLOC, ydl_triggerstep, 0x0E20876F, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x71A400F9))
-			call SaveReal(YDLOC, ydl_triggerstep, 0x4FB814AA, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC738EF47))
-			call SaveReal(YDLOC, ydl_triggerstep, 0xFB6E8B46, 30.00)
-			call SaveReal(YDLOC, ydl_triggerstep, 0xBEFD8BE8, 50.00)
-			call SaveReal(YDLOC, ydl_triggerstep, 0xC65482EE, 100.00)
-			call SaveReal(YDLOC, ydl_triggerstep, 0x47527379, 1500.00)
-			call SaveUnitHandle(YDLOC, ydl_triggerstep, 0x6EDB7E6F, LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075))
-			call SaveStr(YDLOC, ydl_triggerstep, 0x2480578D, "Survival\\WeaponEffect\\14\\1.mdx")
-			call TriggerExecute(ydl_trigger)
-		else
-		endif
-		set ydul_count = ydul_count + 1
-	endloop
-	call FlushChildHashtable(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step)
-	set ydl_trigger = null
-endfunction
-//===========================================================================
-function InitTrig_Weapon_14 takes nothing returns nothing
-	set gg_trg_Weapon_14 = CreateTrigger()
-	call TriggerAddAction(gg_trg_Weapon_14, function Trig_Weapon_14Actions)
-endfunction
-//===========================================================================
-// Trigger: Weapon_14_CD
-//===========================================================================
-function Trig_Weapon_14_CDActions takes nothing returns nothing
-	local integer ydl_localvar_step = LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xCFDE6C76) 
- set ydl_localvar_step = ydl_localvar_step + 3 
- call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xCFDE6C76, ydl_localvar_step) 
- call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xECE825E7, ydl_localvar_step)
-	call SaveUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075, LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075))
-	call SaveUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xD39F08B6, LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xD39F08B6))
-	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965, GetConvertedPlayerId( GetOwningPlayer( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075))))
-	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE, 14)
-	call SaveStr(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xAAC4C797, GetStringFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "需求属性"))
-	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x9BDB3720, GetIntegerFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "需求值"))
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x887B1FA4, GetRealFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "减少值"))
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x7E1A9366, GetRealFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "至多生效值"))
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xD3B112CF, Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), Str_GetAttr( LoadStr(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xAAC4C797))))
-	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xCB848F87, 14)
-	if (true) then
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x7E1A9366, GetRealFromExcel( "专精天赋", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xCB848F87), "Value1"))
-	else
-	endif
-	if ((LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xD3B112CF) > LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x7E1A9366))) then
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xD3B112CF, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x7E1A9366))
-	else
-	endif
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x3B60835B, GetRealFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "触发间隔"))
-	call SetUnitState( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xD39F08B6), ConvertUnitState(0x25), (( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x3B60835B)) -( I2R( (( R2I( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xD3B112CF)))/( LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x9BDB3720))))) *( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x887B1FA4))))
-	call FlushChildHashtable(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step)
-endfunction
-//===========================================================================
-function InitTrig_Weapon_14_CD takes nothing returns nothing
-	set gg_trg_Weapon_14_CD = CreateTrigger()
-	call TriggerAddAction(gg_trg_Weapon_14_CD, function Trig_Weapon_14_CDActions)
-endfunction
-//===========================================================================
-// Trigger: Weapon_15
-//===========================================================================
-function Trig_Weapon_15Actions takes nothing returns nothing
-	local integer ydul_count
-	local integer ydl_triggerstep
-	local trigger ydl_trigger
-	local integer ydl_localvar_step = LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xCFDE6C76) 
- set ydl_localvar_step = ydl_localvar_step + 3 
- call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xCFDE6C76, ydl_localvar_step) 
- call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xECE825E7, ydl_localvar_step)
-	call SaveUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075, LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075))
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x0E20876F, GetUnitX( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075)))
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x4FB814AA, GetUnitY( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075)))
-	call SaveUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xFC4D8276, LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xFC4D8276))
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xECF5506B, GetUnitX( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xFC4D8276)))
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x024FDF70, GetUnitY( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xFC4D8276)))
-	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965, GetConvertedPlayerId( GetOwningPlayer( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075))))
-	//兵器ID
-	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE, 15)
-	//兵器等级
-	//计算伤害
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281, GetRealFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "DamageValue"))
-	if ((LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE088B116) >= 2)) then
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281, (LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281) + GetRealFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "2级数值")))
-	else
-	endif
-	if ((LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE088B116) >= 4)) then
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281, (LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281) + GetRealFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "4级数值")))
-	else
-	endif
-	if ((LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE088B116) >= 6)) then
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281, (LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281) + GetRealFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "6级数值")))
-	else
-	endif
-	//额外弹道
-	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB7279243, R2I( Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 15)))
-	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB7279243, (LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB7279243) + 1))
-	if ((LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE088B116) >= 8)) then
-		call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB7279243, (LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB7279243) + GetIntegerFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "8级数值")))
-	else
-	endif
-	//伤害范围
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x5B0BDD27, Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 20))
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x5B0BDD27, (( 1.00) +( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x5B0BDD27)) *( 0.01)))
-	//持续时间
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x2966415C, Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 14))
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x2966415C, (( 1.00) +( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x2966415C)) *( 0.01)))
-	//判断是否超限
-	if (true) then
-		call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xCB848F87, 15)
-		if (true) then
-			call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x5B0BDD27, (( 0.00) +( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x5B0BDD27)) *( 1.40)))
-			call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x2966415C, (( 0.00) +( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x2966415C)) *( 1.40)))
-		else
-			call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x5B0BDD27, (( 0.00) +( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x5B0BDD27)) *( 1.20)))
-			call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x2966415C, (( 0.00) +( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x2966415C)) *( 1.20)))
-		endif
-	else
-	endif
-	//造成伤害
-	set ydul_count = 1
-	loop
-		exitwhen ydul_count > LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB7279243)
-		set udg_Args_AttackType = ATTACK_TYPE_NORMAL
-		set udg_Args_DamageType = DAMAGE_TYPE_UNIVERSAL
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x9966AD24, GetRandomDirectionDeg())
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x5FCC4134, GetRandomReal( 0, 800.00))
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xA99320FA, (( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x0E20876F)) +( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x5FCC4134)) *( CosBJ( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x9966AD24)))))
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xFDF65382, (( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x4FB814AA)) +( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x5FCC4134)) *( SinBJ( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x9966AD24)))))
-		set ydl_trigger = gg_trg_RDD_Type1
-		set ydl_triggerstep = GetHandleId(ydl_trigger)*(LoadInteger(YDLOC, GetHandleId(ydl_trigger), 0xCFDE6C76) + 3)
-		call SaveReal(YDLOC, ydl_triggerstep, 0xC0ABED4A, (( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281)) *( Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 103)) *( Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 91))))
-		call SaveReal(YDLOC, ydl_triggerstep, 0xE6BB3831, (300.00 * LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x5B0BDD27)))
-		call SaveReal(YDLOC, ydl_triggerstep, 0xB54F5BCB, (1.00 * LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x5B0BDD27)))
-		call SaveUnitHandle(YDLOC, ydl_triggerstep, 0x6EDB7E6F, LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075))
-		call SaveStr(YDLOC, ydl_triggerstep, 0x2480578D, "Survival\\WeaponEffect\\15\\1.mdx")
-		call SaveStr(YDLOC, ydl_triggerstep, 0x727826BB, "法术暴击率%")
-		call SaveReal(YDLOC, ydl_triggerstep, 0x2966415C, (3.00 * LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x2966415C)))
-		call SaveReal(YDLOC, ydl_triggerstep, 0x17BB2B5F, 0.50)
-		call SaveReal(YDLOC, ydl_triggerstep, 0xECF5506B, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xA99320FA))
-		call SaveReal(YDLOC, ydl_triggerstep, 0x024FDF70, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xFDF65382))
-		call TriggerExecute(ydl_trigger)
-		set ydul_count = ydul_count + 1
-	endloop
-	call FlushChildHashtable(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step)
-	set ydl_trigger = null
-endfunction
-//===========================================================================
-function InitTrig_Weapon_15 takes nothing returns nothing
-	set gg_trg_Weapon_15 = CreateTrigger()
-	call TriggerAddAction(gg_trg_Weapon_15, function Trig_Weapon_15Actions)
-endfunction
-//===========================================================================
-// Trigger: Weapon_15_CD
-//===========================================================================
-function Trig_Weapon_15_CDActions takes nothing returns nothing
-	local integer ydl_localvar_step = LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xCFDE6C76) 
- set ydl_localvar_step = ydl_localvar_step + 3 
- call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xCFDE6C76, ydl_localvar_step) 
- call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xECE825E7, ydl_localvar_step)
-	call SaveUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075, LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075))
-	call SaveUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xD39F08B6, LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xD39F08B6))
-	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965, GetConvertedPlayerId( GetOwningPlayer( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075))))
-	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE, 15)
-	call SaveStr(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xAAC4C797, GetStringFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "需求属性"))
-	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x9BDB3720, GetIntegerFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "需求值"))
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x887B1FA4, GetRealFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "减少值"))
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x7E1A9366, GetRealFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "至多生效值"))
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xD3B112CF, Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), Str_GetAttr( LoadStr(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xAAC4C797))))
-	if ((LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xD3B112CF) > LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x7E1A9366))) then
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xD3B112CF, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x7E1A9366))
-	else
-	endif
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x3B60835B, GetRealFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "触发间隔"))
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x3B60835B, (( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x3B60835B)) -( I2R( (R2I( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xD3B112CF)) / LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x9BDB3720)))) *( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x887B1FA4))))
-	call SetUnitState( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xD39F08B6), ConvertUnitState(0x25), LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x3B60835B))
-	call FlushChildHashtable(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step)
-endfunction
-//===========================================================================
-function InitTrig_Weapon_15_CD takes nothing returns nothing
-	set gg_trg_Weapon_15_CD = CreateTrigger()
-	call TriggerAddAction(gg_trg_Weapon_15_CD, function Trig_Weapon_15_CDActions)
-endfunction
-//===========================================================================
-// Trigger: Weapon_16
-//===========================================================================
-function Trig_Weapon_16Actions takes nothing returns nothing
-	local group ydl_group
-	local unit ydl_unit
-	local integer ydl_localvar_step = LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xCFDE6C76) 
- set ydl_localvar_step = ydl_localvar_step + 3 
- call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xCFDE6C76, ydl_localvar_step) 
- call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xECE825E7, ydl_localvar_step)
-	call SaveUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075, LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075))
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x0E20876F, GetUnitX( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075)))
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x4FB814AA, GetUnitY( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075)))
-	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965, GetConvertedPlayerId( GetOwningPlayer( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075))))
-	//兵器ID
-	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE, 16)
-	//兵器等级
-	//计算伤害
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281, GetRealFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "DamageValue"))
-	if ((LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE088B116) >= 2)) then
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281, (LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281) + GetRealFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "2级数值")))
-	else
-	endif
-	if ((LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE088B116) >= 4)) then
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281, (LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281) + GetRealFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "4级数值")))
-	else
-	endif
-	if ((LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE088B116) >= 6)) then
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281, (LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281) + GetRealFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "6级数值")))
-	else
-	endif
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A, (( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281)) *( Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 101)) *( Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 92))))
-	//伤害范围
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x5B0BDD27, Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 20))
-	if ((LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE088B116) >= 8)) then
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x5B0BDD27, (LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x5B0BDD27) + GetRealFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "8级数值")))
-	else
-	endif
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x5B0BDD27, (( 1.00) +( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x5B0BDD27)) *( 0.01)))
-	//判断是否超限
-	if (true) then
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x5B0BDD27, (( 0.00) +( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x5B0BDD27)) *( 1.20)))
-	else
-	endif
-	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xCB848F87, 16)
-	if (true) then
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x5B0BDD27, (( 0.00) +( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x5B0BDD27)) *( GetRealFromExcel( "专精天赋", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xCB848F87), "Value1"))))
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A, (( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A)) *( GetRealFromExcel( "专精天赋", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xCB848F87), "Value1")) +( 0.00)))
-	else
-	endif
-	if ((LoadBoolean(YDHT, GetHandleId( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075)), 0x0D1E8D9F) == true)) then
-		//设置特效大小
-		call SaveEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA, LoadEffectHandle(YDHT, GetHandleId( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075)), 0x2602AFD2))
-		call EXSetEffectSize( LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA), (1.80 * LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x5B0BDD27)))
-		//判断是否超限
-		if (true) then
-			set ydl_group = CreateGroup()
-			call GroupEnumUnitsInRange(ydl_group, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x0E20876F), LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x4FB814AA), (400.00 * LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x5B0BDD27)), null)
-			loop
-				set ydl_unit = FirstOfGroup(ydl_group)
-				exitwhen ydl_unit == null
-				call GroupRemoveUnit(ydl_group, ydl_unit)
-				if ((IsUnitEnemy( ydl_unit, ConvertedPlayer( GetConvertedPlayerId( GetOwningPlayer( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075))))) == true)) then
-					call UnitDamageTarget( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), ydl_unit, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A), false, false, ATTACK_TYPE_PIERCE, DAMAGE_TYPE_UNIVERSAL, WEAPON_TYPE_WHOKNOWS)
-					if ((GetUnitState( ydl_unit, UNIT_STATE_LIFE) > 0.00) and (IsUnitType( ydl_unit, UNIT_TYPE_STRUCTURE) == false)) then
-						call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x9966AD24, YDWEAngleBetweenUnits( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), ydl_unit))
-						call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xFCBFDC12, GetUnitX( ydl_unit))
-						call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE3CB2E3B, GetUnitY( ydl_unit))
-						call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF17A5750, (( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xFCBFDC12)) +( 200.00) *( CosBJ( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x9966AD24)))))
-						call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xA9CA5988, (( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE3CB2E3B)) +( 200.00) *( SinBJ( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x9966AD24)))))
-						call SetUnitPosition( ydl_unit, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF17A5750), LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xA9CA5988))
-					else
-					endif
-				else
-				endif
-			endloop
-			call DestroyGroup(ydl_group)
-		else
-			set ydl_group = CreateGroup()
-			call GroupEnumUnitsInRange(ydl_group, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x0E20876F), LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x4FB814AA), (400.00 * LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x5B0BDD27)), null)
-			loop
-				set ydl_unit = FirstOfGroup(ydl_group)
-				exitwhen ydl_unit == null
-				call GroupRemoveUnit(ydl_group, ydl_unit)
-				if ((IsUnitEnemy( ydl_unit, ConvertedPlayer( GetConvertedPlayerId( GetOwningPlayer( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075))))) == true)) then
-					call UnitDamageTarget( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), ydl_unit, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A), false, false, ATTACK_TYPE_PIERCE, DAMAGE_TYPE_UNIVERSAL, WEAPON_TYPE_WHOKNOWS)
-				else
-				endif
-			endloop
-			call DestroyGroup(ydl_group)
-		endif
-	else
-		//创建特效
-		call SaveEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA, AddSpecialEffect( "Survival\\WeaponEffect\\16\\1.mdx", LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x0E20876F), LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x4FB814AA)))
-		call EXSetEffectSize( LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA), (1.80 * LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x5B0BDD27)))
-		call SaveEffectHandle(YDHT, GetHandleId( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075)), 0x2602AFD2, LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA))
-		call SaveBoolean(YDHT, GetHandleId( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075)), 0x0D1E8D9F, true)
-		//加入堆栈
-		call SaveReal(YDHT, GetHandleId( LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA)), 0x492546AF, 9999.00)
-		call SaveUnitHandle(YDHT, GetHandleId( LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA)), 0x6EDB7E6F, LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075))
-		set udg_Follow_Stack_Top = (udg_Follow_Stack_Top + 1)
-		set udg_Follow_Stack_Effect[udg_Follow_Stack_Top] = LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA)
-	endif
-	call FlushChildHashtable(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step)
-	set ydl_group = null
-	set ydl_unit = null
-endfunction
-//===========================================================================
-function InitTrig_Weapon_16 takes nothing returns nothing
-	set gg_trg_Weapon_16 = CreateTrigger()
-	call TriggerAddAction(gg_trg_Weapon_16, function Trig_Weapon_16Actions)
-endfunction
-//===========================================================================
-// Trigger: Weapon_16_CD
-//===========================================================================
-function Trig_Weapon_16_CDActions takes nothing returns nothing
-	local integer ydl_localvar_step = LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xCFDE6C76) 
- set ydl_localvar_step = ydl_localvar_step + 3 
- call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xCFDE6C76, ydl_localvar_step) 
- call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xECE825E7, ydl_localvar_step)
-	call SaveUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075, LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075))
-	call SaveUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xD39F08B6, LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xD39F08B6))
-	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965, GetConvertedPlayerId( GetOwningPlayer( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075))))
-	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE, 16)
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x3B60835B, GetRealFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "触发间隔"))
-	call SetUnitState( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xD39F08B6), ConvertUnitState(0x25), LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x3B60835B))
-	call FlushChildHashtable(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step)
-endfunction
-//===========================================================================
-function InitTrig_Weapon_16_CD takes nothing returns nothing
-	set gg_trg_Weapon_16_CD = CreateTrigger()
-	call TriggerAddAction(gg_trg_Weapon_16_CD, function Trig_Weapon_16_CDActions)
-endfunction
-//===========================================================================
-// Trigger: Weapon_17
-//===========================================================================
-function Trig_Weapon_17Actions takes nothing returns nothing
-	local integer ydul_count
-	local integer ydl_triggerstep
-	local trigger ydl_trigger
-	local integer ydl_localvar_step = LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xCFDE6C76) 
- set ydl_localvar_step = ydl_localvar_step + 3 
- call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xCFDE6C76, ydl_localvar_step) 
- call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xECE825E7, ydl_localvar_step)
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x0E20876F, GetUnitX( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075)))
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x4FB814AA, GetUnitY( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075)))
-	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965, GetConvertedPlayerId( GetOwningPlayer( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075))))
-	//兵器ID
-	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE, 17)
-	//兵器等级
-	//计算伤害
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281, GetRealFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "DamageValue"))
-	if ((LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE088B116) >= 2)) then
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281, (LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281) + GetRealFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "2级数值")))
-	else
-	endif
-	if ((LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE088B116) >= 4)) then
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281, (LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281) + GetRealFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "4级数值")))
-	else
-	endif
-	if ((LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE088B116) >= 6)) then
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281, (LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281) + GetRealFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "6级数值")))
-	else
-	endif
-	//伤害范围
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x5B0BDD27, Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 20))
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x5B0BDD27, (( 1.00) +( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x5B0BDD27)) *( 0.01)))
-	//弹道数量
-	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB7279243, R2I( Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 15)))
-	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB7279243, (LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB7279243) + 1))
-	if ((LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE088B116) >= 8)) then
-		call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB7279243, (LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB7279243) + GetIntegerFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "8级数值")))
-	else
-	endif
-	//判断是否超限
-	if (true) then
-		call SaveTriggerHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x9FCB17A4, gg_trg_Weapon_17_DamageAction)
-	else
-	endif
-	//加入堆栈
-	set ydul_count = 1
-	loop
-		exitwhen ydul_count > LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB7279243)
-		//上方
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A, (( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281)) *( Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 102)) *( Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 90))))
-		//判断是否暴击
-		if ((GetRandomInt( 1, 100) <= R2I( Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 75)))) then
-			set udg_Args_WeaponType = WEAPON_TYPE_METAL_LIGHT_CHOP
-			call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A, (( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A)) *( Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 93)) +( 0.00)))
-		else
-			set udg_Args_WeaponType = WEAPON_TYPE_WHOKNOWS
-		endif
-		set udg_Args_AttackType = ATTACK_TYPE_HERO
-		set udg_Args_DamageType = DAMAGE_TYPE_UNIVERSAL
-		//随机位置
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x9966AD24, 90.00)
-		if ((ydul_count > 1)) then
-			call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xBFFBB2C5, (LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x9966AD24) + GetRandomReal( -90.00, 90.00)))
-			call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xA9F034E3, GetRandomReal( 100.00, 500.00))
-			call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x71A400F9, (( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x0E20876F)) +( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xA9F034E3)) *( CosBJ( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xBFFBB2C5)))))
-			call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC738EF47, (( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x4FB814AA)) +( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xA9F034E3)) *( SinBJ( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xBFFBB2C5)))))
-		else
-			call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x71A400F9, (( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x0E20876F)) +( 0.00) *( 0.00)))
-			call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC738EF47, (( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x4FB814AA)) +( 0.00) *( 0.00)))
-		endif
-		set ydl_trigger = gg_trg_SLine_Type1
-		set ydl_triggerstep = GetHandleId(ydl_trigger)*(LoadInteger(YDLOC, GetHandleId(ydl_trigger), 0xCFDE6C76) + 3)
-		call SaveReal(YDLOC, ydl_triggerstep, 0x9966AD24, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x9966AD24))
-		call SaveReal(YDLOC, ydl_triggerstep, 0xC0ABED4A, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A))
-		call SaveReal(YDLOC, ydl_triggerstep, 0xE6BB3831, (200.00 * LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x5B0BDD27)))
-		call SaveReal(YDLOC, ydl_triggerstep, 0xB54F5BCB, (1.00 * LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x5B0BDD27)))
-		call SaveReal(YDLOC, ydl_triggerstep, 0x0E20876F, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x71A400F9))
-		call SaveReal(YDLOC, ydl_triggerstep, 0x4FB814AA, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC738EF47))
-		call SaveReal(YDLOC, ydl_triggerstep, 0xFB6E8B46, 30.00)
-		call SaveReal(YDLOC, ydl_triggerstep, 0xBEFD8BE8, 50.00)
-		call SaveReal(YDLOC, ydl_triggerstep, 0xC65482EE, 200.00)
-		call SaveReal(YDLOC, ydl_triggerstep, 0x47527379, 1200.00)
-		call SaveUnitHandle(YDLOC, ydl_triggerstep, 0x6EDB7E6F, LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075))
-		call SaveStr(YDLOC, ydl_triggerstep, 0x2480578D, "Survival\\WeaponEffect\\17\\1.mdx")
-		call SaveTriggerHandle(YDLOC, ydl_triggerstep, 0x4F719503, LoadTriggerHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x9FCB17A4))
-		call TriggerExecute(ydl_trigger)
-		//下方
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A, (( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281)) *( Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 102)) *( Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 90))))
-		//判断是否暴击
-		if ((GetRandomInt( 1, 100) <= R2I( Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 75)))) then
-			set udg_Args_WeaponType = WEAPON_TYPE_METAL_LIGHT_CHOP
-			call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A, (( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A)) *( Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 93)) +( 0.00)))
-		else
-			set udg_Args_WeaponType = WEAPON_TYPE_WHOKNOWS
-		endif
-		set udg_Args_AttackType = ATTACK_TYPE_HERO
-		set udg_Args_DamageType = DAMAGE_TYPE_UNIVERSAL
-		//随机位置
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x9966AD24, -90.00)
-		if ((ydul_count > 1)) then
-			call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xBFFBB2C5, (LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x9966AD24) + GetRandomReal( -90.00, 90.00)))
-			call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xA9F034E3, GetRandomReal( 100.00, 500.00))
-			call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x71A400F9, (( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x0E20876F)) +( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xA9F034E3)) *( CosBJ( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xBFFBB2C5)))))
-			call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC738EF47, (( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x4FB814AA)) +( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xA9F034E3)) *( SinBJ( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xBFFBB2C5)))))
-		else
-			call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x71A400F9, (( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x0E20876F)) +( 0.00) *( 0.00)))
-			call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC738EF47, (( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x4FB814AA)) +( 0.00) *( 0.00)))
-		endif
-		set ydl_trigger = gg_trg_SLine_Type1
-		set ydl_triggerstep = GetHandleId(ydl_trigger)*(LoadInteger(YDLOC, GetHandleId(ydl_trigger), 0xCFDE6C76) + 3)
-		call SaveReal(YDLOC, ydl_triggerstep, 0x9966AD24, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x9966AD24))
-		call SaveReal(YDLOC, ydl_triggerstep, 0xC0ABED4A, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A))
-		call SaveReal(YDLOC, ydl_triggerstep, 0xE6BB3831, (200.00 * LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x5B0BDD27)))
-		call SaveReal(YDLOC, ydl_triggerstep, 0xB54F5BCB, (1.00 * LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x5B0BDD27)))
-		call SaveReal(YDLOC, ydl_triggerstep, 0x0E20876F, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x71A400F9))
-		call SaveReal(YDLOC, ydl_triggerstep, 0x4FB814AA, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC738EF47))
-		call SaveReal(YDLOC, ydl_triggerstep, 0xFB6E8B46, 30.00)
-		call SaveReal(YDLOC, ydl_triggerstep, 0xBEFD8BE8, 50.00)
-		call SaveReal(YDLOC, ydl_triggerstep, 0xC65482EE, 200.00)
-		call SaveReal(YDLOC, ydl_triggerstep, 0x47527379, 1200.00)
-		call SaveUnitHandle(YDLOC, ydl_triggerstep, 0x6EDB7E6F, LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075))
-		call SaveStr(YDLOC, ydl_triggerstep, 0x2480578D, "Survival\\WeaponEffect\\17\\1.mdx")
-		call SaveTriggerHandle(YDLOC, ydl_triggerstep, 0x4F719503, LoadTriggerHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x9FCB17A4))
-		call TriggerExecute(ydl_trigger)
-		set ydul_count = ydul_count + 1
-	endloop
-	call FlushChildHashtable(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step)
-	set ydl_trigger = null
-endfunction
-//===========================================================================
-function InitTrig_Weapon_17 takes nothing returns nothing
-	set gg_trg_Weapon_17 = CreateTrigger()
-	call TriggerAddAction(gg_trg_Weapon_17, function Trig_Weapon_17Actions)
-endfunction
-//===========================================================================
-// Trigger: Weapon_17_DamageAction
-//===========================================================================
-function Trig_Weapon_17_DamageActionActions takes nothing returns nothing
-	local integer ydl_localvar_step = LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xCFDE6C76) 
- set ydl_localvar_step = ydl_localvar_step + 3 
- call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xCFDE6C76, ydl_localvar_step) 
- call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xECE825E7, ydl_localvar_step)
-	call SaveEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA, LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA))
-	call SaveUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xFC4D8276, LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xFC4D8276))
-	if ((GetUnitState( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xFC4D8276), UNIT_STATE_LIFE) > 0.00)) then
-		call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xCB848F87, 17)
-		if (true) then
-			call IssueTargetOrder( udg_DebuffVest[6], "slow", LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xFC4D8276))
-		else
-			call IssueTargetOrder( udg_DebuffVest[4], "slow", LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xFC4D8276))
-		endif
-	else
-	endif
-	call FlushChildHashtable(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step)
-endfunction
-//===========================================================================
-function InitTrig_Weapon_17_DamageAction takes nothing returns nothing
-	set gg_trg_Weapon_17_DamageAction = CreateTrigger()
-	call TriggerAddAction(gg_trg_Weapon_17_DamageAction, function Trig_Weapon_17_DamageActionActions)
-endfunction
-//===========================================================================
-// Trigger: Weapon_17_CD
-//===========================================================================
-function Trig_Weapon_17_CDActions takes nothing returns nothing
-	local integer ydl_localvar_step = LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xCFDE6C76) 
- set ydl_localvar_step = ydl_localvar_step + 3 
- call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xCFDE6C76, ydl_localvar_step) 
- call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xECE825E7, ydl_localvar_step)
-	call SaveUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075, LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075))
-	call SaveUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xD39F08B6, LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xD39F08B6))
-	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965, GetConvertedPlayerId( GetOwningPlayer( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075))))
-	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE, 17)
-	call SaveStr(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xAAC4C797, GetStringFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "需求属性"))
-	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x9BDB3720, GetIntegerFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "需求值"))
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x887B1FA4, GetRealFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "减少值"))
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x7E1A9366, GetRealFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "至多生效值"))
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xD3B112CF, Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), Str_GetAttr( LoadStr(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xAAC4C797))))
-	if ((LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xD3B112CF) > LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x7E1A9366))) then
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xD3B112CF, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x7E1A9366))
-	else
-	endif
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x3B60835B, GetRealFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "触发间隔"))
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x3B60835B, (( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x3B60835B)) -( I2R( (R2I( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xD3B112CF)) / LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x9BDB3720)))) *( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x887B1FA4))))
-	call SetUnitState( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xD39F08B6), ConvertUnitState(0x25), LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x3B60835B))
-	call FlushChildHashtable(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step)
-endfunction
-//===========================================================================
-function InitTrig_Weapon_17_CD takes nothing returns nothing
-	set gg_trg_Weapon_17_CD = CreateTrigger()
-	call TriggerAddAction(gg_trg_Weapon_17_CD, function Trig_Weapon_17_CDActions)
-endfunction
-//===========================================================================
-// Trigger: Weapon_18
-//===========================================================================
-function Trig_Weapon_18Actions takes nothing returns nothing
-	local integer ydl_triggerstep
-	local trigger ydl_trigger
-	local integer ydl_localvar_step = LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xCFDE6C76) 
- set ydl_localvar_step = ydl_localvar_step + 3 
- call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xCFDE6C76, ydl_localvar_step) 
- call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xECE825E7, ydl_localvar_step)
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x0E20876F, GetUnitX( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075)))
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x4FB814AA, GetUnitY( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075)))
-	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965, GetConvertedPlayerId( GetOwningPlayer( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075))))
-	//兵器ID
-	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE, 18)
-	//兵器等级
-	//计算伤害
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281, GetRealFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "DamageValue"))
-	if ((LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE088B116) >= 2)) then
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281, (LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281) + GetRealFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "2级数值")))
-	else
-	endif
-	if ((LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE088B116) >= 4)) then
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281, (LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281) + GetRealFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "4级数值")))
-	else
-	endif
-	if ((LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE088B116) >= 6)) then
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281, (LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281) + GetRealFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "6级数值")))
-	else
-	endif
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A, (( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281)) *( Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 101)) *( Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 92))))
-	//弹道数量
-	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB7279243, R2I( Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 15)))
-	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB7279243, (LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB7279243) + 1))
-	if ((LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE088B116) >= 8)) then
-		call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB7279243, (LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB7279243) + GetIntegerFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "8级数值")))
-	else
-	endif
-	//判断是否超限
-	if (true) then
-		call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB7279243, (LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB7279243) + 1))
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xFB6E8B46, 40.00)
-	else
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xFB6E8B46, 25.00)
-	endif
-	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xCB848F87, 18)
-	if (true) then
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xFB6E8B46, 50.00)
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A, (( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A)) *( GetRealFromExcel( "专精天赋", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xCB848F87), "Value1")) +( 0.00)))
-	else
-	endif
-	//加入堆栈
-	set udg_Args_AttackType = ATTACK_TYPE_HERO
-	set udg_Args_DamageType = DAMAGE_TYPE_UNIVERSAL
-	set udg_Args_WeaponType = WEAPON_TYPE_WHOKNOWS
-	call SaveEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA, AddSpecialEffect( "Survival\\WeaponEffect\\2\\1.mdx", LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x0E20876F), LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x4FB814AA)))
-	call SaveInteger(YDHT, GetHandleId( LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA)), 0xAB4E9D49, LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB7279243))
-	call EXSetEffectSize( LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA), 0.80)
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x9966AD24, 0.00)
-	set ydl_trigger = gg_trg_SLine_Type1
-	set ydl_triggerstep = GetHandleId(ydl_trigger)*(LoadInteger(YDLOC, GetHandleId(ydl_trigger), 0xCFDE6C76) + 3)
-	call SaveReal(YDLOC, ydl_triggerstep, 0x9966AD24, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x9966AD24))
-	call SaveReal(YDLOC, ydl_triggerstep, 0xC0ABED4A, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A))
-	call SaveReal(YDLOC, ydl_triggerstep, 0xE6BB3831, 200.00)
-	call SaveReal(YDLOC, ydl_triggerstep, 0x0E20876F, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x0E20876F))
-	call SaveReal(YDLOC, ydl_triggerstep, 0x4FB814AA, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x4FB814AA))
-	call SaveReal(YDLOC, ydl_triggerstep, 0xFB6E8B46, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xFB6E8B46))
-	call SaveReal(YDLOC, ydl_triggerstep, 0xC65482EE, 200.00)
-	call SaveReal(YDLOC, ydl_triggerstep, 0x47527379, 1200.00)
-	call SaveBoolean(YDLOC, ydl_triggerstep, 0xD7F63C43, true)
-	call SaveBoolean(YDLOC, ydl_triggerstep, 0x6AA9CA2E, true)
-	call SaveBoolean(YDLOC, ydl_triggerstep, 0x2624EB23, true)
-	call SaveUnitHandle(YDLOC, ydl_triggerstep, 0x6EDB7E6F, LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075))
-	call SaveEffectHandle(YDLOC, ydl_triggerstep, 0xF8F856EA, LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA))
-	call SaveTriggerHandle(YDLOC, ydl_triggerstep, 0x7B5473E1, gg_trg_Weapon_18_EndAction)
-	call SaveGroupHandle(YDLOC, ydl_triggerstep, 0x9E80183F, ( GetGroup()))
-	call TriggerExecute(ydl_trigger)
-	call FlushChildHashtable(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step)
-	set ydl_trigger = null
-endfunction
-//===========================================================================
-function InitTrig_Weapon_18 takes nothing returns nothing
-	set gg_trg_Weapon_18 = CreateTrigger()
-	call TriggerAddAction(gg_trg_Weapon_18, function Trig_Weapon_18Actions)
-endfunction
-//===========================================================================
-// Trigger: Weapon_18_EndAction
-//===========================================================================
-function Trig_Weapon_18_EndActionActions takes nothing returns nothing
-	local integer ydl_localvar_step = LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xCFDE6C76) 
- set ydl_localvar_step = ydl_localvar_step + 3 
- call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xCFDE6C76, ydl_localvar_step) 
- call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xECE825E7, ydl_localvar_step)
-	call SaveEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA, LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA))
-	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB7279243, LoadInteger(YDHT, GetHandleId( LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA)), 0xAB4E9D49))
-	if ((LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB7279243) == 0)) then
-		//结束
-		call SaveBoolean(YDHT, GetHandleId( LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA)), 0x605B0368, false)
-		call SaveBoolean(YDHT, GetHandleId( LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA)), 0x62924167, false)
-	else
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x9966AD24, LoadReal(YDHT, GetHandleId( LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA)), 0x9966AD24))
-		//反弹
-		call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB7279243, (LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB7279243) - 1))
-		call SaveInteger(YDHT, GetHandleId( LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA)), 0xAB4E9D49, LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB7279243))
-		call EXEffectMatRotateZ( LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA), 180.00)
-		call SaveReal(YDHT, GetHandleId( LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA)), 0x9966AD24, (LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x9966AD24) + 180.00))
-		call SaveReal(YDHT, GetHandleId( LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA)), 0x47527379, 2400.00)
-		call GroupClear( LoadGroupHandle(YDHT, GetHandleId( LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA)), 0x9E80183F))
-	endif
-	call FlushChildHashtable(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step)
-endfunction
-//===========================================================================
-function InitTrig_Weapon_18_EndAction takes nothing returns nothing
-	set gg_trg_Weapon_18_EndAction = CreateTrigger()
-	call TriggerAddAction(gg_trg_Weapon_18_EndAction, function Trig_Weapon_18_EndActionActions)
-endfunction
-//===========================================================================
-// Trigger: Weapon_18_CD
-//===========================================================================
-function Trig_Weapon_18_CDActions takes nothing returns nothing
-	local integer ydl_localvar_step = LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xCFDE6C76) 
- set ydl_localvar_step = ydl_localvar_step + 3 
- call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xCFDE6C76, ydl_localvar_step) 
- call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xECE825E7, ydl_localvar_step)
-	call SaveUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075, LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075))
-	call SaveUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xD39F08B6, LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xD39F08B6))
-	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965, GetConvertedPlayerId( GetOwningPlayer( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075))))
-	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE, 18)
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x3B60835B, GetRealFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "触发间隔"))
-	if ((LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE088B116) >= 7)) then
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x3B60835B, (LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x3B60835B) - GetRealFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "7级数值")))
-	else
-	endif
-	call SetUnitState( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xD39F08B6), ConvertUnitState(0x25), LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x3B60835B))
-	call FlushChildHashtable(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step)
-endfunction
-//===========================================================================
-function InitTrig_Weapon_18_CD takes nothing returns nothing
-	set gg_trg_Weapon_18_CD = CreateTrigger()
-	call TriggerAddAction(gg_trg_Weapon_18_CD, function Trig_Weapon_18_CDActions)
-endfunction
-//===========================================================================
-// Trigger: Weapon_19
-//===========================================================================
-function Trig_Weapon_19Actions takes nothing returns nothing
-	local group ydl_group
-	local unit ydl_unit
-	local integer ydl_localvar_step = LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xCFDE6C76) 
- set ydl_localvar_step = ydl_localvar_step + 3 
- call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xCFDE6C76, ydl_localvar_step) 
- call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xECE825E7, ydl_localvar_step)
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x0E20876F, GetUnitX( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075)))
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x4FB814AA, GetUnitY( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075)))
-	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965, GetConvertedPlayerId( GetOwningPlayer( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075))))
-	//兵器ID
-	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE, 19)
-	//兵器等级
-	//对boss倍率
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281, GetRealFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "DamageValue"))
-	if ((LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE088B116) >= 2)) then
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281, (0.00 + GetRealFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "2级数值")))
-	else
-	endif
-	if ((LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE088B116) >= 4)) then
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281, (0.00 + GetRealFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "2级数值")))
-	else
-	endif
-	if ((LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE088B116) >= 6)) then
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281, (0.00 + GetRealFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "2级数值")))
-	else
-	endif
-	//扣除资源比例
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x107BE9C0, 30.00)
-	if ((LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE088B116) >= 3)) then
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x107BE9C0, GetRealFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "3级数值"))
-	else
-	endif
-	if ((LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE088B116) >= 6)) then
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x107BE9C0, GetRealFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "6级数值"))
-	else
-	endif
-	if ((LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE088B116) >= 9)) then
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x107BE9C0, GetRealFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "9级数值"))
-	else
-	endif
-	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xCB848F87, 19)
-	if (true) then
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x107BE9C0, (LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x107BE9C0) - GetRealFromExcel( "专精天赋", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xCB848F87), "Value1")))
-	else
-	endif
-	//伤害范围
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x5B0BDD27, Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 20))
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x5B0BDD27, (( 1.00) +( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x5B0BDD27)) *( 0.01)))
-	//造成伤害
-	set ydl_group = CreateGroup()
-	call GroupEnumUnitsInRange(ydl_group, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x0E20876F), LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x4FB814AA), (1500.00 * LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x5B0BDD27)), null)
-	loop
-		set ydl_unit = FirstOfGroup(ydl_group)
-		exitwhen ydl_unit == null
-		call GroupRemoveUnit(ydl_group, ydl_unit)
-		if ((IsUnitEnemy( ydl_unit, ConvertedPlayer( GetConvertedPlayerId( GetOwningPlayer( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075))))) == true)) then
-			if ((LoadBoolean(YDHT, GetHandleId( ydl_unit), 0x24B6F8FF) == true)) then
-				call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A, (( 0.01) *( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281)) *( GetUnitState( ydl_unit, UNIT_STATE_MAX_LIFE))))
-				call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A, (( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A)) *( Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 92)) +( 0.00)))
-				call UnitDamageTarget( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), ydl_unit, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A), false, false, ATTACK_TYPE_PIERCE, DAMAGE_TYPE_UNIVERSAL, WEAPON_TYPE_WHOKNOWS)
-			else
-				call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A, GetUnitState( ydl_unit, UNIT_STATE_MAX_LIFE))
-				call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A, (( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A)) *( Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 92)) +( 0.00)))
-				call UnitDamageTarget( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), ydl_unit, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A), false, false, ATTACK_TYPE_PIERCE, DAMAGE_TYPE_UNIVERSAL, WEAPON_TYPE_WHOKNOWS)
-			endif
-		else
-		endif
-	endloop
-	call DestroyGroup(ydl_group)
-	//扣除资源
-	//判断是否超限
-	if (true) then
-	else
-		set udg_PlayerDiamond[LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965)] = (( udg_PlayerDiamond[LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965)]) -( 0.01) *( (LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x107BE9C0) * udg_PlayerDiamond[LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965)])))
-		set udg_PlayerGold[LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965)] = (( udg_PlayerGold[LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965)]) -( 0.01) *( (LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x107BE9C0) * udg_PlayerGold[LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965)])))
-		set udg_PlayerKills[LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965)] = (( udg_PlayerKills[LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965)]) -( 0.01) *( (LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x107BE9C0) * udg_PlayerKills[LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965)])))
-	endif
-	//创建特效
-	call SaveEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA, AddSpecialEffect( "Survival\\WeaponEffect\\19\\1.mdx", LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x0E20876F), LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x4FB814AA)))
-	call EXSetEffectSize( LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA), (1.50 * LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x5B0BDD27)))
-	call DestroyEffect( LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA))
-	call FlushChildHashtable(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step)
-	set ydl_group = null
-	set ydl_unit = null
-endfunction
-//===========================================================================
-function InitTrig_Weapon_19 takes nothing returns nothing
-	set gg_trg_Weapon_19 = CreateTrigger()
-	call TriggerAddAction(gg_trg_Weapon_19, function Trig_Weapon_19Actions)
-endfunction
-//===========================================================================
-// Trigger: Weapon_19_CD
-//===========================================================================
-function Trig_Weapon_19_CDActions takes nothing returns nothing
-	local integer ydl_localvar_step = LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xCFDE6C76) 
- set ydl_localvar_step = ydl_localvar_step + 3 
- call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xCFDE6C76, ydl_localvar_step) 
- call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xECE825E7, ydl_localvar_step)
-	call SaveUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075, LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075))
-	call SaveUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xD39F08B6, LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xD39F08B6))
-	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965, GetConvertedPlayerId( GetOwningPlayer( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075))))
-	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE, 19)
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x3B60835B, GetRealFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "触发间隔"))
-	if ((LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE088B116) >= 1)) then
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x3B60835B, (LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x3B60835B) - GetRealFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "1级数值")))
-	else
-	endif
-	if ((LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE088B116) >= 4)) then
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x3B60835B, (LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x3B60835B) - GetRealFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "4级数值")))
-	else
-	endif
-	if ((LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE088B116) >= 7)) then
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x3B60835B, (LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x3B60835B) - GetRealFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "7级数值")))
-	else
-	endif
-	//判断是否超限
-	if (true) then
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x3B60835B, (LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x3B60835B) - 30.00))
-	else
-	endif
-	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xCB848F87, 19)
-	if (true) then
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x3B60835B, (LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x3B60835B) - GetRealFromExcel( "专精天赋", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xCB848F87), "Value2")))
-	else
-	endif
-	call SetUnitState( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xD39F08B6), ConvertUnitState(0x25), LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x3B60835B))
-	call FlushChildHashtable(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step)
-endfunction
-//===========================================================================
-function InitTrig_Weapon_19_CD takes nothing returns nothing
-	set gg_trg_Weapon_19_CD = CreateTrigger()
-	call TriggerAddAction(gg_trg_Weapon_19_CD, function Trig_Weapon_19_CDActions)
-endfunction
-//===========================================================================
-// Trigger: Weapon_20
-//===========================================================================
-function Trig_Weapon_20Func024T takes nothing returns nothing
-	local integer ydul_count
-	local integer ydl_triggerstep
-	local trigger ydl_trigger
-	call SaveReal(YDLOC, GetHandleId(GetExpiredTimer()), 0x1CA61CEC, (LoadReal(YDLOC, GetHandleId(GetExpiredTimer()), 0x1CA61CEC) + 0.50))
-	if ((LoadReal(YDLOC, GetHandleId(GetExpiredTimer()), 0x1CA61CEC) > (LoadReal(YDLOC, GetHandleId(GetExpiredTimer()), 0x6B54C545) - 0.00))) then
-		call DestroyEffect( LoadEffectHandle(YDLOC, GetHandleId(GetExpiredTimer()), 0xD44B53F4))
-		call DestroyEffect( LoadEffectHandle(YDLOC, GetHandleId(GetExpiredTimer()), 0x94B57B64))
-		call FlushChildHashtable(YDLOC, GetHandleId(GetExpiredTimer()))
-		call DestroyTimer(GetExpiredTimer())
-	else
-		set ydul_count = 1
-		loop
-			exitwhen ydul_count > 6
-			call SaveReal(YDLOC, GetHandleId(GetExpiredTimer()), 0x9966AD24, (( 30.00) +( 60.00) *( I2R( ydul_count))))
-			call SaveReal(YDLOC, GetHandleId(GetExpiredTimer()), 0xC0ABED4A, (( LoadReal(YDLOC, GetHandleId(GetExpiredTimer()), 0xB1C6C281)) *( Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetExpiredTimer()), 0xE6E64075), 103)) *( Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetExpiredTimer()), 0xE6E64075), 91))))
-			//判断是否暴击
-			if ((GetRandomInt( 1, 100) <= R2I( Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetExpiredTimer()), 0xE6E64075), 77)))) then
-				set udg_Args_WeaponType = WEAPON_TYPE_METAL_LIGHT_CHOP
-				call SaveReal(YDLOC, GetHandleId(GetExpiredTimer()), 0xC0ABED4A, (( LoadReal(YDLOC, GetHandleId(GetExpiredTimer()), 0xC0ABED4A)) *( Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetExpiredTimer()), 0xE6E64075), 94)) +( 0.00)))
-			else
-				set udg_Args_WeaponType = WEAPON_TYPE_WHOKNOWS
-			endif
-			set udg_Args_AttackType = ATTACK_TYPE_NORMAL
-			set udg_Args_DamageType = DAMAGE_TYPE_UNIVERSAL
-			//判断是否超限
-			if (true) then
-				//加入堆栈
-				set ydl_trigger = gg_trg_SLine_Type1
-				set ydl_triggerstep = GetHandleId(ydl_trigger)*(LoadInteger(YDLOC, GetHandleId(ydl_trigger), 0xCFDE6C76) + 3)
-				call SaveReal(YDLOC, ydl_triggerstep, 0x9966AD24, LoadReal(YDLOC, GetHandleId(GetExpiredTimer()), 0x9966AD24))
-				call SaveReal(YDLOC, ydl_triggerstep, 0xC0ABED4A, LoadReal(YDLOC, GetHandleId(GetExpiredTimer()), 0xC0ABED4A))
-				call SaveReal(YDLOC, ydl_triggerstep, 0xE6BB3831, 80.00)
-				call SaveReal(YDLOC, ydl_triggerstep, 0x0E20876F, LoadReal(YDLOC, GetHandleId(GetExpiredTimer()), 0x0E20876F))
-				call SaveReal(YDLOC, ydl_triggerstep, 0x4FB814AA, LoadReal(YDLOC, GetHandleId(GetExpiredTimer()), 0x4FB814AA))
-				call SaveReal(YDLOC, ydl_triggerstep, 0xFB6E8B46, 30.00)
-				call SaveReal(YDLOC, ydl_triggerstep, 0x47527379, 1000.00)
-				call SaveReal(YDLOC, ydl_triggerstep, 0xBEFD8BE8, 80.00)
-				call SaveUnitHandle(YDLOC, ydl_triggerstep, 0x6EDB7E6F, LoadUnitHandle(YDLOC, GetHandleId(GetExpiredTimer()), 0xE6E64075))
-				call SaveStr(YDLOC, ydl_triggerstep, 0x2480578D, "Survival\\WeaponEffect\\20\\3.mdx")
-				call SaveReal(YDLOC, ydl_triggerstep, 0xB54F5BCB, 1.00)
-				call SaveTriggerHandle(YDLOC, ydl_triggerstep, 0x4F719503, gg_trg_Weapon_20_DamageAction)
-				call TriggerExecute(ydl_trigger)
-			else
-				//加入堆栈
-				set ydl_trigger = gg_trg_SLine_Type3
-				set ydl_triggerstep = GetHandleId(ydl_trigger)*(LoadInteger(YDLOC, GetHandleId(ydl_trigger), 0xCFDE6C76) + 3)
-				call SaveReal(YDLOC, ydl_triggerstep, 0x9966AD24, LoadReal(YDLOC, GetHandleId(GetExpiredTimer()), 0x9966AD24))
-				call SaveReal(YDLOC, ydl_triggerstep, 0xC0ABED4A, LoadReal(YDLOC, GetHandleId(GetExpiredTimer()), 0xC0ABED4A))
-				call SaveReal(YDLOC, ydl_triggerstep, 0xE6BB3831, 80.00)
-				call SaveReal(YDLOC, ydl_triggerstep, 0x0E20876F, LoadReal(YDLOC, GetHandleId(GetExpiredTimer()), 0x0E20876F))
-				call SaveReal(YDLOC, ydl_triggerstep, 0x4FB814AA, LoadReal(YDLOC, GetHandleId(GetExpiredTimer()), 0x4FB814AA))
-				call SaveReal(YDLOC, ydl_triggerstep, 0xFB6E8B46, 30.00)
-				call SaveReal(YDLOC, ydl_triggerstep, 0x47527379, 1000.00)
-				call SaveReal(YDLOC, ydl_triggerstep, 0xBEFD8BE8, 80.00)
-				call SaveUnitHandle(YDLOC, ydl_triggerstep, 0x6EDB7E6F, LoadUnitHandle(YDLOC, GetHandleId(GetExpiredTimer()), 0xE6E64075))
-				call SaveStr(YDLOC, ydl_triggerstep, 0x2480578D, "Survival\\WeaponEffect\\20\\3.mdx")
-				call SaveReal(YDLOC, ydl_triggerstep, 0xB54F5BCB, 1.00)
-				call SaveTriggerHandle(YDLOC, ydl_triggerstep, 0x4F719503, gg_trg_Weapon_20_DamageAction)
-				call TriggerExecute(ydl_trigger)
-			endif
-			set ydul_count = ydul_count + 1
-		endloop
-	endif
-	set ydl_trigger = null
-endfunction
-function Trig_Weapon_20Actions takes nothing returns nothing
-	local timer ydl_timer
-	local integer ydl_localvar_step = LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xCFDE6C76) 
- set ydl_localvar_step = ydl_localvar_step + 3 
- call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xCFDE6C76, ydl_localvar_step) 
- call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xECE825E7, ydl_localvar_step)
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x0E20876F, GetUnitX( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075)))
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x4FB814AA, GetUnitY( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075)))
-	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965, GetConvertedPlayerId( GetOwningPlayer( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075))))
-	//兵器ID
-	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE, 20)
-	//兵器等级
-	//计算伤害
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281, GetRealFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "DamageValue"))
-	if ((LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE088B116) >= 2)) then
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281, (LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281) + GetRealFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "2级数值")))
-	else
-	endif
-	if ((LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE088B116) >= 4)) then
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281, (LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281) + GetRealFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "4级数值")))
-	else
-	endif
-	if ((LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE088B116) >= 6)) then
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281, (LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281) + GetRealFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "6级数值")))
-	else
-	endif
-	//持续时间
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x2966415C, Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 14))
-	if ((LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE088B116) >= 8)) then
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x2966415C, (LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x2966415C) + GetRealFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "8级数值")))
-	else
-	endif
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x2966415C, (( 1.00) +( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x2966415C)) *( 0.01)))
-	//造成伤害
-	call SaveEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xD44B53F4, AddSpecialEffect( "Survival\\WeaponEffect\\20\\1.mdx", LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x0E20876F), LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x4FB814AA)))
-	call EXSetEffectSize( LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x94B57B64), 0.80)
-	call SaveEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x94B57B64, AddSpecialEffect( "Survival\\WeaponEffect\\20\\2.mdx", LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x0E20876F), LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x4FB814AA)))
-	call EXSetEffectSize( LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x94B57B64), 1.50)
-	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xCB848F87, 20)
-	if (true) then
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x6B54C545, (( GetRealFromExcel( "专精天赋", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xCB848F87), "Value1")) *( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x2966415C)) +( 0.00)))
-	else
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x6B54C545, (( 3.00) *( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x2966415C)) +( 0.00)))
-	endif
-	set ydl_timer = CreateTimer()
-	call SaveReal(YDLOC, GetHandleId(ydl_timer), 0x1CA61CEC, 0.00)
-	call SaveReal(YDLOC, GetHandleId(ydl_timer), 0xB1C6C281, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281))
-	call SaveReal(YDLOC, GetHandleId(ydl_timer), 0x0E20876F, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x0E20876F))
-	call SaveReal(YDLOC, GetHandleId(ydl_timer), 0x4FB814AA, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x4FB814AA))
-	call SaveReal(YDLOC, GetHandleId(ydl_timer), 0x9966AD24, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x9966AD24))
-	call SaveReal(YDLOC, GetHandleId(ydl_timer), 0xC0ABED4A, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A))
-	call SaveEffectHandle(YDLOC, GetHandleId(ydl_timer), 0xD44B53F4, LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xD44B53F4))
-	call SaveEffectHandle(YDLOC, GetHandleId(ydl_timer), 0x94B57B64, LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x94B57B64))
-	call SaveUnitHandle(YDLOC, GetHandleId(ydl_timer), 0xE6E64075, LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075))
-	call SaveReal(YDLOC, GetHandleId(ydl_timer), 0x6B54C545, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x6B54C545))
-	call TimerStart(ydl_timer, 0.50, true, function Trig_Weapon_20Func024T)
-	call FlushChildHashtable(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step)
-	set ydl_timer = null
-endfunction
-//===========================================================================
-function InitTrig_Weapon_20 takes nothing returns nothing
-	set gg_trg_Weapon_20 = CreateTrigger()
-	call TriggerAddAction(gg_trg_Weapon_20, function Trig_Weapon_20Actions)
-endfunction
-//===========================================================================
-// Trigger: Weapon_20_DamageAction
-//===========================================================================
-function Trig_Weapon_20_DamageActionActions takes nothing returns nothing
-	local integer ydl_localvar_step = LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xCFDE6C76) 
- set ydl_localvar_step = ydl_localvar_step + 3 
- call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xCFDE6C76, ydl_localvar_step) 
- call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xECE825E7, ydl_localvar_step)
-	call SaveEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA, LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA))
-	call SaveUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xFC4D8276, LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xFC4D8276))
-	if ((GetUnitState( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xFC4D8276), UNIT_STATE_LIFE) > 0.00)) then
-		call IssueTargetOrder( udg_DebuffVest[5], "slow", LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xFC4D8276))
-	else
-	endif
-	call FlushChildHashtable(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step)
-endfunction
-//===========================================================================
-function InitTrig_Weapon_20_DamageAction takes nothing returns nothing
-	set gg_trg_Weapon_20_DamageAction = CreateTrigger()
-	call TriggerAddAction(gg_trg_Weapon_20_DamageAction, function Trig_Weapon_20_DamageActionActions)
-endfunction
-//===========================================================================
-// Trigger: Weapon_20_CD
-//===========================================================================
-function Trig_Weapon_20_CDActions takes nothing returns nothing
-	local integer ydl_localvar_step = LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xCFDE6C76) 
- set ydl_localvar_step = ydl_localvar_step + 3 
- call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xCFDE6C76, ydl_localvar_step) 
- call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xECE825E7, ydl_localvar_step)
-	call SaveUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075, LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075))
-	call SaveUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xD39F08B6, LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xD39F08B6))
-	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965, GetConvertedPlayerId( GetOwningPlayer( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075))))
-	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE, 20)
-	call SaveStr(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xAAC4C797, GetStringFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "需求属性"))
-	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x9BDB3720, GetIntegerFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "需求值"))
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x887B1FA4, GetRealFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "减少值"))
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x7E1A9366, GetRealFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "至多生效值"))
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xD3B112CF, Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), Str_GetAttr( LoadStr(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xAAC4C797))))
-	if ((LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xD3B112CF) > LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x7E1A9366))) then
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xD3B112CF, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x7E1A9366))
-	else
-	endif
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x3B60835B, GetRealFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "触发间隔"))
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x3B60835B, (( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x3B60835B)) -( I2R( (R2I( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xD3B112CF)) / LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x9BDB3720)))) *( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x887B1FA4))))
-	call SetUnitState( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xD39F08B6), ConvertUnitState(0x25), LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x3B60835B))
-	call FlushChildHashtable(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step)
-endfunction
-//===========================================================================
-function InitTrig_Weapon_20_CD takes nothing returns nothing
-	set gg_trg_Weapon_20_CD = CreateTrigger()
-	call TriggerAddAction(gg_trg_Weapon_20_CD, function Trig_Weapon_20_CDActions)
-endfunction
-//===========================================================================
-// Trigger: Weapon_21
-//===========================================================================
-function Trig_Weapon_21Actions takes nothing returns nothing
-	local integer ydul_count
-	local integer ydl_localvar_step = LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xCFDE6C76) 
- set ydl_localvar_step = ydl_localvar_step + 3 
- call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xCFDE6C76, ydl_localvar_step) 
- call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xECE825E7, ydl_localvar_step)
-	if ((LoadBoolean(YDHT, GetHandleId( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075)), 0x02666DE0) == true)) then
-	else
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x0E20876F, GetUnitX( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075)))
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x4FB814AA, GetUnitY( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075)))
-		call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965, GetConvertedPlayerId( GetOwningPlayer( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075))))
-		//兵器ID
-		call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE, 21)
-		//兵器等级
-		//计算伤害
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281, GetRealFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "DamageValue"))
-		if ((LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE088B116) >= 2)) then
-			call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281, (LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281) + GetRealFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "2级数值")))
-		else
-		endif
-		if ((LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE088B116) >= 4)) then
-			call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281, (LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281) + GetRealFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "4级数值")))
-		else
-		endif
-		if ((LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE088B116) >= 6)) then
-			call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281, (LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281) + GetRealFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "6级数值")))
-		else
-		endif
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A, (( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281)) *( Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 101)) *( Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 92))))
-		//持续时间
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x2966415C, Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 14))
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x2966415C, (( 1.00) +( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x2966415C)) *( 0.01)))
-		//伤害范围
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x5B0BDD27, Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 20))
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x5B0BDD27, (( 1.00) +( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x5B0BDD27)) *( 0.01)))
-		//发射数量
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB7279243, Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 15))
-		if ((LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE088B116) >= 8)) then
-			call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB7279243, (LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB7279243) + GetRealFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "8级数值")))
-		else
-		endif
-		call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xCB848F87, 21)
-		if (true) then
-			call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB7279243, (LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB7279243) + 1.00))
-		else
-		endif
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB7279243, (( 2.00) +( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB7279243)) +( 0.00)))
-		//创建特效
-		set ydul_count = 1
-		loop
-			exitwhen ydul_count > R2I( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB7279243))
-			call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x9966AD24, (( 360.00) /( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB7279243)) *( I2R( ydul_count))))
-			call SaveEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA, AddSpecialEffect( "Survival\\WeaponEffect\\21\\1.mdx", LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x0E20876F), LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x4FB814AA)))
-			call EXSetEffectZ( LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA), (10.00 * LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x5B0BDD27)))
-			call EXSetEffectSize( LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA), (0.80 * LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x5B0BDD27)))
-			call SaveReal(YDHT, GetHandleId( LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA)), 0x492546AF, (5.00 * LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x2966415C)))
-			call SaveReal(YDHT, GetHandleId( LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA)), 0xC0ABED4A, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A))
-			call SaveReal(YDHT, GetHandleId( LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA)), 0x47527379, 300.00)
-			call SaveReal(YDHT, GetHandleId( LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA)), 0xFB6E8B46, 1.50)
-			call SaveReal(YDHT, GetHandleId( LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA)), 0xE6BB3831, (80.00 * LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x5B0BDD27)))
-			call SaveReal(YDHT, GetHandleId( LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA)), 0x22DF4173, 360.00)
-			call SaveReal(YDHT, GetHandleId( LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA)), 0x9966AD24, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x9966AD24))
-			call SaveUnitHandle(YDHT, GetHandleId( LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA)), 0x6EDB7E6F, LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075))
-			call SaveUnitHandle(YDHT, GetHandleId( LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA)), 0x580AD404, LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075))
-			call SaveGroupHandle(YDHT, GetHandleId( LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA)), 0x9E80183F, GetGroup())
-			call SaveInteger(YDHT, GetHandleId( LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA)), 0xA7FB4EDA, 1)
-			//判断是否超限
-			if (true) then
-				call SaveBoolean(YDHT, GetHandleId( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075)), 0x02666DE0, true)
-				if ((ydul_count == R2I( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB7279243)))) then
-					call SaveTriggerHandle(YDHT, GetHandleId( LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA)), 0x12155E5A, gg_trg_Weapon_21_EndAction)
-				else
-				endif
-			else
-			endif
-			set udg_Surrounds_Stack_Top = (udg_Surrounds_Stack_Top + 1)
-			set udg_Surrounds_AttackType[udg_Surrounds_Stack_Top] = ATTACK_TYPE_PIERCE
-			set udg_Surrounds_DamageType[udg_Surrounds_Stack_Top] = DAMAGE_TYPE_UNIVERSAL
-			set udg_Surrounds_EquipType[udg_Surrounds_Stack_Top] = WEAPON_TYPE_WHOKNOWS
-			set udg_Surrounds_Stack_Effect[udg_Surrounds_Stack_Top] = LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA)
-			set ydul_count = ydul_count + 1
-		endloop
-	endif
-	call FlushChildHashtable(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step)
-endfunction
-//===========================================================================
-function InitTrig_Weapon_21 takes nothing returns nothing
-	set gg_trg_Weapon_21 = CreateTrigger()
-	call TriggerAddAction(gg_trg_Weapon_21, function Trig_Weapon_21Actions)
-endfunction
-//===========================================================================
-// Trigger: Weapon_21_EndAction
-//===========================================================================
-function Trig_Weapon_21_EndActionActions takes nothing returns nothing
-	local integer ydul_count
-	local integer ydl_localvar_step = LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xCFDE6C76) 
- set ydl_localvar_step = ydl_localvar_step + 3 
- call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xCFDE6C76, ydl_localvar_step) 
- call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xECE825E7, ydl_localvar_step)
-	call SaveEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA, LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA))
-	call SaveUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075, LoadUnitHandle(YDHT, GetHandleId( LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA)), 0x6EDB7E6F))
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x0E20876F, GetUnitX( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075)))
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x4FB814AA, GetUnitY( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075)))
-	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965, GetConvertedPlayerId( GetOwningPlayer( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075))))
-	//兵器ID
-	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE, 21)
-	//兵器等级
-	//计算伤害
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281, GetRealFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "DamageValue"))
-	if ((LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE088B116) >= 2)) then
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281, (LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281) + GetRealFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "2级数值")))
-	else
-	endif
-	if ((LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE088B116) >= 4)) then
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281, (LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281) + GetRealFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "4级数值")))
-	else
-	endif
-	if ((LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE088B116) >= 6)) then
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281, (LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281) + GetRealFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "6级数值")))
-	else
-	endif
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A, (( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB1C6C281)) *( Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 101)) *( Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 92))))
-	//持续时间
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x2966415C, Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 14))
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x2966415C, (( 1.00) +( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x2966415C)) *( 0.01)))
-	//伤害范围
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x5B0BDD27, Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 20))
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x5B0BDD27, (( 1.00) +( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x5B0BDD27)) *( 0.01)))
-	//发射数量
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB7279243, Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 15))
-	if ((LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE088B116) >= 8)) then
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB7279243, (LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB7279243) + GetRealFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "8级数值")))
-	else
-	endif
-	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xCB848F87, 21)
-	if (true) then
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB7279243, (LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB7279243) + 1.00))
-	else
-	endif
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB7279243, (( 2.00) +( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB7279243)) +( 0.00)))
-	//创建特效
-	set ydul_count = 1
-	loop
-		exitwhen ydul_count > R2I( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB7279243))
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x9966AD24, (( 360.00) /( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB7279243)) *( I2R( ydul_count))))
-		call SaveEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA, AddSpecialEffect( "Survival\\WeaponEffect\\21\\1.mdx", LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x0E20876F), LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x4FB814AA)))
-		call EXSetEffectZ( LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA), (10.00 * LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x5B0BDD27)))
-		call EXSetEffectSize( LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA), (0.80 * LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x5B0BDD27)))
-		call SaveReal(YDHT, GetHandleId( LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA)), 0x492546AF, (10.00 * LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x2966415C)))
-		call SaveReal(YDHT, GetHandleId( LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA)), 0xC0ABED4A, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A))
-		call SaveReal(YDHT, GetHandleId( LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA)), 0x47527379, 300.00)
-		call SaveReal(YDHT, GetHandleId( LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA)), 0xFB6E8B46, 1.50)
-		call SaveReal(YDHT, GetHandleId( LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA)), 0xE6BB3831, (80.00 * LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x5B0BDD27)))
-		call SaveReal(YDHT, GetHandleId( LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA)), 0x22DF4173, 360.00)
-		call SaveReal(YDHT, GetHandleId( LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA)), 0x9966AD24, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x9966AD24))
-		call SaveUnitHandle(YDHT, GetHandleId( LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA)), 0x6EDB7E6F, LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075))
-		call SaveUnitHandle(YDHT, GetHandleId( LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA)), 0x580AD404, LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075))
-		call SaveGroupHandle(YDHT, GetHandleId( LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA)), 0x9E80183F, GetGroup())
-		call SaveInteger(YDHT, GetHandleId( LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA)), 0xA7FB4EDA, 1)
-		//判断是否超限
-		if (true) then
-			if ((ydul_count == R2I( LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB7279243)))) then
-				call SaveTriggerHandle(YDHT, GetHandleId( LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA)), 0x12155E5A, gg_trg_Weapon_21_EndAction)
-			else
-			endif
-		else
-		endif
-		set udg_Surrounds_Stack_Top = (udg_Surrounds_Stack_Top + 1)
-		set udg_Surrounds_AttackType[udg_Surrounds_Stack_Top] = ATTACK_TYPE_PIERCE
-		set udg_Surrounds_DamageType[udg_Surrounds_Stack_Top] = DAMAGE_TYPE_UNIVERSAL
-		set udg_Surrounds_EquipType[udg_Surrounds_Stack_Top] = WEAPON_TYPE_WHOKNOWS
-		set udg_Surrounds_Stack_Effect[udg_Surrounds_Stack_Top] = LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA)
-		set ydul_count = ydul_count + 1
-	endloop
-	call FlushChildHashtable(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step)
-endfunction
-//===========================================================================
-function InitTrig_Weapon_21_EndAction takes nothing returns nothing
-	set gg_trg_Weapon_21_EndAction = CreateTrigger()
-	call TriggerAddAction(gg_trg_Weapon_21_EndAction, function Trig_Weapon_21_EndActionActions)
-endfunction
-//===========================================================================
-// Trigger: Weapon_21_CD
-//===========================================================================
-function Trig_Weapon_21_CDActions takes nothing returns nothing
-	local integer ydl_localvar_step = LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xCFDE6C76) 
- set ydl_localvar_step = ydl_localvar_step + 3 
- call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xCFDE6C76, ydl_localvar_step) 
- call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xECE825E7, ydl_localvar_step)
-	call SaveUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075, LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075))
-	call SaveUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xD39F08B6, LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xD39F08B6))
-	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965, GetConvertedPlayerId( GetOwningPlayer( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075))))
-	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE, 21)
-	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x3B60835B, GetRealFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "触发间隔"))
-	if ((LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE088B116) >= 7)) then
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x3B60835B, (LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x3B60835B) - GetRealFromExcel( "兵器", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x141628EE), "7级数值")))
-	else
-	endif
-	if (true) then
-		call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x3B60835B, 1.00)
-	else
-	endif
-	call SetUnitState( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xD39F08B6), ConvertUnitState(0x25), LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x3B60835B))
-	call FlushChildHashtable(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step)
-endfunction
-//===========================================================================
-function InitTrig_Weapon_21_CD takes nothing returns nothing
-	set gg_trg_Weapon_21_CD = CreateTrigger()
-	call TriggerAddAction(gg_trg_Weapon_21_CD, function Trig_Weapon_21_CDActions)
-endfunction
-//===========================================================================
-// Trigger: WeaponRunInit
-//===========================================================================
-function Trig_WeaponRunInitActions takes nothing returns nothing
-endfunction
-//===========================================================================
-function InitTrig_WeaponRunInit takes nothing returns nothing
-	set gg_trg_WeaponRunInit = CreateTrigger()
-	call TriggerAddAction(gg_trg_WeaponRunInit, function Trig_WeaponRunInitActions)
-endfunction
-//===========================================================================
-// Trigger: WeaponCDInit
-//===========================================================================
-function Trig_WeaponCDInitActions takes nothing returns nothing
-endfunction
-//===========================================================================
-function InitTrig_WeaponCDInit takes nothing returns nothing
-	set gg_trg_WeaponCDInit = CreateTrigger()
-	call TriggerAddAction(gg_trg_WeaponCDInit, function Trig_WeaponCDInitActions)
-endfunction
-//===========================================================================
-// Trigger: WeaponGetInit
-//===========================================================================
-function Trig_WeaponGetInitActions takes nothing returns nothing
-endfunction
-//===========================================================================
-function InitTrig_WeaponGetInit takes nothing returns nothing
-	set gg_trg_WeaponGetInit = CreateTrigger()
-	call TriggerAddAction(gg_trg_WeaponGetInit, function Trig_WeaponGetInitActions)
 endfunction
 //===========================================================================
 // Trigger: SLine_Type1
@@ -9759,7 +6246,6 @@ function Trig_SLine_Type2Actions takes nothing returns nothing
 	call SaveReal(YDHT, GetHandleId( LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA)), 0x06CBF27D, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x06CBF27D))
 	call SaveReal(YDHT, GetHandleId( LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA)), 0xC0ABED4A, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A))
 	call SaveReal(YDHT, GetHandleId( LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA)), 0x9966AD24, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x9966AD24))
-	call SaveUnitHandle(YDHT, GetHandleId( LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA)), 0xFC4D8276, LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xFC4D8276))
 	call SaveInteger(YDHT, GetHandleId( LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA)), 0xA7FB4EDA, 2)
 	call SaveBoolean(YDHT, GetHandleId( LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA)), 0x605B0368, LoadBoolean(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x2624EB23))
 	call SaveTriggerHandle(YDHT, GetHandleId( LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA)), 0x8E5658EA, LoadTriggerHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x7B5473E1))
@@ -9770,6 +6256,7 @@ function Trig_SLine_Type2Actions takes nothing returns nothing
 	//添加到栈中
 	set udg_SLine_Stack_Top = (udg_SLine_Stack_Top + 1)
 	set udg_SLine_AttackType[udg_SLine_Stack_Top] = udg_Args_AttackType
+	set udg_SLine_Target[udg_SLine_Stack_Top] = LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xFC4D8276)
 	set udg_SLine_DamageType[udg_SLine_Stack_Top] = udg_Args_DamageType
 	set udg_SLine_WeaponType[udg_SLine_Stack_Top] = udg_Args_WeaponType
 	set udg_SLine_Stack_Effect[udg_SLine_Stack_Top] = LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA)
@@ -10011,7 +6498,6 @@ function Trig_StraightLineStackActions takes nothing returns nothing
 	set ydul_virtualIndex = 1
 	loop
 		exitwhen ydul_virtualIndex > LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB7279243)
-		call SaveEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA, udg_SLine_Stack_Effect[LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB79E5965)])
 		//造成伤害的单位
 		call SaveUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075, LoadUnitHandle(YDHT, GetHandleId( udg_SLine_Stack_Effect[LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE92EFA26)]), 0x6EDB7E6F))
 		//每次移动距离
@@ -10080,17 +6566,17 @@ function Trig_StraightLineStackActions takes nothing returns nothing
 			else
 			endif
 			//攻击目标
-			call SaveUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xFC4D8276, LoadUnitHandle(YDHT, GetHandleId( udg_SLine_Stack_Effect[LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE92EFA26)]), 0xFC4D8276))
+			call SaveUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xFC4D8276, udg_SLine_Target[LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE92EFA26)])
 			call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x71A400F9, EXGetEffectX( udg_SLine_Stack_Effect[LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE92EFA26)]))
 			call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC738EF47, EXGetEffectY( udg_SLine_Stack_Effect[LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE92EFA26)]))
-			if (((IsUnitType( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xFC4D8276), UNIT_TYPE_DEAD) == true) or (LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xFC4D8276) == null))) then
-				call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xECF5506B, LoadReal(YDHT, GetHandleId( LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA)), 0xECF5506B))
-				call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x024FDF70, LoadReal(YDHT, GetHandleId( LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA)), 0x024FDF70))
+			if (((IsUnitAliveBJ( udg_SLine_Target[LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE92EFA26)]) != true) or (udg_SLine_Target[LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE92EFA26)] == null))) then
+				call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xECF5506B, LoadReal(YDHT, GetHandleId( udg_SLine_Stack_Effect[LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE92EFA26)]), 0xECF5506B))
+				call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x024FDF70, LoadReal(YDHT, GetHandleId( udg_SLine_Stack_Effect[LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE92EFA26)]), 0x024FDF70))
 			else
-				call SaveReal(YDHT, GetHandleId( LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA)), 0xECF5506B, GetUnitX( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xFC4D8276)))
-				call SaveReal(YDHT, GetHandleId( LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA)), 0x024FDF70, GetUnitY( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xFC4D8276)))
-				call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xECF5506B, LoadReal(YDHT, GetHandleId( LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA)), 0xECF5506B))
-				call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x024FDF70, LoadReal(YDHT, GetHandleId( LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA)), 0x024FDF70))
+				call SaveReal(YDHT, GetHandleId( udg_SLine_Stack_Effect[LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE92EFA26)]), 0xECF5506B, GetUnitX( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xFC4D8276)))
+				call SaveReal(YDHT, GetHandleId( udg_SLine_Stack_Effect[LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE92EFA26)]), 0x024FDF70, GetUnitY( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xFC4D8276)))
+				call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xECF5506B, LoadReal(YDHT, GetHandleId( udg_SLine_Stack_Effect[LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE92EFA26)]), 0xECF5506B))
+				call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x024FDF70, LoadReal(YDHT, GetHandleId( udg_SLine_Stack_Effect[LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE92EFA26)]), 0x024FDF70))
 			endif
 			call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x9966AD24, ( Atan2BJ( (LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x024FDF70) - LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC738EF47)), (LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xECF5506B) - LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x71A400F9)))))
 			//更新角度
@@ -10253,9 +6739,9 @@ function Trig_StraightLineStackActions takes nothing returns nothing
 			call SaveEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA, AddSpecialEffect( LoadStr(YDHT, GetHandleId( udg_SLine_Stack_Effect[LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE92EFA26)]), 0x2A54A5D1), LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x71A400F9), LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC738EF47)))
 			if ((LoadReal(YDHT, GetHandleId( udg_SLine_Stack_Effect[LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE92EFA26)]), 0xDC7D926D) > 0.00)) then
 				call EXSetEffectSize( LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA), (0.00 + LoadReal(YDHT, GetHandleId( udg_SLine_Stack_Effect[LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE92EFA26)]), 0xDC7D926D)))
+				call EXEffectMatRotateZ( LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA), LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x9966AD24))
 			else
 			endif
-			call EXEffectMatRotateZ( LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA), LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x9966AD24))
 			call DestroyEffect( LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA))
 			set ydl_trigger = LoadTriggerHandle(YDHT, GetHandleId( udg_SLine_Stack_Effect[LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE92EFA26)]), 0x8E5658EA)
 			set ydl_triggerstep = GetHandleId(ydl_trigger)*(LoadInteger(YDLOC, GetHandleId(ydl_trigger), 0xCFDE6C76) + 3)
@@ -10273,7 +6759,9 @@ function Trig_StraightLineStackActions takes nothing returns nothing
 			endif
 			if ((LoadBoolean(YDHT, GetHandleId( udg_SLine_Stack_Effect[LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE92EFA26)]), 0x62924167) == false)) then
 				set udg_SLine_Stack_Effect[LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE92EFA26)] = udg_SLine_Stack_Effect[udg_SLine_Stack_Top]
+				call SaveBoolean(YDHT, GetHandleId( udg_SLine_Stack_Effect[LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE92EFA26)]), 0x21A54478, true)
 				set udg_SLine_AttackType[LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE92EFA26)] = udg_SLine_AttackType[udg_SLine_Stack_Top]
+				set udg_SLine_Target[LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE92EFA26)] = udg_SLine_Target[udg_SLine_Stack_Top]
 				set udg_SLine_DamageType[LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE92EFA26)] = udg_SLine_DamageType[udg_SLine_Stack_Top]
 				set udg_SLine_WeaponType[LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE92EFA26)] = udg_SLine_WeaponType[udg_SLine_Stack_Top]
 				set udg_SLine_Stack_Top = (udg_SLine_Stack_Top - 1)
@@ -10349,11 +6837,11 @@ function Trig_Bezier_Type1Actions takes nothing returns nothing
 	call SaveReal(YDHT, GetHandleId( LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA)), 0x62018695, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x62018695))
 	call SaveReal(YDHT, GetHandleId( LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA)), 0x06CBF27D, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x06CBF27D))
 	call SaveReal(YDHT, GetHandleId( LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA)), 0xC0ABED4A, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A))
-	call SaveUnitHandle(YDHT, GetHandleId( LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA)), 0xFC4D8276, LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xFC4D8276))
 	call SaveInteger(YDHT, GetHandleId( LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA)), 0xA7FB4EDA, 1)
 	//加入栈
 	set udg_Bezier_Stack_Top = (udg_Bezier_Stack_Top + 1)
 	set udg_Bezier_EquipType[udg_Bezier_Stack_Top] = udg_Args_WeaponType
+	set udg_Bezier_Target[udg_Bezier_Stack_Top] = LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xFC4D8276)
 	set udg_Bezier_AttackType[udg_Bezier_Stack_Top] = udg_Args_AttackType
 	set udg_Bezier_DamageType[udg_Bezier_Stack_Top] = udg_Args_DamageType
 	set udg_Bezier_Stack_Effect[udg_Bezier_Stack_Top] = LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA)
@@ -10483,8 +6971,8 @@ function Trig_BezierStackActions takes nothing returns nothing
 		call SaveReal(YDHT, GetHandleId( udg_Bezier_Stack_Effect[LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE92EFA26)]), 0x312C4181, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x312C4181))
 		if ((LoadInteger(YDHT, GetHandleId( udg_Bezier_Stack_Effect[LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE92EFA26)]), 0xA7FB4EDA) == 1)) then
 			//攻击目标
-			call SaveUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xFC4D8276, LoadUnitHandle(YDHT, GetHandleId( udg_Bezier_Stack_Effect[LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE92EFA26)]), 0xFC4D8276))
-			if (((IsUnitType( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xFC4D8276), UNIT_TYPE_DEAD) == true) or (LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xFC4D8276) == null))) then
+			call SaveUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xFC4D8276, udg_Bezier_Target[LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE92EFA26)])
+			if (((IsUnitAliveBJ( udg_Bezier_Target[LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE92EFA26)]) == false) or (udg_Bezier_Target[LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE92EFA26)] == null))) then
 				call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xECF5506B, LoadReal(YDHT, GetHandleId( udg_Bezier_Stack_Effect[LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE92EFA26)]), 0xECF5506B))
 				call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x024FDF70, LoadReal(YDHT, GetHandleId( udg_Bezier_Stack_Effect[LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE92EFA26)]), 0x024FDF70))
 			else
@@ -10596,6 +7084,7 @@ function Trig_BezierStackActions takes nothing returns nothing
 			endif
 			if ((LoadBoolean(YDHT, GetHandleId( udg_Bezier_Stack_Effect[LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE92EFA26)]), 0x44BEC9D4) == false)) then
 				set udg_Bezier_Stack_Effect[LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE92EFA26)] = udg_Bezier_Stack_Effect[udg_Bezier_Stack_Top]
+				set udg_Bezier_Target[LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE92EFA26)] = udg_Bezier_Target[udg_Bezier_Stack_Top]
 				set udg_Bezier_AttackType[LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE92EFA26)] = udg_Bezier_AttackType[udg_Bezier_Stack_Top]
 				set udg_Bezier_DamageType[LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE92EFA26)] = udg_Bezier_DamageType[udg_Bezier_Stack_Top]
 				set udg_Bezier_EquipType[LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE92EFA26)] = udg_Bezier_EquipType[udg_Bezier_Stack_Top]
@@ -10790,10 +7279,10 @@ function Trig_RangeDuringDamageStackActions takes nothing returns nothing
 			if (((LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xFBDF048B) > LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x17BB2B5F)) or (LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xFBDF048B) == LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x17BB2B5F)))) then
 				if ((GetRandomInt( 1, 100) <= R2I( GetUnitAttrFromStr( LoadStr(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x727826BB), LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075))))) then
 					set udg_Args_WeaponType = WEAPON_TYPE_METAL_LIGHT_CHOP
-					if (("法术暴击率%" == LoadStr(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x727826BB))) then
-						call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A, (LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A) * Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 94)))
+					if (("法术暴率%" == LoadStr(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x727826BB))) then
+						call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A, (LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A) * Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 125)))
 					else
-						call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A, (LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A) * Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 93)))
+						call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A, (LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A) * Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 124)))
 					endif
 				else
 					set udg_Args_WeaponType = WEAPON_TYPE_WHOKNOWS
@@ -10828,10 +7317,10 @@ function Trig_RangeDuringDamageStackActions takes nothing returns nothing
 			if (((LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xFBDF048B) > LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x17BB2B5F)) or (LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xFBDF048B) == LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x17BB2B5F)))) then
 				if ((GetRandomInt( 1, 100) <= R2I( GetUnitAttrFromStr( LoadStr(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x727826BB), LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075))))) then
 					set udg_Args_WeaponType = WEAPON_TYPE_METAL_LIGHT_CHOP
-					if (("法术暴击率%" == LoadStr(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x727826BB))) then
-						call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A, (LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A) * Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 94)))
+					if (("法术暴率%" == LoadStr(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x727826BB))) then
+						call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A, (LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A) * Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 125)))
 					else
-						call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A, (LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A) * Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 93)))
+						call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A, (LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A) * Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 124)))
 					endif
 				else
 					set udg_Args_WeaponType = WEAPON_TYPE_WHOKNOWS
@@ -10959,7 +7448,7 @@ function Trig_SurroundsStackActions takes nothing returns nothing
 			//环绕的单位
 			call SaveUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x580AD404, LoadUnitHandle(YDHT, GetHandleId( LoadEffectHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xF8F856EA)), 0x580AD404))
 			//判断环绕单位是否死亡
-			if ((LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x580AD404) == null)) then
+			if (((IsUnitDeadBJ( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x580AD404)) == true) or (LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x580AD404) == null))) then
 				call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x492546AF, 0.00)
 			else
 				//特效删除时间
@@ -11019,10 +7508,10 @@ function Trig_SurroundsStackActions takes nothing returns nothing
 					if ((GetUnitState( ydl_unit, UNIT_STATE_LIFE) > 0.00) and (IsUnitEnemy( ydl_unit, GetOwningPlayer( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x6EDB7E6F))) == true) and (IsUnitInGroup( ydl_unit, LoadGroupHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x9E80183F)) == false) and (LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A) > 0.00)) then
 						if ((GetRandomInt( 1, 100) <= R2I( GetUnitAttrFromStr( LoadStr(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x727826BB), LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075))))) then
 							set udg_Args_WeaponType = WEAPON_TYPE_METAL_LIGHT_CHOP
-							if (("法术暴击率%" == LoadStr(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x727826BB))) then
-								call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A, (LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A) * Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 94)))
+							if (("法术暴率%" == LoadStr(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x727826BB))) then
+								call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A, (LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A) * Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 88)))
 							else
-								call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A, (LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A) * Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 93)))
+								call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A, (LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xC0ABED4A) * Unit_GetAttr( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xE6E64075), 87)))
 							endif
 						else
 							set udg_Args_WeaponType = WEAPON_TYPE_WHOKNOWS
@@ -11119,6 +7608,7 @@ function Trig_InitActions takes nothing returns nothing
 	local integer ydl_triggerstep
 	local trigger ydl_trigger
 	set udg_BackHomeP = Location( 0, 0)
+	set udg_HeightPoint = Location( 0, 0)
 	set udg_HotkeyStr[1] = "(|cffffcc00Q|r)"
 	set udg_Hotkey[1] = 81
 	set udg_HotkeyStr[2] = "(|cffffcc00W|r)"
@@ -11148,6 +7638,7 @@ function Trig_InitActions takes nothing returns nothing
 		exitwhen ydul_playerID > 4
 		if ((GetPlayerSlotState( ConvertedPlayer( ydul_playerID)) == PLAYER_SLOT_STATE_PLAYING) and (GetPlayerController( ConvertedPlayer( ydul_playerID)) == MAP_CONTROL_USER)) then
 			set udg_Player[ydul_playerID] = ConvertedPlayer( ydul_playerID)
+			set udg_SeizeBodyNeedLv[ydul_playerID] = GetIntegerFromExcel( "其它", 8, "Value1")
 		else
 		endif
 		set ydul_playerID = ydul_playerID + 1
@@ -11166,6 +7657,15 @@ function Trig_InitActions takes nothing returns nothing
 	set ydl_triggerstep = GetHandleId(ydl_trigger)*(LoadInteger(YDLOC, GetHandleId(ydl_trigger), 0xCFDE6C76) + 3)
 	call TriggerExecute(ydl_trigger)
 	set ydl_trigger = gg_trg_HTInit
+	set ydl_triggerstep = GetHandleId(ydl_trigger)*(LoadInteger(YDLOC, GetHandleId(ydl_trigger), 0xCFDE6C76) + 3)
+	call TriggerExecute(ydl_trigger)
+	set ydl_trigger = gg_trg_WBInit
+	set ydl_triggerstep = GetHandleId(ydl_trigger)*(LoadInteger(YDLOC, GetHandleId(ydl_trigger), 0xCFDE6C76) + 3)
+	call TriggerExecute(ydl_trigger)
+	set ydl_trigger = gg_trg_QuestInit
+	set ydl_triggerstep = GetHandleId(ydl_trigger)*(LoadInteger(YDLOC, GetHandleId(ydl_trigger), 0xCFDE6C76) + 3)
+	call TriggerExecute(ydl_trigger)
+	set ydl_trigger = gg_trg_LgfInit
 	set ydl_triggerstep = GetHandleId(ydl_trigger)*(LoadInteger(YDLOC, GetHandleId(ydl_trigger), 0xCFDE6C76) + 3)
 	call TriggerExecute(ydl_trigger)
 	set ydl_trigger = gg_trg_BlackMarketInit
@@ -11188,7 +7688,6 @@ endfunction
 // Trigger: HTInit
 //===========================================================================
 function Trig_HTInitActions takes nothing returns nothing
-	set udg_HTKillsShopBuyCount = InitHashtable()
 	set udg_HTBMBuyCount = InitHashtable()
 	set udg_HTSeizeBodyID = InitHashtable()
 endfunction
@@ -11224,6 +7723,10 @@ function Trig_SetEnemyAttrActions takes nothing returns nothing
  set ydl_localvar_step = ydl_localvar_step + 3 
  call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xCFDE6C76, ydl_localvar_step) 
  call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger()), 0xECE825E7, ydl_localvar_step)
+	if ((GetTriggerUnit() != null)) then
+		call SaveUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB6A6EBAA, GetTriggerUnit())
+	else
+	endif
 	call SaveInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x6F96F2D2, LoadInteger(YDHT, GetUnitTypeId( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB6A6EBAA)), 0x200B34C8))
 	if ((LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x6F96F2D2) == 0)) then
 		call FlushChildHashtable(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step)
@@ -11248,13 +7751,13 @@ function Trig_SetEnemyAttrActions takes nothing returns nothing
 	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x571B6555, GetRealFromExcel( "怪物数值", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x6F96F2D2), "exp"))
 	call SaveReal(YDHT, GetHandleId( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB6A6EBAA)), 0x571B6555, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x571B6555))
 	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x90D0577E, GetRealFromExcel( "怪物数值", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x6F96F2D2), "攻击范围"))
-	call Unit_SetAttrBJ( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB6A6EBAA), 12, 2, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x90D0577E))
+	call Unit_SetAttrBJ( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB6A6EBAA), 11, 2, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x90D0577E))
 	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x98284AB5, GetRealFromExcel( "怪物数值", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x6F96F2D2), "攻击速度"))
-	call Unit_SetAttrBJ( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB6A6EBAA), 10, 2, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x98284AB5))
+	call Unit_SetAttrBJ( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB6A6EBAA), 9, 2, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x98284AB5))
 	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x3B0E1252, GetRealFromExcel( "怪物数值", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x6F96F2D2), "攻击间隔"))
-	call Unit_SetAttrBJ( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB6A6EBAA), 11, 2, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x3B0E1252))
+	call Unit_SetAttrBJ( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB6A6EBAA), 10, 2, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x3B0E1252))
 	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x301CC1D8, GetRealFromExcel( "怪物数值", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x6F96F2D2), "攻击"))
-	call Unit_SetAttrBJ( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB6A6EBAA), 19, 2, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x301CC1D8))
+	call Unit_SetAttrBJ( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB6A6EBAA), 1, 2, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x301CC1D8))
 	call SaveReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x9890BA1B, GetRealFromExcel( "怪物数值", LoadInteger(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x6F96F2D2), "生命"))
 	call SetUnitState( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB6A6EBAA), UNIT_STATE_MAX_LIFE, LoadReal(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0x9890BA1B))
 	call SetUnitLifePercentBJ( LoadUnitHandle(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step, 0xB6A6EBAA), 100)
@@ -11418,10 +7921,6 @@ function Trig_AddBlood_InitActions takes nothing returns nothing
 	set ydl_trigger = CreateTrigger()
 	call YDWETriggerRegisterEnterRectSimpleNull(ydl_trigger, bj_mapInitialPlayableArea)
 	call TriggerAddCondition( ydl_trigger, Condition(function Trig_AddBlood_InitFunc005Conditions))
-	call ShowUnit( udg_BlackMarket[1], false)
-	call ShowUnit( udg_BlackMarket[2], false)
-	call ShowUnit( udg_BlackMarket[3], false)
-	call ShowUnit( udg_BlackMarket[4], false)
 	call FlushChildHashtable(YDLOC, GetHandleId(GetTriggeringTrigger())*ydl_localvar_step)
 	set ydl_trigger = null
 endfunction
@@ -11573,6 +8072,13 @@ function InitCustomTriggers takes nothing returns nothing
 	call InitTrig____________________001()
 	call InitTrig_TestInit()
 	call InitTrig_ToCode()
+	call InitTrig_SetWoodMonsterValueID()
+	call InitTrig_SpawnWoodMonster()
+	call InitTrig_SpawnLgfMonsters()
+	call InitTrig_LgfInit()
+	call InitTrig_F4()
+	call InitTrig_PressKeyC()
+	call InitTrig_QuestInit()
 	call InitTrig_OpenArchiveChallenge()
 	call InitTrig_ArchiveChallengeInit()
 	call InitTrig_BossSkillTrig1_1()
@@ -11588,16 +8094,23 @@ function InitCustomTriggers takes nothing returns nothing
 	call InitTrig_BossSkillTrig6_2()
 	call InitTrig_BossSkillTrig6_3()
 	call InitTrig_BossSkillInit()
-	call InitTrig_SeizeBodySync()
+	call InitTrig_SeizeBody_15()
+	call InitTrig_SeizeBody_14()
+	call InitTrig_SeizeBody_13()
+	call InitTrig_SeizeBody_8()
+	call InitTrig_SeizeBody_3()
+	call InitTrig_SeizeBody_2()
+	call InitTrig_SeizeBodyLua()
 	call InitTrig_SelectBMSync()
 	call InitTrig_BuyBMSales()
 	call InitTrig_SetBMSales()
 	call InitTrig_BlackMarketInit()
-	call InitTrig_CreateNormalEnemy()
-	call InitTrig_CreateEliteAndBoss()
+	call InitTrig_SpawnAttackMonsters()
+	call InitTrig_SpawnNormalMonsters()
 	call InitTrig_WBInit()
 	call InitTrig_UnitDead()
-	call InitTrig_PressKeyA()
+	call InitTrig_PressKeyEsc()
+	call InitTrig_F3()
 	call InitTrig_F2()
 	call InitTrig_F1()
 	call InitTrig_HeroLvUp()
@@ -11616,65 +8129,6 @@ function InitCustomTriggers takes nothing returns nothing
 	call InitTrig_01Timer()
 	call InitTrig_05Timer()
 	call InitTrig_1Timer()
-	call InitTrig_Weapon_1()
-	call InitTrig_Weapon_1_EndAction()
-	call InitTrig_Weapon_1_EndAction2()
-	call InitTrig_Weapon_1_CD()
-	call InitTrig_Weapon_2()
-	call InitTrig_Weapon_2_DamageAction()
-	call InitTrig_Weapon_2_CD()
-	call InitTrig_Weapon_3()
-	call InitTrig_Weapon_3_CD()
-	call InitTrig_Weapon_4_Get()
-	call InitTrig_Weapon_4()
-	call InitTrig_Weapon_4_CD()
-	call InitTrig_Weapon_5()
-	call InitTrig_Weapon_5_DamageAction()
-	call InitTrig_Weapon_5_CD()
-	call InitTrig_Weapon_5_EndAction()
-	call InitTrig_Weapon_6()
-	call InitTrig_Weapon_6_DamageAction()
-	call InitTrig_Weapon_6_CD()
-	call InitTrig_Weapon_7()
-	call InitTrig_Weapon_7_CD()
-	call InitTrig_Weapon_8_Get()
-	call InitTrig_Weapon_8()
-	call InitTrig_Weapon_8_CD()
-	call InitTrig_Weapon_9()
-	call InitTrig_Weapon_9_CD()
-	call InitTrig_Weapon_10()
-	call InitTrig_Weapon_10_EndAction()
-	call InitTrig_Weapon_10_CD()
-	call InitTrig_Weapon_11()
-	call InitTrig_Weapon_11_CD()
-	call InitTrig_Weapon_12()
-	call InitTrig_Weapon_12_CD()
-	call InitTrig_Weapon_13()
-	call InitTrig_Weapon_13_EndAction()
-	call InitTrig_Weapon_13_CD()
-	call InitTrig_Weapon_14()
-	call InitTrig_Weapon_14_CD()
-	call InitTrig_Weapon_15()
-	call InitTrig_Weapon_15_CD()
-	call InitTrig_Weapon_16()
-	call InitTrig_Weapon_16_CD()
-	call InitTrig_Weapon_17()
-	call InitTrig_Weapon_17_DamageAction()
-	call InitTrig_Weapon_17_CD()
-	call InitTrig_Weapon_18()
-	call InitTrig_Weapon_18_EndAction()
-	call InitTrig_Weapon_18_CD()
-	call InitTrig_Weapon_19()
-	call InitTrig_Weapon_19_CD()
-	call InitTrig_Weapon_20()
-	call InitTrig_Weapon_20_DamageAction()
-	call InitTrig_Weapon_20_CD()
-	call InitTrig_Weapon_21()
-	call InitTrig_Weapon_21_EndAction()
-	call InitTrig_Weapon_21_CD()
-	call InitTrig_WeaponRunInit()
-	call InitTrig_WeaponCDInit()
-	call InitTrig_WeaponGetInit()
 	call InitTrig_SLine_Type1()
 	call InitTrig_SLine_Type2()
 	call InitTrig_SLine_Type3()
@@ -11861,51 +8315,135 @@ function config takes nothing returns nothing
 	call SetTeams(8)
 	call SetGamePlacement(MAP_PLACEMENT_TEAMS_TOGETHER)
 	call DefineStartLocation(0, 3072.000000, 14272.000000)
-	call DefineStartLocation(7, 2752.000000, 704.000000)
-	call DefineStartLocation(1, 2560.000000, 3456.000000)
-	call DefineStartLocation(2, 704.000000, 4096.000000)
-	call DefineStartLocation(3, -192.000000, 3776.000000)
+	call DefineStartLocation(4, 7744.000000, -3392.000000)
 	call DefineStartLocation(5, -704.000000, 3392.000000)
+	call DefineStartLocation(3, -192.000000, 3776.000000)
+	call DefineStartLocation(7, 2752.000000, 704.000000)
+	call DefineStartLocation(2, 704.000000, 4096.000000)
 	call DefineStartLocation(6, 7360.000000, -7104.000000)
-	call DefineStartLocation(4, -27136.000000, 10176.000000)
+	call DefineStartLocation(1, 2368.000000, 3584.000000)
 	call InitCustomPlayerSlots()
 	call InitCustomTeams()
 	call InitAllyPriorities()
 endfunction
-library YDWETriggerRegisterEnterRectSimpleNull
+library YDWEGetUnitsInRectMatchingNull
 globals
-    region yd_NullTempRegion
+    group yd_NullTempGroup
 endglobals
-function YDWETriggerRegisterEnterRectSimpleNull takes trigger trig, rect r returns event
-    local region rectRegion = CreateRegion()
-    call RegionAddRect(rectRegion, r)
-    set yd_NullTempRegion = rectRegion
-    set rectRegion = null
-    return TriggerRegisterEnterRegion(trig, yd_NullTempRegion, null)
+function YDWEGetUnitsInRectMatchingNull takes rect r, boolexpr filter returns group
+    local group g = CreateGroup()
+    call GroupEnumUnitsInRect(g, r, filter)
+    call DestroyBoolExpr(filter)
+    set yd_NullTempGroup = g
+    set g = null
+    return yd_NullTempGroup
 endfunction
 endlibrary
-library YDWEEnumDestructablesInCircleBJFilterNull
-function YDWEEnumDestructablesInCircleBJFilterNull takes nothing returns boolean
-    local real dx = GetDestructableX(GetFilterDestructable()) - GetLocationX(bj_enumDestructableCenter)
-    local real dy = GetDestructableY(GetFilterDestructable()) - GetLocationY(bj_enumDestructableCenter)
-    return dx * dx + dy * dy <= bj_enumDestructableRadius * bj_enumDestructableRadius
+library YDWEGetUnitsInRectAllNull requires YDWEGetUnitsInRectMatchingNull
+function YDWEGetUnitsInRectAllNull takes rect r returns group
+    return YDWEGetUnitsInRectMatchingNull(r, null)
 endfunction
 endlibrary
-library YDWEEnumDestructablesInCircleBJNull requires YDWEEnumDestructablesInCircleBJFilterNull
-function YDWEEnumDestructablesInCircleBJNull takes real radius, location loc, code actionFunc returns nothing
-    local rect r
-    local real centerX = GetLocationX(loc)
-    local real centerY = GetLocationY(loc)
-    if radius >= 0 then
-        set bj_enumDestructableCenter = loc
-        set bj_enumDestructableRadius = radius
-        set r = Rect(centerX - radius, centerY - radius, centerX + radius, centerY + radius)
-        call EnumDestructablesInRect(r, Filter(function YDWEEnumDestructablesInCircleBJFilterNull), actionFunc)
-        call RemoveRect(r)
-    	set r = null
+//===========================================================================  
+//===========================================================================  
+//自定义事件 
+//===========================================================================
+//===========================================================================   
+library YDWETriggerEvent 
+globals
+    trigger yd_DamageEventTrigger = null
+    private trigger array DamageEventQueue
+    private integer DamageEventNumber = 0
+	
+    item bj_lastMovedItemInItemSlot = null
+	
+    private trigger MoveItemEventTrigger = null
+    private trigger array MoveItemEventQueue
+    private integer MoveItemEventNumber = 0
+endglobals
+	
+//===========================================================================  
+//任意单位伤害事件 
+//===========================================================================
+function YDWEAnyUnitDamagedTriggerAction takes nothing returns nothing
+    local integer i = 0
+    
+    loop
+        exitwhen i >= DamageEventNumber
+        if DamageEventQueue[i] != null and IsTriggerEnabled(DamageEventQueue[i]) and TriggerEvaluate(DamageEventQueue[i]) then
+            call TriggerExecute(DamageEventQueue[i])
+        endif
+        set i = i + 1 
+    endloop 
+endfunction
+function YDWEAnyUnitDamagedFilter takes nothing returns boolean 
+    if GetUnitAbilityLevel(GetFilterUnit(), 'Aloc') <= 0 then 
+        call TriggerRegisterUnitEvent(yd_DamageEventTrigger, GetFilterUnit(), EVENT_UNIT_DAMAGED)
     endif
+    return false
 endfunction
-endlibrary
+function YDWEAnyUnitDamagedEnumUnit takes nothing returns nothing 
+    local trigger t = CreateTrigger()
+    local region r = CreateRegion()
+    local group g = CreateGroup()
+    call RegionAddRect(r, GetWorldBounds())
+    call TriggerRegisterEnterRegion(t, r, Condition(function YDWEAnyUnitDamagedFilter))
+    call GroupEnumUnitsInRect(g, GetWorldBounds(), Condition(function YDWEAnyUnitDamagedFilter))
+    call DestroyGroup(g)
+    set r = null
+    set t = null
+    set g = null
+endfunction
+	
+function YDWESyStemAnyUnitDamagedRegistTrigger takes trigger trg returns nothing
+    if trg == null then
+        return
+    endif
+        
+    if DamageEventNumber == 0 then
+        set yd_DamageEventTrigger = CreateTrigger()
+        call TriggerAddAction(yd_DamageEventTrigger, function YDWEAnyUnitDamagedTriggerAction) 
+        call YDWEAnyUnitDamagedEnumUnit()
+    endif 
+    
+    set DamageEventQueue[DamageEventNumber] = trg
+    set DamageEventNumber = DamageEventNumber + 1
+endfunction
+//===========================================================================  
+//移动物品事件 
+//===========================================================================  
+function YDWESyStemItemUnmovableTriggerAction takes nothing returns nothing
+    local integer i = 0
+    
+    if GetIssuedOrderId() >= 852002 and GetIssuedOrderId() <= 852007 then 
+		set bj_lastMovedItemInItemSlot = GetOrderTargetItem() 
+    	loop
+        	exitwhen i >= MoveItemEventNumber
+        	if MoveItemEventQueue[i] != null and IsTriggerEnabled(MoveItemEventQueue[i]) and TriggerEvaluate(MoveItemEventQueue[i]) then
+        	    call TriggerExecute(MoveItemEventQueue[i])
+        	endif
+        	set i = i + 1 
+    	endloop 
+	endif	
+endfunction
+function YDWESyStemItemUnmovableRegistTrigger takes trigger trg returns nothing
+    if trg == null then
+        return
+    endif
+        
+    if MoveItemEventNumber == 0 then
+        set MoveItemEventTrigger = CreateTrigger()
+        call TriggerAddAction(MoveItemEventTrigger, function YDWESyStemItemUnmovableTriggerAction) 
+        call TriggerRegisterAnyUnitEventBJ(MoveItemEventTrigger, EVENT_PLAYER_UNIT_ISSUED_TARGET_ORDER)
+    endif 
+    
+    set MoveItemEventQueue[MoveItemEventNumber] = trg
+    set MoveItemEventNumber = MoveItemEventNumber + 1
+endfunction
+function GetLastMovedItemInItemSlot takes nothing returns item
+    return bj_lastMovedItemInItemSlot
+endfunction
+endlibrary 
 library YDWEBase initializer InitializeYD
 //===========================================================================
 //HashTable
@@ -12651,6 +9189,40 @@ function InitializeYD takes nothing returns nothing
     call YDWEVersion_Init()
 endfunction
 endlibrary
+library YDWEEnumDestructablesInCircleBJFilterNull
+function YDWEEnumDestructablesInCircleBJFilterNull takes nothing returns boolean
+    local real dx = GetDestructableX(GetFilterDestructable()) - GetLocationX(bj_enumDestructableCenter)
+    local real dy = GetDestructableY(GetFilterDestructable()) - GetLocationY(bj_enumDestructableCenter)
+    return dx * dx + dy * dy <= bj_enumDestructableRadius * bj_enumDestructableRadius
+endfunction
+endlibrary
+library YDWEEnumDestructablesInCircleBJNull requires YDWEEnumDestructablesInCircleBJFilterNull
+function YDWEEnumDestructablesInCircleBJNull takes real radius, location loc, code actionFunc returns nothing
+    local rect r
+    local real centerX = GetLocationX(loc)
+    local real centerY = GetLocationY(loc)
+    if radius >= 0 then
+        set bj_enumDestructableCenter = loc
+        set bj_enumDestructableRadius = radius
+        set r = Rect(centerX - radius, centerY - radius, centerX + radius, centerY + radius)
+        call EnumDestructablesInRect(r, Filter(function YDWEEnumDestructablesInCircleBJFilterNull), actionFunc)
+        call RemoveRect(r)
+    	set r = null
+    endif
+endfunction
+endlibrary
+library YDWETriggerRegisterEnterRectSimpleNull
+globals
+    region yd_NullTempRegion
+endglobals
+function YDWETriggerRegisterEnterRectSimpleNull takes trigger trig, rect r returns event
+    local region rectRegion = CreateRegion()
+    call RegionAddRect(rectRegion, r)
+    set yd_NullTempRegion = rectRegion
+    set rectRegion = null
+    return TriggerRegisterEnterRegion(trig, yd_NullTempRegion, null)
+endfunction
+endlibrary
 //===========================================================================
 //系统-TimerSystem
 //===========================================================================
@@ -12890,124 +9462,6 @@ function YDWETimerRunPeriodicTriggerOver takes trigger trg, integer data returns
 	
     call RemoveSavedInteger(YDHT, trgid, 'YDTS'+data)
     set t = null
-endfunction
-endlibrary
-//===========================================================================  
-//===========================================================================  
-//自定义事件 
-//===========================================================================
-//===========================================================================   
-library YDWETriggerEvent 
-globals
-    trigger yd_DamageEventTrigger = null
-    private trigger array DamageEventQueue
-    private integer DamageEventNumber = 0
-	
-    item bj_lastMovedItemInItemSlot = null
-	
-    private trigger MoveItemEventTrigger = null
-    private trigger array MoveItemEventQueue
-    private integer MoveItemEventNumber = 0
-endglobals
-	
-//===========================================================================  
-//任意单位伤害事件 
-//===========================================================================
-function YDWEAnyUnitDamagedTriggerAction takes nothing returns nothing
-    local integer i = 0
-    
-    loop
-        exitwhen i >= DamageEventNumber
-        if DamageEventQueue[i] != null and IsTriggerEnabled(DamageEventQueue[i]) and TriggerEvaluate(DamageEventQueue[i]) then
-            call TriggerExecute(DamageEventQueue[i])
-        endif
-        set i = i + 1 
-    endloop 
-endfunction
-function YDWEAnyUnitDamagedFilter takes nothing returns boolean 
-    if GetUnitAbilityLevel(GetFilterUnit(), 'Aloc') <= 0 then 
-        call TriggerRegisterUnitEvent(yd_DamageEventTrigger, GetFilterUnit(), EVENT_UNIT_DAMAGED)
-    endif
-    return false
-endfunction
-function YDWEAnyUnitDamagedEnumUnit takes nothing returns nothing 
-    local trigger t = CreateTrigger()
-    local region r = CreateRegion()
-    local group g = CreateGroup()
-    call RegionAddRect(r, GetWorldBounds())
-    call TriggerRegisterEnterRegion(t, r, Condition(function YDWEAnyUnitDamagedFilter))
-    call GroupEnumUnitsInRect(g, GetWorldBounds(), Condition(function YDWEAnyUnitDamagedFilter))
-    call DestroyGroup(g)
-    set r = null
-    set t = null
-    set g = null
-endfunction
-	
-function YDWESyStemAnyUnitDamagedRegistTrigger takes trigger trg returns nothing
-    if trg == null then
-        return
-    endif
-        
-    if DamageEventNumber == 0 then
-        set yd_DamageEventTrigger = CreateTrigger()
-        call TriggerAddAction(yd_DamageEventTrigger, function YDWEAnyUnitDamagedTriggerAction) 
-        call YDWEAnyUnitDamagedEnumUnit()
-    endif 
-    
-    set DamageEventQueue[DamageEventNumber] = trg
-    set DamageEventNumber = DamageEventNumber + 1
-endfunction
-//===========================================================================  
-//移动物品事件 
-//===========================================================================  
-function YDWESyStemItemUnmovableTriggerAction takes nothing returns nothing
-    local integer i = 0
-    
-    if GetIssuedOrderId() >= 852002 and GetIssuedOrderId() <= 852007 then 
-		set bj_lastMovedItemInItemSlot = GetOrderTargetItem() 
-    	loop
-        	exitwhen i >= MoveItemEventNumber
-        	if MoveItemEventQueue[i] != null and IsTriggerEnabled(MoveItemEventQueue[i]) and TriggerEvaluate(MoveItemEventQueue[i]) then
-        	    call TriggerExecute(MoveItemEventQueue[i])
-        	endif
-        	set i = i + 1 
-    	endloop 
-	endif	
-endfunction
-function YDWESyStemItemUnmovableRegistTrigger takes trigger trg returns nothing
-    if trg == null then
-        return
-    endif
-        
-    if MoveItemEventNumber == 0 then
-        set MoveItemEventTrigger = CreateTrigger()
-        call TriggerAddAction(MoveItemEventTrigger, function YDWESyStemItemUnmovableTriggerAction) 
-        call TriggerRegisterAnyUnitEventBJ(MoveItemEventTrigger, EVENT_PLAYER_UNIT_ISSUED_TARGET_ORDER)
-    endif 
-    
-    set MoveItemEventQueue[MoveItemEventNumber] = trg
-    set MoveItemEventNumber = MoveItemEventNumber + 1
-endfunction
-function GetLastMovedItemInItemSlot takes nothing returns item
-    return bj_lastMovedItemInItemSlot
-endfunction
-endlibrary 
-library YDWEGetUnitsInRectMatchingNull
-globals
-    group yd_NullTempGroup
-endglobals
-function YDWEGetUnitsInRectMatchingNull takes rect r, boolexpr filter returns group
-    local group g = CreateGroup()
-    call GroupEnumUnitsInRect(g, r, filter)
-    call DestroyBoolExpr(filter)
-    set yd_NullTempGroup = g
-    set g = null
-    return yd_NullTempGroup
-endfunction
-endlibrary
-library YDWEGetUnitsInRectAllNull requires YDWEGetUnitsInRectMatchingNull
-function YDWEGetUnitsInRectAllNull takes rect r returns group
-    return YDWEGetUnitsInRectMatchingNull(r, null)
 endfunction
 endlibrary
 /**/

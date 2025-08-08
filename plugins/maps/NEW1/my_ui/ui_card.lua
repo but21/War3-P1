@@ -16,42 +16,49 @@ local tipDialogUp      = Module.UITipDialog.tipDialogUp
 local refreshCardCount = { 12, 0, 0, 0 }
 local drawCost         = { 150, 150, 150, 150 }
 
+local Card             = {}
 
-local Card = {}
+local _ui              = {}
 
-local _ui  = {}
+Card.ui                = _ui
 
-Card.ui    = _ui
-
+-- 卡牌系统初始化
 function Card:Init()
-	Card.drawCount        = { 3, 3, 3, 3 }
-	local _drawCards      = {}
-	local _availableBonds = {}
-	local _ownedBonds     = {}
-	Card.ownedBonds       = _ownedBonds
-	local _swallowCards   = {}
-	Card.swallowCards     = _swallowCards
-	local _waitCard       = {}
-	local _ownedCards     = {}
-	local _currentCards   = {}
-	local _selectedCards  = {}
-	local _finalBond      = {}
-	local _inSelecting    = { false, false, false, false }
-	local _inReplacing    = false
+	-- 初始化卡牌相关数据结构
+	Card.drawCount       = { 3, 3, 3, 3 }
+	local drawCards      = {}                          -- 可抽取的卡牌池
+	local availableBonds = {}                          -- 可用的羁绊列表
+	local ownedBonds     = {}                          -- 玩家拥有的羁绊
+	Card.ownedBonds      = ownedBonds
+	local swallowCards   = {}                          -- 可吞噬的卡牌
+	Card.swallowCards    = swallowCards
+	local waitCard       = {}                          -- 等待替换的卡牌
+	local ownedCards     = {}                          -- 玩家拥有的卡牌
+	local currentCards   = {}                          -- 当前场上的卡牌
+	local selectedCards  = {}                          -- 已选中的卡牌
+	local finalBond      = {}                          -- 最终羁绊卡池
+	local inSelecting    = { false, false, false, false } -- 是否正在选择卡牌
+	local inReplacing    = false                       -- 是否正在替换卡牌
 
-	_ui.panel             = uiCreate:CreateUIAbsolute("panel", gameui, "中心", 950, 300, 1, 1)
-	_ui.highlight         = uiCreate:CreateUIRelative("image", _ui.panel, "中心", _ui.panel, "中心", 0, 0, 1, 1, { isShow = false, image = [[Survival\UI\highlight.tga]] })
+	-- 创建UI元素
+	_ui.panel            = uiCreate:CreateUIAbsolute("panel", gameui, "中心", 950, 300, 1, 1)
+	_ui.highlight        = uiCreate:CreateUIRelative("image", _ui.panel, "中心", _ui.panel, "中心", 0, 0, 1, 1, { isShow = false, image = [[Survival\UI\highlight.tga]] })
 	_ui.highlight:set_level(2)
-	local cardH    = 60
-	local bgW      = (cardH + 2) * 10 - 2
-	_ui.background = uiCreate:CreateUIRelative("image", _ui.panel, "中心", _ui.panel, "中心", 0, 0, bgW, cardH, { image = [[UI\Widgets\ToolTips\Human\human-tooltip-background.blp]], alpha = 0.5 })
-	_ui.drawIcon   = uiCreate:CreateUIRelative("image", _ui.background, "右下", _ui.background, "左下", 0, 0, 90, 30, { image = [[]] })
-	_ui.drawText   = uiCreate:CreateUIRelative("text", _ui.drawIcon, "中心", _ui.drawIcon, "中心", 0, 0, 90, 0, { font = font, fontSize = 15, align = "居中" })
+
+	local cardHeight      = 60
+	local backgroundWidth = (cardHeight + 2) * 10 - 2
+
+	_ui.background        = uiCreate:CreateUIRelative("image", _ui.panel, "中心", _ui.panel, "中心", 0, 0, backgroundWidth, cardHeight,
+		{ image = [[UI\Widgets\ToolTips\Human\human-tooltip-background.blp]], alpha = 0.5 })
+	_ui.drawIcon          = uiCreate:CreateUIRelative("image", _ui.background, "右下", _ui.background, "左下", 0, 0, 90, 30, { image = [[]] })
+	_ui.drawText          = uiCreate:CreateUIRelative("text", _ui.drawIcon, "中心", _ui.drawIcon, "中心", 0, 0, 90, 0, { font = font, fontSize = 15, align = "居中" })
 	_ui.drawText:set_text("|cff000000(Z)抽卡 150")
 	_ui.drawBtn = uiCreate:CreateUIRelative("button", _ui.drawIcon, "中心", _ui.drawIcon, "中心", 0, 0, 30, 30)
-	local function _EnterCard(btn)
+
+	-- 卡牌悬浮事件处理
+	local function onCardEnter(btn)
 		local playerID = common:GetLocalPlayerID()
-		local cardID = _currentCards[playerID][btn.index]
+		local cardID = currentCards[playerID][btn.index]
 		if cardID then
 			local icon = excel["卡牌"][cardID].Icon
 			local name = excel["卡牌"][cardID].CardName
@@ -71,16 +78,20 @@ function Card:Init()
 			_ui.highlight:set_show(true)
 		end
 	end
-	local function _LeaveCard(btn)
+
+	-- 卡牌离开事件处理
+	local function onCardLeave(btn)
 		tipDialogUp.panel:set_show(false)
 		_ui.highlight:set_show(false)
 	end
-	local function _ClickCard(btn)
-		if _inReplacing then
-			_inReplacing = false
+
+	-- 卡牌点击事件处理
+	local function onCardClick(btn)
+		if inReplacing then
+			inReplacing = false
 			_ui.replaceIcon:set_show(false)
 			local playerID = common:GetLocalPlayerID()
-			local cardID = _waitCard[playerID]
+			local cardID = waitCard[playerID]
 			if cardID then
 				local icon = excel["卡牌"][cardID].Icon
 				local name = excel["卡牌"][cardID].CardName
@@ -94,24 +105,30 @@ function Card:Init()
 			common:SendSync("ReplaceCard", btn.index)
 		end
 	end
+
+	-- 创建卡牌UI元素
 	_ui.cardBg = {}
 	_ui.cardIcon = {}
 	_ui.cardBtn = {}
 	for i = 1, 10 do
-		_ui.cardBg[i] = uiCreate:CreateUIRelative("image", _ui.background, "中心", _ui.background, "左侧", cardH / 2 + (cardH + 2) * (i - 1), 0, cardH, cardH,
+		_ui.cardBg[i] = uiCreate:CreateUIRelative("image", _ui.background, "中心", _ui.background, "左侧",
+			cardHeight / 2 + (cardHeight + 2) * (i - 1), 0, cardHeight, cardHeight,
 			{ image = [[UI\Widgets\ToolTips\Human\human-tooltip-background.blp]] })
-		_ui.cardIcon[i] = uiCreate:CreateUIRelative("image", _ui.cardBg[i], "中心", _ui.cardBg[i], "中心", 0, 0, cardH, cardH, { image = [[]], isShow = false })
-		_ui.cardBtn[i] = uiCreate:CreateUIRelative("button", _ui.cardBg[i], "中心", _ui.cardIcon[i], "中心", 0, 0, cardH, cardH)
+		_ui.cardIcon[i] = uiCreate:CreateUIRelative("image", _ui.cardBg[i], "中心", _ui.cardBg[i], "中心", 0, 0, cardHeight, cardHeight, { image = [[]], isShow = false })
+		_ui.cardBtn[i] = uiCreate:CreateUIRelative("button", _ui.cardBg[i], "中心", _ui.cardIcon[i], "中心", 0, 0, cardHeight, cardHeight)
 		_ui.cardBtn[i].index = i
-		_ui.cardBtn[i]:event "进入" (_EnterCard)
-		_ui.cardBtn[i]:event "离开" (_LeaveCard)
-		_ui.cardBtn[i]:event "点击" (_ClickCard)
+		_ui.cardBtn[i]:event "进入" (onCardEnter)
+		_ui.cardBtn[i]:event "离开" (onCardLeave)
+		_ui.cardBtn[i]:event "点击" (onCardClick)
 	end
+
+	-- 替换卡牌UI元素
 	_ui.replaceIcon = uiCreate:CreateUIRelative("image", _ui.background, "底部", _ui.background, "顶部", 0, 80, 60, 60, { isShow = false })
 	_ui.replaceBtn = uiCreate:CreateUIRelative("button", _ui.replaceIcon, "中心", _ui.replaceIcon, "中心", 0, 0, 60, 60)
+
 	_ui.replaceBtn:event("进入")(function(btn)
 		local playerID = common:GetLocalPlayerID()
-		local cardID = _waitCard[playerID]
+		local cardID = waitCard[playerID]
 		if cardID then
 			local icon = excel["卡牌"][cardID].Icon
 			local name = excel["卡牌"][cardID].CardName
@@ -132,45 +149,56 @@ function Card:Init()
 			_ui.highlight:set_show(true)
 		end
 	end)
+
 	_ui.replaceBtn:event("离开")(function()
 		tipDialogUp.panel:set_show(false)
 		_ui.highlight:set_show(false)
 	end)
+
 	_ui.replaceText = uiCreate:CreateUIRelative("text", _ui.replaceIcon, "顶部", _ui.replaceIcon, "底部", 0, -30, 200, 0, { font = font, fontSize = 20, align = "居中" })
 	_ui.replaceText:set_text("点击下方卡牌进行替换")
+
+	-- 选项UI元素
 	_ui.optionBg, _ui.optionBtn, _ui.optionBondName, _ui.optionCardName, _ui.optionTip, _ui.optionIcon = {}, {}, {}, {}, {}, {}
-	local function _EnterOption(btn)
+
+	local function onOptionEnter(btn)
 		local w, h = btn:get_wh()
 		_ui.highlight:set_wh(w, h)
 		_ui.highlight:reset_allpoint()
 		_ui.highlight:set_point("中心", btn, "中心", 0, 0)
 		_ui.highlight:set_show(true)
 	end
-	local function _LeaveOption(btn)
+
+	local function onOptionLeave(btn)
 		_ui.highlight:set_show(false)
 	end
-	local function _ClickOption(btn)
+
+	local function onOptionClick(btn)
 		local playerID = common:GetLocalPlayerID()
 		local index = btn.index
 		_ui.Hide(Card.drawCount[playerID])
 		common:SendSync("SelectCard", index)
 	end
-	_ui.optionPanel          = uiCreate:CreateUIRelative("panel", _ui.panel, "中心", _ui.panel, "中心", 0, 400, 1, 1)
-	local _optionW, _optionH = 204, 356
+
+	_ui.optionPanel                 = uiCreate:CreateUIRelative("panel", _ui.panel, "中心", _ui.panel, "中心", 0, 400, 1, 1)
+	local optionWidth, optionHeight = 204, 356
+
 	for i = 1, 4 do
-		_ui.optionBg[i] = uiCreate:CreateUIRelative("image", _ui.optionPanel, "中心", _ui.optionPanel, "中心", 0, 0, _optionW, _optionH,
+		_ui.optionBg[i] = uiCreate:CreateUIRelative("image", _ui.optionPanel, "中心", _ui.optionPanel, "中心", 0, 0, optionWidth, optionHeight,
 			{ isShow = false, image = [[Survival\UI\SeizeBody\background.tga]] })
-		_ui.optionBtn[i] = uiCreate:CreateUIRelative("button", _ui.optionBg[i], "中心", _ui.optionBg[i], "中心", 0, 0, _optionW, _optionH)
+		_ui.optionBtn[i] = uiCreate:CreateUIRelative("button", _ui.optionBg[i], "中心", _ui.optionBg[i], "中心", 0, 0, optionWidth, optionHeight)
 		_ui.optionBtn[i].index = i
-		_ui.optionBtn[i]:event "进入" (_EnterOption)
-		_ui.optionBtn[i]:event "离开" (_LeaveOption)
-		_ui.optionBtn[i]:event "点击" (_ClickOption)
+		_ui.optionBtn[i]:event "进入" (onOptionEnter)
+		_ui.optionBtn[i]:event "离开" (onOptionLeave)
+		_ui.optionBtn[i]:event "点击" (onOptionClick)
 		_ui.optionCardName[i] = uiCreate:CreateUIRelative("text", _ui.optionBg[i], "顶部", _ui.optionBg[i], "顶部", 0, -10, 200, 0, { font = font, fontSize = 22, align = "居中" })
 		_ui.optionIcon[i] = uiCreate:CreateUIRelative("image", _ui.optionBg[i], "顶部", _ui.optionCardName[i], "底部", 0, -10, 60, 60)
 		_ui.optionBondName[i] = uiCreate:CreateUIRelative("text", _ui.optionBg[i], "顶部", _ui.optionIcon[i], "底部", 0, -10, 180, 0, { font = font, fontSize = 22, align = "居中" })
 		_ui.optionTip[i] = uiCreate:CreateUIRelative("text", _ui.optionBg[i], "顶部", _ui.optionBondName[i], "底部", 0, -20, 160, 0, { font = font, fontSize = 18, align = "左侧" })
 	end
-	local function _EnterFuncBtn(btn)
+
+	-- 功能按钮事件处理
+	local function onFuncBtnEnter(btn)
 		local index = btn.index
 		textTipDown.panel:set_show(true)
 		textTipDown.panel:reset_allpoint()
@@ -184,10 +212,12 @@ function Card:Init()
 		end
 		textTipDown.tips:set_text(tip)
 	end
-	local function _LeaveFuncBtn(btn)
+
+	local function onFuncBtnLeave(btn)
 		textTipDown.panel:set_show(false)
 	end
-	local function _ClickFuncBtn(btn)
+
+	local function onFuncBtnClick(btn)
 		local index = btn.index
 		if index == 1 then
 			_ui.optionPanel:set_show(false)
@@ -197,32 +227,34 @@ function Card:Init()
 		end
 		if index == 3 then
 			_ui.Hide(Card.drawCount[common:GetLocalPlayerID()])
-			-- _ui.optionPanel:set_show(false)
 			common:SendSync("QuitSelectCard")
 		end
 	end
+
+	-- 创建功能按钮
 	_ui.clickHideIcon = uiCreate:CreateUIRelative("image", _ui.optionPanel, "中心", _ui.optionPanel, "中心", -130, -250, 100, 40, { image = [[]] })
 	_ui.clickHideIcon:set_show(false)
 	_ui.clickHideBtn = uiCreate:CreateUIRelative("button", _ui.clickHideIcon, "中心", _ui.clickHideIcon, "中心", 0, 0, 100, 40)
 	_ui.clickHideBtn.index = 1
-	_ui.clickHideBtn:event("进入")(_EnterFuncBtn)
-	_ui.clickHideBtn:event("离开")(_LeaveFuncBtn)
-	_ui.clickHideBtn:event("点击")(_ClickFuncBtn)
+	_ui.clickHideBtn:event("进入")(onFuncBtnEnter)
+	_ui.clickHideBtn:event("离开")(onFuncBtnLeave)
+	_ui.clickHideBtn:event("点击")(onFuncBtnClick)
 
 	_ui.refreshIcon = uiCreate:CreateUIRelative("image", _ui.clickHideIcon, "左侧", _ui.clickHideIcon, "右侧", 30, 0, 100, 40, { image = [[]] })
 	_ui.refreshBtn = uiCreate:CreateUIRelative("button", _ui.refreshIcon, "中心", _ui.refreshIcon, "中心", 0, 0, 100, 40)
 	_ui.refreshBtn.index = 2
-	_ui.refreshBtn:event("进入")(_EnterFuncBtn)
-	_ui.refreshBtn:event("离开")(_LeaveFuncBtn)
-	_ui.refreshBtn:event("点击")(_ClickFuncBtn)
+	_ui.refreshBtn:event("进入")(onFuncBtnEnter)
+	_ui.refreshBtn:event("离开")(onFuncBtnLeave)
+	_ui.refreshBtn:event("点击")(onFuncBtnClick)
 
 	_ui.quitIcon = uiCreate:CreateUIRelative("image", _ui.clickHideIcon, "左侧", _ui.refreshIcon, "右侧", 30, 0, 100, 40, { image = [[]] })
 	_ui.quitBtn = uiCreate:CreateUIRelative("button", _ui.quitIcon, "中心", _ui.quitIcon, "中心", 0, 0, 100, 40)
 	_ui.quitBtn.index = 3
-	_ui.quitBtn:event("进入")(_EnterFuncBtn)
-	_ui.quitBtn:event("离开")(_LeaveFuncBtn)
-	_ui.quitBtn:event("点击")(_ClickFuncBtn)
+	_ui.quitBtn:event("进入")(onFuncBtnEnter)
+	_ui.quitBtn:event("离开")(onFuncBtnLeave)
+	_ui.quitBtn:event("点击")(onFuncBtnClick)
 
+	-- 显示选项面板
 	function _ui.Show(showAmount)
 		_ui.clickHideIcon:set_show(true)
 		for i = 1, #_ui.optionBg do
@@ -249,6 +281,7 @@ function Card:Init()
 		end
 	end
 
+	-- 隐藏选项面板
 	function _ui.Hide(showAmount)
 		_ui.clickHideIcon:set_show(false)
 		for i = 1, showAmount do
@@ -270,65 +303,67 @@ function Card:Init()
 		end
 	end
 
-	local function AddCardsToDrawPool(bondCount, playerID)
+	-- 将指定数量的羁绊添加到抽卡池中
+	local function addCardsToDrawPool(bondCount, playerID)
 		for _ = 1, bondCount, 1 do
-			if #_availableBonds[playerID] <= 0 then
+			if #availableBonds[playerID] <= 0 then
 				break
 			end
-			local randomBond = common:GetRandomInt(1, #_availableBonds[playerID])
-			local bondIndex = _availableBonds[playerID][randomBond]
-			table.remove(_availableBonds[playerID], randomBond)
+			local randomBond = common:GetRandomInt(1, #availableBonds[playerID])
+			local bondIndex = availableBonds[playerID][randomBond]
+			table.remove(availableBonds[playerID], randomBond)
 			for index = 1, excel["羁绊列表"][bondIndex].Count, 1 do
-				table.insert(_drawCards[playerID], excel["羁绊列表"][bondIndex].FirstID + index - 1)
+				table.insert(drawCards[playerID], excel["羁绊列表"][bondIndex].FirstID + index - 1)
 			end
 		end
-		_finalBond[playerID] = {}
+		finalBond[playerID] = {}
 		for i = 1, excel["羁绊列表"][100].Count, 1 do
-			_finalBond[playerID][i] = excel["羁绊列表"][100].FirstID + i - 1
+			finalBond[playerID][i] = excel["羁绊列表"][100].FirstID + i - 1
 		end
 	end
 
-
-	local function InitPlayerBonds()
+	-- 初始化玩家羁绊数据
+	local function initPlayerBonds()
 		for playerID = 1, 4, 1 do
-			_drawCards[playerID] = {}
-			_ownedBonds[playerID] = {}
-			_swallowCards[playerID] = {}
-			_selectedCards[playerID] = {}
-			_currentCards[playerID] = {}
-			_ownedCards[playerID] = {}
-			_currentCards[playerID].count = 0
-			_availableBonds[playerID] = {}
+			drawCards[playerID] = {}
+			ownedBonds[playerID] = {}
+			swallowCards[playerID] = {}
+			selectedCards[playerID] = {}
+			currentCards[playerID] = {}
+			ownedCards[playerID] = {}
+			currentCards[playerID].count = 0
+			availableBonds[playerID] = {}
 			for index, value in ipairs(excel["羁绊列表"]) do
-				_availableBonds[playerID][index] = index
+				availableBonds[playerID][index] = index
 			end
-			AddCardsToDrawPool(2, playerID)
+			addCardsToDrawPool(2, playerID)
 		end
 	end
 
-	local function DrawCard(playerID)
-		local drawCount = Card.drawCount[playerID]
-		_selectedCards[playerID] = {}
-		for count = 1, drawCount do
-			if #_drawCards[playerID] <= 0 then
-				local randomIndex = common:GetRandomInt(1, #_finalBond[playerID])
-				local cardID = _finalBond[playerID][randomIndex]
-				table.insert(_selectedCards[playerID], cardID)
-				table.remove(_finalBond[playerID], randomIndex)
+	-- 抽卡函数
+	local function drawCard(playerID)
+		local drawAmount = Card.drawCount[playerID]
+		selectedCards[playerID] = {}
+		for count = 1, drawAmount do
+			if #drawCards[playerID] <= 0 then
+				local randomIndex = common:GetRandomInt(1, #finalBond[playerID])
+				local cardID = finalBond[playerID][randomIndex]
+				table.insert(selectedCards[playerID], cardID)
+				table.remove(finalBond[playerID], randomIndex)
 			else
-				local randomIndex = common:GetRandomInt(1, #_drawCards[playerID])
-				local cardID = _drawCards[playerID][randomIndex]
-				table.insert(_selectedCards[playerID], cardID)
-				table.remove(_drawCards[playerID], randomIndex)
+				local randomIndex = common:GetRandomInt(1, #drawCards[playerID])
+				local cardID = drawCards[playerID][randomIndex]
+				table.insert(selectedCards[playerID], cardID)
+				table.remove(drawCards[playerID], randomIndex)
 			end
 		end
 		if common:IsLocalPlayer(common.Player[playerID]) then
-			if not _inSelecting[playerID] then
-				_ui.Show(drawCount)
+			if not inSelecting[playerID] then
+				_ui.Show(drawAmount)
 			end
 		end
-		for i = 1, drawCount do
-			local cardID = _selectedCards[playerID][i]
+		for i = 1, drawAmount do
+			local cardID = selectedCards[playerID][i]
 			local cardName = excel["卡牌"][cardID].CardName
 			local bondName = excel["卡牌"][cardID].BondName
 			local icon = excel["卡牌"][cardID].Icon
@@ -340,164 +375,172 @@ function Card:Init()
 		end
 	end
 
-	local function CheckSwallow(playerID, bondID)
+	-- 检查是否吞噬卡牌
+	local function checkSwallow(playerID, bondID)
 		local needCount = excel["羁绊列表"][bondID].NeedCount
-		if _ownedBonds[playerID][bondID] >= needCount then
+		if ownedBonds[playerID][bondID] >= needCount then
 			for i = 1, 10, 1 do
-				if _currentCards[playerID][i] then
-					if bondID == excel["卡牌"][_currentCards[playerID][i]].BondID then
-						table.insert(_swallowCards[playerID], _currentCards[playerID][i])
-						_currentCards[playerID][i] = nil
-						_currentCards[playerID].count = _currentCards[playerID].count - 1
+				if currentCards[playerID][i] then
+					if bondID == excel["卡牌"][currentCards[playerID][i]].BondID then
+						table.insert(swallowCards[playerID], currentCards[playerID][i])
+						currentCards[playerID][i] = nil
+						currentCards[playerID].count = currentCards[playerID].count - 1
 						if common:IsLocalPlayer(common.Player[playerID]) then
 							_ui.cardIcon[i]:set_show(false)
 						end
-						AddCardsToDrawPool(excel["羁绊列表"][bondID].AddBondCount, playerID)
+						addCardsToDrawPool(excel["羁绊列表"][bondID].AddBondCount, playerID)
 					end
 				end
 			end
 		end
 	end
 
+	-- 选择卡牌同步事件
 	common:ReceiveSync("SelectCard")(function(data)
 		local player = common:GetSyncPlayer()
 		local playerID = common:ConvertPlayerToID(player)
-		local cardID = _selectedCards[playerID][data]
-		for index, id in ipairs(_selectedCards[playerID]) do
+		local cardID = selectedCards[playerID][data]
+		for index, id in ipairs(selectedCards[playerID]) do
 			if id <= 20 then
-				table.insert(_finalBond[playerID], id)
+				table.insert(finalBond[playerID], id)
 			elseif cardID ~= id then
-				table.insert(_drawCards[playerID], id)
+				table.insert(drawCards[playerID], id)
 			end
 		end
-		if _currentCards[playerID].count < 10 then
-			_inSelecting[playerID] = false
-			_currentCards[playerID].count = _currentCards[playerID].count + 1
-			_ownedCards[playerID][cardID] = (_ownedCards[playerID][cardID] or 0) + 1
+		if currentCards[playerID].count < 10 then
+			inSelecting[playerID] = false
+			currentCards[playerID].count = currentCards[playerID].count + 1
+			ownedCards[playerID][cardID] = (ownedCards[playerID][cardID] or 0) + 1
 			attrSystem:SetUnitAttrStr(heros[playerID], 0, excel["卡牌"][cardID].Attr)
 			for i = 1, 10 do
-				if not _currentCards[playerID][i] then
-					_currentCards[playerID][i] = cardID
+				if not currentCards[playerID][i] then
+					currentCards[playerID][i] = cardID
 					local icon = excel["卡牌"][cardID].Icon
 					if common:IsLocalPlayer(player) then
 						_ui.cardIcon[i]:set_image(icon)
 						_ui.cardIcon[i]:set_show(true)
 					end
 					local bondID = excel["卡牌"][cardID].BondID
-					_ownedBonds[playerID][bondID] = (_ownedBonds[playerID][bondID] or 0) + 1
-					CheckSwallow(playerID, bondID)
+					ownedBonds[playerID][bondID] = (ownedBonds[playerID][bondID] or 0) + 1
+					checkSwallow(playerID, bondID)
 					break
 				end
 			end
 		else
-			_waitCard[playerID] = cardID
+			waitCard[playerID] = cardID
 			if common:IsLocalPlayer(common.Player[playerID]) then
-				_inReplacing = true
+				inReplacing = true
 				_ui.replaceIcon:set_image(excel["卡牌"][cardID].Icon)
 				_ui.replaceIcon:set_show(true)
 			end
 		end
 
-		_selectedCards[playerID] = {}
+		selectedCards[playerID] = {}
 	end)
+
+	-- 替换卡牌同步事件
 	common:ReceiveSync("ReplaceCard")(function(data)
 		local player = common:GetSyncPlayer()
 		local playerID = common:ConvertPlayerToID(player)
-		local cardID = _currentCards[playerID][data]
+		local cardID = currentCards[playerID][data]
 		if cardID then
 			local bondID = excel["卡牌"][cardID].BondID
-			_ownedBonds[playerID][bondID] = _ownedBonds[playerID][bondID] - 1
-			_ownedCards[playerID][cardID] = _ownedCards[playerID][cardID] - 1
+			ownedBonds[playerID][bondID] = ownedBonds[playerID][bondID] - 1
+			ownedCards[playerID][cardID] = ownedCards[playerID][cardID] - 1
 			attrSystem:SetUnitAttrStr(heros[playerID], 1, excel["卡牌"][cardID].Attr)
 			if cardID <= 20 then
-				table.insert(_finalBond[playerID], cardID)
+				table.insert(finalBond[playerID], cardID)
 			else
-				table.insert(_drawCards[playerID], cardID)
+				table.insert(drawCards[playerID], cardID)
 			end
-			cardID = _waitCard[playerID]
-			_waitCard[playerID] = nil
-			_currentCards[playerID][data] = cardID
+			cardID = waitCard[playerID]
+			waitCard[playerID] = nil
+			currentCards[playerID][data] = cardID
 			local icon = excel["卡牌"][cardID].Icon
 			bondID = excel["卡牌"][cardID].BondID
-			_ownedBonds[playerID][bondID] = (_ownedBonds[playerID][bondID] or 0) + 1
-			_ownedCards[playerID][cardID] = (_ownedCards[playerID][cardID] or 0) + 1
+			ownedBonds[playerID][bondID] = (ownedBonds[playerID][bondID] or 0) + 1
+			ownedCards[playerID][cardID] = (ownedCards[playerID][cardID] or 0) + 1
 			attrSystem:SetUnitAttrStr(heros[playerID], 0, excel["卡牌"][cardID].Attr)
-			CheckSwallow(playerID, bondID)
+			checkSwallow(playerID, bondID)
 			if common:IsLocalPlayer(player) then
-				if _currentCards[playerID][data] then
+				if currentCards[playerID][data] then
 					_ui.cardIcon[data]:set_image(icon)
 				else
-					_LeaveCard(_ui.cardBtn[data])
+					onCardLeave(_ui.cardBtn[data])
 				end
 			end
 		end
-		_inSelecting[playerID] = false
+		inSelecting[playerID] = false
 	end)
 
+	-- 刷新卡牌同步事件
 	common:ReceiveSync("RefreshCard")(function()
 		local player = common:GetSyncPlayer()
 		local playerID = common:ConvertPlayerToID(player)
 		if refreshCardCount[playerID] > 0 then
 			refreshCardCount[playerID] = refreshCardCount[playerID] - 1
 			local tempCards = {}
-			if #_finalBond[playerID] + #_drawCards[playerID] >= Card.drawCount[playerID] then
-				for index, id in ipairs(_selectedCards[playerID]) do
+			if #finalBond[playerID] + #drawCards[playerID] >= Card.drawCount[playerID] then
+				for index, id in ipairs(selectedCards[playerID]) do
 					table.insert(tempCards, id)
 				end
 			else
-				for index, id in ipairs(_selectedCards[playerID]) do
+				for index, id in ipairs(selectedCards[playerID]) do
 					if id <= 20 then
-						table.insert(_finalBond[playerID], id)
+						table.insert(finalBond[playerID], id)
 					else
-						table.insert(_drawCards[playerID], id)
+						table.insert(drawCards[playerID], id)
 					end
 				end
 			end
-			_selectedCards[playerID] = {}
-			DrawCard(playerID)
+			selectedCards[playerID] = {}
+			drawCard(playerID)
 			for index, id in ipairs(tempCards) do
 				if id <= 20 then
-					table.insert(_finalBond[playerID], id)
+					table.insert(finalBond[playerID], id)
 				else
-					table.insert(_drawCards[playerID], id)
+					table.insert(drawCards[playerID], id)
 				end
 			end
 			if common:IsLocalPlayer(common.Player[playerID]) then
-				_EnterFuncBtn(_ui.refreshBtn)
+				onFuncBtnEnter(_ui.refreshBtn)
 			end
 		else
 			code.AddMessage("刷新次数不足", playerID)
 		end
 	end)
 
+	-- 放弃选择卡牌同步事件
 	common:ReceiveSync("QuitSelectCard")(function()
 		local player = common:GetSyncPlayer()
 		local playerID = common:ConvertPlayerToID(player)
-		_inSelecting[playerID] = false
+		inSelecting[playerID] = false
 		refreshCardCount[playerID] = refreshCardCount[playerID] + 1
-		for index, id in ipairs(_selectedCards[playerID]) do
+		for index, id in ipairs(selectedCards[playerID]) do
 			if id <= 20 then
-				table.insert(_finalBond[playerID], id)
+				table.insert(finalBond[playerID], id)
 			else
-				table.insert(_drawCards[playerID], id)
+				table.insert(drawCards[playerID], id)
 			end
 		end
-		_selectedCards[playerID] = {}
+		selectedCards[playerID] = {}
 	end)
 
-	InitPlayerBonds()
+	-- 初始化玩家数据
+	initPlayerBonds()
 
+	-- Z键事件处理（抽卡/显示选项）
 	event:OnKeyBoard("Z", 1, function(playerID)
-		if _inSelecting[playerID] then
+		if inSelecting[playerID] then
 			if common:IsLocalPlayer(common.Player[playerID]) then
 				_ui.optionPanel:set_show(not _ui.optionPanel:is_show())
 			end
 		else
 			if jass.udg_PlayerKills[playerID] >= drawCost[playerID] then
-				jass.udg_PlayerKills[playerID] = jass.udg_PlayerKills[playerID] - drawCost[playerID]
+				jass.udg_PlayerKills[playerID] = jass.udg_PlayerKills[playerID] - drawCost[playerID] * (1 - jass.udg_DrawCardCostReduce[playerID])
 				drawCost[playerID] = drawCost[playerID] + 150
-				DrawCard(playerID)
-				_inSelecting[playerID] = true
+				drawCard(playerID)
+				inSelecting[playerID] = true
 				if common:IsLocalPlayer(common.Player[playerID]) then
 					_ui.drawText:set_text("|cff000000(Z)抽卡 " .. drawCost[playerID])
 				end

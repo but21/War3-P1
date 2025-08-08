@@ -21,13 +21,15 @@ FattrType_03=0,FattrType,3,护甲
 FattrType_04=0,FattrType,4,力量
 FattrType_05=0,FattrType,5,敏捷
 FattrType_06=0,FattrType,6,智力
-FattrType_07=0,FattrType,7,全属性
-FattrType_08=0,FattrType,8,每秒回血
+FattrType_07=0,FattrType,7,全属
+FattrType_08=0,FattrType,8,已丢弃
 FattrType_09=0,FattrType,9,攻击速度%
 FattrType_10=0,FattrType,10,攻击间隔
 FattrType_11=0,FattrType,11,攻击射程
-FattrType_12=0,FattrType,12,多重属性
+FattrType_12=0,FattrType,12,多重数量
 FattrType_13=0,FattrType,13,多重几率%
+FattrType_14=0,FattrType,14,多重伤害系数
+FattrType_15=0,FattrType,15,技能急速%
 
 FattrType_21=0,FattrType,21,杀敌攻击
 FattrType_22=0,FattrType,22,杀敌护甲
@@ -54,6 +56,9 @@ FattrType_63=0,FattrType,63,生命加成%
 FattrType_64=0,FattrType,64,力量加成%
 FattrType_65=0,FattrType,65,敏捷加成%
 FattrType_66=0,FattrType,66,智力加成%
+FattrType_67=0,FattrType,67,金币加成%
+FattrType_68=0,FattrType,68,杀敌加成%
+FattrType_69=0,FattrType,69,木材加成%
 
 FattrType_81=0,FattrType,81,攻击伤害%
 FattrType_82=0,FattrType,82,物理伤害%
@@ -66,6 +71,7 @@ FattrType_88=0,FattrType,88,法术暴率%
 FattrType_89=0,FattrType,89,攻击暴伤%
 FattrType_90=0,FattrType,90,物理暴伤%
 FattrType_91=0,FattrType,91,法术暴伤%
+FattrType_92=0,FattrType,92,真实伤害%
 
 FattrType_101=0,FattrType,101,每秒回血
 FattrType_102=0,FattrType,102,生命恢复%
@@ -80,9 +86,16 @@ FattrType_123=0,FattrType,123,结算攻击伤害%
 FattrType_124=0,FattrType,124,结算物理暴伤%
 FattrType_125=0,FattrType,125,结算法术暴伤%
 FattrType_126=0,FattrType,126,结算攻击暴伤%
+FattrType_127=0,FattrType,127,结算多重伤害%
+FattrType_128=0,FattrType,128,结算真实伤害%
+FattrType_129=0,FattrType,129,结算技能急速%
 
 FattrType_141=0,FattrType,141,面板攻击
 FattrType_142=0,FattrType,142,面板力量
 FattrType_143=0,FattrType,143,面板敏捷
 FattrType_144=0,FattrType,144,面板智力
 FattrType_145=0,FattrType,145,面板每秒回血
+
+FattrType_161=0,FattrType,161,当前力量%
+FattrType_162=0,FattrType,162,当前敏捷%
+FattrType_163=0,FattrType,163,当前智力%

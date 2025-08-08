@@ -32,10 +32,10 @@ ns.anniufunc(1, 120)(function()
 	--同步
 	-- ac.time:clearAll()
 	for name in pairs(package.loaded) do
-		if name:find("调试") then
+		if name:find("debug") then
 			-- print('DEBUG', name)
 			package.loaded[name] = nil
 		end
 	end
-	require '调试'
+	require 'debug'
 end)

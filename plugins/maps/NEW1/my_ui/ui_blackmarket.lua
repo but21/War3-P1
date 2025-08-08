@@ -7,11 +7,12 @@ local newUI = Module.UICreate
 local myFunc = Module.MyFunc
 local font = "fonts\\LXWK_Bold.ttf"
 local players = jass.udg_Player
-local excel = Module.Excel 
+local excel = Module.Excel
 local tipDialogUp = Module.UITipDialog.tipDialogUp
 local bmLv = jass.udg_BlackMarketLv
 local bmSalesAmount = jass.udg_BlackMarketSalesAmount
 local common = Module.Common
+local math = math
 
 local BlackMarket = {}
 local blackMarket = {}
@@ -20,9 +21,11 @@ BlackMarket.ui = blackMarket
 -- [playerID][shopID] = buyCount
 -- [playerID][shopLv][index] = id
 
+
+-- 如何根据权重抽取商品
 -- 每个玩家当前黑市等级对应的商品品质概率
 local qualityPro = {}
-local qualityProID = 11
+local qualityProID = 4
 for playerID = 1, 4 do
 	qualityPro[playerID] = {}
 	qualityPro[playerID] = { excel["概率"][qualityProID]["概率1"], excel["概率"][qualityProID]["概率2"], excel["概率"][qualityProID]["概率3"], excel["概率"][qualityProID]["概率4"] }
@@ -77,6 +80,111 @@ end)
 blackMarket.btn:event "点击" (function()
 	common:SendSync("SelectBlackMarket", 0)
 end)
+
+local WeightedItemPicker = {}
+WeightedItemPicker.__index = WeightedItemPicker
+
+-- 构造函数
+function WeightedItemPicker.new(items)
+	local self = setmetatable({}, WeightedItemPicker)
+
+	-- [优化] 预先分配可重用的表，避免在draw函数中重复创建
+	self.tempPool = {}
+	self.pickedItems = {}
+
+	-- 1. 重置购买计数
+	self.purchaseCounts = {}
+
+	-- 2. 重置上次抽中的ID记录
+	self.lastPickedIds = {}
+
+	-- 3. 从原始备份中恢复所有商品
+	self.allItems = {}
+	for _, item in ipairs(excel["黑市"]) do
+		-- 深拷贝，以防原始数据被意外修改
+		local newItem = {
+			id = item.ID,
+			weight = item.Weight,
+		}
+		table.insert(self.allItems, newItem)
+	end
+
+	return self
+end
+
+-- 核心抽取/展示函数 (已优化)
+function WeightedItemPicker:draw(n)
+	-- [优化] 从 self 中获取可重用的表，并清空它们
+	local tempPool = self.tempPool
+	local pickedItems = self.pickedItems
+	myFunc:ClearTable(tempPool)
+	myFunc:ClearTable(pickedItems)
+
+	-- 1. 确定源商品池
+	local sourcePool
+
+	-- 2. 应用“刷新不重复”逻辑
+	-- 从当前可用的 allItems 中，过滤掉上一轮展示过的
+	if myFunc:GetTableLength(self.lastPickedIds) > 0 then
+		for _, item in ipairs(self.allItems) do
+			if not self.lastPickedIds[item.id] then
+				table.insert(tempPool, item)
+			end
+		end
+		-- 如果过滤后的池子足够大，就用它；否则放宽限制，用全部可用的商品
+		if #tempPool >= n then
+			sourcePool = tempPool
+		else
+			sourcePool = self.allItems
+		end
+	else
+		sourcePool = self.allItems
+	end
+
+	local finalItemCount = math.min(n, #sourcePool)
+
+	-- 3. 使用 A-Res 算法进行带权随机抽样
+	for _, item in ipairs(sourcePool) do
+		local key = common:GetRandomReal(0, 1) ^ (1 / item.weight)
+		table.insert(pickedItems, { id = item.id, key = key })
+	end
+
+	table.sort(pickedItems, function(a, b) return a.key > b.key end)
+
+	-- 4. 准备最终结果，并更新“上一次展示”的记录
+	local finalPickedIds = {}
+	myFunc:ClearTable(self.lastPickedIds)
+
+	for i = 1, finalItemCount do
+		local pickedId = pickedItems[i].id
+		table.insert(finalPickedIds, pickedId)
+		self.lastPickedIds[pickedId] = true
+	end
+	return finalPickedIds
+end
+
+-- 记录购买行为 (已优化，包含移除逻辑)
+function WeightedItemPicker:recordPurchase(itemId)
+	-- 更新购买计数
+	local newCount = (self.purchaseCounts[itemId] or 0) + 1
+	self.purchaseCounts[itemId] = newCount
+
+	print(string.format("商品 '%s' 已被购买, 当前购买次数: %d", tostring(itemId), newCount))
+
+	-- [核心优化] 如果达到购买上限，则从 allItems 中彻底移除该商品
+	local limit = excel["黑市"][itemId].Limit
+	if limit and newCount >= limit then
+		print(string.format("商品 '%s' 已达到购买上限，将从奖池中移除。", tostring(itemId)))
+		-- 从后往前遍历以安全地移除元素
+		for i = #self.allItems, 1, -1 do
+			if self.allItems[i].id == itemId then
+				table.remove(self.allItems, i)
+				-- 无需再操作 itemMap，因为下次重置时会重建
+				break -- 找到并移除后即可退出循环
+			end
+		end
+	end
+end
 
 
 -- 设置黑市商品id
@@ -163,6 +271,7 @@ function code.ReduceAttrAfterTime(hero, attrStr, time)
 		code.ReduceUnitAttrStr(hero, attrStr)
 	end)
 end
+
 
 -- 黑市持续时间
 local duration = 60

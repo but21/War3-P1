@@ -1,4 +1,4 @@
 Parse successful:     2418 lines: F:\KKWE\plugin\jasshelper\common.j
 Parse successful:    10230 lines: F:\KKWE\plugin\jasshelper\blizzard.j
-Parse successful:    13199 lines: logs\currentmapscript.j
-Parse successful:    25847 lines: <total>
+Parse successful:     9653 lines: logs\currentmapscript.j
+Parse successful:    22301 lines: <total>

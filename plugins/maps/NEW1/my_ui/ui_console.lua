@@ -58,7 +58,7 @@ local function ConsoleInit()
 		local text = "※攻击力: " .. string.format("%.0f", attrSystem:GetObjAttrFromStr(u, "面板攻击")) .. "|n"
 		text = text .. "※攻击速度: " .. string.format("%.0f", attrSystem:GetObjAttrFromStr(u, "攻击速度%")) .. "%|n"
 		text = text .. "※攻击间隔: " .. string.format("%.2f", attrSystem:GetObjAttrFromStr(u, "攻击间隔")) .. " (最低为0.25)|n"
-		text = text .. "※攻击距离: " .. string.format("%.0f", attrSystem:GetObjAttrFromStr(u, "攻击距离")) .. "|n|n"
+		text = text .. "※攻击距离: " .. string.format("%.0f", attrSystem:GetObjAttrFromStr(u, "攻击射程")) .. "|n|n"
 		local armor = japi.GetUnitState(u, jass.ConvertUnitState(0x20)) + 0
 		text = text .. "※防御: " .. string.format("%.0f", armor) .. "|n(受到伤害减少" .. string.format("%.2f", (armor / (100 + armor)) * 100) .. "%)|n|n"
 		text = text .. "※移速: " .. string.format("%.0f", tostring(common:GetUnitState(u, "移动速度")))
@@ -94,7 +94,7 @@ local function ConsoleInit()
 		local text = "※攻击力: " .. string.format("%.0f", attrSystem:GetObjAttrFromStr(u, "面板攻击")) .. "|n"
 		text = text .. "※攻击速度: " .. string.format("%.0f", attrSystem:GetObjAttrFromStr(u, "攻击速度%")) .. "%|n"
 		text = text .. "※攻击间隔: " .. string.format("%.2f", attrSystem:GetObjAttrFromStr(u, "攻击间隔")) .. " (最低为0.25)|n"
-		text = text .. "※攻击距离: " .. string.format("%.0f", attrSystem:GetObjAttrFromStr(u, "攻击距离")) .. "|n|n"
+		text = text .. "※攻击距离: " .. string.format("%.0f", attrSystem:GetObjAttrFromStr(u, "攻击射程")) .. "|n|n"
 		local armor = japi.GetUnitState(u, jass.ConvertUnitState(0x20)) + 0
 		text = text .. "※防御: " .. string.format("%.0f", armor) .. "|n(受到伤害减少" .. string.format("%.2f", (armor / (100 + armor)) * 100) .. "%)|n|n"
 		-- text = text .. "※移速: " .. string.format("%.0f", attrSystem:GetObjAttrFromStr(u, "移动速度"))

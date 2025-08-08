@@ -48,6 +48,7 @@ end
 local UIModule = require "my_ui.ui_module_manager"
 UIModule.BossComing:Init()
 
+-- UIModule.SeizeBody:Init()
 UIModule.Card:Init()
 UIModule.Swallow:Init()
 
