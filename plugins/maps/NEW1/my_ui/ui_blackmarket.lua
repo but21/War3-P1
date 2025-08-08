@@ -3,107 +3,35 @@ local jass = require "jass.common"
 local japi = require "jass.japi"
 
 local Module = require "my_base.base_module_manager"
-local newUI = Module.UICreate
 local myFunc = Module.MyFunc
 local font = "fonts\\LXWK_Bold.ttf"
 local players = jass.udg_Player
 local excel = Module.Excel
-local tipDialogUp = Module.UITipDialog.tipDialogUp
-local bmLv = jass.udg_BlackMarketLv
 local bmSalesAmount = jass.udg_BlackMarketSalesAmount
 local common = Module.Common
 local math = math
+local table = table
 
 local BlackMarket = {}
-local blackMarket = {}
-BlackMarket.ui = blackMarket
+local ui = {}
+BlackMarket.ui = ui
 
--- [playerID][shopID] = buyCount
--- [playerID][shopLv][index] = id
-
-
--- 如何根据权重抽取商品
--- 每个玩家当前黑市等级对应的商品品质概率
-local qualityPro = {}
-local qualityProID = 4
-for playerID = 1, 4 do
-	qualityPro[playerID] = {}
-	qualityPro[playerID] = { excel["概率"][qualityProID]["概率1"], excel["概率"][qualityProID]["概率2"], excel["概率"][qualityProID]["概率3"], excel["概率"][qualityProID]["概率4"] }
-end
--- 当前黑市商品id
-local currentSalesID = {}
--- 每个玩家对应商品id的购买次数
-local buyCount = {}
--- 每个玩家对应的不同等级的黑市可以刷出的商品id
-local commodityID = {}
-for playerID, _ in ipairs(players) do
-	buyCount[playerID] = {}
-	currentSalesID[playerID] = {}
-	commodityID[playerID] = {}
-	commodityID[playerID][1] = {}
-	commodityID[playerID][2] = {}
-	commodityID[playerID][3] = {}
-	commodityID[playerID][4] = {}
-	for shopID = 1, #excel["黑市"] do
-		local commodityLv = excel["黑市"][shopID]["Quality"]
-		local length = #commodityID[playerID][commodityLv] + 1
-		commodityID[playerID][commodityLv][length] = shopID
-	end
-end
-
-
-blackMarket.panel = newUI:CreateUIAbsolute("panel", gameui, "中心", 1620, 305, 1, 1)
-local size = 65
-blackMarket.background = newUI:CreateUIRelative("image", blackMarket.panel, "中心", blackMarket.panel, "中心", 0, 0, size * 2, size, { image = [[Survival\UI\BlackMarket\icon.tga]] })
-blackMarket.cdShadow = newUI:CreateUIRelative("image", blackMarket.background, "中心", blackMarket.background, "中心", 0, 0, size * 2, size,
-	{ alpha = 0.5, image = [[UI\Widgets\ToolTips\Human\human-tooltip-background.blp]] })
-blackMarket.showTime = newUI:CreateUIRelative("text", blackMarket.cdShadow, "中心", blackMarket.cdShadow, "中心", 0, 0, 100, 0, { font = font, fontSize = 25, align = "居中" })
-blackMarket.leaveTime = newUI:CreateUIRelative("text", blackMarket.background, "底部", blackMarket.background, "顶部", 0, 5, 200, 0, { isShow = false, font = font, fontSize = 20, align = "居中" })
-blackMarket.btn = newUI:CreateUIRelative("button", blackMarket.background, "中心", blackMarket.background, "中心", 0, 0, size * 2, size)
-blackMarket.btn:event "进入" (function()
-	local playerID = common:GetLocalPlayerID()
-	tipDialogUp.icon:set_image(blackMarket.background.image)
-	tipDialogUp.name:set_text("黑市")
-	tipDialogUp.intro:set_text("|cff00ffff类别 - 说明")
-	local tip = "当前黑市等级：" .. bmLv[playerID] .. " (上限10级)"
-	tip = tip .. "|n当前黑市出售数量：" .. bmSalesAmount[playerID]
-	tip = tip .. "|n|n黑市每隔一定时间出现一次，并刷新其中的商品，一段时间后黑市会隐藏。|n|n黑市等级越高，黑市中刷出更稀有商品的概率越高。|n|n击杀Boss会提升1级黑市等级，黑市每提升2级，出售数量+1。"
-	tip = myFunc:SetNumColor(tip, "|cfaffff00", "|r")
-	tipDialogUp.tips:set_text(tip)
-	tipDialogUp.panel:reset_allpoint()
-	tipDialogUp.panel:set_point("中心", blackMarket.btn, "右上", -10, 15)
-	tipDialogUp.panel:set_show(true)
-end)
-blackMarket.btn:event "离开" (function()
-	tipDialogUp.panel:set_show(false)
-end)
-blackMarket.btn:event "点击" (function()
-	common:SendSync("SelectBlackMarket", 0)
-end)
-
+---@class WeightedItemPicker
 local WeightedItemPicker = {}
 WeightedItemPicker.__index = WeightedItemPicker
 
--- 构造函数
-function WeightedItemPicker.new(items)
+function WeightedItemPicker.new()
+	---@class WeightedItemPicker
 	local self = setmetatable({}, WeightedItemPicker)
 
-	-- [优化] 预先分配可重用的表，避免在draw函数中重复创建
 	self.tempPool = {}
 	self.pickedItems = {}
-
-	-- 1. 重置购买计数
 	self.purchaseCounts = {}
-
-	-- 2. 重置上次抽中的ID记录
 	self.lastPickedIds = {}
-
-	-- 3. 从原始备份中恢复所有商品
 	self.allItems = {}
-	for _, item in ipairs(excel["黑市"]) do
-		-- 深拷贝，以防原始数据被意外修改
+	for id, item in ipairs(excel["黑市"]) do
 		local newItem = {
-			id = item.ID,
+			id = id,
 			weight = item.Weight,
 		}
 		table.insert(self.allItems, newItem)
@@ -112,26 +40,20 @@ function WeightedItemPicker.new(items)
 	return self
 end
 
--- 核心抽取/展示函数 (已优化)
 function WeightedItemPicker:draw(n)
-	-- [优化] 从 self 中获取可重用的表，并清空它们
 	local tempPool = self.tempPool
 	local pickedItems = self.pickedItems
 	myFunc:ClearTable(tempPool)
 	myFunc:ClearTable(pickedItems)
 
-	-- 1. 确定源商品池
 	local sourcePool
 
-	-- 2. 应用“刷新不重复”逻辑
-	-- 从当前可用的 allItems 中，过滤掉上一轮展示过的
 	if myFunc:GetTableLength(self.lastPickedIds) > 0 then
 		for _, item in ipairs(self.allItems) do
 			if not self.lastPickedIds[item.id] then
 				table.insert(tempPool, item)
 			end
 		end
-		-- 如果过滤后的池子足够大，就用它；否则放宽限制，用全部可用的商品
 		if #tempPool >= n then
 			sourcePool = tempPool
 		else
@@ -143,7 +65,6 @@ function WeightedItemPicker:draw(n)
 
 	local finalItemCount = math.min(n, #sourcePool)
 
-	-- 3. 使用 A-Res 算法进行带权随机抽样
 	for _, item in ipairs(sourcePool) do
 		local key = common:GetRandomReal(0, 1) ^ (1 / item.weight)
 		table.insert(pickedItems, { id = item.id, key = key })
@@ -151,7 +72,6 @@ function WeightedItemPicker:draw(n)
 
 	table.sort(pickedItems, function(a, b) return a.key > b.key end)
 
-	-- 4. 准备最终结果，并更新“上一次展示”的记录
 	local finalPickedIds = {}
 	myFunc:ClearTable(self.lastPickedIds)
 
@@ -163,70 +83,39 @@ function WeightedItemPicker:draw(n)
 	return finalPickedIds
 end
 
--- 记录购买行为 (已优化，包含移除逻辑)
 function WeightedItemPicker:recordPurchase(itemId)
-	-- 更新购买计数
 	local newCount = (self.purchaseCounts[itemId] or 0) + 1
 	self.purchaseCounts[itemId] = newCount
 
 	print(string.format("商品 '%s' 已被购买, 当前购买次数: %d", tostring(itemId), newCount))
 
-	-- [核心优化] 如果达到购买上限，则从 allItems 中彻底移除该商品
 	local limit = excel["黑市"][itemId].Limit
 	if limit and newCount >= limit then
 		print(string.format("商品 '%s' 已达到购买上限，将从奖池中移除。", tostring(itemId)))
-		-- 从后往前遍历以安全地移除元素
 		for i = #self.allItems, 1, -1 do
 			if self.allItems[i].id == itemId then
 				table.remove(self.allItems, i)
-				-- 无需再操作 itemMap，因为下次重置时会重建
-				break -- 找到并移除后即可退出循环
+				break
 			end
 		end
 	end
 end
 
+-- 当前黑市商品id
+local currentSalesID = {}
+---@type table<number, WeightedItemPicker>
+local weightedPicker = {}
+for playerID, _ in ipairs(players) do
+	currentSalesID[playerID] = {}
+	weightedPicker[playerID] = WeightedItemPicker.new()
+end
 
 -- 设置黑市商品id
 function BlackMarket:SetBMSalesID(playerID)
-	-- 根据黑市等级, 设置概率
-	qualityProID = bmLv[playerID] + 10
-	qualityPro[playerID] = { excel["概率"][qualityProID]["概率1"], excel["概率"][qualityProID]["概率2"], excel["概率"][qualityProID]["概率3"], excel["概率"][qualityProID]["概率4"] }
-	currentSalesID[playerID] = {}
-	local salesAmount = bmSalesAmount[playerID]
-	local ownedSalesID = {}
-	for _ = 1, salesAmount do
-		local randomInt = common:GetRandomInt(1, 100)
-		local quality = 1
-		for i = 1, 4 do
-			if randomInt <= qualityPro[playerID][i] then
-				quality = i
-				break
-			end
-		end
-		-- 某个品质的商品数量不足的问题, 判断对应品质的商品数量是否大于0, <=0则随机品质
-		-- 如果该品质商品已全部在本次黑市中出现, 则品质向后挪(挪3次), 直到找到未出现的商品, 否则则不去重
-		local condition = true
-		local loopCount = 0
-		local ranID = commodityID[playerID][quality][common:GetRandomInt(1, #commodityID[playerID][quality])]
-		if not ownedSalesID[ranID] then
-			ownedSalesID[ranID] = true
-			condition = false
-		end
-		while condition do
-			loopCount = loopCount + 1
-			ranID = commodityID[playerID][quality][common:GetRandomInt(1, #commodityID[playerID][quality])]
-			if not ownedSalesID[ranID] then
-				ownedSalesID[ranID] = true
-				condition = false
-			end
-			if loopCount >= 10 then
-				condition = false
-				print("玩家黑市商品数量不足", quality, playerID)
-			end
-		end
-		table.insert(currentSalesID[playerID], ranID)
+	if bmSalesAmount[playerID] > 8 then
+		bmSalesAmount[playerID] = 8
 	end
+	currentSalesID[playerID] = weightedPicker[playerID]:draw(bmSalesAmount[playerID])
 end
 
 -- 获取黑市商品id
@@ -236,110 +125,25 @@ end
 
 -- 设置黑市商品提示框
 function code.SetBMSalesTip(playerID, salesID)
-	local tip = "消耗：金币|cfaffff00" .. excel["黑市"][salesID]["初始消耗"] .. "|r"
-	tip = tip .. "|n|n获得：" .. excel["黑市"][salesID]["Tip"]
-	tip = tip .. "|n|n购买次数：(" .. (buyCount[playerID][salesID] or 0) .. "/" .. excel["黑市"][salesID]["兑换上限"] .. ")"
+	local tip = "消耗：杀敌 " .. excel["黑市"][salesID]["初始消耗"] + excel["黑市"][salesID]["递增消耗"] * (weightedPicker[playerID].purchaseCounts[salesID] or 0)
+	tip = tip .. "|n|n效果：" .. excel["黑市"][salesID]["Tip"]
+	tip = tip .. "|n|n购买次数：(" .. (weightedPicker[playerID].purchaseCounts[salesID] or 0) .. "/" .. excel["黑市"][salesID]["Limit"] .. ")"
 	return tip
-end
-
--- 玩家黑市等级提升
-function code.BMLvUp(playerID)
-	-- 获取最新等级, 重新设置概率	
-	qualityProID = bmLv[playerID] + 10
-	qualityPro[playerID] = { excel["概率"][qualityProID]["概率1"], excel["概率"][qualityProID]["概率2"], excel["概率"][qualityProID]["概率3"], excel["概率"][qualityProID]["概率4"] }
 end
 
 -- 获取某种商品的购买次数
 function code.GetBMSalesBuyCount(playerID, salesID)
-	return buyCount[playerID][salesID] or 0
+	return weightedPicker[playerID].purchaseCounts[salesID] or 0
 end
 
 -- 购买某种商品
 function code.BuyBMSales(playerID, salesID)
-	buyCount[playerID][salesID] = (buyCount[playerID][salesID] or 0) + 1
-	local maxBuyCount = excel["黑市"][salesID]["兑换上限"]
-	if buyCount[playerID][salesID] >= maxBuyCount then
-		local lv = excel["黑市"][salesID]["Quality"]
-		local index = myFunc:BinarySearch(commodityID[playerID][lv], salesID)
-		table.remove(commodityID[playerID][lv], index)
-	end
+	weightedPicker[playerID]:recordPurchase(salesID)
 end
 
--- 一段时间后减少单位属性
-function code.ReduceAttrAfterTime(hero, attrStr, time)
-	ac.time(time, 1, function()
-		code.ReduceUnitAttrStr(hero, attrStr)
-	end)
+function code.SetBMSales(playerID)
+	BlackMarket:SetBMSalesID(playerID)
+	common:RunTrigger(jass.gg_trg_SetBMSales)
 end
-
-
--- 黑市持续时间
-local duration = 60
--- 黑市刷新时间
-local refershTime = 120
--- 黑市计时器
-local timer = 0
--- 是刷新计时还是持续计时
-local ty = 1
-ac.time(1, function()
-	if jass.udg_IsGameStart then
-		timer = timer + 1
-		if ty == 1 then
-			if timer == refershTime then
-				ty = 2
-				for i = 1, 4 do
-					if jass.udg_Hero[i] then
-						BlackMarket:SetBMSalesID(i)
-						-- 显示黑市
-						common:SetUnitShow(jass.udg_BlackMarket[i], true)
-						local nameEffect = myFunc:GetCustomValue(jass.udg_BlackMarket[i], "特效", "nameEffect")
-						common:SetEffectShow(nameEffect, true)
-						code.AddMessage(i, "黑市已刷新!!!")
-					end
-				end
-				common:RunTrigger(jass.gg_trg_SetBMSales)
-				timer = 0
-				blackMarket.cdShadow:set_show(false)
-				blackMarket.leaveTime:set_text("|cff00ffff" .. duration - timer .. "秒后离开")
-				blackMarket.leaveTime:set_show(true)
-			else
-				blackMarket.showTime:set_text(refershTime - timer)
-			end
-			if refershTime - timer == 30 then
-				for i = 1, 4 do
-					if jass.udg_Hero[i] then
-						code.AddMessage(i, "黑市将在30秒后刷新!!!")
-					end
-				end
-			end
-		else
-			if timer == duration then
-				ty = 1
-				for i = 1, 4 do
-					if jass.udg_Hero[i] then
-						-- 隐藏黑市
-						common:SetUnitShow(jass.udg_BlackMarket[i], false)
-						code.AddMessage(i, "黑市已暂时关闭!!!")
-						local nameEffect = myFunc:GetCustomValue(jass.udg_BlackMarket[i], "特效", "nameEffect")
-						common:SetEffectShow(nameEffect, false)
-					end
-				end
-				timer = 0
-				blackMarket.leaveTime:set_show(false)
-				blackMarket.cdShadow:set_show(true)
-				blackMarket.showTime:set_text(refershTime - timer)
-			else
-				blackMarket.leaveTime:set_text("|cff00ffff" .. duration - timer .. "秒后离开")
-			end
-			if duration - timer == 30 then
-				for i = 1, 4 do
-					if jass.udg_Hero[i] then
-						code.AddMessage(i, "黑市将在30秒后关闭!!!")
-					end
-				end
-			end
-		end
-	end
-end)
 
 return BlackMarket

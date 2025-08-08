@@ -13,7 +13,7 @@ local textTipDown      = Module.UITipDialog.tipOnlyTextDown
 local heros            = jass.udg_Hero
 local tipDialogUp      = Module.UITipDialog.tipDialogUp
 
-local refreshCardCount = { 12, 0, 0, 0 }
+local refreshCardCount = jass.udg_CardRefreshAmount
 local drawCost         = { 150, 150, 150, 150 }
 
 local Card             = {}
@@ -22,25 +22,22 @@ local _ui              = {}
 
 Card.ui                = _ui
 
--- 卡牌系统初始化
 function Card:Init()
-	-- 初始化卡牌相关数据结构
 	Card.drawCount       = { 3, 3, 3, 3 }
-	local drawCards      = {}                          -- 可抽取的卡牌池
-	local availableBonds = {}                          -- 可用的羁绊列表
-	local ownedBonds     = {}                          -- 玩家拥有的羁绊
+	local drawCards      = {}
+	local availableBonds = {}
+	local ownedBonds     = {}
 	Card.ownedBonds      = ownedBonds
-	local swallowCards   = {}                          -- 可吞噬的卡牌
+	local swallowCards   = {}
 	Card.swallowCards    = swallowCards
-	local waitCard       = {}                          -- 等待替换的卡牌
-	local ownedCards     = {}                          -- 玩家拥有的卡牌
-	local currentCards   = {}                          -- 当前场上的卡牌
-	local selectedCards  = {}                          -- 已选中的卡牌
-	local finalBond      = {}                          -- 最终羁绊卡池
-	local inSelecting    = { false, false, false, false } -- 是否正在选择卡牌
-	local inReplacing    = false                       -- 是否正在替换卡牌
+	local waitCard       = {}
+	local ownedCards     = {}
+	local currentCards   = {}
+	local selectedCards  = {}
+	local finalBond      = {}
+	local inSelecting    = { false, false, false, false }
+	local inReplacing    = false
 
-	-- 创建UI元素
 	_ui.panel            = uiCreate:CreateUIAbsolute("panel", gameui, "中心", 950, 300, 1, 1)
 	_ui.highlight        = uiCreate:CreateUIRelative("image", _ui.panel, "中心", _ui.panel, "中心", 0, 0, 1, 1, { isShow = false, image = [[Survival\UI\highlight.tga]] })
 	_ui.highlight:set_level(2)
@@ -55,7 +52,6 @@ function Card:Init()
 	_ui.drawText:set_text("|cff000000(Z)抽卡 150")
 	_ui.drawBtn = uiCreate:CreateUIRelative("button", _ui.drawIcon, "中心", _ui.drawIcon, "中心", 0, 0, 30, 30)
 
-	-- 卡牌悬浮事件处理
 	local function onCardEnter(btn)
 		local playerID = common:GetLocalPlayerID()
 		local cardID = currentCards[playerID][btn.index]
@@ -79,13 +75,11 @@ function Card:Init()
 		end
 	end
 
-	-- 卡牌离开事件处理
 	local function onCardLeave(btn)
 		tipDialogUp.panel:set_show(false)
 		_ui.highlight:set_show(false)
 	end
 
-	-- 卡牌点击事件处理
 	local function onCardClick(btn)
 		if inReplacing then
 			inReplacing = false
@@ -106,7 +100,6 @@ function Card:Init()
 		end
 	end
 
-	-- 创建卡牌UI元素
 	_ui.cardBg = {}
 	_ui.cardIcon = {}
 	_ui.cardBtn = {}
@@ -122,7 +115,6 @@ function Card:Init()
 		_ui.cardBtn[i]:event "点击" (onCardClick)
 	end
 
-	-- 替换卡牌UI元素
 	_ui.replaceIcon = uiCreate:CreateUIRelative("image", _ui.background, "底部", _ui.background, "顶部", 0, 80, 60, 60, { isShow = false })
 	_ui.replaceBtn = uiCreate:CreateUIRelative("button", _ui.replaceIcon, "中心", _ui.replaceIcon, "中心", 0, 0, 60, 60)
 
@@ -158,7 +150,6 @@ function Card:Init()
 	_ui.replaceText = uiCreate:CreateUIRelative("text", _ui.replaceIcon, "顶部", _ui.replaceIcon, "底部", 0, -30, 200, 0, { font = font, fontSize = 20, align = "居中" })
 	_ui.replaceText:set_text("点击下方卡牌进行替换")
 
-	-- 选项UI元素
 	_ui.optionBg, _ui.optionBtn, _ui.optionBondName, _ui.optionCardName, _ui.optionTip, _ui.optionIcon = {}, {}, {}, {}, {}, {}
 
 	local function onOptionEnter(btn)
@@ -197,7 +188,6 @@ function Card:Init()
 		_ui.optionTip[i] = uiCreate:CreateUIRelative("text", _ui.optionBg[i], "顶部", _ui.optionBondName[i], "底部", 0, -20, 160, 0, { font = font, fontSize = 18, align = "左侧" })
 	end
 
-	-- 功能按钮事件处理
 	local function onFuncBtnEnter(btn)
 		local index = btn.index
 		textTipDown.panel:set_show(true)
@@ -231,7 +221,6 @@ function Card:Init()
 		end
 	end
 
-	-- 创建功能按钮
 	_ui.clickHideIcon = uiCreate:CreateUIRelative("image", _ui.optionPanel, "中心", _ui.optionPanel, "中心", -130, -250, 100, 40, { image = [[]] })
 	_ui.clickHideIcon:set_show(false)
 	_ui.clickHideBtn = uiCreate:CreateUIRelative("button", _ui.clickHideIcon, "中心", _ui.clickHideIcon, "中心", 0, 0, 100, 40)
@@ -254,7 +243,6 @@ function Card:Init()
 	_ui.quitBtn:event("离开")(onFuncBtnLeave)
 	_ui.quitBtn:event("点击")(onFuncBtnClick)
 
-	-- 显示选项面板
 	function _ui.Show(showAmount)
 		_ui.clickHideIcon:set_show(true)
 		for i = 1, #_ui.optionBg do
@@ -281,7 +269,6 @@ function Card:Init()
 		end
 	end
 
-	-- 隐藏选项面板
 	function _ui.Hide(showAmount)
 		_ui.clickHideIcon:set_show(false)
 		for i = 1, showAmount do
@@ -303,7 +290,6 @@ function Card:Init()
 		end
 	end
 
-	-- 将指定数量的羁绊添加到抽卡池中
 	local function addCardsToDrawPool(bondCount, playerID)
 		for _ = 1, bondCount, 1 do
 			if #availableBonds[playerID] <= 0 then
@@ -322,7 +308,6 @@ function Card:Init()
 		end
 	end
 
-	-- 初始化玩家羁绊数据
 	local function initPlayerBonds()
 		for playerID = 1, 4, 1 do
 			drawCards[playerID] = {}
@@ -340,21 +325,56 @@ function Card:Init()
 		end
 	end
 
-	-- 抽卡函数
+	local function getWeightedRandomCard(cardPool)
+		if not cardPool or #cardPool == 0 then
+			return nil, nil
+		end
+
+		local totalWeight = 0
+		local integerWeights = {}
+		for i, cardID in ipairs(cardPool) do
+			local weight = excel["卡牌"][cardID].Weight
+			integerWeights[i] = weight
+			totalWeight = totalWeight + weight
+		end
+
+		if totalWeight <= 0 then
+			local randomIndex = common:GetRandomInt(1, #cardPool)
+			return cardPool[randomIndex], randomIndex
+		end
+
+		local randomNumber = common:GetRandomInt(1, totalWeight)
+
+		local cumulativeWeight = 0
+		for i, cardID in ipairs(cardPool) do
+			cumulativeWeight = cumulativeWeight + integerWeights[i]
+			if randomNumber <= cumulativeWeight then
+				return cardID, i
+			end
+		end
+
+		return cardPool[#cardPool], #cardPool
+	end
+
 	local function drawCard(playerID)
 		local drawAmount = Card.drawCount[playerID]
 		selectedCards[playerID] = {}
 		for count = 1, drawAmount do
-			if #drawCards[playerID] <= 0 then
-				local randomIndex = common:GetRandomInt(1, #finalBond[playerID])
-				local cardID = finalBond[playerID][randomIndex]
-				table.insert(selectedCards[playerID], cardID)
-				table.remove(finalBond[playerID], randomIndex)
+			local cardID, randomIndex
+			if #drawCards[playerID] > 0 then
+				cardID, randomIndex = getWeightedRandomCard(drawCards[playerID])
+				if cardID then
+					table.insert(selectedCards[playerID], cardID)
+					table.remove(drawCards[playerID], randomIndex)
+				end
+			elseif #finalBond[playerID] > 0 then
+				cardID, randomIndex = getWeightedRandomCard(finalBond[playerID])
+				if cardID then
+					table.insert(selectedCards[playerID], cardID)
+					table.remove(finalBond[playerID], randomIndex)
+				end
 			else
-				local randomIndex = common:GetRandomInt(1, #drawCards[playerID])
-				local cardID = drawCards[playerID][randomIndex]
-				table.insert(selectedCards[playerID], cardID)
-				table.remove(drawCards[playerID], randomIndex)
+				break
 			end
 		end
 		if common:IsLocalPlayer(common.Player[playerID]) then
@@ -375,7 +395,6 @@ function Card:Init()
 		end
 	end
 
-	-- 检查是否吞噬卡牌
 	local function checkSwallow(playerID, bondID)
 		local needCount = excel["羁绊列表"][bondID].NeedCount
 		if ownedBonds[playerID][bondID] >= needCount then
@@ -395,7 +414,6 @@ function Card:Init()
 		end
 	end
 
-	-- 选择卡牌同步事件
 	common:ReceiveSync("SelectCard")(function(data)
 		local player = common:GetSyncPlayer()
 		local playerID = common:ConvertPlayerToID(player)
@@ -438,7 +456,6 @@ function Card:Init()
 		selectedCards[playerID] = {}
 	end)
 
-	-- 替换卡牌同步事件
 	common:ReceiveSync("ReplaceCard")(function(data)
 		local player = common:GetSyncPlayer()
 		local playerID = common:ConvertPlayerToID(player)
@@ -473,7 +490,6 @@ function Card:Init()
 		inSelecting[playerID] = false
 	end)
 
-	-- 刷新卡牌同步事件
 	common:ReceiveSync("RefreshCard")(function()
 		local player = common:GetSyncPlayer()
 		local playerID = common:ConvertPlayerToID(player)
@@ -510,7 +526,6 @@ function Card:Init()
 		end
 	end)
 
-	-- 放弃选择卡牌同步事件
 	common:ReceiveSync("QuitSelectCard")(function()
 		local player = common:GetSyncPlayer()
 		local playerID = common:ConvertPlayerToID(player)
@@ -526,10 +541,8 @@ function Card:Init()
 		selectedCards[playerID] = {}
 	end)
 
-	-- 初始化玩家数据
 	initPlayerBonds()
 
-	-- Z键事件处理（抽卡/显示选项）
 	event:OnKeyBoard("Z", 1, function(playerID)
 		if inSelecting[playerID] then
 			if common:IsLocalPlayer(common.Player[playerID]) then

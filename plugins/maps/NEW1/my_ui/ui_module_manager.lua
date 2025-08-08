@@ -12,7 +12,7 @@ UIModule.AttrPanel = require "my_ui.ui_attr_panel"
 
 
 
--- UIModule.BlackMarket = require "my_ui.ui_blackmarket"
+UIModule.BlackMarket = require "my_ui.ui_blackmarket"
 
 
 UIModule.GameInformation = require "my_ui.ui_game_information"
