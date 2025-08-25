@@ -37,8 +37,10 @@ function Swallow:Init()
 		local playerID = common:GetLocalPlayerID()
 		local tip = "[当前羁绊]|n|n"
 		for bondID, count in pairs(cardModule.ownedBonds[playerID]) do
-			local bondName = excel:GetData("羁绊列表", bondID, "BondName")
-			tip = tip .. bondName .. "：" .. count .. "|n"
+			if count > 0 then
+				local bondName = excel:GetData("羁绊列表", bondID, "BondName")
+				tip = tip .. bondName .. "：" .. count .. "|n"
+			end
 		end
 		textTipUp.panel:reset_allpoint()
 		textTipUp.panel:set_show(true)
@@ -194,7 +196,19 @@ function Swallow:Init()
 			icon = excel:GetData("卡牌", id, "Icon")
 			name = excel:GetData("卡牌", id, "CardName")
 			intro = excel:GetData("卡牌", id, "BondName")
-			tips = excel:GetData("卡牌", id, "Tip")
+			tips = ""
+			if excel:GetData("卡牌", id, "Attr") then
+				tips = tips .. excel:GetData("卡牌", id, "Attr") .. "|n|n"
+			end
+			if excel:GetData("卡牌", id, "CardEffect") then
+				tips = tips .. excel:GetData("卡牌", id, "CardEffect") .. "|n|n"
+			end
+			if excel:GetData("卡牌", id, "SwallowEffect") then
+				tips = tips .. "集齐羁绊效果：|n" .. excel:GetData("卡牌", id, "SwallowEffect") .. "|n|n"
+			end
+			if excel:GetData("卡牌", id, "SwallowCondition") then
+				tips = tips .. "吞噬条件：|n" .. excel:GetData("卡牌", id, "SwallowCondition")
+			end
 			intro = "羁绊: " .. intro
 		end
 		if ty == "英雄" then

@@ -197,7 +197,7 @@ local function DrawHero(playerID)
 	for count = 1, drawAmount do
 		local randomIndex = common:GetRandomInt(1, #_drawPool[playerID])
 		local id = _drawPool[playerID][randomIndex]
-		table.insert(_optionsID[playerID], id)
+		-- table.insert(_optionsID[playerID], id)
 		table.remove(_drawPool[playerID], randomIndex)
 		_optionsID[playerID][count] = id
 		local modelData = modelDatas[id]

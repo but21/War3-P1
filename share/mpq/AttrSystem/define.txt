@@ -30,6 +30,7 @@ FattrType_12=0,FattrType,12,多重数量
 FattrType_13=0,FattrType,13,多重几率%
 FattrType_14=0,FattrType,14,多重伤害系数
 FattrType_15=0,FattrType,15,技能急速%
+FattrType_16=0,FattrType,16,魔法值
 
 FattrType_21=0,FattrType,21,杀敌攻击
 FattrType_22=0,FattrType,22,杀敌护甲
@@ -74,7 +75,7 @@ FattrType_91=0,FattrType,91,法术暴伤%
 FattrType_92=0,FattrType,92,真实伤害%
 
 FattrType_101=0,FattrType,101,每秒回血
-FattrType_102=0,FattrType,102,生命恢复%
+FattrType_102=0,FattrType,102,每秒百分比回血%
 FattrType_103=0,FattrType,103,攻击吸血%
 FattrType_104=0,FattrType,104,技能吸血%
 FattrType_105=0,FattrType,105,伤害减免%
@@ -99,3 +100,8 @@ FattrType_145=0,FattrType,145,面板每秒回血
 FattrType_161=0,FattrType,161,当前力量%
 FattrType_162=0,FattrType,162,当前敏捷%
 FattrType_163=0,FattrType,163,当前智力%
+FattrType_164=0,FattrType,164,当前物理伤害%
+FattrType_165=0,FattrType,165,当前法术伤害%
+FattrType_166=0,FattrType,166,当前攻击伤害%
+FattrType_167=0,FattrType,167,当前金币%
+FattrType_168=0,FattrType,168,当前杀敌%

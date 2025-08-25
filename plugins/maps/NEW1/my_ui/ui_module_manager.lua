@@ -26,6 +26,8 @@ UIModule.ResultFeedback:Init()
 UIModule.SeizeBody = require "my_ui.ui_seize_body"
 UIModule.Card = require "my_ui.ui_card"
 UIModule.Swallow = require "my_ui.ui_swallow"
+UIModule.Challenge = require "my_ui.ui_challenge"
+UIModule.Treasure= require "my_ui.ui_treasure"
 
 
 UIModule.BossComing = require "my_ui.ui_boss_coming"

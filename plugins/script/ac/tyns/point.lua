@@ -144,7 +144,7 @@ function ns.point:set_father(point)
 end
 
 --获取父节点
-function ns.point:get_father()
+function ns.point:get_parent()
     return self.baba
 end
 

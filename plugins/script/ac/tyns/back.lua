@@ -3,6 +3,7 @@ local code = require "jass.code"
 local jass = require "jass.common"
 
 ns.back = {}
+local player = ns.player
 
 --回调指定目标
 function get_back(obj)

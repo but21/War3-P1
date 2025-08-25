@@ -518,7 +518,7 @@ end
 
 ---获取自定义值
 ---@param object integer 被获取自定义值的对象: 单位 / 特效 / 触发器 / 物品
----@param type string 自定义值类型 - 单位, 整数, 实数, 真值, 特效, 字符串
+---@param type "整数"|"单位"|"实数"|"真值"|"特效"|"字符串"
 ---@param name string 自定义值名称
 ---@return any
 function manager:GetCustomValue(object, type, name)
@@ -545,7 +545,7 @@ end
 
 ---设置自定义值
 ---@param object integer 被设置自定义值的对象: 单位 / 特效 / 触发器 / 物品
----@param type string 自定义值类型: 单位, 整数, 实数, 字符串
+---@param type "整数"|"单位"|"实数"|"字符串"
 ---@param name string 自定义值名称
 ---@param value any 设置的值
 function manager:SetCustomValue(object, type, name, value)
@@ -591,26 +591,6 @@ function manager:Int2ID(val)
 		val = math.floor(val / 256)
 	end
 	return v
-end
-
----移除表中指定元素值和指定值相等的元素
----@param t table
----@param index any
----@param var string|number
----@return boolean
-function manager:removeValue(t, index, var)
-	local n = #t
-	for i = 1, n do
-		if t[i][var] == index then
-			-- 将后面的元素依次前移
-			for j = i, n - 1 do
-				t[j] = t[j + 1]
-			end
-			t[n] = nil -- 移除最后一个元素
-			return true -- 移除成功
-		end
-	end
-	return false -- 没有找到目标值
 end
 
 ---获取字符串中的指定索引的字符串
@@ -729,6 +709,21 @@ function manager:GetTableLength(t)
 		length = length + 1
 	end
 	return length
+end
+
+---快速移除线性表中元素(不保留顺序)
+---@param t table
+---@param index integer
+---@return table|nil
+function manager:TableRemove(t, index)
+	local size = #t
+	if index < 1 or index > size then
+		return print("错误: 索引超出范围", index, size)
+	end
+	local temp = t[index]
+	t[index] = t[size]
+	t[size] = nil
+	return temp
 end
 
 return manager

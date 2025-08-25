@@ -3,7 +3,7 @@ local japi        = require "jass.japi"
 local ns          = ns
 ns.player         = {}
 ns.player.__index = ns.player
-player            = ns.player
+local player            = ns.player
 
 --所有玩家(1-12)
 player.allhave    = {}
@@ -140,3 +140,5 @@ end
 function ns.player:get_playerid()
     return japi.KKApiPlayerGUID(self.handle)
 end
+
+return player

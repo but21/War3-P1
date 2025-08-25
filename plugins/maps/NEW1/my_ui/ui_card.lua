@@ -9,37 +9,166 @@ local excel            = require "ac.tyns.excel"
 local font             = "fonts\\LXWK_Bold.ttf"
 local attrSystem       = Module.AttrSystem
 local textTipDown      = Module.UITipDialog.tipOnlyTextDown
-
-local heros            = jass.udg_Hero
+local ac               = ac
 local tipDialogUp      = Module.UITipDialog.tipDialogUp
 
+local heros            = jass.udg_Hero
 local refreshCardCount = jass.udg_CardRefreshAmount
-local drawCost         = { 150, 150, 150, 150 }
+local playerGold       = jass.udg_PlayerGold
+local playerKills      = jass.udg_PlayerKills
 
-local Card             = {}
 
-local _ui              = {}
 
-Card.ui                = _ui
+local drawCost                   = { 150, 150, 150, 150 }
 
-function Card:Init()
-	Card.drawCount       = { 3, 3, 3, 3 }
-	local drawCards      = {}
-	local availableBonds = {}
-	local ownedBonds     = {}
-	Card.ownedBonds      = ownedBonds
-	local swallowCards   = {}
-	Card.swallowCards    = swallowCards
-	local waitCard       = {}
-	local ownedCards     = {}
-	local currentCards   = {}
-	local selectedCards  = {}
-	local finalBond      = {}
-	local inSelecting    = { false, false, false, false }
-	local inReplacing    = false
+local Card                       = {}
 
-	_ui.panel            = uiCreate:CreateUIAbsolute("panel", gameui, "中心", 950, 300, 1, 1)
-	_ui.highlight        = uiCreate:CreateUIRelative("image", _ui.panel, "中心", _ui.panel, "中心", 0, 0, 1, 1, { isShow = false, image = [[Survival\UI\highlight.tga]] })
+local _ui                        = {}
+
+Card.ui                          = _ui
+
+Card.drawCount                   = { 3, 3, 3, 3 }
+local drawCards                  = {}
+local availableBonds             = {}
+
+local ownedBonds                 = {}
+local specialBonds               = {}
+Card.ownedBonds                  = ownedBonds
+local ownedBondsTy               = {}
+local swallowCards               = {}
+Card.swallowCards                = swallowCards
+local cardsSwallowConditionCount = {}
+local waitCard                   = {}
+local ownedCards                 = {}
+local currentCardsID             = {}
+local currentCards               = {}
+local selectedCards              = {}
+local finalBond                  = {}
+local specialBondData            = {}
+local inSelecting                = { false, false, false, false }
+local inReplacing                = false
+
+local function SetCardTip(cardID)
+	local icon = excel["卡牌"][cardID].Icon
+	local name = excel["卡牌"][cardID].CardName
+	local bondName = excel["卡牌"][cardID].BondName
+	local tips = ""
+	if excel["卡牌"][cardID].Attr then
+		tips = tips .. excel["卡牌"][cardID].Attr .. "|n|n"
+	end
+	if excel["卡牌"][cardID].CardEffect then
+		tips = tips .. excel["卡牌"][cardID].CardEffect .. "|n|n"
+	end
+	if excel["卡牌"][cardID].SwallowEffect then
+		tips = tips .. "集齐羁绊效果：|n" .. excel["卡牌"][cardID].SwallowEffect .. "|n|n"
+	end
+	tips = "|cffB4C4E2" .. myFunc:SetNumColor(tips, "|cffC9E750", "|cffB4C4E2")
+	if excel["卡牌"][cardID].SwallowCondition then
+		tips = tips .. "|cff696E6E吞噬条件：|n" .. excel["卡牌"][cardID].SwallowCondition
+	end
+	tipDialogUp.icon:set_image(icon)
+	tipDialogUp.name:set_text("|cff73FFFE" .. name)
+	tipDialogUp.tips:set_text(tips)
+	tipDialogUp.intro:set_text("|cff696E6E羁绊: " .. bondName)
+end
+
+local function onCardEnter(btn)
+	local playerID = common:GetLocalPlayerID()
+	local cardID = currentCards[playerID][btn.index]
+	if cardID then
+		SetCardTip(cardID)
+		tipDialogUp.panel:reset_allpoint()
+		tipDialogUp.panel:set_point("中心", btn, "左上", 412, 20)
+		tipDialogUp.panel:set_show(true)
+		local w, h = btn:get_wh()
+		_ui.highlight:set_wh(w, h)
+		_ui.highlight:reset_allpoint()
+		_ui.highlight:set_point("中心", btn, "中心", 0, 0)
+		_ui.highlight:set_show(true)
+	end
+end
+
+local function onCardLeave(btn)
+	tipDialogUp.panel:set_show(false)
+	_ui.highlight:set_show(false)
+end
+
+local function onCardClick(btn)
+	if inReplacing then
+		inReplacing = false
+		_ui.replaceIcon:set_show(false)
+		local playerID = common:GetLocalPlayerID()
+		local cardID = waitCard[playerID]
+		if cardID then
+			SetCardTip(cardID)
+			tipDialogUp.panel:reset_allpoint()
+			tipDialogUp.panel:set_point("中心", btn, "左上", 412, 20)
+			tipDialogUp.panel:set_show(true)
+			local w, h = btn:get_wh()
+			_ui.highlight:set_wh(w, h)
+			_ui.highlight:reset_allpoint()
+			_ui.highlight:set_point("中心", btn, "中心", 0, 0)
+			_ui.highlight:set_show(true)
+		end
+		_ui.cardCountBg[btn.index]:set_show(false)
+		common:SendSync("ReplaceCard", btn.index)
+	end
+end
+local function onOptionEnter(btn)
+	local w, h = btn:get_wh()
+	_ui.highlight:set_wh(w, h)
+	_ui.highlight:reset_allpoint()
+	_ui.highlight:set_point("中心", btn, "中心", 0, 0)
+	_ui.highlight:set_show(true)
+end
+
+local function onOptionLeave(btn)
+	_ui.highlight:set_show(false)
+end
+
+local function onOptionClick(btn)
+	local playerID = common:GetLocalPlayerID()
+	local index = btn.index
+	_ui.Hide(Card.drawCount[playerID])
+	common:SendSync("SelectCard", index)
+end
+
+local function onFuncBtnEnter(btn)
+	local index = btn.index
+	textTipDown.panel:set_show(true)
+	textTipDown.panel:reset_allpoint()
+	textTipDown.panel:set_point("中心", btn, "右上", 16, -11)
+	local tip = "点击收起(Z键可快捷关闭/显示)"
+	if index == 2 then
+		tip = "点击刷新,剩余刷新次数:" .. refreshCardCount[common:GetLocalPlayerID()]
+	end
+	if index == 3 then
+		tip = "点击放弃,获得1次刷新次数"
+	end
+	textTipDown.tips:set_text(tip)
+end
+
+local function onFuncBtnLeave(btn)
+	textTipDown.panel:set_show(false)
+end
+
+local function onFuncBtnClick(btn)
+	local index = btn.index
+	if index == 1 then
+		_ui.optionPanel:set_show(false)
+	end
+	if index == 2 then
+		common:SendSync("RefreshCard")
+	end
+	if index == 3 then
+		_ui.Hide(Card.drawCount[common:GetLocalPlayerID()])
+		common:SendSync("QuitSelectCard")
+	end
+end
+
+local function UIInit()
+	_ui.panel     = uiCreate:CreateUIAbsolute("panel", gameui, "中心", 960, 300, 1, 1)
+	_ui.highlight = uiCreate:CreateUIRelative("image", _ui.panel, "中心", _ui.panel, "中心", 0, 0, 1, 1, { isShow = false, image = [[Survival\UI\highlight.tga]] })
 	_ui.highlight:set_level(2)
 
 	local cardHeight      = 60
@@ -52,63 +181,20 @@ function Card:Init()
 	_ui.drawText:set_text("|cff000000(Z)抽卡 150")
 	_ui.drawBtn = uiCreate:CreateUIRelative("button", _ui.drawIcon, "中心", _ui.drawIcon, "中心", 0, 0, 30, 30)
 
-	local function onCardEnter(btn)
-		local playerID = common:GetLocalPlayerID()
-		local cardID = currentCards[playerID][btn.index]
-		if cardID then
-			local icon = excel["卡牌"][cardID].Icon
-			local name = excel["卡牌"][cardID].CardName
-			local bondName = excel["卡牌"][cardID].BondName
-			local tips = excel["卡牌"][cardID].Tip
-			tipDialogUp.icon:set_image(icon)
-			tipDialogUp.name:set_text(name)
-			tipDialogUp.tips:set_text(tips)
-			tipDialogUp.intro:set_text("羁绊: " .. bondName)
-			tipDialogUp.panel:reset_allpoint()
-			tipDialogUp.panel:set_point("中心", btn, "左上", 412, 20)
-			tipDialogUp.panel:set_show(true)
-			local w, h = btn:get_wh()
-			_ui.highlight:set_wh(w, h)
-			_ui.highlight:reset_allpoint()
-			_ui.highlight:set_point("中心", btn, "中心", 0, 0)
-			_ui.highlight:set_show(true)
-		end
-	end
-
-	local function onCardLeave(btn)
-		tipDialogUp.panel:set_show(false)
-		_ui.highlight:set_show(false)
-	end
-
-	local function onCardClick(btn)
-		if inReplacing then
-			inReplacing = false
-			_ui.replaceIcon:set_show(false)
-			local playerID = common:GetLocalPlayerID()
-			local cardID = waitCard[playerID]
-			if cardID then
-				local icon = excel["卡牌"][cardID].Icon
-				local name = excel["卡牌"][cardID].CardName
-				local bondName = excel["卡牌"][cardID].BondName
-				local tips = excel["卡牌"][cardID].Tip
-				tipDialogUp.icon:set_image(icon)
-				tipDialogUp.name:set_text(name)
-				tipDialogUp.tips:set_text(tips)
-				tipDialogUp.intro:set_text("羁绊: " .. bondName)
-			end
-			common:SendSync("ReplaceCard", btn.index)
-		end
-	end
 
 	_ui.cardBg = {}
 	_ui.cardIcon = {}
 	_ui.cardBtn = {}
+	_ui.cardCountBg = {}
+	_ui.cardCount = {}
 	for i = 1, 10 do
-		_ui.cardBg[i] = uiCreate:CreateUIRelative("image", _ui.background, "中心", _ui.background, "左侧",
-			cardHeight / 2 + (cardHeight + 2) * (i - 1), 0, cardHeight, cardHeight,
+		_ui.cardBg[i]        = uiCreate:CreateUIRelative("image", _ui.background, "中心", _ui.background, "左侧", cardHeight / 2 + (cardHeight + 2) * (i - 1), 0, cardHeight, cardHeight,
 			{ image = [[UI\Widgets\ToolTips\Human\human-tooltip-background.blp]] })
-		_ui.cardIcon[i] = uiCreate:CreateUIRelative("image", _ui.cardBg[i], "中心", _ui.cardBg[i], "中心", 0, 0, cardHeight, cardHeight, { image = [[]], isShow = false })
-		_ui.cardBtn[i] = uiCreate:CreateUIRelative("button", _ui.cardBg[i], "中心", _ui.cardIcon[i], "中心", 0, 0, cardHeight, cardHeight)
+		_ui.cardIcon[i]      = uiCreate:CreateUIRelative("image", _ui.cardBg[i], "中心", _ui.cardBg[i], "中心", 0, 0, cardHeight, cardHeight, { image = [[]], isShow = false })
+		_ui.cardBtn[i]       = uiCreate:CreateUIRelative("button", _ui.cardBg[i], "中心", _ui.cardIcon[i], "中心", 0, 0, cardHeight, cardHeight)
+		_ui.cardCountBg[i]   = uiCreate:CreateUIRelative("image", _ui.cardIcon[i], "右下", _ui.cardIcon[i], "右下", 0, 0, 30, 15,
+			{ image = [[UI\Widgets\ToolTips\Human\human-tooltip-background.blp]], alpha = 0.7, isShow = false })
+		_ui.cardCount[i]     = uiCreate:CreateUIRelative("text", _ui.cardCountBg[i], "右下", _ui.cardCountBg[i], "右下", 0, 0, 30, 0, { font = font, fontSize = 15, align = "居中" })
 		_ui.cardBtn[i].index = i
 		_ui.cardBtn[i]:event "进入" (onCardEnter)
 		_ui.cardBtn[i]:event "离开" (onCardLeave)
@@ -122,15 +208,7 @@ function Card:Init()
 		local playerID = common:GetLocalPlayerID()
 		local cardID = waitCard[playerID]
 		if cardID then
-			local icon = excel["卡牌"][cardID].Icon
-			local name = excel["卡牌"][cardID].CardName
-			local bondName = excel["卡牌"][cardID].BondName
-			local tips = excel["卡牌"][cardID].Tip
-			tipDialogUp.icon:set_image(icon)
-			tipDialogUp.icon:set_show(true)
-			tipDialogUp.name:set_text(name)
-			tipDialogUp.tips:set_text(tips)
-			tipDialogUp.intro:set_text("羁绊: " .. bondName)
+			SetCardTip(cardID)
 			tipDialogUp.panel:reset_allpoint()
 			tipDialogUp.panel:set_point("中心", btn, "左上", 412, 20)
 			tipDialogUp.panel:set_show(true)
@@ -151,28 +229,8 @@ function Card:Init()
 	_ui.replaceText:set_text("点击下方卡牌进行替换")
 
 	_ui.optionBg, _ui.optionBtn, _ui.optionBondName, _ui.optionCardName, _ui.optionTip, _ui.optionIcon = {}, {}, {}, {}, {}, {}
-
-	local function onOptionEnter(btn)
-		local w, h = btn:get_wh()
-		_ui.highlight:set_wh(w, h)
-		_ui.highlight:reset_allpoint()
-		_ui.highlight:set_point("中心", btn, "中心", 0, 0)
-		_ui.highlight:set_show(true)
-	end
-
-	local function onOptionLeave(btn)
-		_ui.highlight:set_show(false)
-	end
-
-	local function onOptionClick(btn)
-		local playerID = common:GetLocalPlayerID()
-		local index = btn.index
-		_ui.Hide(Card.drawCount[playerID])
-		common:SendSync("SelectCard", index)
-	end
-
-	_ui.optionPanel                 = uiCreate:CreateUIRelative("panel", _ui.panel, "中心", _ui.panel, "中心", 0, 400, 1, 1)
-	local optionWidth, optionHeight = 204, 356
+	_ui.optionPanel                                                                                    = uiCreate:CreateUIRelative("panel", _ui.panel, "中心", _ui.panel, "中心", 0, 400, 1, 1)
+	local optionWidth, optionHeight                                                                    = 204, 356
 
 	for i = 1, 4 do
 		_ui.optionBg[i] = uiCreate:CreateUIRelative("image", _ui.optionPanel, "中心", _ui.optionPanel, "中心", 0, 0, optionWidth, optionHeight,
@@ -188,38 +246,6 @@ function Card:Init()
 		_ui.optionTip[i] = uiCreate:CreateUIRelative("text", _ui.optionBg[i], "顶部", _ui.optionBondName[i], "底部", 0, -20, 160, 0, { font = font, fontSize = 18, align = "左侧" })
 	end
 
-	local function onFuncBtnEnter(btn)
-		local index = btn.index
-		textTipDown.panel:set_show(true)
-		textTipDown.panel:reset_allpoint()
-		textTipDown.panel:set_point("中心", btn, "右上", 16, -11)
-		local tip = "点击收起(Z键可快捷关闭/显示)"
-		if index == 2 then
-			tip = "点击刷新,剩余刷新次数:" .. refreshCardCount[common:GetLocalPlayerID()]
-		end
-		if index == 3 then
-			tip = "点击放弃,获得1次刷新次数"
-		end
-		textTipDown.tips:set_text(tip)
-	end
-
-	local function onFuncBtnLeave(btn)
-		textTipDown.panel:set_show(false)
-	end
-
-	local function onFuncBtnClick(btn)
-		local index = btn.index
-		if index == 1 then
-			_ui.optionPanel:set_show(false)
-		end
-		if index == 2 then
-			common:SendSync("RefreshCard")
-		end
-		if index == 3 then
-			_ui.Hide(Card.drawCount[common:GetLocalPlayerID()])
-			common:SendSync("QuitSelectCard")
-		end
-	end
 
 	_ui.clickHideIcon = uiCreate:CreateUIRelative("image", _ui.optionPanel, "中心", _ui.optionPanel, "中心", -130, -250, 100, 40, { image = [[]] })
 	_ui.clickHideIcon:set_show(false)
@@ -289,277 +315,804 @@ function Card:Init()
 			})
 		end
 	end
+end
 
-	local function addCardsToDrawPool(bondCount, playerID)
-		for _ = 1, bondCount, 1 do
-			if #availableBonds[playerID] <= 0 then
-				break
+local function addCardsToDrawPool(playerID, ty)
+	if #availableBonds[playerID] > 0 then
+		if ty and ty < 4 and ownedBondsTy[playerID][ty] > 0 and ownedBondsTy[playerID][ty] % 3 == 0 then
+			local bondTable = {}
+			for index, bondID in ipairs(specialBonds[playerID]) do
+				if excel["羁绊列表"][bondID].AttrTy == ty then
+					table.insert(bondTable, index)
+				end
 			end
-			local randomBond = common:GetRandomInt(1, #availableBonds[playerID])
-			local bondIndex = availableBonds[playerID][randomBond]
-			table.remove(availableBonds[playerID], randomBond)
-			for index = 1, excel["羁绊列表"][bondIndex].Count, 1 do
-				table.insert(drawCards[playerID], excel["羁绊列表"][bondIndex].FirstID + index - 1)
+			if #bondTable >= 1 then
+				local bondIndex = common:GetRandomInt(1, #bondTable)
+				local bondID = myFunc:TableRemove(specialBonds[playerID], bondIndex)
+				print(bondID)
+				for index = 1, excel["羁绊列表"][bondID].InitAmount, 1 do
+					table.insert(drawCards[playerID], excel["羁绊列表"][bondID].FirstID + index - 1)
+				end
 			end
 		end
+		local randomBond = common:GetRandomInt(1, #availableBonds[playerID])
+		local bondIndex = availableBonds[playerID][randomBond]
+		myFunc:TableRemove(availableBonds[playerID], randomBond)
+		for index = 1, excel["羁绊列表"][bondIndex].InitAmount, 1 do
+			table.insert(drawCards[playerID], excel["羁绊列表"][bondIndex].FirstID + index - 1)
+		end
+	end
+end
+
+local function initPlayerBonds()
+	for playerID = 1, 4, 1 do
+		drawCards[playerID] = {}
+		specialBondData[playerID] = {}
+		ownedBonds[playerID] = {}
+		ownedBondsTy[playerID] = { 0, 0, 0, 0 }
+		swallowCards[playerID] = {}
+		cardsSwallowConditionCount[playerID] = {}
+		selectedCards[playerID] = {}
+		ownedCards[playerID] = {}
+		currentCardsID[playerID] = {}
+		currentCards[playerID] = {}
+		currentCards[playerID].count = 0
+		availableBonds[playerID] = {}
 		finalBond[playerID] = {}
-		for i = 1, excel["羁绊列表"][100].Count, 1 do
+		specialBonds[playerID] = {}
+		for index, value in ipairs(excel["羁绊列表"]) do
+			availableBonds[playerID][index] = index
+		end
+		for i = 1, excel["羁绊列表"][100].InitAmount, 1 do
 			finalBond[playerID][i] = excel["羁绊列表"][100].FirstID + i - 1
 		end
-	end
-
-	local function initPlayerBonds()
-		for playerID = 1, 4, 1 do
-			drawCards[playerID] = {}
-			ownedBonds[playerID] = {}
-			swallowCards[playerID] = {}
-			selectedCards[playerID] = {}
-			currentCards[playerID] = {}
-			ownedCards[playerID] = {}
-			currentCards[playerID].count = 0
-			availableBonds[playerID] = {}
-			for index, value in ipairs(excel["羁绊列表"]) do
-				availableBonds[playerID][index] = index
-			end
-			addCardsToDrawPool(2, playerID)
-		end
-	end
-
-	local function getWeightedRandomCard(cardPool)
-		if not cardPool or #cardPool == 0 then
-			return nil, nil
-		end
-
-		local totalWeight = 0
-		local integerWeights = {}
-		for i, cardID in ipairs(cardPool) do
-			local weight = excel["卡牌"][cardID].Weight
-			integerWeights[i] = weight
-			totalWeight = totalWeight + weight
-		end
-
-		if totalWeight <= 0 then
-			local randomIndex = common:GetRandomInt(1, #cardPool)
-			return cardPool[randomIndex], randomIndex
-		end
-
-		local randomNumber = common:GetRandomInt(1, totalWeight)
-
-		local cumulativeWeight = 0
-		for i, cardID in ipairs(cardPool) do
-			cumulativeWeight = cumulativeWeight + integerWeights[i]
-			if randomNumber <= cumulativeWeight then
-				return cardID, i
-			end
-		end
-
-		return cardPool[#cardPool], #cardPool
-	end
-
-	local function drawCard(playerID)
-		local drawAmount = Card.drawCount[playerID]
-		selectedCards[playerID] = {}
-		for count = 1, drawAmount do
-			local cardID, randomIndex
-			if #drawCards[playerID] > 0 then
-				cardID, randomIndex = getWeightedRandomCard(drawCards[playerID])
-				if cardID then
-					table.insert(selectedCards[playerID], cardID)
-					table.remove(drawCards[playerID], randomIndex)
-				end
-			elseif #finalBond[playerID] > 0 then
-				cardID, randomIndex = getWeightedRandomCard(finalBond[playerID])
-				if cardID then
-					table.insert(selectedCards[playerID], cardID)
-					table.remove(finalBond[playerID], randomIndex)
-				end
+		for i = 1, 6 do
+			if excel["羁绊列表"][100 + i] then
+				specialBonds[playerID][i] = 100 + 1
 			else
 				break
 			end
 		end
-		if common:IsLocalPlayer(common.Player[playerID]) then
-			if not inSelecting[playerID] then
-				_ui.Show(drawAmount)
-			end
+		local bondIndex = {}
+		bondIndex[1] = common:GetRandomInt(1, 7)
+		bondIndex[2] = common:GetRandomInt(8, 14)
+		bondIndex[3] = common:GetRandomInt(15, 21)
+		bondIndex[4] = common:GetRandomInt(22, 33)
+		bondIndex[5] = common:GetRandomInt(22, 33)
+		while bondIndex[4] == bondIndex[5] do
+			bondIndex[5] = common:GetRandomInt(22, 33)
 		end
-		for i = 1, drawAmount do
-			local cardID = selectedCards[playerID][i]
-			local cardName = excel["卡牌"][cardID].CardName
-			local bondName = excel["卡牌"][cardID].BondName
-			local icon = excel["卡牌"][cardID].Icon
-			local tip = excel["卡牌"][cardID].Tip
-			_ui.optionBondName[i]:set_text("羁绊:" .. bondName)
-			_ui.optionCardName[i]:set_text(cardName)
-			_ui.optionIcon[i]:set_image(icon)
-			_ui.optionTip[i]:set_text(tip)
+		if bondIndex[5] < bondIndex[4] then
+			bondIndex[4], bondIndex[5] = bondIndex[5], bondIndex[4]
 		end
-	end
-
-	local function checkSwallow(playerID, bondID)
-		local needCount = excel["羁绊列表"][bondID].NeedCount
-		if ownedBonds[playerID][bondID] >= needCount then
-			for i = 1, 10, 1 do
-				if currentCards[playerID][i] then
-					if bondID == excel["卡牌"][currentCards[playerID][i]].BondID then
-						table.insert(swallowCards[playerID], currentCards[playerID][i])
-						currentCards[playerID][i] = nil
-						currentCards[playerID].count = currentCards[playerID].count - 1
-						if common:IsLocalPlayer(common.Player[playerID]) then
-							_ui.cardIcon[i]:set_show(false)
-						end
-						addCardsToDrawPool(excel["羁绊列表"][bondID].AddBondCount, playerID)
-					end
-				end
+		-- bondIndex[5] = 106
+		for i = 5, 1, -1 do
+			myFunc:TableRemove(availableBonds[playerID], bondIndex[i])
+			for index = 1, excel["羁绊列表"][bondIndex[i]].InitAmount, 1 do
+				table.insert(drawCards[playerID], excel["羁绊列表"][bondIndex[i]].FirstID + index - 1)
 			end
 		end
 	end
+end
 
-	common:ReceiveSync("SelectCard")(function(data)
-		local player = common:GetSyncPlayer()
-		local playerID = common:ConvertPlayerToID(player)
-		local cardID = selectedCards[playerID][data]
-		for index, id in ipairs(selectedCards[playerID]) do
-			if id <= 20 then
-				table.insert(finalBond[playerID], id)
-			elseif cardID ~= id then
-				table.insert(drawCards[playerID], id)
-			end
+local function drawCard(playerID)
+	local drawAmount = Card.drawCount[playerID]
+	myFunc:ClearTable(selectedCards[playerID])
+	for count = 1, drawAmount do
+		if #drawCards[playerID] <= 0 then
+			local randomIndex = common:GetRandomInt(1, #finalBond[playerID])
+			local cardID = finalBond[playerID][randomIndex]
+			table.insert(selectedCards[playerID], cardID)
+			myFunc:TableRemove(finalBond[playerID], randomIndex)
+		else
+			local randomIndex = common:GetRandomInt(1, #drawCards[playerID])
+			local cardID = drawCards[playerID][randomIndex]
+			table.insert(selectedCards[playerID], cardID)
+			myFunc:TableRemove(drawCards[playerID], randomIndex)
 		end
-		if currentCards[playerID].count < 10 then
-			inSelecting[playerID] = false
-			currentCards[playerID].count = currentCards[playerID].count + 1
-			ownedCards[playerID][cardID] = (ownedCards[playerID][cardID] or 0) + 1
-			attrSystem:SetUnitAttrStr(heros[playerID], 0, excel["卡牌"][cardID].Attr)
-			for i = 1, 10 do
-				if not currentCards[playerID][i] then
-					currentCards[playerID][i] = cardID
-					local icon = excel["卡牌"][cardID].Icon
-					if common:IsLocalPlayer(player) then
-						_ui.cardIcon[i]:set_image(icon)
-						_ui.cardIcon[i]:set_show(true)
-					end
-					local bondID = excel["卡牌"][cardID].BondID
-					ownedBonds[playerID][bondID] = (ownedBonds[playerID][bondID] or 0) + 1
-					checkSwallow(playerID, bondID)
-					break
-				end
+	end
+	if common:IsLocalPlayer(common.Player[playerID]) then
+		if not inSelecting[playerID] then
+			_ui.Show(drawAmount)
+		end
+	end
+	for i = 1, drawAmount do
+		local cardID = selectedCards[playerID][i]
+		local cardName = excel["卡牌"][cardID].CardName
+		local bondName = excel["卡牌"][cardID].BondName
+		local icon = excel["卡牌"][cardID].Icon
+		local tip = ""
+		if excel["卡牌"][cardID].Attr then
+			tip = tip .. excel["卡牌"][cardID].Attr .. "|n|n"
+		end
+		if excel["卡牌"][cardID].CardEffect then
+			tip = tip .. excel["卡牌"][cardID].CardEffect .. "|n|n"
+		end
+		if excel["卡牌"][cardID].SwallowEffect then
+			tip = tip .. "集齐羁绊效果：|n" .. excel["卡牌"][cardID].SwallowEffect .. "|n|n"
+		end
+		if excel["卡牌"][cardID].SwallowCondition then
+			tip = tip .. "吞噬条件：|n" .. excel["卡牌"][cardID].SwallowCondition
+		end
+		_ui.optionBondName[i]:set_text("羁绊:" .. bondName)
+		_ui.optionCardName[i]:set_text(cardName)
+		_ui.optionIcon[i]:set_image(icon)
+		_ui.optionTip[i]:set_text(tip)
+	end
+end
+
+local function SwallowBondGetAddition(playerID, bondID)
+	if bondID == 22 then
+		playerGold[playerID] = playerGold[playerID] + common:GetRandomInt(excel["羁绊列表"][bondID].Value1, excel["羁绊列表"][bondID].Value2) * 100
+	end
+	if bondID == 31 then
+		jass.udg_LgfExtraMaxAmount[playerID] = jass.udg_LgfExtraMaxAmount[playerID] + excel["羁绊列表"][bondID].Value1
+	end
+	if bondID == 33 then
+		if ownedBonds[playerID][bondID] // excel["羁绊列表"][bondID].AllAmount < 3 then
+			for index = 1, excel["羁绊列表"][33].InitAmount, 1 do
+				table.insert(drawCards[playerID], excel["羁绊列表"][33].FirstID + index - 1)
 			end
 		else
-			waitCard[playerID] = cardID
-			if common:IsLocalPlayer(common.Player[playerID]) then
-				inReplacing = true
-				_ui.replaceIcon:set_image(excel["卡牌"][cardID].Icon)
-				_ui.replaceIcon:set_show(true)
+			local attrTy = excel["羁绊列表"][bondID].AttrTy
+			ownedBondsTy[playerID][attrTy] = ownedBondsTy[playerID][attrTy] + 1
+			addCardsToDrawPool(playerID, attrTy)
+			attrSystem:SetUnitAttrStr(heros[playerID], 0, excel["羁绊列表"][bondID].SwallowAttr)
+		end
+	end
+end
+
+local function SwallowCard(playerID, cardID, index)
+	-- if ownedCards[playerID][cardID] <= 1 then
+	table.insert(swallowCards[playerID], cardID)
+	-- end
+	currentCardsID[playerID][cardID] = nil
+	currentCards[playerID][index] = nil
+	currentCards[playerID].count = currentCards[playerID].count - 1
+	if common:IsLocalPlayer(common.Player[playerID]) then
+		_ui.cardIcon[index]:set_show(false)
+		_ui.cardCountBg[index]:set_show(false)
+	end
+	local bondID = excel["卡牌"][cardID].BondID
+	local ty = excel["羁绊列表"][bondID].SwallowTy
+	if bondID == 101 and cardID ~= 366 then
+		local count = 0
+		for key, value in pairs(specialBondData[playerID][bondID]) do
+			count = count + 1
+			if value <= 4 then
+				break
+			end
+			if count == 3 then
+				table.insert(drawCards[playerID], 366)
 			end
 		end
-
-		selectedCards[playerID] = {}
-	end)
-
-	common:ReceiveSync("ReplaceCard")(function(data)
-		local player = common:GetSyncPlayer()
-		local playerID = common:ConvertPlayerToID(player)
-		local cardID = currentCards[playerID][data]
-		if cardID then
-			local bondID = excel["卡牌"][cardID].BondID
-			ownedBonds[playerID][bondID] = ownedBonds[playerID][bondID] - 1
-			ownedCards[playerID][cardID] = ownedCards[playerID][cardID] - 1
-			attrSystem:SetUnitAttrStr(heros[playerID], 1, excel["卡牌"][cardID].Attr)
-			if cardID <= 20 then
-				table.insert(finalBond[playerID], cardID)
-			else
-				table.insert(drawCards[playerID], cardID)
-			end
-			cardID = waitCard[playerID]
-			waitCard[playerID] = nil
-			currentCards[playerID][data] = cardID
-			local icon = excel["卡牌"][cardID].Icon
-			bondID = excel["卡牌"][cardID].BondID
-			ownedBonds[playerID][bondID] = (ownedBonds[playerID][bondID] or 0) + 1
-			ownedCards[playerID][cardID] = (ownedCards[playerID][cardID] or 0) + 1
-			attrSystem:SetUnitAttrStr(heros[playerID], 0, excel["卡牌"][cardID].Attr)
-			checkSwallow(playerID, bondID)
-			if common:IsLocalPlayer(player) then
-				if currentCards[playerID][data] then
-					_ui.cardIcon[data]:set_image(icon)
-				else
-					onCardLeave(_ui.cardBtn[data])
-				end
+	end
+	if bondID == 103 and cardID ~= 393 then
+		specialBondData[playerID][bondID] = specialBondData[playerID][bondID] or {}
+		specialBondData[playerID][bondID].count = (specialBondData[playerID][bondID].count or 0) + 1
+		if specialBondData[playerID][bondID].count == 12 then
+			table.insert(drawCards[playerID], 393)
+		end
+	end
+	if bondID == 104 and cardID < 409 then
+		specialBondData[playerID][bondID] = specialBondData[playerID][bondID] or {}
+		specialBondData[playerID][bondID][409] = (specialBondData[playerID][bondID][409] or 0) + 1
+		if specialBondData[playerID][bondID][409] == 8 then
+			table.insert(drawCards[playerID], 410)
+		end
+	end
+	if ty ~= 1 then
+		if ty == 0 then
+			if code.IsBondCompleted(playerID, bondID) then
+				local attrTy = excel["羁绊列表"][bondID].AttrTy
+				ownedBondsTy[playerID][attrTy] = ownedBondsTy[playerID][attrTy] + 1
+				addCardsToDrawPool(playerID, attrTy)
+				attrSystem:SetUnitAttrStr(heros[playerID], 0, excel["羁绊列表"][bondID].SwallowAttr)
+				SwallowBondGetAddition(playerID, bondID)
 			end
 		end
-		inSelecting[playerID] = false
-	end)
+		if ty == 3 then
+			if code.IsBondCompleted(playerID, bondID) then
+				addCardsToDrawPool(playerID, 4)
+			end
+		end
+	end
+end
 
-	common:ReceiveSync("RefreshCard")(function()
-		local player = common:GetSyncPlayer()
-		local playerID = common:ConvertPlayerToID(player)
-		if refreshCardCount[playerID] > 0 then
-			refreshCardCount[playerID] = refreshCardCount[playerID] - 1
-			local tempCards = {}
-			if #finalBond[playerID] + #drawCards[playerID] >= Card.drawCount[playerID] then
-				for index, id in ipairs(selectedCards[playerID]) do
-					table.insert(tempCards, id)
+
+local function GetCard(playerID, bondID, cardID, uiIndex)
+	--#region 羁绊ID判断
+	if bondID == 30 then
+		cardsSwallowConditionCount[playerID][cardID] = 0
+		if common:IsLocalPlayer(common.Player[playerID]) then
+			_ui.cardCount[uiIndex]:set_text(cardsSwallowConditionCount[playerID][cardID])
+		end
+		local function HeroKill(killer, dead)
+			if code.IsCardInColumn(playerID, cardID) then
+				cardsSwallowConditionCount[playerID][cardID] = cardsSwallowConditionCount[playerID][cardID] + 1
+				if common:IsLocalPlayer(common.Player[playerID]) then
+					_ui.cardCountBg[uiIndex]:set_show(true)
+					_ui.cardCount[uiIndex]:set_text(cardsSwallowConditionCount[playerID][cardID])
+				end
+				if cardsSwallowConditionCount[playerID][cardID] >= excel['卡牌'][cardID].Value1 then
+					SwallowCard(playerID, cardID, uiIndex)
+					event:Off("HeroKill", playerID, HeroKill)
 				end
 			else
-				for index, id in ipairs(selectedCards[playerID]) do
-					if id <= 20 then
-						table.insert(finalBond[playerID], id)
-					else
-						table.insert(drawCards[playerID], id)
+				cardsSwallowConditionCount[playerID][cardID] = 0
+				event:Off("HeroKill", playerID, HeroKill)
+			end
+		end
+		event:On("HeroKill", playerID, HeroKill)
+	end
+	if bondID == 31 then
+		cardsSwallowConditionCount[playerID][cardID] = 0
+		if common:IsLocalPlayer(common.Player[playerID]) then
+			_ui.cardCountBg[uiIndex]:set_show(true)
+			_ui.cardCount[uiIndex]:set_text(cardsSwallowConditionCount[playerID][cardID])
+		end
+		ac.time(1, function(timer)
+			if code.IsCardInColumn(playerID, cardID) then
+				cardsSwallowConditionCount[playerID][cardID] = cardsSwallowConditionCount[playerID][cardID] + 1
+				if common:IsLocalPlayer(common.Player[playerID]) then
+					_ui.cardCount[uiIndex]:set_text(cardsSwallowConditionCount[playerID][cardID])
+				end
+				if cardsSwallowConditionCount[playerID][cardID] >= excel['卡牌'][cardID].Value1 then
+					SwallowCard(playerID, cardID, uiIndex)
+					timer:rem()
+				end
+			else
+				cardsSwallowConditionCount[playerID][cardID] = 0
+				timer:rem()
+			end
+		end)
+	end
+	if bondID == 32 then
+		cardsSwallowConditionCount[playerID][cardID] = 0
+		if common:IsLocalPlayer(common.Player[playerID]) then
+			_ui.cardCount[uiIndex]:set_text(cardsSwallowConditionCount[playerID][cardID])
+		end
+		local function HeroAtk(attacker, target)
+			if code.IsCardInColumn(playerID, cardID) then
+				cardsSwallowConditionCount[playerID][cardID] = cardsSwallowConditionCount[playerID][cardID] + 1
+				if common:IsLocalPlayer(common.Player[playerID]) then
+					_ui.cardCountBg[uiIndex]:set_show(true)
+					_ui.cardCount[uiIndex]:set_text(cardsSwallowConditionCount[playerID][cardID])
+				end
+				if cardsSwallowConditionCount[playerID][cardID] >= excel['卡牌'][cardID].Value1 then
+					SwallowCard(playerID, cardID, uiIndex)
+					event:Off("HeroAtk", playerID, HeroAtk)
+				end
+			else
+				cardsSwallowConditionCount[playerID][cardID] = 0
+				event:Off("HeroAtk", playerID, HeroAtk)
+			end
+		end
+		event:On("HeroAtk", playerID, HeroAtk)
+	end
+	if bondID == 33 then
+		local needCount = excel["羁绊列表"][bondID].NeedAmount
+		if ownedBonds[playerID][bondID] % needCount == 0 then
+			for i = 1, 10, 1 do
+				local id = currentCards[playerID][i]
+				if id then
+					if bondID == excel["卡牌"][id].BondID then
+						SwallowCard(playerID, id, i)
 					end
 				end
 			end
-			selectedCards[playerID] = {}
-			drawCard(playerID)
-			for index, id in ipairs(tempCards) do
+
+			SwallowBondGetAddition(playerID, bondID)
+		end
+	end
+	if bondID == 101 then
+		if cardID == 366 then
+			for key, value in pairs(currentCardsID[playerID]) do
+				if excel["卡牌"][key].BondID == bondID and key ~= cardID then
+					SwallowCard(playerID, key, value)
+				end
+			end
+		end
+		if (excel["卡牌"][cardID].Value1 or "") == "吞噬卡" then
+			cardsSwallowConditionCount[playerID][cardID] = 0
+			specialBondData[playerID][bondID] = specialBondData[playerID][bondID] or {}
+			specialBondData[playerID][bondID][cardID] = specialBondData[playerID][bondID][cardID] or 1
+			if common:IsLocalPlayer(common.Player[playerID]) then
+				_ui.cardCount[uiIndex]:set_text(cardsSwallowConditionCount[playerID][cardID])
+			end
+			local function HeroKill(killer, dead)
+				if code.IsCardOwned(playerID, cardID) and not code.IsCardOwned(playerID, 366) then
+					cardsSwallowConditionCount[playerID][cardID] = cardsSwallowConditionCount[playerID][cardID] + 1
+					if code.IsCardInColumn(playerID, cardID) then
+						if common:IsLocalPlayer(common.Player[playerID]) then
+							_ui.cardCountBg[uiIndex]:set_show(true)
+							_ui.cardCount[uiIndex]:set_text(cardsSwallowConditionCount[playerID][cardID])
+						end
+					end
+
+					if cardsSwallowConditionCount[playerID][cardID] >= excel['卡牌'][cardID].Value2 then
+						if specialBondData[playerID][bondID][cardID] <= 4 then
+							for i = 1, 4 do
+								if code.IsCardInColumn(playerID, cardID + i) then
+									specialBondData[playerID][bondID][cardID] = specialBondData[playerID][bondID][cardID] + 1
+									SwallowCard(playerID, cardID + i, currentCardsID[playerID][cardID + i])
+									break
+								end
+							end
+						end
+						cardsSwallowConditionCount[playerID][cardID] = 0
+					end
+				else
+					cardsSwallowConditionCount[playerID][cardID] = 0
+					event:Off("HeroKill", playerID, HeroKill)
+				end
+			end
+			event:On("HeroKill", playerID, HeroKill)
+		end
+	end
+	if bondID == 102 then
+		if cardID == 371 then
+			cardsSwallowConditionCount[playerID][cardID] = 0
+			specialBondData[playerID][bondID] = specialBondData[playerID][bondID] or {}
+			specialBondData[playerID][bondID][cardID] = specialBondData[playerID][bondID][cardID] or { 372, 373, 374, 375, 376, 377 }
+			if common:IsLocalPlayer(common.Player[playerID]) then
+				_ui.cardCount[uiIndex]:set_text(cardsSwallowConditionCount[playerID][cardID])
+			end
+			local function HeroKill(killer, dead)
+				if code.IsCardOwned(playerID, cardID) and not code.IsCardOwned(playerID, 378) then
+					cardsSwallowConditionCount[playerID][cardID] = cardsSwallowConditionCount[playerID][cardID] + 1
+					if code.IsCardInColumn(playerID, cardID) then
+						if common:IsLocalPlayer(common.Player[playerID]) then
+							_ui.cardCountBg[uiIndex]:set_show(true)
+							_ui.cardCount[uiIndex]:set_text(cardsSwallowConditionCount[playerID][cardID])
+						end
+					end
+					if cardsSwallowConditionCount[playerID][cardID] >= excel['卡牌'][cardID].Value1 then
+						if #specialBondData[playerID][bondID][cardID] > 0 then
+							table.insert(drawCards[playerID], myFunc:TableRemove(specialBondData[playerID][bondID][cardID], common:GetRandomInt(1, #specialBondData[playerID][bondID][cardID])))
+						else
+							event:Off("HeroKill", playerID, HeroKill)
+						end
+						cardsSwallowConditionCount[playerID][cardID] = 0
+					end
+				else
+					event:Off("HeroKill", playerID, HeroKill)
+				end
+			end
+			event:On("HeroKill", playerID, HeroKill)
+		end
+		if cardID == 378 then
+			for i = 1, 7 do
+				if code.IsCardInColumn(playerID, 370 + i) then
+					SwallowCard(playerID, 370 + i, currentCardsID[playerID][370 + i])
+				end
+			end
+		end
+		if not specialBondData[playerID][bondID][378] then
+			for i = 1, 6 do
+				if not code.IsCardOwned(playerID, 371 + i) then
+					break
+				else
+					if i == 6 then
+						table.insert(drawCards[playerID], 378)
+						specialBondData[playerID][bondID][378] = true
+					end
+				end
+			end
+		end
+	end
+	if bondID == 103 then
+		if excel["卡牌"][cardID].Value1 == "普通卡" then
+			print(cardID, excel["卡牌"][cardID].Value1)
+			table.insert(drawCards[playerID], cardID + 6)
+		end
+		if excel["卡牌"][cardID].Value1 == "吞噬卡" then
+			cardsSwallowConditionCount[playerID][cardID] = 0
+			if common:IsLocalPlayer(common.Player[playerID]) then
+				_ui.cardCount[uiIndex]:set_text(cardsSwallowConditionCount[playerID][cardID])
+			end
+			local function HeroAtk(attacker, target)
+				if code.IsCardOwned(playerID, cardID) then
+					cardsSwallowConditionCount[playerID][cardID] = cardsSwallowConditionCount[playerID][cardID] + 1
+					if code.IsCardInColumn(playerID, cardID) then
+						if common:IsLocalPlayer(common.Player[playerID]) then
+							_ui.cardCountBg[uiIndex]:set_show(true)
+							_ui.cardCount[uiIndex]:set_text(cardsSwallowConditionCount[playerID][cardID])
+						end
+					end
+					if cardsSwallowConditionCount[playerID][cardID] >= excel['卡牌'][cardID].Value2 then
+						if code.IsCardOwned(playerID, cardID - 6) then
+							if code.IsCardInColumn(playerID, cardID) then
+								SwallowCard(playerID, cardID, uiIndex)
+							end
+							if code.IsCardInColumn(playerID, cardID - 6) then
+								SwallowCard(playerID, cardID - 6, currentCardsID[playerID][cardID - 6])
+							end
+							event:Off("HeroAtk", playerID, HeroAtk)
+						else
+							cardsSwallowConditionCount[playerID][cardID] = 0
+						end
+					end
+				end
+			end
+			event:On("HeroAtk", playerID, HeroAtk)
+		end
+	end
+	if bondID == 104 then
+		if excel["卡牌"][cardID].Value1 == "普通卡" then
+			if ownedBonds[playerID][bondID] >= 5 and not specialBondData[playerID][410] then
+				specialBondData[playerID][410] = true
+				table.insert(drawCards[playerID], 409)
+			end
+			if code.IsCardOwned(playerID, 409) then
+				SwallowCard(playerID, cardID, uiIndex)
+			end
+		end
+		if cardID == 409 then
+			for i = 1, 8 do
+				if code.IsCardInColumn(playerID, 400 + i) then
+					SwallowCard(playerID, 400 + i, currentCardsID[playerID][400 + i])
+				end
+			end
+		end
+		if cardID == 410 then
+			if code.IsCardInColumn(playerID, 409) then
+				SwallowCard(playerID, 409, currentCardsID[playerID][409])
+			end
+		end
+	end
+	if bondID == 105 then
+		if cardID < 426 then
+			table.insert(drawCards[playerID], cardID)
+		end
+		if cardID == 426 then
+			specialBondData[playerID][bondID] = specialBondData[playerID][bondID] or {}
+			specialBondData[playerID][bondID][cardID] = (specialBondData[playerID][bondID][cardID] or 0) + 1
+			if specialBondData[playerID][bondID][cardID] < 3 then
+				table.insert(drawCards[playerID], cardID)
+			elseif specialBondData[playerID][bondID][cardID] == 3 then
+				for i = #drawCards[playerID], 1, -1 do
+					if excel["卡牌"][drawCards[playerID][i]].BondID == bondID then
+						myFunc:TableRemove(drawCards[playerID], i)
+					end
+				end
+				table.insert(drawCards[playerID], 427)
+			end
+			for i = 1, 10 do
+				local id = currentCards[playerID][i]
+				if id and excel["卡牌"][id].BondID == bondID and id < 426 then
+					SwallowCard(playerID, id, i)
+				end
+			end
+		end
+		if cardID == 427 then
+			for i = 1, 10 do
+				local id = currentCards[playerID][i]
+				if id and id == 426 then
+					SwallowCard(playerID, id, i)
+				end
+			end
+		end
+	end
+	if bondID == 106 then
+		specialBondData[playerID][bondID] = specialBondData[playerID][bondID] or {}
+		if cardID == 436 then
+			specialBondData[playerID][bondID][cardID] = (specialBondData[playerID][bondID][cardID] or 0) + 1
+			if specialBondData[playerID][bondID][cardID] < 10 then
+				table.insert(drawCards[playerID], cardID)
+			end
+			if specialBondData[playerID][bondID][cardID] > 5 and not specialBondData[playerID][bondID][437] then
+				specialBondData[playerID][bondID][437] = true
+				table.insert(drawCards[playerID], 437)
+			end
+			local function HeroKill()
+				if code.IsCardInColumn(playerID, cardID) then
+					cardsSwallowConditionCount[playerID][cardID] = cardsSwallowConditionCount[playerID][cardID] or {}
+					cardsSwallowConditionCount[playerID][cardID][uiIndex] = (cardsSwallowConditionCount[playerID][cardID][uiIndex] or 0) + 1
+					if common:IsLocalPlayer(common.Player[playerID]) then
+						_ui.cardCountBg[uiIndex]:set_show(true)
+						_ui.cardCount[uiIndex]:set_text(cardsSwallowConditionCount[playerID][cardID][uiIndex])
+					end
+					if cardsSwallowConditionCount[playerID][cardID][uiIndex] >= excel['卡牌'][cardID].Value1 then
+						SwallowCard(playerID, cardID, uiIndex)
+						event:Off("HeroKill", playerID, HeroKill)
+					end
+				else
+					cardsSwallowConditionCount[playerID][cardID][uiIndex] = 0
+					event:Off("HeroKill", playerID, HeroKill)
+				end
+			end
+			event:On("HeroKill", playerID, HeroKill)
+		end
+		if cardID == 437 then
+			for i = 1, 10 do
+				local id = currentCards[playerID][i]
+				if id and excel["卡牌"][id].BondID == bondID and id < 437 then
+					SwallowCard(playerID, id, i)
+				end
+			end
+			for i = #drawCards[playerID], 1, -1 do
+				if excel["卡牌"][drawCards[playerID][i]].BondID == bondID then
+					myFunc:TableRemove(drawCards[playerID], i)
+				end
+			end
+		end
+	end
+	--#endregion
+end
+local function CheckSwallow(playerID, bondID, cardID, uiIndex)
+	local ty = excel["羁绊列表"][bondID].SwallowTy
+	if ty == 1 then
+		local needCount = excel["羁绊列表"][bondID].NeedAmount
+		if ownedBonds[playerID][bondID] >= needCount then
+			for id, index in pairs(currentCardsID[playerID]) do
+				if bondID == excel["卡牌"][id].BondID then
+					SwallowCard(playerID, id, index)
+				end
+			end
+			local attrTy = excel["羁绊列表"][bondID].AttrTy
+			ownedBondsTy[playerID][attrTy] = ownedBondsTy[playerID][attrTy] + 1
+			addCardsToDrawPool(playerID, attrTy)
+			attrSystem:SetUnitAttrStr(heros[playerID], 0, excel["羁绊列表"][bondID].SwallowAttr)
+			SwallowBondGetAddition(playerID, bondID)
+		end
+	end
+end
+
+common:ReceiveSync("SelectCard")(function(data)
+	local player = common:GetSyncPlayer()
+	local playerID = common:ConvertPlayerToID(player)
+	local cardID = selectedCards[playerID][data]
+	for index, id in ipairs(selectedCards[playerID]) do
+		if id <= 20 then
+			table.insert(finalBond[playerID], id)
+		elseif cardID ~= id then
+			table.insert(drawCards[playerID], id)
+		end
+	end
+	if currentCards[playerID].count < 10 then
+		inSelecting[playerID] = false
+		currentCards[playerID].count = currentCards[playerID].count + 1
+		ownedCards[playerID][cardID] = (ownedCards[playerID][cardID] or 0) + 1
+		attrSystem:SetUnitAttrStr(heros[playerID], 0, excel["卡牌"][cardID].Attr)
+		for i = 1, 10 do
+			if not currentCards[playerID][i] then
+				currentCards[playerID][i] = cardID
+				local icon = excel["卡牌"][cardID].Icon
+				if common:IsLocalPlayer(player) then
+					_ui.cardIcon[i]:set_image(icon)
+					_ui.cardIcon[i]:set_show(true)
+				end
+				currentCardsID[playerID][cardID] = i
+				local bondID = excel["卡牌"][cardID].BondID
+				ownedBonds[playerID][bondID] = (ownedBonds[playerID][bondID] or 0) + 1
+				GetCard(playerID, bondID, cardID, i)
+				CheckSwallow(playerID, bondID, cardID, i)
+				break
+			end
+		end
+	else
+		waitCard[playerID] = cardID
+		if common:IsLocalPlayer(common.Player[playerID]) then
+			inReplacing = true
+			_ui.replaceIcon:set_image(excel["卡牌"][cardID].Icon)
+			_ui.replaceIcon:set_show(true)
+		end
+	end
+
+	myFunc:ClearTable(selectedCards[playerID])
+end)
+
+common:ReceiveSync("ReplaceCard")(function(data)
+	local player = common:GetSyncPlayer()
+	local playerID = common:ConvertPlayerToID(player)
+	local cardID = currentCards[playerID][data]
+	if cardID then
+		local bondID = excel["卡牌"][cardID].BondID
+		ownedBonds[playerID][bondID] = ownedBonds[playerID][bondID] - 1
+		ownedCards[playerID][cardID] = ownedCards[playerID][cardID] - 1
+		currentCards[playerID].count = currentCards[playerID].count - 1
+		currentCardsID[playerID][cardID] = nil
+		attrSystem:SetUnitAttrStr(heros[playerID], 1, excel["卡牌"][cardID].Attr)
+		if cardID <= 20 then
+			-- table.insert(finalBond[playerID], cardID)
+		else
+			if not excel["卡牌"][cardID].MultiSel then
+				table.insert(drawCards[playerID], cardID)
+			end
+		end
+	end
+	cardID = waitCard[playerID]
+	currentCards[playerID].count = currentCards[playerID].count + 1
+	waitCard[playerID] = nil
+	currentCards[playerID][data] = cardID
+	currentCardsID[playerID][cardID] = data
+	local icon = excel["卡牌"][cardID].Icon
+	local bondID = excel["卡牌"][cardID].BondID
+	ownedBonds[playerID][bondID] = (ownedBonds[playerID][bondID] or 0) + 1
+	ownedCards[playerID][cardID] = (ownedCards[playerID][cardID] or 0) + 1
+	attrSystem:SetUnitAttrStr(heros[playerID], 0, excel["卡牌"][cardID].Attr)
+	GetCard(playerID, bondID, cardID, data)
+	CheckSwallow(playerID, bondID, cardID, data)
+	if common:IsLocalPlayer(player) then
+		if currentCards[playerID][data] then
+			_ui.cardIcon[data]:set_image(icon)
+			_ui.cardIcon[data]:set_show(true)
+		else
+			onCardLeave(_ui.cardBtn[data])
+		end
+	end
+	inSelecting[playerID] = false
+end)
+
+common:ReceiveSync("RefreshCard")(function()
+	local player = common:GetSyncPlayer()
+	local playerID = common:ConvertPlayerToID(player)
+	if refreshCardCount[playerID] > 0 then
+		refreshCardCount[playerID] = refreshCardCount[playerID] - 1
+		local tempCards = {}
+		if #finalBond[playerID] + #drawCards[playerID] >= Card.drawCount[playerID] then
+			for index, id in ipairs(selectedCards[playerID]) do
+				table.insert(tempCards, id)
+			end
+		else
+			for index, id in ipairs(selectedCards[playerID]) do
 				if id <= 20 then
 					table.insert(finalBond[playerID], id)
 				else
 					table.insert(drawCards[playerID], id)
 				end
 			end
-			if common:IsLocalPlayer(common.Player[playerID]) then
-				onFuncBtnEnter(_ui.refreshBtn)
-			end
-		else
-			code.AddMessage("刷新次数不足", playerID)
 		end
-	end)
-
-	common:ReceiveSync("QuitSelectCard")(function()
-		local player = common:GetSyncPlayer()
-		local playerID = common:ConvertPlayerToID(player)
-		inSelecting[playerID] = false
-		refreshCardCount[playerID] = refreshCardCount[playerID] + 1
-		for index, id in ipairs(selectedCards[playerID]) do
+		myFunc:ClearTable(selectedCards[playerID])
+		drawCard(playerID)
+		for index, id in ipairs(tempCards) do
 			if id <= 20 then
 				table.insert(finalBond[playerID], id)
 			else
 				table.insert(drawCards[playerID], id)
 			end
 		end
-		selectedCards[playerID] = {}
-	end)
+		if common:IsLocalPlayer(common.Player[playerID]) then
+			onFuncBtnEnter(_ui.refreshBtn)
+		end
+	else
+		code.AddMessage("刷新次数不足", playerID)
+	end
+end)
 
-	initPlayerBonds()
-
-	event:OnKeyBoard("Z", 1, function(playerID)
-		if inSelecting[playerID] then
-			if common:IsLocalPlayer(common.Player[playerID]) then
-				_ui.optionPanel:set_show(not _ui.optionPanel:is_show())
-			end
+common:ReceiveSync("QuitSelectCard")(function()
+	local player = common:GetSyncPlayer()
+	local playerID = common:ConvertPlayerToID(player)
+	inSelecting[playerID] = false
+	refreshCardCount[playerID] = refreshCardCount[playerID] + 1
+	for index, id in ipairs(selectedCards[playerID]) do
+		if id <= 20 then
+			table.insert(finalBond[playerID], id)
 		else
-			if jass.udg_PlayerKills[playerID] >= drawCost[playerID] then
-				jass.udg_PlayerKills[playerID] = jass.udg_PlayerKills[playerID] - drawCost[playerID] * (1 - jass.udg_DrawCardCostReduce[playerID])
-				drawCost[playerID] = drawCost[playerID] + 150
-				drawCard(playerID)
-				inSelecting[playerID] = true
-				if common:IsLocalPlayer(common.Player[playerID]) then
-					_ui.drawText:set_text("|cff000000(Z)抽卡 " .. drawCost[playerID])
+			table.insert(drawCards[playerID], id)
+		end
+	end
+	myFunc:ClearTable(selectedCards[playerID])
+end)
+
+event:OnKeyBoard("Z", 1, function(playerID)
+	if inSelecting[playerID] then
+		if common:IsLocalPlayer(common.Player[playerID]) then
+			_ui.optionPanel:set_show(not _ui.optionPanel:is_show())
+		end
+	else
+		if playerKills[playerID] >= drawCost[playerID] then
+			playerKills[playerID] = playerKills[playerID] - drawCost[playerID] * (1 - jass.udg_DrawCardCostReduce[playerID])
+			drawCost[playerID] = drawCost[playerID] + 150
+			drawCard(playerID)
+			inSelecting[playerID] = true
+			if common:IsLocalPlayer(common.Player[playerID]) then
+				_ui.drawText:set_text("|cff000000(Z)抽卡 " .. drawCost[playerID])
+			end
+		end
+	end
+end)
+
+function code.UseSwallowRock(playerID)
+	if currentCards[playerID].count > 0 then
+		local cardIndex = common:GetRandomInt(1, currentCards[playerID].count)
+		for i = 1, 10 do
+			local cardID = currentCards[playerID][i]
+			if cardID then
+				cardIndex = cardIndex - 1
+				if cardIndex == 0 then
+					SwallowCard(playerID, cardID, i)
+					-- CheckSwallow(playerID, excel["卡牌"][cardID].BondID, cardID, i)
+					break
 				end
 			end
 		end
-	end)
+		return true
+	else
+		return false
+	end
+end
+
+function code.IsCardInColumn(playerID, cardID)
+	if currentCardsID[playerID][cardID] then
+		return true
+	end
+	return false
+end
+
+function code.IsCardOwned(playerID, cardID)
+	if ownedCards[playerID][cardID] and ownedCards[playerID][cardID] > 0 then
+		return true
+	end
+	return false
+end
+
+function code.IsBondCompleted(playerID, bondID)
+	if bondID == 105 then
+		if code.IsCardOwned(playerID, 427) and not code.IsCardInColumn(playerID, 427) then
+			return true
+		else
+			return false
+		end
+	end
+	if bondID == 106 then
+		if code.IsCardOwned(playerID, 437) and not code.IsCardInColumn(playerID, 437) then
+			return true
+		else
+			return false
+		end
+	end
+	if ownedBonds[playerID][bondID] and ownedBonds[playerID][bondID] >= excel["羁绊列表"][bondID].AllAmount then
+		if bondID == 30 or bondID == 31 or bondID == 32 then
+			for cardID = excel["羁绊列表"][bondID].FirstID, excel["羁绊列表"][bondID].AllAmount + excel["羁绊列表"][bondID].FirstID, 1 do
+				if code.IsCardInColumn(playerID, cardID) then
+					return false
+				end
+			end
+			return true
+		end
+		if bondID == 101 then
+			if code.IsCardInColumn(playerID, 366) then
+				return false
+			else
+				return true
+			end
+		end
+		if bondID == 102 then
+			if code.IsCardInColumn(playerID, 378) then
+				return false
+			else
+				return true
+			end
+		end
+		if bondID == 103 then
+			if code.IsCardInColumn(playerID, 393) then
+				return false
+			else
+				return true
+			end
+		end
+		if bondID == 104 then
+			if code.IsCardInColumn(playerID, 410) then
+				return false
+			else
+				return true
+			end
+		end
+		return true
+	end
+	return false
+end
+
+function code.OwnedCardAmount(playerID, cardID)
+	return ownedCards[playerID][cardID] or 0
+end
+
+function Card:Init()
+	UIInit()
+
+	initPlayerBonds()
 end
 
 return Card

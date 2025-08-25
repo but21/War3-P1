@@ -51,8 +51,8 @@ UIModule.BossComing:Init()
 -- UIModule.SeizeBody:Init()
 UIModule.Card:Init()
 UIModule.Swallow:Init()
-
--- UIModule.Challenge:Init()
+UIModule.Challenge:Init()
+UIModule.Treasure:Init()
 
 UIModule.ArchiveUI:Init()
 UIModule.TalentTreeUI:Init()

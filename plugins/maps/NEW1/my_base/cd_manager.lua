@@ -110,6 +110,11 @@ ac.time(0.01, function()
 		end
 	end
 
+	-- 3秒触发
+	if timer % 300 == 0 then
+		common:RunTrigger(jass.gg_trg_3Timer)
+	end
+
 	-- 每十秒获得一点寻宝点数
 	if timer % 1000 == 0 then
 		if jass.udg_GameMode == 2 then

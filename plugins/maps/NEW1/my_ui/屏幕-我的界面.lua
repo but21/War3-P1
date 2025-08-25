@@ -82,7 +82,7 @@ local function init()
 						-- 热键
 						local hotkey = slk.ability[myFunc:Int2ID(skill)]["Hotkey"]
 						if cd > 0 then
-							tip = tip .. "|n|n|ca7848484CD：" .. string.format("%.1f", cd) .. "秒"
+							tip = tip .. "|n|n|cff696E6ECD：" .. string.format("%.1f", cd) .. "秒"
 						end
 						if consume > 0 then
 							tip = tip .. "|n法力消耗：" .. consume
@@ -93,11 +93,12 @@ local function init()
 						tipDialogUp.icon:set_image(icon)
 						tipDialogUp.name:set_text(name)
 						tipDialogUp.tips:set_text(tip)
-						tipDialogUp.intro:set_text("|cff00ffff类别 - " .. intro)
+						tipDialogUp.intro:set_text("|cff696E6E类别 - " .. intro)
 						tipDialogUp.panel:reset_allpoint():set_point2("中心", 1900, 284)
 						tipDialogUp.panel:set_show(true)
 					end
 					unit = nil
+					skill = nil
 				end)
 
 				skillUI:event "离开" (function()
@@ -142,16 +143,21 @@ local function init()
 					--- 获取物品名字
 					-- print("ttt")
 					-- local type = slk.item[string.i2id(jass.GetItemTypeId(item))]["name"]
-					--- 提示
-					local name = code.YDWEGetItemDataString(jass.GetItemTypeId(item), 4)
-					--- 提示拓展
-					local text = code.YDWEGetItemDataString(jass.GetItemTypeId(item), 3)
+					local itemType = jass.GetItemTypeId(item)
 					--- 图标
-					local icon = code.YDWEGetItemDataString(jass.GetItemTypeId(item), 1)
+					local icon = code.YDWEGetItemDataString(itemType, 1)
+					-- 名字
+					local name = code.YDWEGetItemDataString(itemType, 4)
+					--- 提示
+					local text = code.YDWEGetItemDataString(itemType, 2)
+					-- 说明
+					local intro = code.YDWEGetItemDataString(itemType, 5)
+					-- local intro = slk.item[myFunc:Int2ID(itemType)]["Name"]
+
 					tipDialogUp.icon:set_image(icon)
 					tipDialogUp.name:set_text(name)
 					tipDialogUp.tips:set_text(text)
-					tipDialogUp.intro:set_text("")
+					tipDialogUp.intro:set_text("|cff696E6E类别 - " .. intro)
 					tipDialogUp.panel:reset_allpoint():set_point2("中心", 1900, 284)
 					tipDialogUp.panel:set_show(true)
 				end

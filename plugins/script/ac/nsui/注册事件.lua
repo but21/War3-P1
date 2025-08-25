@@ -4,6 +4,7 @@ local ns = ns
 local xuanze, uix, uiy
 local mouseX, mouseY
 local sbx, sby
+local player = ns.player
 
 -- 左键
 -- 点击
@@ -402,7 +403,7 @@ function ns.ui:gaoguang(zfc, tmd)
     end
     zfc = zfc or ns.gaoguang
     tmd = tmd or 1.00 --默认透明度
-    local father = self:get_father()
+    local father = self:get_parent()
     if self._leixing ~= "BUTTON" then
         return print(" 6 " .. "UI类型错误")
     end

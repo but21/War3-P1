@@ -12,7 +12,7 @@
 --     end
 -- end
 local moduleName = {
-	"Weapon", "WeaponRandomAttr", "Probability", "Accessory", "EnemyValue", "Heart", "Enchant", "NormalTalent", "SpecializeTalent", "Others", "KillsShop", "BlackMarket", "SeizeBody", "MagicalPower", "Archive",	"Roster", "Card", "BondList" }
+	"Probability", "EnemyValue", "Others", "BlackMarket", "SeizeBody", "Archive", "Roster", "Card", "BondList", "Treasure" }
 for _, value in ipairs(moduleName) do
 	pcall(require, value)
 end

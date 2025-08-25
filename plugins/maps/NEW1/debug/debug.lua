@@ -38,9 +38,9 @@ end
 
 
 jass.udg_PlayerGold[1] = 100000
+jass.udg_PlayerKills[1] = 100000
 jass.udg_PlayerDiamond[1] = 100000
 -- 杀敌
-jass.udg_PlayerKills[1] = 100000
 -- 黑市等级
 -- jass.udg_BlackMarketLv[1] = 10
 -- 黑市售卖数量
@@ -101,7 +101,7 @@ code.YDWESetItemDataString(math.floor(myFunc:ID2Int("I0GT")), 1, "111") ]]
 -- code.AddUnitAttrStr(jass.udg_Hero[1], "每秒金币+100")
 -- code.SetUnitAttr_Str(jass.udg_Hero[1], "攻击加成%", 100)
 code.SetUnitAttr_Str(jass.udg_Hero[1], "生命", 100000)
-code.SetUnitAttr_Str(jass.udg_Hero[1], "多重几率", 100)
+-- code.SetUnitAttr_Str(jass.udg_Hero[1], "多重几率", 100)
 code.SetUnitAttr_Str(jass.udg_Hero[1], "法术暴率%", 50)
 code.SetUnitAttr_Str(jass.udg_Hero[1], "物理暴率%", 50)
 code.SetUnitAttr_Str(jass.udg_Hero[1], "攻击", 1000)

@@ -133,10 +133,10 @@ japi引用的常量库 由于wave宏定义 只对以下的代码有效
     //学习提示
     #define ABILITY_DATA_RESEARCH_UBERTIP 217
 
-    //提示
+    // 提示拓展
     #define ABILITY_DATA_UBERTIP 218
 
-    //关闭提示
+    // 关闭提示拓展
     #define ABILITY_DATA_UNUBERTIP 219
 
     #define ABILITY_DATA_UNART 220
@@ -148,13 +148,13 @@ japi引用的常量库 由于wave宏定义 只对以下的代码有效
     //物品图标
     #define ITEM_DATA_ART 1
 
-    //物品名字
+    //物品提示
     #define ITEM_DATA_TIP 2
 
     //物品扩展提示
     #define ITEM_DATA_UBERTIP 3
 
-    //物品提示
+    //物品名字
     #define ITEM_DATA_NAME 4
 
     //物品说明

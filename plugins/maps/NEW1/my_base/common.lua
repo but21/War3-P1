@@ -137,7 +137,7 @@ end
 
 ---获取单位属性(护甲, 生命值, 魔法值, 最大生命值, 最大魔法值, 攻击距离, 攻击间隔, 攻击速度, 生命百分比, 魔法百分比)
 ---@param unit integer 单位
----@param ty string 属性
+---@param ty "护甲"|"生命值"|"最大生命值"|"魔法值"|"最大魔法值"|"攻击距离"|"攻击间隔"|"攻击速度"|"生命百分比"|"魔法百分比"|"移动速度"
 ---@return number
 function Common:GetUnitState(unit, ty)
 	if ty == "护甲" then
@@ -203,7 +203,7 @@ end
 
 ---获取英雄等级
 ---@param hero any
----@return integer 
+---@return integer
 function Common:GetHeroLv(hero)
 	return jass.GetHeroLevel(hero)
 end

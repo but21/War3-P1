@@ -266,7 +266,7 @@ function ns.ui:set_Father(parent)
 end
 
 --获取父节点
-function ns.ui:get_father()
+function ns.ui:get_parent()
 	return self.father
 end
 

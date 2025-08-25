@@ -30,6 +30,7 @@ local attr_d = {
 	{ key = 13, value = "多重几率%" },
 	{ key = 14, value = "多重伤害系数" },
 	{ key = 15, value = "技能急速%" },
+	{ key = 16, value = "魔法值" },
 
 	-- 杀敌
 	{ key = 21, value = "杀敌攻击" },
@@ -79,7 +80,7 @@ local attr_d = {
 
 	-- 100 生存
 	{ key = 101, value = "每秒回血" },
-	{ key = 102, value = "生命恢复%" },
+	{ key = 102, value = "每秒百分比回血%" },
 	{ key = 103, value = "攻击吸血%" },
 	{ key = 104, value = "技能吸血%" },
 	{ key = 105, value = "伤害减免%" },
@@ -107,6 +108,11 @@ local attr_d = {
 	{ key = 161, value = "当前力量%" },
 	{ key = 162, value = "当前敏捷%" },
 	{ key = 163, value = "当前智力%" },
+	{ key = 164, value = "当前物理伤害%" },
+	{ key = 165, value = "当前法术伤害%" },
+	{ key = 166, value = "当前攻击伤害%" },
+	{ key = 167, value = "当前金币%" },
+	{ key = 168, value = "当前杀敌%" },
 }
 
 --- 所有属性类型  index - name
@@ -152,9 +158,9 @@ local EventIndex = 0
 -------------------------------  预处理 ~ lua函数 分割线 -------------------------------
 
 ---根据属性字符串添加单位属性 - lua (会触发t中事件)
----@param unit integer
+---@param unit integer 单位
 ---@param operator integer +(0), -, =, *, /
----@param attrStr string
+---@param attrStr string 属性字符串
 function manager:SetUnitAttrStr(unit, operator, attrStr)
 	for attrName, attrValue in pairs(self:ParseAttributes2(attrStr)) do
 		self:SetAttr(unit, attrName, operator, attrValue)

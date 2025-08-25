@@ -33,8 +33,9 @@ local function _LeaveBtn(btn)
 end
 resourceUI.panel = createUI:CreateUIAbsolute("panel", gameui, "中心", 1470, 1060, 200, 200)
 local _size = 30
-local _fontLength = 270 
-resourceUI.background = createUI:CreateUIRelative("image", resourceUI.panel, "中心", resourceUI.panel, "中心", 0, 0, 700, 100, { alpha = 0, image = [[UI\Widgets\ToolTips\Human\human-tooltip-background.blp]] })
+local _fontLength = 270
+resourceUI.background = createUI:CreateUIRelative("image", resourceUI.panel, "中心", resourceUI.panel, "中心", 0, 0, 700, 100,
+	{ alpha = 0, image = [[UI\Widgets\ToolTips\Human\human-tooltip-background.blp]] })
 resourceUI.icon = {}
 resourceUI.btn = {}
 resourceUI.text = {}
@@ -54,12 +55,15 @@ end
 local function _SetResourceUI()
 	for playerID, player in ipairs(jass.udg_Player) do
 		if jass.udg_Hero[playerID] and common:IsLocalPlayer(player) then
-			resourceUI.text[1]:set_text("|cfaffff00金币|r " .. math.floor(jass.udg_PlayerGold[playerID]) .. " |cff00ff00(+" .. math.floor(attrSystem:GetObjAttrFromStr(jass.udg_Hero[playerID], "每秒金币")) .. ")")
-			resourceUI.text[2]:set_text("|cffff0000杀敌|r " .. math.floor(jass.udg_PlayerKills[playerID]))
-			resourceUI.text[3]:set_text("|cff00ffff钻石|r " .. math.floor(jass.udg_PlayerDiamond[playerID]))
+			resourceUI.text[1]:set_text("|cfaffff00金币|r " ..
+				math.floor(jass.udg_PlayerGold[playerID]) .. " |cff00ff00(+" .. string.format("%.1f", attrSystem:GetObjAttrFromStr(jass.udg_Hero[playerID], "每秒金币")) .. ")")
+			resourceUI.text[2]:set_text("|cffff0000杀敌|r " ..
+				math.floor(jass.udg_PlayerKills[playerID]) .. " |cff00ff00(+" .. string.format("%.1f", attrSystem:GetObjAttrFromStr(jass.udg_Hero[playerID], "每秒杀敌")) .. ")")
+			resourceUI.text[3]:set_text("|cff00ffff钻石|r " ..
+				math.floor(jass.udg_PlayerDiamond[playerID]) .. " |cff00ff00(+" .. string.format("%.1f", attrSystem:GetObjAttrFromStr(jass.udg_Hero[playerID], "每秒木材")) .. ")")
 			resourceUI.addition[1]:set_text("|cff00ff00(+" .. math.floor(attrSystem:GetObjAttrFromStr(jass.udg_Hero[playerID], "金币加成")) .. "%)|r")
 			resourceUI.addition[2]:set_text("|cff00ff00(+" .. math.floor(attrSystem:GetObjAttrFromStr(jass.udg_Hero[playerID], "杀敌加成")) .. "%)|r")
-			resourceUI.addition[3]:set_text("|cff00ff00(+" .. math.floor(attrSystem:GetObjAttrFromStr(jass.udg_Hero[playerID], "钻石加成")) .. "%)|r")
+			resourceUI.addition[3]:set_text("|cff00ff00(+" .. math.floor(attrSystem:GetObjAttrFromStr(jass.udg_Hero[playerID], "木材加成")) .. "%)|r")
 		end
 	end
 end

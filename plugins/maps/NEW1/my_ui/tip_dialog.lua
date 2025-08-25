@@ -4,11 +4,9 @@ local font = [[fonts\LXWK_Bold.ttf]]
 
 local TipDialog = {}
 
--- 物品栏, 技能提示框
-TipDialog.uiIASTip = {}
+local itemTip = {}
 -- 鼠标指向物品提示框
-TipDialog.uiItemTip = {}
-
+TipDialog.itemTip = itemTip
 
 local tipDialogUp = {}
 -- 向上拉伸提示框
@@ -76,7 +74,7 @@ function TipDialog:Init(createUI)
 	tipOnlyTextUp.background:set_point("左上", tipOnlyTextUp.tips, "左上", -20, 20)
 	tipOnlyTextUp.background:set_point("右下", tipOnlyTextUp.tips, "右下", 20, -20)
 
-	
+
 	-- 父控件	
 	tipOnlyTextDown.panel = gameui:builder 'panel' { w = 1, h = 1, xy = { "中心", 0, 0 }, show = false }
 	-- 背景
@@ -88,59 +86,21 @@ function TipDialog:Init(createUI)
 	tipOnlyTextDown.background:set_point("左上", tipOnlyTextDown.tips, "左上", -20, 20)
 	tipOnlyTextDown.background:set_point("右下", tipOnlyTextDown.tips, "右下", 20, -20)
 
-
-	-- 物品栏, 技能提示框
-	-- 物品栏提示框
-	TipDialog.uiIASTip["父控件"] = gameui:builder 'panel' { w = 1, h = 1, xy = { "中心", 0, 0 }, show = false }
-	TipDialog.uiIASTip["父控件"]:set_point2("中心", 1890, 300)
-	-- 背景
-	TipDialog.uiIASTip["background"] = ns.ui.create2("Tips7", TipDialog.uiIASTip["父控件"], 0)
-	-- 描述
-	TipDialog.uiIASTip["描述"] = TipDialog.uiIASTip["父控件"]:builder "text" { w = 400, h = 0, xy = { "右下", TipDialog.uiIASTip["父控件"], "右下", 0, 0 },
-		font = { [[fonts\LXWK_Bold.ttf]], 20, align = "左" }, show = true, alpha = 1 }
-	-- 分割线
-	TipDialog.uiIASTip["分割线"] = TipDialog.uiIASTip["父控件"]:builder "image" { w = 400, h = 2, xy = { "左下", TipDialog.uiIASTip["描述"], "左上", 0, 20 },
-		image = [[StarRail\star_1.tga]] }
-	-- 物品图标
-	TipDialog.uiIASTip["图标"] = TipDialog.uiIASTip["父控件"]:builder "image" { w = 60, h = 60, xy = { "左下", TipDialog.uiIASTip["分割线"], "左上", 0, 20 },
-		image = [[StarRail\star_1.tga]] }
-	-- 物品名称(提示)
-	TipDialog.uiIASTip["名称"] = TipDialog.uiIASTip["父控件"]:builder "text" { w = 350, h = 0, xy = { "左上", TipDialog.uiIASTip["图标"], "右上", 15, 0 },
-		font = { [[fonts\LXWK_Bold.ttf]], 24, align = "左" }, show = true, alpha = 1 }
-	-- 物品类别 (装备, 道具, 技能书)
-	TipDialog.uiIASTip["类别"] = TipDialog.uiIASTip["父控件"]:builder "text" { w = 350, h = 0, xy = { "左下", TipDialog.uiIASTip["图标"], "右下", 15, 0 },
-		font = { [[fonts\LXWK_Bold.ttf]], 20, align = "左" }, show = true, alpha = 1 }
-	TipDialog.uiIASTip["名称"]:set_text("|cffffcc00灵魂火符")
-	TipDialog.uiIASTip["类别"]:set_text("|cff0091ff类别 -- 装备")
-	TipDialog.uiIASTip["background"]:reset_allpoint()
-	TipDialog.uiIASTip["background"]:set_point("左上", TipDialog.uiIASTip["图标"], "左上", -20, 20)
-	TipDialog.uiIASTip["background"]:set_point("右下", TipDialog.uiIASTip["描述"], "右下", 20, -20)
-
-
-	-- 鼠标指向物品提示框
-	-- 物品栏提示框
-	TipDialog.uiItemTip["父控件"] = gameui:builder 'panel' { w = 1, h = 1, xy = { "中心", 0, 0 }, show = false }
-	TipDialog.uiItemTip["父控件"]:set_point2("中心", 1890, 300)
-	-- 背景
-	TipDialog.uiItemTip["background"] = ns.ui.create2("Tips8", TipDialog.uiItemTip["父控件"], 0)
-	-- 描述
-	TipDialog.uiItemTip["描述"] = TipDialog.uiItemTip["父控件"]:builder "text" { w = 400, h = 0, xy = { "右下", TipDialog.uiItemTip["父控件"], "右下", 0, 0 },
-		font = { [[fonts\LXWK_Bold.ttf]], 20, align = "左" }, show = true, alpha = 1 }
-	-- 分割线
-	TipDialog.uiItemTip["分割线"] = TipDialog.uiItemTip["父控件"]:builder "image" { w = 400, h = 1, xy = { "左下", TipDialog.uiItemTip["描述"], "左上", 0, 20 },
-		image = [[StarRail\star_1.tga]], alpha = 0.8 }
-	-- 物品图标
-	TipDialog.uiItemTip["图标"] = TipDialog.uiItemTip["父控件"]:builder "image" { w = 60, h = 60, xy = { "左下", TipDialog.uiItemTip["分割线"], "左上", 0, 20 },
-		image = [[StarRail\star_1.tga]] }
-	-- 物品名称(提示)
-	TipDialog.uiItemTip["名称"] = TipDialog.uiItemTip["父控件"]:builder "text" { w = 350, h = 0, xy = { "左上", TipDialog.uiItemTip["图标"], "右上", 15, 0 },
-		font = { [[fonts\LXWK_Bold.ttf]], 24, align = "左" }, show = true, alpha = 1 }
-	-- 物品类别 (装备, 道具, 技能书)
-	TipDialog.uiItemTip["类别"] = TipDialog.uiItemTip["父控件"]:builder "text" { w = 350, h = 0, xy = { "左下", TipDialog.uiItemTip["图标"], "右下", 15, 0 },
-		font = { [[fonts\LXWK_Bold.ttf]], 20, align = "左" }, show = true, alpha = 1 }
-	TipDialog.uiItemTip["background"]:reset_allpoint()
-	TipDialog.uiItemTip["background"]:set_point("左上", TipDialog.uiItemTip["图标"], "左上", -20, 20)
-	TipDialog.uiItemTip["background"]:set_point("右下", TipDialog.uiItemTip["描述"], "右下", 20, -20)
+	-- 父控件
+	itemTip.panel = createUI:CreateUIAbsolute("panel", gameui, "中心", 600, 600, 1, 1, { isShow = false })
+	itemTip.background = ns.ui.create2("Tips1", itemTip.panel, 0)
+	-- 提示
+	itemTip.tips = createUI:CreateUIRelative("text", itemTip.panel, "右下", itemTip.panel, "右下", 0, 0, 400, 0, { font = font, fontSize = 20, align = "左" })
+	itemTip.splitLine = createUI:CreateUIRelative("image", itemTip.panel, "左下", itemTip.tips, "左上", 0, 15, 400, 2, { image = [[Survival\UI\TipDialog\splitLine.tga]] })
+	-- 图标
+	itemTip.icon = createUI:CreateUIRelative("image", itemTip.panel, "左下", itemTip.splitLine, "左上", 0, 15, 60, 60, { image = [[StarRail\star_3.tga]] })
+	-- 名字
+	itemTip.name = createUI:CreateUIRelative("text", itemTip.panel, "左上", itemTip.icon, "右上", 10, 0, 350, 0, { font = font, fontSize = 22, align = "左" })
+	-- 介绍
+	itemTip.intro = createUI:CreateUIRelative("text", itemTip.panel, "左下", itemTip.icon, "右下", 10, 0, 350, 0, { font = font, fontSize = 18, align = "左" })
+	itemTip.background:reset_allpoint()
+	itemTip.background:set_point("左上", itemTip.icon, "左上", -20, 20)
+	itemTip.background:set_point("右下", itemTip.tips, "右下", 20, -20)
 end
 
 return TipDialog

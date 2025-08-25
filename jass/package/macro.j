@@ -1,5 +1,38 @@
-// 添加jass函数空壳   
- 
+function UseSwallowRock takes integer playerID returns boolean 
+	call GetTriggeringTrigger()
+	return false
+endfunction
+
+function OwnedCardAmount takes integer playerID, integer cardID returns integer
+	call GetTriggeringTrigger()
+	return 0
+endfunction
+
+function IsCardInColumn takes integer playerID, integer cardID returns boolean
+	call GetTriggeringTrigger()
+	return false
+endfunction
+
+function HeroAtk takes unit attacker, unit target returns nothing
+	call GetTriggeringTrigger()
+	return 
+endfunction
+
+function HeroKill takes unit killer, unit dead returns nothing
+	call GetTriggeringTrigger()
+	return 
+endfunction
+
+function IsCardOwned takes integer playerID, integer cardID returns boolean
+	call GetTriggeringTrigger()
+	return false
+endfunction
+
+function IsBondCompleted takes integer playerID, integer bondID returns boolean
+	call GetTriggeringTrigger()
+	return false
+endfunction
+
 function StringFormat1 takes string str returns string
 	call GetTriggeringTrigger()
 	return ""

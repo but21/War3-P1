@@ -1,216 +1,232 @@
-local code = require "jass.code"
-local jass = require "jass.common"
+local table = table
 local japi = require "jass.japi"
-local player = player
-
+local code = require "jass.code"
 local Module = require "my_base.base_module_manager"
 local common = Module.Common
 local myFunc = Module.MyFunc
 
--- #region 类型一
+local CONFIG = {
+	-- UI 尺寸和位置
+	MESSAGE_WIDTH = 400,
+	MESSAGE_HEIGHT = 30,
+	VIEWPORT_X = 10,
+	VIEWPORT_Y = 100,
+	MESSAGE_GAP = 5, -- 消息之间的垂直间距
 
---- 类型一: 消息UI
-local MessageUI_Type1 = {}
---- 类型一: 消息UI队列
-local MessageQueue_Type1 = {}
---- 类型一: 消息总数量
-local count_Type1 = 10
---- 类型一: UI总数量
-local uiCountType1 = 15
---- 类型一: 当前展示的消息数量
-local currentCount_Type1 = 0
---- 类型一: 消息动作CD
-local messageCD_Type1 = 0
---- 类型一: 消息UI背景
-MessageUI_Type1["背景"] = {}
---- 类型一: 消息UI文本
-MessageUI_Type1["消息"] = {}
---- 类型一: 消息缓存队列
-local MessageCache_Type1 = {}
+	-- 队列行为
+	MAX_VISIBLE_MESSAGES = 10, -- 屏幕上最多同时显示的消息数量
+	UI_POOL_SIZE = 15,      -- 预先创建的UI元素总数 (必须 >= MAX_VISIBLE_MESSAGES)
+	MESSAGE_LIFETIME = 3.0, -- 消息显示时长（秒）
 
---- 类型一: 消息的宽高
-local w1, h1 = 400, 30
---- 类型一: 视口的位置
-local x1, y1 = 10, 100
---- 初始y轴
-local positionY = (h1 + 5) * (count_Type1) - 5
---- 类型一: 进入的时候挪动的距离
-local dis1 = 200
---- 类型一: 淡出时间
-local deadline1 = 3
---- 类型一:  字体大小
-local fontSize1 = 18
---- 类型一: 消息文本和背景左侧的间距
-local TextBGDis1 = 10
+	-- 动画参数
+	ANIM_MOVE_DURATION = 0.16, -- 消息进入和上移动画的时长
+	ANIM_REMOVE_DURATION = 0.20, -- 消息移除动画的时长
+	ANIM_ENTRY_OFFSET_X = 200, -- 消息从右侧进入时的偏移量
+	CASCADE_DELAY = 0.1,      -- 快速填充模式下的消息间隔（秒）
 
--- #endregion
+	FONT_FILE = [[fonts\LXWK_Bold.ttf]],
+	FONT_SIZE = 18,
+	TEXT_MARGIN_LEFT = 10,
+	BACKGROUND_IMAGE = [[Survival\UI\Message\background.tga]],
+}
 
+CONFIG.VIEWPORT_HEIGHT = (CONFIG.MESSAGE_HEIGHT + CONFIG.MESSAGE_GAP) * CONFIG.MAX_VISIBLE_MESSAGES - CONFIG.MESSAGE_GAP
 
---- 消息队列UI初始化
-local function MessageQueueFunc()
-	MessageUI_Type1["视口"] = gameui:builder "panel" { w = w1, h = positionY, xy = { "左侧", gameui, "左侧", x1, y1 }, show = true }
-	japi.FrameSetViewPort(MessageUI_Type1["视口"].handle, true)
-	MessageUI_Type1.index = 0
-	for i = 1, uiCountType1 do
-		MessageUI_Type1["背景"][i] = MessageUI_Type1['视口']:builder "image" { w = w1, h = h1, xy = { "左侧", MessageUI_Type1["视口"], "左侧", dis1,
-			(h1 - positionY) / 2 }, image = [[Survival\UI\Message\background.tga]], show = false, alpha = 1 }
-		MessageUI_Type1["消息"][i] = gameui:builder "text" { w = w1 * 2, h = 0, xy = { "左侧", MessageUI_Type1["背景"][i], "左侧", TextBGDis1, 0 },
-			font = { [[fonts\LXWK_Bold.ttf]], fontSize1, align = "左" }, show = false }
-		MessageUI_Type1["消息"][i]:set_text("测试消息测试消息 -- " .. i)
-		MessageUI_Type1["背景"][i].deadline = 0
-		MessageUI_Type1["背景"][i].index = i
-		MessageQueue_Type1[i] = MessageUI_Type1["背景"][i]
-	end
+---@class Message
+local Message = {}
+Message.__index = Message
+
+function Message:new(viewport, index)
+	---@class Message
+	local obj = setmetatable({}, Message)
+	obj.index = index
+
+	obj.bg = viewport:builder "image" {
+		w = CONFIG.MESSAGE_WIDTH, h = CONFIG.MESSAGE_HEIGHT,
+		xy = { "左侧", viewport, "左侧", CONFIG.ANIM_ENTRY_OFFSET_X, (CONFIG.MESSAGE_HEIGHT - CONFIG.VIEWPORT_HEIGHT) / 2 },
+		image = CONFIG.BACKGROUND_IMAGE,
+		show = false
+	}
+	obj.text = gameui:builder "text" {
+		w = CONFIG.MESSAGE_WIDTH * 2, h = 0,
+		xy = { "左侧", obj.bg, "左侧", CONFIG.TEXT_MARGIN_LEFT, 0 },
+		font = { CONFIG.FONT_FILE, CONFIG.FONT_SIZE, align = "左" },
+		show = false
+	}
+	obj.lifetime = 0
+	obj.isActive = false
+	obj.message = ""
+	return obj
 end
 
+---@param content string
+---@param targetY number
+function Message:show(content, targetY)
+	self.isActive = true
+	self.lifetime = CONFIG.MESSAGE_LIFETIME
 
----移除消息 (类型一和二)
-local function RemoveMessage()
-	local index = uiCountType1 - currentCount_Type1 + 1
-	currentCount_Type1 = currentCount_Type1 - 1
-	local ui = MessageQueue_Type1[index]
-	myFunc:FadeSize({
-		UI = ui,
-		time = 0.1,
-		startP = { w1, h1 },
-		endP = { w1 * 1.2, h1 * 1.2 },
-		ty = "二元入",
-		complete = function()
-			myFunc:FadeSize({
-				UI = ui,
-				time = 0.15,
-				startP = { w1 * 1.2, h1 * 1.2 },
-				endP = { w1 * 0.8, h1 * 0.8 },
-				ty = "二元入",
-				complete = function()
-					ui:set_show(false)
-					ui:set_alpha(1)
-					ui:set_wh(w1, h1)
-				end
-			})
-		end
-	})
-	myFunc:FadeAlpha({
-		UI = ui,
-		time = 0.25,
-		show = false,
-		ty = "二元入",
-	})
-	local textUI = MessageUI_Type1["消息"][ui.index]
-	myFunc:FadeAlpha({
-		UI = textUI,
-		time = 0.25,
-		show = false,
-		ty = "二元入",
-		complete = function()
-			textUI:set_show(false)
-			textUI:set_alpha(1)
-		end
-	})
-end
+	self.text:set_text(content)
+	self.bg:set_show(true)
+	self.text:set_show(true)
+	self.bg:set_alpha(1)
+	self.text:set_alpha(1)
 
-
----显示消息
----@param message string 消息文本
-local function ShowMessage(message, t)
-	messageCD_Type1 = t + 0.04
-	local index = MessageQueue_Type1[1].index
-	for i = uiCountType1 - currentCount_Type1 + 1, uiCountType1 do
-		local ui = MessageQueue_Type1[i]
-		if currentCount_Type1 == count_Type1 and i == uiCountType1 - currentCount_Type1 + 1 then
-			-- 结束的时候隐藏
-			local textUI = MessageUI_Type1["消息"][ui.index]
-			myFunc:FadeAlpha({
-				UI       = textUI,
-				time     = t,
-				show     = false,
-				ty       = "二元入",
-				complete = function()
-					textUI:set_show(false)
-					textUI:set_alpha(1)
-				end
-			})
-		end
-		if ui then
-			local _, y = ui:get_xy()
-			myFunc:FadePosition({
-				UI = ui,
-				fUI = MessageUI_Type1["视口"],
-				time = t,
-				ty = "二元出",
-				startP = { 0, y },
-				endP = { 0, y + h1 + 5 },
-				anchor = { "左侧", "左侧" },
-			})
-		end
-	end
-	local ui = MessageQueue_Type1[1]
-	ui.deadline = deadline1
-	ui:set_show(true)
-	MessageUI_Type1["消息"][index]:set_text(message)
-	MessageUI_Type1["消息"][index]:set_show(true)
-	table.insert(MessageQueue_Type1, table.remove(MessageQueue_Type1, 1))
 	myFunc:FadePosition({
-		UI = ui,
-		fUI = MessageUI_Type1["视口"],
-		time = t,
+		UI = self.bg,
+		fUI = self.bg:get_parent(),
+		time = CONFIG.ANIM_MOVE_DURATION,
 		ty = "二元出",
-		startP = { dis1, (h1 - positionY) / 2 },
-		endP = { 0, (h1 - positionY) / 2 },
+		startP = { CONFIG.ANIM_ENTRY_OFFSET_X, targetY },
+		endP = { 0, targetY },
 		anchor = { "左侧", "左侧" },
-		-- print(11 % 10)
 	})
-	ui:set_alpha(1)
 end
 
+--- 平滑移动到新的Y轴位置
+---@param targetY number
+function Message:animateToY(targetY)
+	local currentX, currentY = self.bg:get_xy()
+	if currentY == targetY then return end
 
+	myFunc:FadePosition({
+		UI = self.bg,
+		fUI = self.bg:get_parent(),
+		time = CONFIG.ANIM_MOVE_DURATION,
+		ty = "二元出",
+		startP = { 0, currentY },
+		endP = { 0, targetY },
+		anchor = { "左侧", "左侧" },
+	})
+end
 
+function Message:hideAndReset()
+	self.isActive = false
+	self.lifetime = 0
 
----添加消息
----@param playerID integer 玩家ID
----@param message string 消息字符串
-function code.AddMessage(playerID, message)
+	myFunc:FadeAlpha({ UI = self.bg, time = CONFIG.ANIM_REMOVE_DURATION, show = false, ty = "二元入" })
+	myFunc:FadeAlpha({
+		UI = self.text,
+		time = CONFIG.ANIM_REMOVE_DURATION,
+		show = false,
+		ty = "二元入",
+		complete = function()
+			self.bg:set_show(false)
+			self.text:set_show(false)
+			self.bg:set_alpha(1)
+			self.text:set_alpha(1)
+		end
+	})
+end
+
+--- 每帧更新
+function Message:update(deltaTime)
+	if not self.isActive then return end
+
+	self.lifetime = self.lifetime - deltaTime
+	if self.lifetime <= 0 then
+		self.isActive = false -- 标记为非活动，等待管理器回收
+	end
+end
+
+local MessageQueueManager = {}
+
+function MessageQueueManager:initialize()
+	self.viewport = nil
+	---@type table<integer, Message>
+	self.messagePool = {} -- UI对象池
+	---@type table<integer, Message>
+	self.activeMessages = {} -- 当前显示的消息队列
+	self.messageCache = {} -- 待显示的消息文本缓存
+	self.cooldown = 0
+
+	ac.time(0.01, 1, function() self:_createUI() end)
+	ac.time(0.02, function() self:_update(0.02) end)
+end
+
+function MessageQueueManager:_createUI()
+	self.viewport = gameui:builder "panel" {
+		w = CONFIG.MESSAGE_WIDTH, h = CONFIG.VIEWPORT_HEIGHT,
+		xy = { "左侧", gameui, "左侧", CONFIG.VIEWPORT_X, CONFIG.VIEWPORT_Y },
+		show = true
+	}
+	japi.FrameSetViewPort(self.viewport.handle, true)
+
+	for i = 1, CONFIG.UI_POOL_SIZE do
+		self.messagePool[i] = Message:new(self.viewport, i)
+	end
+end
+
+function MessageQueueManager:addMessage(playerID, text)
 	if common:IsLocalPlayer(common.Player[playerID]) then
-		-- if player[playerID]:IsLocalPlayer() then
-		if messageCD_Type1 <= 0 and #MessageCache_Type1 == 0 then
-			if currentCount_Type1 < count_Type1 then
-				currentCount_Type1 = currentCount_Type1 + 1
+		table.insert(self.messageCache, text)
+	end
+end
+
+function MessageQueueManager:_update(deltaTime)
+	for playerID = 1, 4, 1 do
+		if common:IsLocalPlayer(common.Player[playerID]) then
+			for _, msgObj in ipairs(self.activeMessages) do
+				msgObj:update(deltaTime)
 			end
-			-- print("ShowMessage")
-			ShowMessage(message, 0.16)
-		else
-			-- print("进入缓存队列")
-			table.insert(MessageCache_Type1, message)
+
+			for i = #self.activeMessages, 1, -1 do
+				local msgObj = self.activeMessages[i]
+				if not msgObj.isActive then
+					msgObj:hideAndReset()
+					table.remove(self.activeMessages, i)
+					table.insert(self.messagePool, msgObj)
+				end
+			end
+			if self.cooldown > 0 then
+				self.cooldown = self.cooldown - deltaTime
+			end
+
+			if self.cooldown <= 0 and #self.messageCache > 0 then
+				self:_showNewMessage(table.remove(self.messageCache, 1))
+
+				if #self.activeMessages >= CONFIG.MAX_VISIBLE_MESSAGES then
+					self.cooldown = CONFIG.ANIM_MOVE_DURATION
+				else
+					self.cooldown = CONFIG.CASCADE_DELAY
+				end
+			end
 		end
 	end
 end
 
-ac.time(0.01, 1, MessageQueueFunc)
+function MessageQueueManager:_showNewMessage(content)
+	if #self.messagePool == 0 then return end
 
+	if #self.activeMessages >= CONFIG.MAX_VISIBLE_MESSAGES then
+		local oldestMsg = table.remove(self.activeMessages, 1)
+		oldestMsg:hideAndReset()
+		table.insert(self.messagePool, oldestMsg)
+	end
 
-ac.time(0.02, function()
-	for i = 1, 4 do
-		if player[i]:IsLocalPlayer() then
-			-- print("messageCD_Type1", messageCD_Type1, messageCD_Type1 > 0)
-			if messageCD_Type1 > 0 then
-				messageCD_Type1 = messageCD_Type1 - 0.02
-				if #MessageCache_Type1 > 0 and messageCD_Type1 <= 0 then
-					if currentCount_Type1 < count_Type1 then
-						currentCount_Type1 = currentCount_Type1 + 1
-					end
-					ShowMessage(table.remove(MessageCache_Type1, 1), 0.16)
-				end
-			end
-			for j = uiCountType1 - currentCount_Type1 + 1, uiCountType1 do
-				-- print(j)
-				local ui = MessageQueue_Type1[j]
-				if ui.deadline > 0 and ui:is_show() then
-					ui.deadline = ui.deadline - 0.02
-					if ui.deadline <= 0 then
-						RemoveMessage()
-					end
-				end
-			end
+	local newMessage = table.remove(self.messagePool, 1)
+	newMessage.message = content
+	table.insert(self.activeMessages, newMessage)
+
+	self:_repositionActiveMessages(newMessage)
+end
+
+---@param newlyAddedMessage Message | nil
+function MessageQueueManager:_repositionActiveMessages(newlyAddedMessage)
+	for i, msgObj in ipairs(self.activeMessages) do
+		local slotIndex = #self.activeMessages - i
+		local targetY = (CONFIG.MESSAGE_HEIGHT - CONFIG.VIEWPORT_HEIGHT) / 2 + slotIndex * (CONFIG.MESSAGE_HEIGHT + CONFIG.MESSAGE_GAP)
+
+		if newlyAddedMessage and msgObj == newlyAddedMessage then
+			msgObj:show(msgObj.message, targetY)
+		else
+			msgObj:animateToY(targetY)
 		end
 	end
-end)
+end
+
+local MyMessageQueue = MessageQueueManager
+MyMessageQueue:initialize()
+
+code.AddMessage = function(playerID, message)
+	MyMessageQueue:addMessage(playerID, message)
+end

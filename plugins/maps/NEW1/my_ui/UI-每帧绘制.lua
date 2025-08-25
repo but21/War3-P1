@@ -1,10 +1,11 @@
-local dzapi      = require 'jass.dzapi'
-local code       = require 'jass.code'
-local japi       = require 'jass.japi'
-local jass       = require 'jass.common'
+local dzapi   = require 'jass.dzapi'
+local code    = require 'jass.code'
+local japi    = require 'jass.japi'
+local jass    = require 'jass.common'
+local gameui  = gameui
 
-local Module     = require "my_base.base_module_manager"
-local UI_ItemTip = Module.UITipDialog.uiItemTip
+local Module  = require "my_base.base_module_manager"
+local itemTip = Module.UITipDialog.itemTip
 
 
 local LUIUpdate = LUIUpdate
@@ -63,29 +64,24 @@ function gameui.message_Refresh_action()
 	-- 鼠标指向物品的物品类型
 	local itemType = jass.GetItemTypeId(item)
 	if itemType > 0 then
-		local ty = jass.LoadInteger(jass.YDHT, itemType, jass.StringHash("id"))
-		-- local type = slk.item[string.i2id(jass.GetItemTypeId(item))]["name"]
-		if ty == 1 then
-			UI_ItemTip["类别"]:set_text("|cff0091ff类别 -- 装备")
-		elseif ty == -1 then
-			UI_ItemTip["类别"]:set_text("|cff0091ff类别 -- 技能书")
-		else
-			UI_ItemTip["类别"]:set_text("|cff0091ff类别 -- 道具")
-		end
-		--- 提示
-		local name = code.YDWEGetItemDataString(jass.GetItemTypeId(item), 4)
-		--- 提示拓展
-		local text = code.YDWEGetItemDataString(jass.GetItemTypeId(item), 3)
 		--- 图标
-		local icon = code.YDWEGetItemDataString(jass.GetItemTypeId(item), 1)
-		UI_ItemTip["描述"]:set_text(text)
-		UI_ItemTip["名称"]:set_text(name)
-		UI_ItemTip["图标"]:set_image(icon)
-		UI_ItemTip["父控件"]:set_point2("中心", 1900, 301)
-		UI_ItemTip["父控件"]:set_show(true)
+		local icon = code.YDWEGetItemDataString(itemType, 1)
+		-- 名字
+		local name = code.YDWEGetItemDataString(itemType, 4)
+		--- 提示
+		local text = code.YDWEGetItemDataString(itemType, 2)
+		-- 说明
+		local intro = code.YDWEGetItemDataString(itemType, 5)
+		itemTip.icon:set_image(icon)
+		itemTip.name:set_text(name)
+		itemTip.tips:set_text(text)
+		itemTip.intro:set_text("|cff696E6E类别 - " .. intro)
+		itemTip.panel:reset_allpoint():set_point2("中心", 1900, 284)
+		itemTip.panel:set_show(true)
 	else
-		UI_ItemTip["父控件"]:set_show(false)
+		itemTip.panel:set_show(false)
 	end
+	item = nil
 	--#endregion
 end
 
