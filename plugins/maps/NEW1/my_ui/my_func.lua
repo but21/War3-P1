@@ -547,7 +547,7 @@ end
 ---@param object integer 被设置自定义值的对象: 单位 / 特效 / 触发器 / 物品
 ---@param type "整数"|"单位"|"实数"|"字符串"
 ---@param name string 自定义值名称
----@param value any 设置的值
+---@param value any  设置的值
 function manager:SetCustomValue(object, type, name, value)
 	if type == "单位" then
 		jass.SaveUnitHandle(jass.YDHT, object, jass.StringHash(name), value)

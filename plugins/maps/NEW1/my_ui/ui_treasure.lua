@@ -1,15 +1,17 @@
-local jass              = require "jass.common"
-local code              = require "jass.code"
-local Module            = require "my_base.base_module_manager"
-local myFunc            = Module.MyFunc
-local common            = Module.Common
-local uiCreate          = Module.UICreate
-local excel             = require "ac.tyns.excel"
-local font              = "fonts\\LXWK_Bold.ttf"
-local table             = table
-local attrSystem        = Module.AttrSystem
-local textTipDown       = Module.UITipDialog.tipOnlyTextDown
-local tipDialogUp       = Module.UITipDialog.tipDialogUp
+local jass        = require "jass.common"
+local code        = require "jass.code"
+local Module      = require "my_base.base_module_manager"
+local myFunc      = Module.MyFunc
+local common      = Module.Common
+local uiCreate    = Module.UICreate
+local excel       = require "ac.tyns.excel"
+local font        = "fonts\\LXWK_Bold.ttf"
+local table       = table
+local attrSystem  = Module.AttrSystem
+local textTipDown = Module.UITipDialog.tipOnlyTextDown
+local tipDialogUp = Module.UITipDialog.tipDialogUp
+local event       = Module.Event
+
 
 local heros             = jass.udg_Hero
 local playerGold        = jass.udg_PlayerGold
@@ -24,12 +26,15 @@ Treasure.ui             = ui
 local ownedTreasures    = {}
 local drawTreasurePool  = {}
 local drawShowAmount    = { 3, 3, 3, 3 }
-local drawAmount        = { 10, 0, 0, 0 }
-local refreshCount      = { 10, 0, 0, 0 }
+local drawAmount        = { 0, 0, 0, 0 }
+local refreshCount      = { 0, 0, 0, 0 }
 local currentOptions    = {}
 Treasure.drawAmount     = drawAmount
 Treasure.drawShowAmount = drawShowAmount
 Treasure.refreshCount   = refreshCount
+
+---@type UIModule
+local UIModule
 
 local countDown         = 0
 local inSelecting       = false
@@ -63,7 +68,7 @@ local function OnOptionClick(btn)
 	common:SendSync("SelectTreasure", index)
 end
 local function UIInit()
-	local UIModule   = require "my_ui.ui_module_manager"
+	UIModule         = require "my_ui.ui_module_manager"
 
 	local wBtn, hBtn = 60, 60
 	local xBtn, yBtn = 1600, 300 -- 功能按钮绝对位置
@@ -216,6 +221,51 @@ common:ReceiveSync("TreasureDraw")(function()
 		DrawTreasure(playerID)
 	end
 end)
+local function GetTreasure(playerID, id)
+	local player = common.Player[playerID]
+	local lv = excel["宝物"][id].Lv
+	if lv < 3 then
+		table.insert(drawTreasurePool[playerID], id + 100)
+	end
+	attrSystem:SetUnitAttrStr(heros[playerID], 0, excel["宝物"][id].Attr)
+	local TID = excel["宝物"][id].TID
+	if TID == 1 then
+		local diamond = common:GetRandomInt(excel["宝物"][id].Value1, excel["宝物"][id].Value2)
+		playerDiamond[playerID] = playerDiamond[playerID] + diamond
+		code.AddMessage(playerID, "获得钻石: |cfaffff00" .. diamond)
+	end
+	if TID == 5 then
+		refreshCount[playerID] = refreshCount[playerID] + excel["宝物"][id].Value1
+	end
+	if TID == 6 then
+		myFunc:SetCustomValue(heros[playerID], "实数", "Treasure6", myFunc:GetCustomValue(heros[playerID], "实数", "Treasure6") + excel["宝物"][id].Value1)
+	end
+	if TID == 9 then
+		local count = 0
+		local function HeroKill(killer, dead)
+			count = count + 1
+			if count == excel["宝物"][id].Value1 then
+				local gold = math.RandomInt(excel["宝物"][id].Value2, excel["宝物"][id].Value3)
+				playerGold[playerID] = playerGold[playerID] + gold
+				code.AddMessage(playerID, "黄金珠  获得金币: |cfaffff00" .. gold)
+				event:Off("HeroKill", playerID, HeroKill)
+			end
+		end
+		event:On("HeroKill", playerID, HeroKill)
+	end
+	if TID == 12 then
+		UIModule.SeizeBody.freeRefreshCount[playerID] = UIModule.SeizeBody.freeRefreshCount[playerID] + excel["宝物"][id].Value1
+	end
+	if TID == 13 then
+		local attrName = { "当前力量", "当前敏捷", "当前智力" }
+		local ran = math.RandomInt(1, 3)
+		attrSystem:SetObjAttrEx_Str(heros[playerID], attrName[ran], 0, excel["宝物"][id].Value1)
+		code.AddMessage(playerID, attrName .. "+" .. excel["宝物"][id].Value1 .. "%")
+	end
+	myFunc:SetCustomValue(jass.gg_trg_SelectTreasureLua, "整数", "playerID", playerID)
+	myFunc:SetCustomValue(jass.gg_trg_SelectTreasureLua, "整数", "id", id)
+	common:RunTrigger(jass.gg_trg_SelectTreasureLua)
+end
 common:ReceiveSync("SelectTreasure")(function(data)
 	local player = common:GetSyncPlayer()
 	local playerID = common:ConvertPlayerToID(player)
@@ -226,21 +276,10 @@ common:ReceiveSync("SelectTreasure")(function(data)
 			table.insert(drawTreasurePool[playerID], treasureID)
 		end
 	end
-	local lv = excel["宝物"][id].Lv
-	if lv < 3 then
-		table.insert(drawTreasurePool[playerID], id + 100)
-	end
 	if common:IsLocalPlayer(player) then
 		inSelecting = false
 	end
-	attrSystem:SetUnitAttrStr(heros[playerID], 0, excel["宝物"][id].Attr)
-	local TID = excel["宝物"][id].TID
-	if TID == 1 then
-		local diamond = common:GetRandomInt(excel["宝物"][id].Value1, excel["宝物"][id].Value2)
-		playerDiamond[playerID] = playerDiamond[playerID] + diamond
-		code.AddMessage(playerID, "获得钻石: |cfaffff00" .. diamond)
-	end
-	common:RunTrigger(jass.gg_trg_Treasure)
+	GetTreasure(playerID, id)
 	print("玩家" .. playerID, "获得宝物: " .. id)
 end)
 common:ReceiveSync("RefreshTreasureDraw")(function(data)
@@ -258,8 +297,10 @@ common:ReceiveSync("RefreshTreasureDraw")(function(data)
 				table.insert(drawTreasurePool[playerID], id)
 			end
 		end
-		table.ClearTable(currentOptions[playerID])
 		DrawTreasure(playerID)
+		for key, value in ipairs(temp) do
+			table.insert(drawTreasurePool[playerID], value)
+		end
 	end
 end)
 

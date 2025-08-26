@@ -1,4 +1,5 @@
 local BaseModule = require "my_base.base_module_manager"
+---@class UIModule
 local UIModule = {}
 
 

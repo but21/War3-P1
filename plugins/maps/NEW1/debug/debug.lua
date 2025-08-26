@@ -40,6 +40,12 @@ end
 jass.udg_PlayerGold[1] = 100000
 jass.udg_PlayerKills[1] = 100000
 jass.udg_PlayerDiamond[1] = 100000
+
+UIModule.Treasure.drawAmount[1] = 999
+UIModule.Treasure.refreshCount[1] = 999
+
+local t = { 1, 2, 3 }
+
 -- 杀敌
 -- 黑市等级
 -- jass.udg_BlackMarketLv[1] = 10

@@ -4,6 +4,7 @@ local jass                = require "jass.common"
 local font                = "fonts\\LXWK_Bold.ttf"
 
 local uiCreate            = Module.UICreate
+local attrSystem          = Module.AttrSystem
 local tipOnlyTextDown     = Module.UITipDialog.tipOnlyTextDown
 local myFunc              = Module.MyFunc
 local common              = Module.Common
@@ -12,30 +13,32 @@ local excelSystem         = Module.ExcelSystem
 local players             = jass.udg_Player
 local tipDialogDown       = Module.UITipDialog.tipDialogDown
 
+local heros               = jass.udg_Hero
 local SeizeBody           = {}
 local _ui                 = {}
 SeizeBody.ui              = _ui
 SeizeBody.swallowedHeroes = {}
 
+local freeRefreshCount     = { 0, 0, 0, 0 }
+SeizeBody.freeRefreshCount = freeRefreshCount
 local _drawAmount         = { 2, 2, 2, 2 }
 
-
-local _refreshCost = {}
-local _drawPool    = {}
+local refreshCost          = {}
+local drawPool             = {}
 
 
 ---@type table<integer, table<integer, integer>> 对应玩家的选项ID
 local _optionsID = {}
 for playerID, value in ipairs(jass.udg_Player) do
 	_optionsID[playerID] = {}
-	_drawPool[playerID]  = {}
+	drawPool[playerID]   = {}
 	for i = 1, #excel["夺舍"], 1 do
-		_drawPool[playerID][i] = i
+		drawPool[playerID][i] = i
 	end
-	_refreshCost[playerID]              = {}
-	_refreshCost[playerID].originCost   = excel["其它"][8]["Value2"]
-	_refreshCost[playerID].raiseCost    = excel["其它"][8]["Value3"]
-	_refreshCost[playerID].refreshCount = 0
+	refreshCost[playerID]               = {}
+	refreshCost[playerID].originCost    = excel["其它"][8]["Value2"]
+	refreshCost[playerID].raiseCost     = excel["其它"][8]["Value3"]
+	refreshCost[playerID].refreshCount  = 0
 	SeizeBody.swallowedHeroes[playerID] = {}
 end
 
@@ -119,7 +122,7 @@ _ui.refreshBtn:event "进入" (function(btn)
 	tipOnlyTextDown.panel:reset_allpoint()
 	tipOnlyTextDown.panel:set_point("中心", btn, "右上", 25, -11)
 	tipOnlyTextDown.panel:set_show(true)
-	local cost = _refreshCost[playerID].originCost + _refreshCost[playerID].raiseCost * _refreshCost[playerID].refreshCount
+	local cost = refreshCost[playerID].originCost + refreshCost[playerID].raiseCost * refreshCost[playerID].refreshCount
 	tipOnlyTextDown.tips:set_text("点击消耗|cfaffff00" .. cost .. "|r钻石刷新")
 end)
 _ui.refreshBtn:event "离开" (function(btn)
@@ -195,10 +198,10 @@ local function DrawHero(playerID)
 	local drawAmount = _drawAmount[playerID]
 	_optionsID[playerID] = {}
 	for count = 1, drawAmount do
-		local randomIndex = common:GetRandomInt(1, #_drawPool[playerID])
-		local id = _drawPool[playerID][randomIndex]
+		local randomIndex = common:GetRandomInt(1, #drawPool[playerID])
+		local id = drawPool[playerID][randomIndex]
 		-- table.insert(_optionsID[playerID], id)
-		table.remove(_drawPool[playerID], randomIndex)
+		table.remove(drawPool[playerID], randomIndex)
 		_optionsID[playerID][count] = id
 		local modelData = modelDatas[id]
 		_ui.optionModel[count]:set_model(excel["夺舍"][id]["Model"])
@@ -218,31 +221,35 @@ end
 common:ReceiveSync("RefreshSeizeSelect")(function()
 	local player = common:GetSyncPlayer()
 	local playerID = common:ConvertPlayerToID(player)
-	local cost = _refreshCost[playerID].originCost + _refreshCost[playerID].raiseCost * _refreshCost[playerID].refreshCount
-	if jass.udg_PlayerDiamond[playerID] >= cost then
-		_refreshCost[playerID].refreshCount = _refreshCost[playerID].refreshCount + 1
+	local cost = refreshCost[playerID].originCost + refreshCost[playerID].raiseCost * refreshCost[playerID].refreshCount
+	if freeRefreshCount[playerID] > 0 then
+		freeRefreshCount[playerID] = freeRefreshCount[playerID] - 1
+	else
+		if jass.udg_PlayerDiamond[playerID] < cost then
+			code.AddMessage(playerID, "|cfff43232钻石不足!!!")
+			return
+		end
 		jass.udg_PlayerDiamond[playerID] = jass.udg_PlayerDiamond[playerID] - cost
-		if common:IsLocalPlayer(player) then
-			cost = _refreshCost[playerID].originCost + _refreshCost[playerID].raiseCost * _refreshCost[playerID].refreshCount
-			tipOnlyTextDown.tips:set_text("点击消耗|cfaffff00" .. cost .. "|r钻石刷新")
-		end
-		local tempHeroes = {}
-		if #_drawPool[playerID] >= _drawAmount[playerID] * 2 then
-			for _, id in ipairs(_optionsID[playerID]) do
-				table.insert(tempHeroes, id)
-			end
-		else
-			for _, id in ipairs(_optionsID[playerID]) do
-				table.insert(_drawPool[playerID], id)
-			end
-		end
-		_optionsID[playerID] = {}
-		DrawHero(playerID)
-		for _, id in ipairs(tempHeroes) do
-			table.insert(_drawPool[playerID], id)
+	end
+	refreshCost[playerID].refreshCount = refreshCost[playerID].refreshCount + 1
+	if common:IsLocalPlayer(player) then
+		cost = refreshCost[playerID].originCost + refreshCost[playerID].raiseCost * refreshCost[playerID].refreshCount
+		tipOnlyTextDown.tips:set_text("免费刷新次数：|cfaffff00" .. freeRefreshCount[playerID] .. "|r|n点击消耗|cfaffff00" .. cost .. "|r钻石刷新")
+	end
+	local tempHeroes = {}
+	if #drawPool[playerID] >= _drawAmount[playerID] * 2 then
+		for _, id in ipairs(_optionsID[playerID]) do
+			table.insert(tempHeroes, id)
 		end
 	else
-		code.AddMessage(playerID, "|cfff43232钻石不足!!!")
+		for _, id in ipairs(_optionsID[playerID]) do
+			table.insert(drawPool[playerID], id)
+		end
+	end
+	_optionsID[playerID] = {}
+	DrawHero(playerID)
+	for _, id in ipairs(tempHeroes) do
+		table.insert(drawPool[playerID], id)
 	end
 end)
 common:ReceiveSync("SeizeBody")(function(data)
@@ -253,13 +260,21 @@ common:ReceiveSync("SeizeBody")(function(data)
 	end
 	for index, id in ipairs(_optionsID[playerID]) do
 		if id ~= data then
-			table.insert(_drawPool[playerID], id)
+			table.insert(drawPool[playerID], id)
 		end
 	end
 	common:SaveInteger(jass.udg_HTSeizeBodyID, playerID, data, 1)
 	jass.udg_CurrentSeizeBodyID[playerID] = data
 	myFunc:SetCustomValue(jass.gg_trg_SeizeBodyLua, "整数", "playerID", playerID)
 	common:RunTrigger(jass.gg_trg_SeizeBodyLua)
+	local addition = myFunc:GetCustomValue(heros[playerID], "实数", "Treasure6")
+	if addition > 0 then
+		local max = attrSystem:GetObjAttrFromStr(heros[playerID], "面板力量") > attrSystem:GetObjAttrFromStr(heros[playerID], "面板敏捷") and "面板力量" or "面板敏捷"
+		max = attrSystem:GetObjAttrFromStr(heros[playerID], max) > attrSystem:GetObjAttrFromStr(heros[playerID], "面板智力") and max or "面板智力"
+		max = "当前" .. max:sub(-6)
+		attrSystem:SetObjAttrEx_Str(heros[playerID], max, 0, addition + 1)
+		myFunc:SetCustomValue(heros[playerID], "实数", "Treasure6", 0)
+	end
 end)
 
 -- 修改抽取和刷新方式, 一个数组存储已吞噬的英雄
