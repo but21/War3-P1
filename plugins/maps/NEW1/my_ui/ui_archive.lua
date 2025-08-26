@@ -306,7 +306,7 @@ function ArchiveUI:Init()
 end
 
 function code.KillArchiveBoss(bossID)
-	if bossID == 180 then
+	if bossID == 191 then
 		local point = 100 + (jass.udg_GameDifficulty - 1) * 10
 		for playerID, player in ipairs(players) do
 			if player > 0 then
@@ -319,7 +319,7 @@ function code.KillArchiveBoss(bossID)
 			end
 		end
 	end
-	if bossID == 181 then
+	if bossID == 192 then
 		local point = 100 + (jass.udg_GameDifficulty - 1) * 10
 		for playerID, player in ipairs(players) do
 			if player > 0 then

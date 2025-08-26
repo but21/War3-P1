@@ -4,6 +4,7 @@ local code = require "jass.code"
 local japi = require "jass.japi"
 local debug = require "jass.debug"
 local message = require "jass.message"
+local table = table
 
 local Event = {}
 
@@ -40,16 +41,9 @@ function Event:Init(common)
 	function Event:Emit(eventName, playerID, ...)
 		-- 检查是否存在该事件的监听器
 		if _listeners[eventName] and _listeners[eventName][playerID] then
-			-- 为了防止在事件处理中修改监听器列表（例如，在监听器中调用off）
-			-- 我们创建一个列表的副本进行遍历
-			local listenersForEvent = {}
-			for _, listener in ipairs(_listeners[eventName][playerID]) do
-				table.insert(listenersForEvent, listener)
-			end
-
 			-- 遍历并执行所有监听器
-			for _, listener in ipairs(listenersForEvent) do
-				listener(...) -- 将所有可变参数传递给监听器
+			for i = #_listeners[eventName][playerID], 1, -1 do
+				_listeners[eventName][playerID][i](..., _listeners[eventName][playerID][i])
 			end
 		end
 	end
@@ -57,7 +51,7 @@ function Event:Init(common)
 	--- 取消订阅一个事件,  如果只提供了 eventName，则移除该事件的所有监听器
 	--- @param eventName string 事件名称
 	--- @param playerID integer 玩家ID
-	--- @param listener function [可选] 要移除的特定监听器
+	--- @param listener function [可选] 要移除的特定监听器, 最后一个参数为监听器本身
 	function Event:Off(eventName, playerID, listener)
 		if not _listeners[eventName] then
 			return -- 该事件没有任何监听器，直接返回
@@ -72,17 +66,15 @@ function Event:Init(common)
 			return
 		end
 
-		local listenersForEvent = _listeners[eventName][playerID]
 		-- 从后向前遍历，这样在移除元素时不会影响后续的遍历
-		for i = #listenersForEvent, 1, -1 do
-			if listenersForEvent[i] == listener then
-				table.remove(listenersForEvent, i)
+		for i = #_listeners[eventName][playerID], 1, -1 do
+			if _listeners[eventName][playerID][i] == listener then
+				table.Remove2(_listeners[eventName][playerID], i)
 			end
 		end
 	end
 
 	--#region 触发英雄攻击事件
-
 	function code.HeroAtk(attacker, target)
 		local playerID = common:ConvertPlayerToID(common:GetOwningPlayer(attacker))
 		Event:Emit("HeroAtk", playerID, attacker, target)
@@ -91,14 +83,26 @@ function Event:Init(common)
 	--#endregion
 
 
-	--#region 触发英雄击杀
+	-- 英雄被攻击
+	function code.HeroAtked(attacker, target)
+		local playerID = common:ConvertPlayerToID(common:GetOwningPlayer(target))
+		Event:Emit("HeroAtked", playerID, attacker, target)
+	end
 
+	-- 英雄升级
+	function code.HeroLvUp(hero)
+		local playerID = common:ConvertPlayerToID(common:GetOwningPlayer(hero))
+		Event:Emit("HeroLvUp", playerID, hero)
+	end
+
+	--#region 触发英雄击杀
 	function code.HeroKill(killer, dead)
 		local playerID = common:ConvertPlayerToID(common:GetOwningPlayer(killer))
 		Event:Emit("HeroKill", playerID, killer, dead)
 	end
 
 	--#endregion
+
 
 	--#region 按键事件
 	local keyEvents = {}
@@ -149,10 +153,6 @@ function Event:Init(common)
 			print("该键位不存在", keyStr)
 			return
 		end
-		-- if not keyboard[keyStr] then
-		-- 	print("该键位不存在", keyStr)
-		-- 	return
-		-- end
 		if ty ~= 1 and ty ~= 0 then
 			print("该事件类型不存在, 只能是1或0", ty)
 			return
@@ -182,11 +182,11 @@ function Event:Init(common)
 	local chatEvents = {}
 	local function Chat()
 		local player = jass.GetTriggerPlayer()
-		local message = jass.GetEventPlayerChatString()
+		local msg = jass.GetEventPlayerChatString()
 		local playerID = common:ConvertPlayerToID(player)
 		if chatEvents[playerID] then
 			for _, callback in ipairs(chatEvents[playerID]) do
-				callback(playerID, message)
+				callback(playerID, msg)
 			end
 		end
 	end

@@ -39,6 +39,7 @@ FattrType_24=0,FattrType,24,杀敌力量
 FattrType_25=0,FattrType,25,杀敌敏捷
 FattrType_26=0,FattrType,26,杀敌智力
 FattrType_27=0,FattrType,27,杀敌全属
+FattrType_28=0,FattrType,28,杀敌金币
 
 FattrType_41=0,FattrType,41,每秒攻击
 FattrType_42=0,FattrType,42,每秒护甲
@@ -60,6 +61,7 @@ FattrType_66=0,FattrType,66,智力加成%
 FattrType_67=0,FattrType,67,金币加成%
 FattrType_68=0,FattrType,68,杀敌加成%
 FattrType_69=0,FattrType,69,木材加成%
+FattrType_70=0,FattrType,70,经验加成%
 
 FattrType_81=0,FattrType,81,攻击伤害%
 FattrType_82=0,FattrType,82,物理伤害%

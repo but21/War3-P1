@@ -27,7 +27,6 @@ function WeightedItemPicker.new()
 	self.tempPool = {}
 	self.pickedItems = {}
 	self.purchaseCounts = {}
-	self.lastPickedIds = {}
 	self.allItems = {}
 	for id, item in ipairs(excel["黑市"]) do
 		local newItem = {
@@ -41,46 +40,12 @@ function WeightedItemPicker.new()
 end
 
 function WeightedItemPicker:draw(n)
-	local tempPool = self.tempPool
-	local pickedItems = self.pickedItems
-	myFunc:ClearTable(tempPool)
-	myFunc:ClearTable(pickedItems)
+	myFunc:ClearTable(self.pickedItems)
 
-	local sourcePool
+	local finalItemCount = math.min(n, #self.allItems)
+	self.pickedItems = myFunc:ARes(self.allItems, finalItemCount)
 
-	if myFunc:GetTableLength(self.lastPickedIds) > 0 then
-		for _, item in ipairs(self.allItems) do
-			if not self.lastPickedIds[item.id] then
-				table.insert(tempPool, item)
-			end
-		end
-		if #tempPool >= n then
-			sourcePool = tempPool
-		else
-			sourcePool = self.allItems
-		end
-	else
-		sourcePool = self.allItems
-	end
-
-	local finalItemCount = math.min(n, #sourcePool)
-
-	for _, item in ipairs(sourcePool) do
-		local key = common:GetRandomReal(0, 1) ^ (1 / item.weight)
-		table.insert(pickedItems, { id = item.id, key = key })
-	end
-
-	table.sort(pickedItems, function(a, b) return a.key > b.key end)
-
-	local finalPickedIds = {}
-	myFunc:ClearTable(self.lastPickedIds)
-
-	for i = 1, finalItemCount do
-		local pickedId = pickedItems[i].id
-		table.insert(finalPickedIds, pickedId)
-		self.lastPickedIds[pickedId] = true
-	end
-	return finalPickedIds
+	return self.pickedItems
 end
 
 function WeightedItemPicker:recordPurchase(itemId)
@@ -101,12 +66,9 @@ function WeightedItemPicker:recordPurchase(itemId)
 	end
 end
 
--- 当前黑市商品id
-local currentSalesID = {}
 ---@type table<number, WeightedItemPicker>
 local weightedPicker = {}
 for playerID, _ in ipairs(players) do
-	currentSalesID[playerID] = {}
 	weightedPicker[playerID] = WeightedItemPicker.new()
 end
 
@@ -115,12 +77,12 @@ function BlackMarket:SetBMSalesID(playerID)
 	if bmSalesAmount[playerID] > 8 then
 		bmSalesAmount[playerID] = 8
 	end
-	currentSalesID[playerID] = weightedPicker[playerID]:draw(bmSalesAmount[playerID])
+	weightedPicker[playerID]:draw(bmSalesAmount[playerID])
 end
 
 -- 获取黑市商品id
 function code.GetBMSalesID(playerID, index)
-	return currentSalesID[playerID][index]
+	return weightedPicker[playerID].pickedItems[index].id
 end
 
 -- 设置黑市商品提示框

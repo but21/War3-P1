@@ -1,30 +1,35 @@
-local Module              = require "my_base.base_module_manager"
-local code                = require "jass.code"
-local jass                = require "jass.common"
-local font                = "fonts\\LXWK_Bold.ttf"
+local Module               = require "my_base.base_module_manager"
+local code                 = require "jass.code"
+local jass                 = require "jass.common"
+local font                 = "fonts\\LXWK_Bold.ttf"
 
-local uiCreate            = Module.UICreate
-local attrSystem          = Module.AttrSystem
-local tipOnlyTextDown     = Module.UITipDialog.tipOnlyTextDown
-local myFunc              = Module.MyFunc
-local common              = Module.Common
-local excel               = Module.Excel
-local excelSystem         = Module.ExcelSystem
-local players             = jass.udg_Player
-local tipDialogDown       = Module.UITipDialog.tipDialogDown
+local uiCreate             = Module.UICreate
+local attrSystem           = Module.AttrSystem
+local tipOnlyTextDown      = Module.UITipDialog.tipOnlyTextDown
+local myFunc               = Module.MyFunc
+local common               = Module.Common
+local excel                = Module.Excel
+local excelSystem          = Module.ExcelSystem
+local players              = jass.udg_Player
+local tipDialogDown        = Module.UITipDialog.tipDialogDown
+local acTime               = ac.time
 
-local heros               = jass.udg_Hero
-local SeizeBody           = {}
-local _ui                 = {}
-SeizeBody.ui              = _ui
-SeizeBody.swallowedHeroes = {}
+local heros                = jass.udg_Hero
+local SeizeBody            = {}
+local _ui                  = {}
+SeizeBody.ui               = _ui
+SeizeBody.swallowedHeroes  = {}
 
 local freeRefreshCount     = { 0, 0, 0, 0 }
 SeizeBody.freeRefreshCount = freeRefreshCount
-local _drawAmount         = { 2, 2, 2, 2 }
+local _drawAmount          = { 2, 2, 2, 2 }
 
-local refreshCost          = {}
-local drawPool             = {}
+local waitAmount           = { 0, 0, 0, 0 }
+local inSeizeBody          = { false, false, false, false }
+
+
+local refreshCost = {}
+local drawPool    = {}
 
 
 ---@type table<integer, table<integer, integer>> 对应玩家的选项ID
@@ -123,10 +128,9 @@ _ui.refreshBtn:event "进入" (function(btn)
 	tipOnlyTextDown.panel:set_point("中心", btn, "右上", 25, -11)
 	tipOnlyTextDown.panel:set_show(true)
 	local cost = refreshCost[playerID].originCost + refreshCost[playerID].raiseCost * refreshCost[playerID].refreshCount
-	tipOnlyTextDown.tips:set_text("点击消耗|cfaffff00" .. cost .. "|r钻石刷新")
+	tipOnlyTextDown.tips:set_text("免费刷新次数：|cfaffff00" .. freeRefreshCount[playerID] .. "|r|n|n点击消耗|cfaffff00" .. cost .. "|n木材刷新")
 end)
 _ui.refreshBtn:event "离开" (function(btn)
-	-- 隐藏提示框
 	tipOnlyTextDown.panel:set_show(false)
 	myFunc:FadeSize({ UI = _ui.refreshBg, endP = { _refreshW, _refreshH }, startP = { _refreshW * 1.2, _refreshH * 1.2 }, time = 0.08, ty = "二元入" })
 end)
@@ -226,7 +230,7 @@ common:ReceiveSync("RefreshSeizeSelect")(function()
 		freeRefreshCount[playerID] = freeRefreshCount[playerID] - 1
 	else
 		if jass.udg_PlayerDiamond[playerID] < cost then
-			code.AddMessage(playerID, "|cfff43232钻石不足!!!")
+			code.AddMessage(playerID, "|cfff43232木材不足!!!")
 			return
 		end
 		jass.udg_PlayerDiamond[playerID] = jass.udg_PlayerDiamond[playerID] - cost
@@ -234,7 +238,7 @@ common:ReceiveSync("RefreshSeizeSelect")(function()
 	refreshCost[playerID].refreshCount = refreshCost[playerID].refreshCount + 1
 	if common:IsLocalPlayer(player) then
 		cost = refreshCost[playerID].originCost + refreshCost[playerID].raiseCost * refreshCost[playerID].refreshCount
-		tipOnlyTextDown.tips:set_text("免费刷新次数：|cfaffff00" .. freeRefreshCount[playerID] .. "|r|n点击消耗|cfaffff00" .. cost .. "|r钻石刷新")
+		tipOnlyTextDown.tips:set_text("免费刷新次数：|cfaffff00" .. freeRefreshCount[playerID] .. "|r|n|n点击消耗|cfaffff00" .. cost .. "|r木材刷新")
 	end
 	local tempHeroes = {}
 	if #drawPool[playerID] >= _drawAmount[playerID] * 2 then
@@ -263,6 +267,7 @@ common:ReceiveSync("SeizeBody")(function(data)
 			table.insert(drawPool[playerID], id)
 		end
 	end
+	code.AddMessage(playerID, "夺舍英雄 |cfaffff00[" .. excelSystem:GetData("夺舍", data, "Name") .. "]")
 	common:SaveInteger(jass.udg_HTSeizeBodyID, playerID, data, 1)
 	jass.udg_CurrentSeizeBodyID[playerID] = data
 	myFunc:SetCustomValue(jass.gg_trg_SeizeBodyLua, "整数", "playerID", playerID)
@@ -275,12 +280,23 @@ common:ReceiveSync("SeizeBody")(function(data)
 		attrSystem:SetObjAttrEx_Str(heros[playerID], max, 0, addition + 1)
 		myFunc:SetCustomValue(heros[playerID], "实数", "Treasure6", 0)
 	end
+	acTime(0.2, 1, function()
+		inSeizeBody[playerID] = false
+		if waitAmount[playerID] > 0 then
+			waitAmount[playerID] = waitAmount[playerID] - 1
+			code.BeginSeizeBody(playerID)
+		end
+	end)
 end)
 
--- 修改抽取和刷新方式, 一个数组存储已吞噬的英雄
 
 function code.BeginSeizeBody(playerID)
-	DrawHero(playerID)
+	if inSeizeBody[playerID] then
+		waitAmount[playerID] = waitAmount[playerID] + 1
+	else
+		inSeizeBody[playerID] = true
+		DrawHero(playerID)
+	end
 end
 
 return SeizeBody

@@ -17,7 +17,7 @@ function ImagePool:Init(uiCreate)
 
 	---从图片池取出图片(异步处理)
 	---@return table
-	function ImagePool:GetImage()
+	function ImagePool.GetImage()
 		if #pool == 0 then
 			NewImage()
 		end
@@ -27,7 +27,7 @@ function ImagePool:Init(uiCreate)
 
 	---将图片放回池子(异步处理)
 	---@param image table
-	function ImagePool:RecycleImage(image)
+	function ImagePool.RecycleImage(image)
 		-- 移回池子
 		image:reset_allpoint()
 		image:set_show(false)

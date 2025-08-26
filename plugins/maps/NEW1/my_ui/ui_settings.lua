@@ -38,7 +38,7 @@ function Settings:Init()
 		ui.openUIIcon:set_image([[Survival\UI\Settings\icon.tga]])
 	end)
 
-	Settings.count = 1
+	Settings.count = 3
 	local count = Settings.count
 	ui.background = ui.panel:builder "image" { w = 250, h = 20 + count * 40, xy = { "左下", ui.openUIIcon, "右上", -10, -10 }, image = [[UI\Widgets\ToolTips\Human\human-tooltip-background.blp]],
 		show = false }
@@ -47,7 +47,7 @@ function Settings:Init()
 	ui.optionsIcon = {}
 	ui.openIcon = {}
 	ui.optionsBtn = {}
-	local tips = { '打开后，自动开启金币、经验、钻石、兵器挑战。' }
+	local tips = { '打开后，自动开启宝物挑战。', "关闭宽屏UI显示可能异常。", "控制伤害跳字显示，游戏卡顿时可关闭。" }
 	local function EnterBtn(btn)
 		local index = btn.index
 		local tip = tips[index]
@@ -83,16 +83,24 @@ function Settings:Init()
 		Settings.state[playerID][data] = not Settings.state[playerID][data]
 		if Settings.state[playerID][data] then
 			archive:SaveStr(playerID, "settings", myFunc:ReplaceCharAt(archiveSettings, data, "b"))
+			if data == 2 then
+				if common:IsLocalPlayer(player) then
+					local w, h = japi.GetWindowWidth(), japi.GetWindowHeight()
+					if w / h ~= 16 / 9 and japi.IsWindowMode then
+						japi.SetWindowSize(w, w / 16 * 9)
+					end
+				end
+			end
 		else
 			archive:SaveStr(playerID, "settings", myFunc:ReplaceCharAt(archiveSettings, data, "a"))
 		end
-		if data == 1 then
-			if common:IsLocalPlayer(player) then
-				ui.openIcon[data]:set_show(Settings.state[playerID][data])
-			end
+		if common:IsLocalPlayer(player) then
+			ui.openIcon[data]:set_show(Settings.state[playerID][data])
 		end
 	end)
 	ui.optionsText[1]:set_text("|cffdfc497自动开启挑战")
+	ui.optionsText[2]:set_text("|cffdfc497设置宽屏")
+	ui.optionsText[3]:set_text("|cffdfc497关闭伤害跳字")
 end
 
 return Settings

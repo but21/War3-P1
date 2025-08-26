@@ -16,6 +16,15 @@ for i = 1, 16 do
 end
 Common.Player[0] = jass.GetLocalPlayer()
 
+Common.ItemClass = {}
+Common.ItemClass["永久"] = jass.ITEM_TYPE_PERMANENT
+Common.ItemClass["可充"] = jass.ITEM_TYPE_CHARGED
+Common.ItemClass["能量提升"] = jass.ITEM_TYPE_POWERUP
+Common.ItemClass["人造"] = jass.ITEM_TYPE_ARTIFACT
+Common.ItemClass["可购买"] = jass.ITEM_TYPE_PURCHASABLE
+Common.ItemClass["战役"] = jass.ITEM_TYPE_CAMPAIGN
+Common.ItemClass["混杂"] = jass.ITEM_TYPE_MISCELLANEOUS
+
 --#region 伤害类型
 
 ---@type integer 伤害类型: 破坏
@@ -309,7 +318,7 @@ end
 ---@param effectStr string 特效字符串
 ---@param x number X坐标
 ---@param y number Y坐标
----@return integer --特效
+---@return any --特效
 function Common:CreateEffectInXY(effectStr, x, y)
 	return jass.AddSpecialEffect(effectStr, x, y)
 end
@@ -405,11 +414,14 @@ end
 
 ---获取物品类型数据
 ---@param itemType integer 物品类型
----@param dataType string 数据类型(提示, 提示拓展, 图标)
+---@param dataType string 数据类型(提示, 提示拓展, 图标, 名字, 说明)
 ---@return string
 function Common:GetItemTypeData(itemType, dataType)
-	if dataType == "提示" then
+	if dataType == "名字" then
 		return code.YDWEGetItemDataString(itemType, 4)
+	end
+	if dataType == "提示" then
+		return code.YDWEGetItemDataString(itemType, 2)
 	end
 	if dataType == "提示拓展" then
 		return code.YDWEGetItemDataString(itemType, 3)
@@ -417,13 +429,45 @@ function Common:GetItemTypeData(itemType, dataType)
 	if dataType == "图标" then
 		return code.YDWEGetItemDataString(itemType, 1)
 	end
+	if dataType == "说明" then
+		return code.YDWEGetItemDataString(itemType, 5)
+	end
 	return "获取" .. dataType .. "失败"
+end
+
+---设置物品类型数据
+---@param itemType integer 物品类型
+---@param dataType string 数据类型(提示, 提示拓展, 图标, 名字, 说明)
+---@param data string
+---@return boolean
+function Common:SetItemTypeData(itemType, dataType, data)
+	if dataType == "名字" then
+		code.YDWESetItemDataString(itemType, 4, data)
+		return true
+	end
+	if dataType == "提示" then
+		code.YDWESetItemDataString(itemType, 2, data)
+		return true
+	end
+	if dataType == "提示拓展" then
+		code.YDWESetItemDataString(itemType, 3, data)
+		return true
+	end
+	if dataType == "图标" then
+		code.YDWESetItemDataString(itemType, 1, data)
+		return true
+	end
+	if dataType == "说明" then
+		code.YDWESetItemDataString(itemType, 5, data)
+		return true
+	end
+	return false
 end
 
 ---获得物品的物品类型
 ---@param item integer 物品
 ---@return integer --物品类型
-function Common:GetItemType(item)
+function Common:GetItemcode(item)
 	return jass.GetItemTypeId(item)
 end
 
@@ -527,13 +571,19 @@ function Common:GetWheelData()
 	return japi.DzGetWheelDelta()
 end
 
+local playerInGame = {}
 ---玩家是否在游戏中
 ---@param player Player 玩家
 ---@return boolean
 function Common:PlayerInGame(player)
+	if playerInGame[player] then
+		return playerInGame[player]
+	end
 	if jass.GetPlayerSlotState(player) == jass.PLAYER_SLOT_STATE_PLAYING and jass.GetPlayerController(player) == jass.MAP_CONTROL_USER then
+		playerInGame[player] = true
 		return true
 	else
+		playerInGame[player] = false
 		return false
 	end
 end
@@ -543,6 +593,87 @@ end
 ---@param isShow boolean
 function Common:SetEffectShow(effect, isShow)
 	code.Effect_Show(effect, isShow)
+end
+
+---创建物品
+---@param itemType integer 物品类型
+---@param x number
+---@param y number
+---@return any
+function Common:CreateItem(itemType, x, y)
+	return jass.CreateItem(itemType, x, y)
+end
+
+---创建物品到单位物品栏
+---@param unit integer 单位
+---@param itemType any 物品类型
+---@param slot integer 物品栏位置(1~6)
+---@return any --物品
+function Common:CreateItemToSlot(unit, itemType, slot)
+	local item = jass.UnitAddItemToSlotById(unit, itemType, slot - 1)
+	return item
+end
+
+---删除物品
+---@param item integer
+function Common:DestroyItem(item)
+	jass.RemoveItem(item)
+end
+
+---获得被操作物品(得到, 使用, 删除)
+function Common:GetManipulatedItem()
+	return jass.GetManipulatedItem()
+end
+
+---丢弃指定物品
+---@param hero any
+---@param item any
+function Common:DropItem(hero, item)
+	code.UnitRemoveItemSwapped(item, hero)
+end
+
+---判断物品分类
+---@param item integer 物品
+---@param ty "永久"|"可充"|"能量提升"|"人造"|"可购买"|"战役"|"混杂"
+function Common:JudgeItemClass(item, ty)
+	return jass.GetItemType(item) == self.ItemClass[ty]
+end
+
+---点的x轴坐标
+---@param point any
+---@return number
+function Common:GetPointX(point)
+	return jass.GetLocationX(point)
+end
+
+---点的y轴坐标
+---@param point any
+---@return number
+function Common:GetPointY(point)
+	return jass.GetLocationY(point)
+end
+
+---设置技能数据(字符串)
+---@param unit any 单位
+---@param skill any 技能
+---@param ty integer 需要设置的数据
+---@param val string 值
+function Common:SetSkillDataStr(unit, skill, ty, val)
+	code.YDWESetUnitAbilityDataString(unit, skill, 1, ty, val)
+end
+
+---单位移除技能
+---@param unit any
+---@param skill any
+function Common:UnitRemoveAbility(unit, skill)
+	jass.UnitRemoveAbility(unit, skill)
+end
+
+---单位添加技能
+---@param unit any
+---@param skill any
+function Common:UnitAddAbility(unit, skill)
+	jass.UnitAddAbility(unit, skill)
 end
 
 return Common

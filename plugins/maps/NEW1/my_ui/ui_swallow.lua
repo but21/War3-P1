@@ -36,12 +36,26 @@ function Swallow:Init()
 	OpenUI.btn:event("进入")(function(btn)
 		local playerID = common:GetLocalPlayerID()
 		local tip = "[当前羁绊]|n|n"
-		for bondID, count in pairs(cardModule.ownedBonds[playerID]) do
+		for bondID = 1, excel:GetLength("羁绊列表") do
+			local count = cardModule.ownedBonds[playerID][bondID] or 0
 			if count > 0 then
 				local bondName = excel:GetData("羁绊列表", bondID, "BondName")
 				tip = tip .. bondName .. "：" .. count .. "|n"
 			end
 		end
+		for bondID = 100, 106 do
+			local count = cardModule.ownedBonds[playerID][bondID] or 0
+			if count > 0 then
+				local bondName = excel:GetData("羁绊列表", bondID, "BondName")
+				tip = tip .. bondName .. "：" .. count .. "|n"
+			end
+		end
+		-- for bondID, count in pairs(cardModule.ownedBonds[playerID]) do
+		-- 	if count > 0 then
+		-- 		local bondName = excel:GetData("羁绊列表", bondID, "BondName")
+		-- 		tip = tip .. bondName . "：" .. count .. "|n"
+		-- 	end
+		-- end
 		textTipUp.panel:reset_allpoint()
 		textTipUp.panel:set_show(true)
 		textTipUp.panel:set_point("中心", btn, "左上", 12, 20)
@@ -196,20 +210,20 @@ function Swallow:Init()
 			icon = excel:GetData("卡牌", id, "Icon")
 			name = excel:GetData("卡牌", id, "CardName")
 			intro = excel:GetData("卡牌", id, "BondName")
-			tips = ""
 			if excel:GetData("卡牌", id, "Attr") then
-				tips = tips .. excel:GetData("卡牌", id, "Attr") .. "|n|n"
+				tips = (tips or "") .. excel:GetData("卡牌", id, "Attr")
 			end
 			if excel:GetData("卡牌", id, "CardEffect") then
-				tips = tips .. excel:GetData("卡牌", id, "CardEffect") .. "|n|n"
+				tips = (tips and tips .. "|n|n" or "") .. excel:GetData("卡牌", id, "CardEffect")
 			end
 			if excel:GetData("卡牌", id, "SwallowEffect") then
-				tips = tips .. "集齐羁绊效果：|n" .. excel:GetData("卡牌", id, "SwallowEffect") .. "|n|n"
+				tips = (tips and tips .. "|n|n" or "") .. "集齐羁绊效果：|n" .. excel:GetData("卡牌", id, "SwallowEffect")
 			end
+			tips = "|cffB4C4E2" .. myFunc:SetNumColor(tips, "|cffC9E750", "|cffB4C4E2")
 			if excel:GetData("卡牌", id, "SwallowCondition") then
-				tips = tips .. "吞噬条件：|n" .. excel:GetData("卡牌", id, "SwallowCondition")
+				tips = (tips and tips .. "|n|n" or "") .. "|cff696E6E吞噬条件：|n" .. excel:GetData("卡牌", id, "SwallowCondition")
 			end
-			intro = "羁绊: " .. intro
+			intro = "|cff696E6E羁绊: " .. intro
 		end
 		if ty == "英雄" then
 			name = excel:GetData("夺舍", id, "Name")
@@ -219,7 +233,7 @@ function Swallow:Init()
 		end
 		tipDialogDown.intro:set_text(intro)
 		tipDialogDown.icon:set_image(icon)
-		tipDialogDown.name:set_text(name)
+		tipDialogDown.name:set_text("|cff73FFFE" .. name)
 		tipDialogDown.tips:set_text(tips)
 		tipDialogDown.panel:reset_allpoint()
 		tipDialogDown.panel:set_point("中心", btn, "右上", 12, -8)

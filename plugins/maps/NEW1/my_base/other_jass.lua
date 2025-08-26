@@ -1,10 +1,11 @@
-local code = require "jass.code"
-local jass = require "jass.common"
-local japi = require "jass.japi"
-local sqrt = math.sqrt
+local code    = require "jass.code"
+local jass    = require "jass.common"
+local japi    = require "jass.japi"
+local sqrt    = math.sqrt
 
-local Module = require "my_base.base_module_manager"
-local myFunc = Module.MyFunc
+local Module  = require "my_base.base_module_manager"
+local myFunc  = Module.MyFunc
+local attrStm = Module.AttrSystem
 
 -- 在lua中打印消息
 function code.Print(message)
@@ -19,4 +20,10 @@ end
 -- 将字符串根据sep分割成数组,返回第index个值
 function code.Split(inputstr, sep, index)
 	return myFunc:SplitGetValue(inputstr, sep, index)
+end
+
+function code.ReduceAttrAfterTime(hero, attrStr, time)
+	ac.time(time, 1, function()
+		attrStm:SetUnitAttrStr(hero, 1, attrStr)
+	end)
 end

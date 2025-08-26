@@ -4,7 +4,6 @@ local UIModule = {}
 
 
 UIModule.BossBlood = require "my_ui.ui_boss_blood"
-BaseModule.DamageSystem():Init(UIModule.BossBlood)
 
 
 UIModule.ConsoleUI = require 'my_ui.ui_console'

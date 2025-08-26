@@ -24,3 +24,11 @@ function hook.RemoveItem(obj)
 	Attr_Table[id] = nil
 	_RemoveItem(obj)
 end
+
+-- function hook.AddSpecialEffect(effectStr, x, y)
+-- 	if effectStr then
+-- 		return jass.AddSpecialEffect(effectStr, x, y)
+-- 	else
+-- 		return nil
+-- 	end
+-- end

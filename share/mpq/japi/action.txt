@@ -42,8 +42,8 @@ category = TC_Japi
 [[.args]]
 type = unit
 [[.args]]
-type = degree
-default = "RealUnitFacing"
+type = real
+
 
 [EXSetUnitMoveType]
 title = "单位 - 设置单位的移动类型 [内置] "

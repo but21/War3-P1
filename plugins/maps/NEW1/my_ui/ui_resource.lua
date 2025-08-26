@@ -13,7 +13,7 @@ local resourceUI = {}
 local Resource = {}
 Resource.ui = resourceUI
 
-local _name = { "金币", "杀敌", "钻石" }
+local _name = { "金币", "杀敌", "木材" }
 local _icon = { [[Survival\UI\Console\gold.tga]], [[Survival\UI\Console\kills.tga]], [[Survival\UI\Console\diamond.tga]] }
 local _tip = { "主要从每秒金币和金币挑战中获得|n|n可用于黑市购买、强者之心升级。", "击杀敌人获取|n|n可用于杀敌兑换", "击杀精英敌人概率掉落，击杀Boss必定掉落|n|n可用于各种选择的刷新" }
 
@@ -59,7 +59,7 @@ local function _SetResourceUI()
 				math.floor(jass.udg_PlayerGold[playerID]) .. " |cff00ff00(+" .. string.format("%.1f", attrSystem:GetObjAttrFromStr(jass.udg_Hero[playerID], "每秒金币")) .. ")")
 			resourceUI.text[2]:set_text("|cffff0000杀敌|r " ..
 				math.floor(jass.udg_PlayerKills[playerID]) .. " |cff00ff00(+" .. string.format("%.1f", attrSystem:GetObjAttrFromStr(jass.udg_Hero[playerID], "每秒杀敌")) .. ")")
-			resourceUI.text[3]:set_text("|cff00ffff钻石|r " ..
+			resourceUI.text[3]:set_text("|cff00ffff木材|r " ..
 				math.floor(jass.udg_PlayerDiamond[playerID]) .. " |cff00ff00(+" .. string.format("%.1f", attrSystem:GetObjAttrFromStr(jass.udg_Hero[playerID], "每秒木材")) .. ")")
 			resourceUI.addition[1]:set_text("|cff00ff00(+" .. math.floor(attrSystem:GetObjAttrFromStr(jass.udg_Hero[playerID], "金币加成")) .. "%)|r")
 			resourceUI.addition[2]:set_text("|cff00ff00(+" .. math.floor(attrSystem:GetObjAttrFromStr(jass.udg_Hero[playerID], "杀敌加成")) .. "%)|r")

@@ -3,6 +3,41 @@ function UseSwallowRock takes integer playerID returns boolean
 	return false
 endfunction
 
+function ReduceAttrAfterTime takes unit hero, string attrStr, real time returns nothing
+	call GetTriggeringTrigger()
+	return
+endfunction
+
+function GoldStudy takes integer playerID, integer ID returns nothing
+	call GetTriggeringTrigger()
+	return
+endfunction
+
+function CreateEquip1 takes integer lv, integer equipID, real x, real y returns item
+	call GetTriggeringTrigger()
+	return null
+endfunction
+
+function CreateEquip3 takes unit u, integer slot, integer lv, integer equipID returns item
+	call GetTriggeringTrigger()
+	return null
+endfunction
+
+function IsEquipSwallowed takes integer playerID, integer equipID returns boolean
+	call GetTriggeringTrigger()
+	return false 
+endfunction
+
+function SwallowEquip takes integer playerID, integer equipID returns nothing 
+	call GetTriggeringTrigger()
+	return 
+endfunction
+
+function IsEquipPassiveOwned takes integer playerID, integer passiveID returns boolean
+	call GetTriggeringTrigger()
+	return false 
+endfunction
+
 function OwnedCardAmount takes integer playerID, integer cardID returns integer
 	call GetTriggeringTrigger()
 	return 0
@@ -11,6 +46,16 @@ endfunction
 function IsCardInColumn takes integer playerID, integer cardID returns boolean
 	call GetTriggeringTrigger()
 	return false
+endfunction
+
+function HeroAtked takes unit attacker, unit target returns nothing
+	call GetTriggeringTrigger()
+	return 
+endfunction
+
+function HeroLvUp takes unit hero returns nothing
+	call GetTriggeringTrigger()
+	return 
 endfunction
 
 function HeroAtk takes unit attacker, unit target returns nothing

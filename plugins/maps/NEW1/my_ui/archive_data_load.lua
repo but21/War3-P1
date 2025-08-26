@@ -1,6 +1,7 @@
 local code           = require "jass.code"
 local jass           = require "jass.common"
 local debug          = require 'jass.debug'
+local japi           = require "jass.japi"
 local BaseModule     = require "my_base.base_module_manager"
 local archive        = require "my_base.archive"
 local common         = BaseModule.Common
@@ -65,6 +66,7 @@ local function LoadArchive(playerID)
 	end
 	if archive:LoadStr(playerID, "settings") == "" then
 		archive:SaveStr(playerID, "settings", string.rep("a", settingsUI.count))
+		archive:SaveStr(playerID, "settings", myFunc:ReplaceCharAt(archive:LoadStr(playerID, "settings"), 2, "b"))
 	end
 	if archive:LoadStr(playerID, "heroSkin") == "" then
 		archive:SaveStr(playerID, "heroSkin", string.rep("a", decorate.ui.heroSkin.count))
@@ -358,6 +360,12 @@ local function LoadArchive(playerID)
 			settingsUI.state[playerID][i] = true
 			if common:IsLocalPlayer(players[playerID]) then
 				settingsUI.ui.openIcon[i]:set_show(true)
+				if i == 2 then
+					local w, h = japi.GetWindowWidth(), japi.GetWindowHeight()
+					if w / h ~= 16 / 9 and japi.IsWindowMode then
+						japi.SetWindowSize(w, w / 16 * 9)
+					end
+				end
 			end
 		end
 	end
@@ -376,14 +384,17 @@ local function LoadArchive(playerID)
 				decorate.ui.heroSkin.shadowIcon[i]:set_show(false)
 			end
 		end
+		if common:IsLocalPlayer(players[playerID]) then
+			decorate.ui.heroSkin.slots[i]:set_image(excel["存档"][decorate.ui.heroSkin.firstIndex + i]["Icon"])
+		end
 	end
 	if archive:LoadInt(playerID, "currentSkin") > 0 then
 		local skinIndex = archive:LoadInt(playerID, "currentSkin")
 		local id = decorate.ui.heroSkin.firstIndex + skinIndex
-		local name = excel["存档"][id]["Name"]
+		local skinName = excel["存档"][id]["Name"]
 		local model = excel["存档"][id]["Value1"]
 		code.SetUnitModel(jass.udg_Hero[playerID], model)
-		code.SetUnitName(jass.udg_Hero[playerID], name)
+		code.SetUnitName(jass.udg_Hero[playerID], skinName)
 		myFunc:SetCustomValue(jass.udg_Hero[playerID], "字符串", "model", model)
 		jass.udg_CurrentHeroSkin[playerID] = skinIndex
 		code.SelectUnitForPlayerSingle(jass.udg_Hero[playerID], common.Player[playerID])

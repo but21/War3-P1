@@ -40,6 +40,7 @@ local attr_d = {
 	{ key = 25, value = "杀敌敏捷" },
 	{ key = 26, value = "杀敌智力" },
 	{ key = 27, value = "杀敌全属" },
+	{ key = 28, value = "杀敌金币" },
 
 	-- 40 每秒
 	{ key = 41, value = "每秒攻击" },
@@ -63,6 +64,7 @@ local attr_d = {
 	{ key = 67, value = "金币加成%" },
 	{ key = 68, value = "杀敌加成%" },
 	{ key = 69, value = "木材加成%" },
+	{ key = 70, value = "经验加成%" },
 
 	-- 80 伤害
 	{ key = 81, value = "攻击伤害%" },
@@ -252,7 +254,7 @@ end
 --- 根据属性名称修改对象属性(拓展) - lua
 ---@param id integer 属性对象索引 - (单位, 物品, 物品类型)
 ---@param attrName string 属性类型
----@param operator integer 运算符  (+, -, =, *, /)
+---@param operator integer +(0), -, =, *, /
 ---@param value number 修改值
 function manager:SetObjAttrEx_Str(id, attrName, operator, value)
 	local attrType = manager:Str_GetAttr(attrName)

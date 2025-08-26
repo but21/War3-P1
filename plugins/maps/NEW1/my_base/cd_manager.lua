@@ -14,10 +14,13 @@ local archive = Module.Archive
 local common = Module.Common
 local myFunc = Module.MyFunc
 local attrSystem = Module.AttrSystem
-local players = jass.udg_Player
 local UIModule = require "my_ui.ui_module_manager"
 local treasureHunt = require "my_ui.ui_treasure_hunt"
--- print(UIModule)
+local excel = Module.Excel
+
+
+local heros = jass.udg_Hero
+local players = jass.udg_Player
 
 
 local effectList = {}
@@ -60,27 +63,22 @@ end
 
 
 
-local timer = 0
-ac.time(0.01, function()
-	if jass.udg_IsGameStart or jass.udg_GameMode > 0 then
-		timer = timer + 1
-	else
-		return
-	end
-	common:RunTrigger(jass.gg_trg_001Timer)
-	-- 0.02秒触发
-	if timer % 2 == 0 then
+function manager:Init()
+	ac.time(0.01, function()
+		common:RunTrigger(jass.gg_trg_001Timer)
+	end)
+	ac.time(0.02, function()
 		common:RunTrigger(jass.gg_trg_002Timer)
 		DDash()
-	end
-	-- 0.1秒触发
-	if timer % 10 == 0 then
+	end)
+	ac.time(0.1, function()
 		common:RunTrigger(jass.gg_trg_01Timer)
-	end
-	-- 0.5秒触发
-	if timer % 50 == 0 then
+	end)
+	ac.time(0.2, function()
+		SetHeroAtk()
+	end)
+	ac.time(0.5, function()
 		common:RunTrigger(jass.gg_trg_05Timer)
-		-- 判断特效是否显示, 显示则设置大小
 		for playerID, value in ipairs(players) do
 			local hero = jass.udg_Hero[playerID]
 			local effect = myFunc:GetCustomValue(hero, "特效", "atkRangeEffect")
@@ -91,9 +89,8 @@ ac.time(0.01, function()
 				common:SetEffectSize(effect, size)
 			end
 		end
-	end
-	-- 1秒触发
-	if timer % 100 == 0 then
+	end)
+	ac.time(1, function()
 		jass.udg_GameTime = jass.udg_GameTime + 1
 		local time = floor(jass.udg_GameTime)
 		local hours = floor(time / 3600)    -- 计算小时
@@ -103,20 +100,54 @@ ac.time(0.01, function()
 		UIModule.GameInformation.ui.gameTime:set_text(timeStr)
 
 		common:RunTrigger(jass.gg_trg_1Timer)
-		SetHeroAtk()
-		-- 挂机结束
 		if jass.udg_GameTime > 27005 then
-			CustomVictoryBJ(common.Player[0], true, false)
+			jass.CustomVictoryBJ(common.Player[0], true, false)
 		end
-	end
-
-	-- 3秒触发
-	if timer % 300 == 0 then
+		for playerID = 1, 4 do
+			if common:PlayerInGame(common.Player[playerID]) then
+				if code.IsEquipPassiveOwned(playerID, 1) then
+					myFunc:SetCustomValue(heros[playerID], "整数", "EquipPassive1", myFunc:GetCustomValue(heros[playerID], "整数", "EquipPassive1") + 1)
+					if myFunc:GetCustomValue(heros[playerID], "整数", "EquipPassive1") == 60 then
+						attrSystem:SetUnitAttrStr(heros[playerID], 0, excel["装备"][1].Value1)
+						myFunc:SetCustomValue(heros[playerID], "整数", "EquipPassive1", 0)
+					end
+				else
+					myFunc:SetCustomValue(heros[playerID], "整数", "EquipPassive1", 0)
+				end
+				if code.IsEquipPassiveOwned(playerID, 4) then
+					myFunc:SetCustomValue(heros[playerID], "整数", "EquipPassive4", myFunc:GetCustomValue(heros[playerID], "整数", "EquipPassive4") + 1)
+					if myFunc:GetCustomValue(heros[playerID], "整数", "EquipPassive4") == 60 then
+						attrSystem:SetUnitAttrStr(heros[playerID], 0, excel["装备"][4].Value1)
+						myFunc:SetCustomValue(heros[playerID], "整数", "EquipPassive4", 0)
+					end
+				else
+					myFunc:SetCustomValue(heros[playerID], "整数", "EquipPassive4", 0)
+				end
+				if code.IsEquipPassiveOwned(playerID, 6) then
+					myFunc:SetCustomValue(heros[playerID], "整数", "EquipPassive6", myFunc:GetCustomValue(heros[playerID], "整数", "EquipPassive6") + 1)
+					if myFunc:GetCustomValue(heros[playerID], "整数", "EquipPassive6") == 60 then
+						myFunc:SetCustomValue(heros[playerID], "整数", "EquipPassive6", 0)
+						require "realization.equip":CreateEquip(playerID, excel["装备"][6].Value2, excel["装备"][6].Value1)
+					end
+				else
+					myFunc:SetCustomValue(heros[playerID], "整数", "EquipPassive6", 0)
+				end
+				if code.IsEquipPassiveOwned(playerID, 7) then
+					myFunc:SetCustomValue(heros[playerID], "整数", "EquipPassive7", myFunc:GetCustomValue(heros[playerID], "整数", "EquipPassive7") + 1)
+					if myFunc:GetCustomValue(heros[playerID], "整数", "EquipPassive7") == 60 then
+						attrSystem:SetUnitAttrStr(heros[playerID], 0, excel["装备"][7].Value1)
+						myFunc:SetCustomValue(heros[playerID], "整数", "EquipPassive7", 0)
+					end
+				else
+					myFunc:SetCustomValue(heros[playerID], "整数", "EquipPassive7", 0)
+				end
+			end
+		end
+	end)
+	ac.time(3, function()
 		common:RunTrigger(jass.gg_trg_3Timer)
-	end
-
-	-- 每十秒获得一点寻宝点数
-	if timer % 1000 == 0 then
+	end)
+	ac.time(10, function()
 		if jass.udg_GameMode == 2 then
 			for playerID, player in ipairs(players) do
 				if common:PlayerInGame(player) then
@@ -128,15 +159,7 @@ ac.time(0.01, function()
 				end
 			end
 		end
-	end
-
-	-- 每一定时间重置一次(100 = 1秒)
-	if timer == 1000 then
-		timer = 0
-	end
-end)
-
-
-
+	end)
+end
 
 return manager

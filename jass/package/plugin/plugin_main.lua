@@ -60,10 +60,10 @@ end
 
 
 -- 强制宽屏 
-ac.time(1, function ()
-    local w, h = japi.GetWindowWidth(), japi.GetWindowHeight()
-    if  w / h ~= 16 / 9 and japi.IsWindowMode then
-        japi.SetWindowSize(w, w / 16 * 9)
-    end
-end)
+-- ac.time(1, function ()
+--     local w, h = japi.GetWindowWidth(), japi.GetWindowHeight()
+--     if  w / h ~= 16 / 9 and japi.IsWindowMode then
+--         japi.SetWindowSize(w, w / 16 * 9)
+--     end
+-- end)
 

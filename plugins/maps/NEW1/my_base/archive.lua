@@ -13,7 +13,7 @@ Archive.archiveChanged = { false, false, false, false }
 function Archive:SaveStr(playerID, key, value)
 	self.data[playerID][key] = value
 	self.archiveChanged[playerID] = true
-	-- code.DzAPI_Map_StoreString(self.handle, key, value)
+	code.DzAPI_Map_StoreString(self.handle, key, value)
 end
 
 --- 保存整数到本地

@@ -38,23 +38,23 @@ local function init()
 	japi.DzFrameHideInterface()
 
 	--单位大头像
-	ysui['单位大头像']:reset_allpoint():set_wh(150, 150):set_point2('中心', 630, 140):set_level(1)
+	ysui['单位大头像']:reset_allpoint():set_wh(181, 170):set_point2('中心', 626, 150):set_level(1)
 
 	--鼠标提示锁定
 	ysui['鼠标提示']:set_point2("右下", 0, 0)
 
 	--重设技能位置
 	ac.time(0.01, 1, function()
-		local i = 0
+		local skillIndex = 0
 		for b = 1, 3 do
 			for a = 1, 4 do
-				i = i + 1
+				skillIndex = skillIndex + 1
 				local x = 1600 + (a - 1) * 90
 				local y = 203 - (b - 1) * 81
-				ysui['技能栏'][i]:reset_allpoint():set_wh(65, 65):set_point2('中心', x, y)
-				ui.skillSlots[i]:reset_allpoint():set_wh(65, 65):set_point2('中心', x, y)
+				ysui['技能栏'][skillIndex]:reset_allpoint():set_wh(65, 65):set_point2('中心', x, y)
+				ui.skillSlots[skillIndex]:reset_allpoint():set_wh(65, 65):set_point2('中心', x, y)
 
-				local skillUI = ysui['技能栏'][i]
+				local skillUI = ysui['技能栏'][skillIndex]
 				ac.time(0.01, 1, function()
 					skillUI:rem_allpoint()
 					skillUI:set_wh(65, 65)
@@ -109,30 +109,30 @@ local function init()
 	end)
 
 	--重设物品位置
-	local i = 0
+	local itemIndex = 0
 	for b = 1, 3 do
 		for a = 1, 2 do
-			i = i + 1
+			itemIndex = itemIndex + 1
 			local x = 1295 + (a - 1) * 65
 			local y
-			if i == 3 or i == 4 then
+			if itemIndex == 3 or itemIndex == 4 then
 				y = 187 - (b - 1) * 72
 			else
 				y = 187 - (b - 1) * 74.5
 			end
 			y = 177 - (b - 1) * 65
 			-- if b == 2 then y = y - 0.5 end
-			ysui['物品栏'][i]:reset_allpoint():set_wh(55, 55):set_point2('中心', x, y)
-			ui.itemSlots[i]:reset_allpoint():set_wh(55, 55):set_point2('中心', x, y)
+			ysui['物品栏'][itemIndex]:reset_allpoint():set_wh(55, 55):set_point2('中心', x, y)
+			ui.itemSlots[itemIndex]:reset_allpoint():set_wh(55, 55):set_point2('中心', x, y)
 
 
-			local itemUI = ysui['物品栏'][i]
+			local itemUI = ysui['物品栏'][itemIndex]
 			ac.time(0.01, 1, function()
 				itemUI:reset_allpoint()
 				itemUI:set_wh(55, 55)
 				itemUI:set_point2('中心', x, y)
 			end)
-			local index = i - 1
+			local index = itemIndex - 1
 			itemUI:event "离开" (function()
 				tipDialogUp.panel:set_show(false)
 			end)
@@ -188,16 +188,20 @@ local function init()
 	end)
 
 
+	ysui["物品提示"]:reset_allpoint():set_point2('中心', 960, 195)
+
+	ysui["物品说明"]:reset_allpoint():set_point2('中心', -1000, -1000)
+
 	-- 助手头像
 	ysui['助手头像']:set_wh(64, 64):reset_allpoint():set_point2('中心', 40, 300)
 
 	-- 英雄称谓
-	ysui['单位面板']['英雄称谓']:reset_allpoint():set_wh(500, 50):set_point2('中心', 950, 225)
+	ysui['单位面板']['英雄称谓']:reset_allpoint():set_wh(500, 50):set_point2('中心', 960, 225)
 
 	-- 单位名字
-	ysui['单位面板']['单位名字']:reset_allpoint():set_point2('中心', 950, 195)
+	ysui['单位面板']['单位名字']:reset_allpoint():set_point2('中心', 960, 195)
 	-- 经验条
-	ysui['单位面板']['经验条']:reset_allpoint():set_wh(385, 25):set_point2('中心', 980 - 28, 195)
+	ysui['单位面板']['经验条']:reset_allpoint():set_wh(385, 25):set_point2('中心', 960, 195)
 
 	-- 生命周期
 	ysui['单位面板']['生命周期']:reset_allpoint():set_wh(315, 25):set_point2('中心', 980 - 28, 195)
@@ -237,7 +241,7 @@ local function init()
 	ysui['单位面板']['智力']['数值']:reset_allpoint():set_point2('中心', 2500, 130)
 
 
-	-- 资源属性面板
+	-- -- 资源属性面板
 	local resources = { '主要控件', 1, 2, 3, 4 }
 	local positions = { 1055, 1060, 1060, 1060, 1055 }
 	for i, res in ipairs(resources) do
@@ -264,7 +268,7 @@ local function SetButtonCooldownModel(frame, t)
 	local model = japi.FrameGetButtonCooldownModel(frame)
 	if not buttonCooldownSet[model] then
 		buttonCooldownSet[model] = true -- 设置按钮CD模型后，将状态设置为已设置
-		japi.FrameSetModelScale(model, 0.8, 1.03, 1.0)
+		japi.FrameSetModelScale(model, 0.71, 0.95, 1.0)
 		japi.FrameClearAllPoints(model)
 		japi.FrameSetPoint(model, 0, frame, 0, 0.0, 0.0)
 		japi.FrameSetPoint(model, 8, frame, 8, 0.0, 0.0)

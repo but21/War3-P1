@@ -75,6 +75,7 @@ function ModeSelect:Init()
 		end
 		common:RunTrigger(jass.gg_trg_GameStart)
 		UIModule.GameInformation.ui.gameDifficulty:set_text(jass.udg_GameMode == 1 and "普通模式" .. " N" .. jass.udg_GameDifficulty or "挂机模式")
+		require "my_base.cd_manager":Init()
 		require "my_ui.archive_data_load"
 	end)
 	ui.modePanel = uiCreate:CreateUIRelative("panel", ui.background, "中心", ui.background, "左上", 600, -150, 1, 1, { isShow = false })

@@ -5,7 +5,7 @@ local font              = "fonts\\LXWK_Bold.ttf"
 
 local Module            = require "my_base.base_module_manager"
 local createUI          = Module.UICreate
-local excel             = excel
+local excel             = Module.Excel
 local common            = Module.Common
 local tipDialogUp       = Module.UITipDialog.tipDialogUp
 local myFunc            = Module.MyFunc
@@ -71,9 +71,9 @@ local function UIInit()
 			{ image = "Survival\\UI\\Challenge\\" .. i .. ".tga" })
 		ui.challengeBtn[i]       = createUI:CreateUIRelative("button", ui.challengeImage[i], "中心", ui.challengeImage[i], "中心", 0, 0, h, h)
 		ui.challengeBtn[i].index = i
-		ui.challengeBtn[i]:event "进入" (EnterChallengeBtn)
-		ui.challengeBtn[i]:event "离开" (LeaveChallengeBtn)
-		ui.challengeBtn[i]:event "点击" (ClickChallengeBtn)
+		ui.challengeBtn[i]:event("进入")(EnterChallengeBtn)
+		ui.challengeBtn[i]:event("离开")(LeaveChallengeBtn)
+		ui.challengeBtn[i]:event("点击")(ClickChallengeBtn)
 		ui.cdShadow[i] = createUI:CreateUIRelative("image", ui.challengeImage[i], "中心", ui.challengeImage[i], "中心", 0, 0, h, h,
 			{ image = [[UI\Widgets\ToolTips\Human\human-tooltip-background.blp]], alpha = 0.5 })
 		ui.cdText[i]   = createUI:CreateUIRelative("text", ui.cdShadow[i], "中心", ui.cdShadow[i], "中心", 0, 0, h, 0,
@@ -108,6 +108,15 @@ local function UIInit()
 	end
 	ac.time(1, SetChallengeCD)
 end
+
+common:ReceiveSync("ClickChallenge")(function(data)
+	local player = common:GetSyncPlayer()
+	local playerID = common:ConvertPlayerToID(player)
+	challengeData[playerID][data].remainCD = challengeData[playerID][data].originCD
+	myFunc:SetCustomValue(jass.gg_trg_OpenChallengeLua, "整数", "playerID", playerID)
+	myFunc:SetCustomValue(jass.gg_trg_OpenChallengeLua, "整数", "index", data)
+	common:RunTrigger(jass.gg_trg_OpenChallengeLua)
+end)
 
 function Challenge:Init()
 	UIInit()

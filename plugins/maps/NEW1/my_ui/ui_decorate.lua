@@ -6,7 +6,7 @@ local uiCreate   = BaseModule.UICreate
 local common     = BaseModule.Common
 local archive    = BaseModule.Archive
 local tipDown    = BaseModule.UITipDialog.tipDialogDown
-local excel      =  BaseModule.Excel
+local excel      = BaseModule.Excel
 
 local players    = jass.udg_Player
 local font       = "fonts\\LXWK_Bold.ttf"
@@ -95,7 +95,7 @@ function Decorate:Init()
 		local frame = [[StarRail\star_3.tga]]
 		ui.heroSkin = {}
 		ui.heroSkin.firstIndex = 700
-		ui.heroSkin.count = 7
+		ui.heroSkin.count = 6
 		local firstIndex, count = ui.heroSkin.firstIndex, ui.heroSkin.count
 		local column = 7
 		local row = math.ceil(count / column)
@@ -134,7 +134,7 @@ function Decorate:Init()
 			if heroSkin:sub(index, index) == "b" then
 				common:SendSync("HeroApparel", index)
 			else
-				code.AddMessage(playerID, "该外观未解锁!!!")
+				code.AddMessage(playerID, "该皮肤未解锁!!!")
 			end
 		end
 		common:ReceiveSync("HeroApparel")(function(data)

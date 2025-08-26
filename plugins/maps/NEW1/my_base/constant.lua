@@ -18,12 +18,6 @@ function Constant:Init()
 	for i = 1, 12 do
 		sequenceFrameImage.lvUp[i] = "Survival\\UI\\XLZ\\lvUp (" .. i .. ").tga"
 	end
-	-- 选择神器
-	sequenceFrameImage.cx = {}
-	sequenceFrameImage.cx.time = 0.02
-	for i = 1, 42 do
-		sequenceFrameImage.cx[i] = "Survival\\UI\\XLZ\\cx (" .. i .. ").tga"
-	end
 	-- 超限
 	sequenceFrameImage.cx2 = {}
 	sequenceFrameImage.cx2.time = 0.07
@@ -31,10 +25,16 @@ function Constant:Init()
 		sequenceFrameImage.cx2[i] = "Survival\\UI\\XLZ\\cx2 (" .. i .. ").tga"
 	end
 	-- 点击
-	sequenceFrameImage.click= {}
+	sequenceFrameImage.click = {}
 	sequenceFrameImage.click.time = 0.04
 	for i = 1, 4 do
 		sequenceFrameImage.click[i] = "Survival\\UI\\XLZ\\click (" .. i .. ").tga"
+	end
+	-- 吞噬卡牌
+	sequenceFrameImage.swallowCard = {}
+	sequenceFrameImage.swallowCard.time = 0.04
+	for i = 1, 9 do
+		sequenceFrameImage.swallowCard[i] = "Survival\\UI\\XLZ\\boom" .. i .. ".tga"
 	end
 end
 

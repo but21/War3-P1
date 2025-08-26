@@ -17,10 +17,10 @@ AttrPanel.ui = attrUI
 
 local _attr = {}
 _attr[1] = { "每秒力量", "每秒敏捷", "每秒智力", "每秒生命", "每秒攻击", "每秒护甲", "每秒全属" }
-_attr[2] = { "杀敌力量", "杀敌敏捷", "杀敌智力", "杀敌生命", "杀敌攻击", "杀敌护甲", "杀敌全属" }
-_attr[3] = { "攻击吸血%", "技能吸血%", "伤害减免%", "免伤几率%", "面板每秒回血", "每秒百分比回血%" }
-_attr[4] = { "力量加成%", "敏捷加成%", "智力加成%", "生命加成%", "攻击加成%", "护甲加成%", }
-_attr[5] = { "攻击伤害%", "物理伤害%", "法术伤害%", "最终伤害%", "绝对伤害%", "攻击暴率%", "物理暴率%", "法术暴率%", "攻击暴伤%", "物理暴伤%", "法术暴伤%" }
+_attr[2] = { "杀敌力量", "杀敌敏捷", "杀敌智力", "杀敌生命", "杀敌攻击", "杀敌护甲", "杀敌全属", "杀敌金币" }
+_attr[3] = { "攻击吸血%", "技能吸血%", "伤害减免%", "免伤几率%", }
+_attr[4] = { "力量加成%", "敏捷加成%", "智力加成%", "生命加成%", "攻击加成%", "护甲加成%", "经验加成%" }
+_attr[5] = { "攻击伤害%", "物理伤害%", "法术伤害%", "真实伤害%", "最终伤害%", "绝对伤害%", "攻击暴率%", "物理暴率%", "法术暴率%", "攻击暴伤%", "物理暴伤%", "法术暴伤%" }
 
 
 attrUI.parent = gameui:builder "panel" { w = 1, h = 1, xy = { "中心", 0, 0 }, show = false }
@@ -89,7 +89,7 @@ local function _RefreshAttrPanel()
 				for uiIndex, attrs in ipairs(_attr) do
 					for _, attrName in ipairs(attrs) do
 						local name = attrName:gsub("%%", "")
-						local str = string.format("%-25s", name) .. string.format("%0.1f", attrSystem:GetObjAttrFromStr(hero[playerID], attrName))
+						local str = string.format("%-20s", name) .. string.format("%0.1f", attrSystem:GetObjAttrFromStr(hero[playerID], attrName))
 						str = str .. (attrName:sub(-1) == "%" and "%" or "")
 						_ui[uiIndex][attrName]:set_text(str)
 					end

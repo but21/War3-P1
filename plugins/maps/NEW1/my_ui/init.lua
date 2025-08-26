@@ -47,8 +47,8 @@ end
 
 local UIModule = require "my_ui.ui_module_manager"
 UIModule.BossComing:Init()
+BaseModule.DamageSystem():Init(UIModule.BossBlood)
 
--- UIModule.SeizeBody:Init()
 UIModule.Card:Init()
 UIModule.Swallow:Init()
 UIModule.Challenge:Init()
@@ -65,5 +65,3 @@ UIModule.Decorate:Init()
 
 
 UIModule.ModeSelect:Init()
-
--- 分为base_module 和 ui_module

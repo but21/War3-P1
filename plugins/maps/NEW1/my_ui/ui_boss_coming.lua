@@ -5,8 +5,10 @@ local myFunc     = BaseModule.MyFunc
 local common     = BaseModule.Common
 local archive    = BaseModule.Archive
 local players    = jass.udg_Player
+local math       = math
 local excel      = BaseModule.Excel
 local font       = "fonts\\LXWK_Bold.ttf"
+local attrStm    = BaseModule.AttrSystem
 
 local BossComing = {}
 local ui         = {}
@@ -120,6 +122,11 @@ end
 
 function code.KillAttackBoss()
 	maxTime = 0
+	for playerID, player in ipairs(players) do
+		jass.udg_PlayerDiamond[playerID] = jass.udg_PlayerDiamond[playerID] + jass.udg_KillBossDiamond[playerID] * (1 + 0.01 * attrStm:GetObjAttrFromStr(jass.udg_Hero[playerID], "木材加成"))
+		local treasure = require "my_ui.ui_treasure"
+		treasure.drawCount[playerID] = treasure.drawCount[playerID] + 1
+	end
 end
 
 return BossComing

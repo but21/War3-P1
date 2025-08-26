@@ -88,7 +88,7 @@ function TipDialog:Init(createUI)
 
 	-- 父控件
 	itemTip.panel = createUI:CreateUIAbsolute("panel", gameui, "中心", 600, 600, 1, 1, { isShow = false })
-	itemTip.background = ns.ui.create2("Tips1", itemTip.panel, 0)
+	itemTip.background = ns.ui.create2("Tips5", itemTip.panel, 0)
 	-- 提示
 	itemTip.tips = createUI:CreateUIRelative("text", itemTip.panel, "右下", itemTip.panel, "右下", 0, 0, 400, 0, { font = font, fontSize = 20, align = "左" })
 	itemTip.splitLine = createUI:CreateUIRelative("image", itemTip.panel, "左下", itemTip.tips, "左上", 0, 15, 400, 2, { image = [[Survival\UI\TipDialog\splitLine.tga]] })

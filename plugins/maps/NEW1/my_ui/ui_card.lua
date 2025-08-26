@@ -1,24 +1,26 @@
-local jass             = require "jass.common"
-local code             = require "jass.code"
-local Module           = require "my_base.base_module_manager"
-local myFunc           = Module.MyFunc
-local event            = Module.Event
-local common           = Module.Common
-local uiCreate         = Module.UICreate
-local excel            = require "ac.tyns.excel"
-local font             = "fonts\\LXWK_Bold.ttf"
-local attrSystem       = Module.AttrSystem
-local textTipDown      = Module.UITipDialog.tipOnlyTextDown
-local ac               = ac
-local tipDialogUp      = Module.UITipDialog.tipDialogUp
+local jass                       = require "jass.common"
+local code                       = require "jass.code"
+local Module                     = require "my_base.base_module_manager"
+local myFunc                     = Module.MyFunc
+local event                      = Module.Event
+local common                     = Module.Common
+local uiCreate                   = Module.UICreate
+local imagePool                  = Module.ImagePool
+local excel                      = require "ac.tyns.excel"
+local font                       = "fonts\\LXWK_Bold.ttf"
+local attrSystem                 = Module.AttrSystem
+local textTipDown                = Module.UITipDialog.tipOnlyTextDown
+local ac                         = ac
+local tipDialogUp                = Module.UITipDialog.tipDialogUp
+local math                       = math
+local sequenceFrameImage         = Module.Constant.sequenceFrameImage
 
-local heros            = jass.udg_Hero
-local refreshCardCount = jass.udg_CardRefreshAmount
-local playerGold       = jass.udg_PlayerGold
-local playerKills      = jass.udg_PlayerKills
+local heros                      = jass.udg_Hero
+local refreshCardCount           = jass.udg_CardRefreshAmount
+local playerGold                 = jass.udg_PlayerGold
+local playerKills                = jass.udg_PlayerKills
 
-
-
+-- 抽卡消耗
 local drawCost                   = { 150, 150, 150, 150 }
 
 local Card                       = {}
@@ -27,44 +29,60 @@ local _ui                        = {}
 
 Card.ui                          = _ui
 
+-- 每次抽卡数量
 Card.drawCount                   = { 3, 3, 3, 3 }
+-- 当前抽卡卡池
 local drawCards                  = {}
+-- 剩余羁绊
 local availableBonds             = {}
-
-local ownedBonds                 = {}
+-- 复杂羁绊
 local specialBonds               = {}
+-- 拥有的羁绊 playerID -> bondID -> count
+local ownedBonds                 = {}
 Card.ownedBonds                  = ownedBonds
+-- 不同类型的羁绊数量(力, 敏, 智, 通用)
 local ownedBondsTy               = {}
+-- 已吞噬的卡牌
 local swallowCards               = {}
 Card.swallowCards                = swallowCards
+-- 卡牌吞噬条件计数 playerID -> cardID -> count
 local cardsSwallowConditionCount = {}
+-- 等待替换的卡牌
 local waitCard                   = {}
+-- 已拥有的卡牌
 local ownedCards                 = {}
+-- 当前卡牌栏的牌(cardID -> uiIndex)
 local currentCardsID             = {}
+-- 当前卡牌栏的牌(uiIndex -> cardID)
 local currentCards               = {}
+-- 当前抽卡界面的卡牌ID
 local selectedCards              = {}
+-- 最后羁绊(没有其他卡牌抽了)
 local finalBond                  = {}
+-- 特殊羁绊数据 playerID -> bondID -> table
 local specialBondData            = {}
+-- 是否正在选择卡牌
 local inSelecting                = { false, false, false, false }
+-- 是否正在进行替换(异步)
 local inReplacing                = false
 
 local function SetCardTip(cardID)
 	local icon = excel["卡牌"][cardID].Icon
 	local name = excel["卡牌"][cardID].CardName
 	local bondName = excel["卡牌"][cardID].BondName
-	local tips = ""
+	local tips
 	if excel["卡牌"][cardID].Attr then
-		tips = tips .. excel["卡牌"][cardID].Attr .. "|n|n"
+		tips = (tips or "") .. excel["卡牌"][cardID].Attr
 	end
 	if excel["卡牌"][cardID].CardEffect then
-		tips = tips .. excel["卡牌"][cardID].CardEffect .. "|n|n"
+		tips = (tips and tips .. "|n|n" or "") .. excel["卡牌"][cardID].CardEffect
 	end
 	if excel["卡牌"][cardID].SwallowEffect then
-		tips = tips .. "集齐羁绊效果：|n" .. excel["卡牌"][cardID].SwallowEffect .. "|n|n"
+		tips = (tips and tips .. "|n|n" or "") .. "集齐羁绊效果：|n" .. excel["卡牌"][cardID].SwallowEffect
 	end
 	tips = "|cffB4C4E2" .. myFunc:SetNumColor(tips, "|cffC9E750", "|cffB4C4E2")
 	if excel["卡牌"][cardID].SwallowCondition then
-		tips = tips .. "|cff696E6E吞噬条件：|n" .. excel["卡牌"][cardID].SwallowCondition
+		tips = (tips and tips .. "|n|n" or "") .. "|cff696E6E吞噬条件：|n" .. excel["卡牌"][cardID].SwallowCondition
 	end
 	tipDialogUp.icon:set_image(icon)
 	tipDialogUp.name:set_text("|cff73FFFE" .. name)
@@ -329,7 +347,7 @@ local function addCardsToDrawPool(playerID, ty)
 			if #bondTable >= 1 then
 				local bondIndex = common:GetRandomInt(1, #bondTable)
 				local bondID = myFunc:TableRemove(specialBonds[playerID], bondIndex)
-				print(bondID)
+				-- print(bondID)
 				for index = 1, excel["羁绊列表"][bondID].InitAmount, 1 do
 					table.insert(drawCards[playerID], excel["羁绊列表"][bondID].FirstID + index - 1)
 				end
@@ -344,7 +362,7 @@ local function addCardsToDrawPool(playerID, ty)
 	end
 end
 
-local function initPlayerBonds()
+local function InitPlayerBonds()
 	for playerID = 1, 4, 1 do
 		drawCards[playerID] = {}
 		specialBondData[playerID] = {}
@@ -385,7 +403,7 @@ local function initPlayerBonds()
 		if bondIndex[5] < bondIndex[4] then
 			bondIndex[4], bondIndex[5] = bondIndex[5], bondIndex[4]
 		end
-		-- bondIndex[5] = 106
+		-- bondIndex[5] = 26
 		for i = 5, 1, -1 do
 			myFunc:TableRemove(availableBonds[playerID], bondIndex[i])
 			for index = 1, excel["羁绊列表"][bondIndex[i]].InitAmount, 1 do
@@ -398,19 +416,33 @@ end
 local function drawCard(playerID)
 	local drawAmount = Card.drawCount[playerID]
 	myFunc:ClearTable(selectedCards[playerID])
-	for count = 1, drawAmount do
-		if #drawCards[playerID] <= 0 then
-			local randomIndex = common:GetRandomInt(1, #finalBond[playerID])
-			local cardID = finalBond[playerID][randomIndex]
+	if #drawCards[playerID] <= drawAmount then
+		for count = 1, drawAmount do
+			if #drawCards[playerID] <= 0 then
+				local randomIndex = common:GetRandomInt(1, #finalBond[playerID])
+				local cardID = finalBond[playerID][randomIndex]
+				table.insert(selectedCards[playerID], cardID)
+				myFunc:TableRemove(finalBond[playerID], randomIndex)
+			else
+				table.insert(selectedCards[playerID], table.Remove2(drawCards[playerID], #drawCards[playerID]))
+			end
+		end
+	else
+		local samples = {}
+		for index, cardID in ipairs(drawCards[playerID]) do
+			samples[index] = { id = cardID, weight = excel["卡牌"][cardID].Weight, index = index }
+		end
+		local result = myFunc:ARes(samples, drawAmount)
+		table.sort(result, function(a, b)
+			return a.index > b.index
+		end)
+		for index, value in ipairs(result) do
+			local cardID = myFunc:TableRemove(drawCards[playerID], value.index)
 			table.insert(selectedCards[playerID], cardID)
-			myFunc:TableRemove(finalBond[playerID], randomIndex)
-		else
-			local randomIndex = common:GetRandomInt(1, #drawCards[playerID])
-			local cardID = drawCards[playerID][randomIndex]
-			table.insert(selectedCards[playerID], cardID)
-			myFunc:TableRemove(drawCards[playerID], randomIndex)
 		end
 	end
+
+
 	if common:IsLocalPlayer(common.Player[playerID]) then
 		if not inSelecting[playerID] then
 			_ui.Show(drawAmount)
@@ -462,7 +494,74 @@ local function SwallowBondGetAddition(playerID, bondID)
 	end
 end
 
+local function SwallowCardAnimEndAction(ui)
+	if not _ui.panel.sequenceFrame or _ui.panel.sequenceFrame.P.complete then
+		local image = imagePool:GetImage()
+		image:set_point2("中心", 1400, 300)
+		local w, h = 60, 60
+		image:set_wh(w, h)
+		image:set_show(true)
+		_ui.panel.sequenceFrame = myFunc:SequenceFrame({
+			UI = image,
+			image = sequenceFrameImage.swallowCard,
+			time = sequenceFrameImage.swallowCard.time,
+			isLoop = false,
+			complete = imagePool.RecycleImage
+		})
+	else
+		_ui.panel.sequenceFrame.nowT = 0
+	end
+	imagePool.RecycleImage(ui)
+end
+local function SwallowCardAnim(playerID, index)
+	local x, y = 1400, 300
+	if common:IsLocalPlayer(common.Player[playerID]) then
+		local w, h = _ui.cardIcon[index]:get_wh()
+		local x0 = _ui.panel.x - _ui.background:get_w() / 2 + (index - 1) * (w + 2) + w / 2
+		local y0 = _ui.panel.y
+		local floatUI = imagePool.GetImage()
+		floatUI:set_wh(w, h)
+		floatUI:set_show(true)
+		floatUI:set_image(_ui.cardIcon[index].image)
+		floatUI:set_point2("中心", x0, y0)
+		-- myFunc:FadePosition { UI = floatUI, time = 0.6 + index * 0.03, ty = '贝塞尔', startP = { x0, y0 }, endP = { x, y }, ctlP1 = { x0 + (x - x0) * 0.2, y0 + 200 + index * 15 },
+		-- 	ctlP2 = { x - 150, y + 150 }, complete = SwallowCardAnimEndAction }
+		-- myFunc:FadePosition { UI = floatUI, time = 0.65 + index * 0.05, ty = '贝塞尔', startP = { x0, y0 }, endP = { x, y }, ctlP1 = { x0 + 350, y0 + 100 + index * 10 },
+		-- 	ctlP2 = { x - 300, y - 150 }, complete = SwallowCardAnimEndAction }
+		local animTime = 0.65 + index * 0.03
+		myFunc:FadePosition { UI = floatUI, time = animTime, ty = '贝塞尔', startP = { x0, y0 }, endP = { x, y }, ctlP1 = { x0 + (x - x0) * 0.2, y0 + 400 - index * 20 },
+			ctlP2 = { x - (x - x0) * 0.2, y + 400 - index * 20 }, complete = SwallowCardAnimEndAction }
+		myFunc:FadeSize { UI = floatUI, time = animTime, ty = '二元入出', startP = { w, h }, endP = { 20, 20 } }
+	end
+end
+local _changeSize = 3
+local function GetCardAnim(playerID, index)
+	if common:IsLocalPlayer(common.Player[playerID]) then
+		local image = imagePool:GetImage()
+		image:set_point("中心", _ui.cardBg[index], "中心", -1, 153)
+		local w, h = _ui.cardBg[index]:get_wh()
+		local x, y = image:get_xy()
+		image:set_show(true)
+		image:set_image(_ui.cardIcon[index].image)
+		myFunc:FadeSize { UI = image, time = 0.2, startP = { w * _changeSize, h * _changeSize }, endP = { w, h }, ty = '二元入', complete = function()
+			myFunc:FadePosition { UI = image, fUI = _ui.cardBg[index], time = 0.1, startP = { x, y }, endP = { x, y - 150 }, ty = '二元入', complete = function()
+				image:set_wh(w * 1.3, h * 1.3)
+				myFunc:SequenceFrame({
+					UI = image,
+					image = sequenceFrameImage.selectOne,
+					time = sequenceFrameImage.selectOne.time,
+					isLoop = false,
+					complete = function()
+						imagePool.RecycleImage(image)
+					end
+				})
+			end }
+		end }
+	end
+end
+
 local function SwallowCard(playerID, cardID, index)
+	SwallowCardAnim(playerID, index)
 	-- if ownedCards[playerID][cardID] <= 1 then
 	table.insert(swallowCards[playerID], cardID)
 	-- end
@@ -519,8 +618,27 @@ local function SwallowCard(playerID, cardID, index)
 	end
 end
 
+local function CheckSwallow(playerID, bondID, cardID, uiIndex)
+	local ty = excel["羁绊列表"][bondID].SwallowTy
+	if ty == 1 then
+		local needCount = excel["羁绊列表"][bondID].NeedAmount
+		if ownedBonds[playerID][bondID] >= needCount then
+			for id, index in pairs(currentCardsID[playerID]) do
+				if bondID == excel["卡牌"][id].BondID then
+					SwallowCard(playerID, id, index)
+				end
+			end
+			local attrTy = excel["羁绊列表"][bondID].AttrTy
+			ownedBondsTy[playerID][attrTy] = ownedBondsTy[playerID][attrTy] + 1
+			addCardsToDrawPool(playerID, attrTy)
+			attrSystem:SetUnitAttrStr(heros[playerID], 0, excel["羁绊列表"][bondID].SwallowAttr)
+			SwallowBondGetAddition(playerID, bondID)
+		end
+	end
+end
 
 local function GetCard(playerID, bondID, cardID, uiIndex)
+	GetCardAnim(playerID, uiIndex)
 	--#region 羁绊ID判断
 	if bondID == 30 then
 		cardsSwallowConditionCount[playerID][cardID] = 0
@@ -839,24 +957,7 @@ local function GetCard(playerID, bondID, cardID, uiIndex)
 		end
 	end
 	--#endregion
-end
-local function CheckSwallow(playerID, bondID, cardID, uiIndex)
-	local ty = excel["羁绊列表"][bondID].SwallowTy
-	if ty == 1 then
-		local needCount = excel["羁绊列表"][bondID].NeedAmount
-		if ownedBonds[playerID][bondID] >= needCount then
-			for id, index in pairs(currentCardsID[playerID]) do
-				if bondID == excel["卡牌"][id].BondID then
-					SwallowCard(playerID, id, index)
-				end
-			end
-			local attrTy = excel["羁绊列表"][bondID].AttrTy
-			ownedBondsTy[playerID][attrTy] = ownedBondsTy[playerID][attrTy] + 1
-			addCardsToDrawPool(playerID, attrTy)
-			attrSystem:SetUnitAttrStr(heros[playerID], 0, excel["羁绊列表"][bondID].SwallowAttr)
-			SwallowBondGetAddition(playerID, bondID)
-		end
-	end
+	CheckSwallow(playerID, bondID, cardID, uiIndex)
 end
 
 common:ReceiveSync("SelectCard")(function(data)
@@ -887,7 +988,7 @@ common:ReceiveSync("SelectCard")(function(data)
 				local bondID = excel["卡牌"][cardID].BondID
 				ownedBonds[playerID][bondID] = (ownedBonds[playerID][bondID] or 0) + 1
 				GetCard(playerID, bondID, cardID, i)
-				CheckSwallow(playerID, bondID, cardID, i)
+				-- CheckSwallow(playerID, bondID, cardID, i)
 				break
 			end
 		end
@@ -933,7 +1034,7 @@ common:ReceiveSync("ReplaceCard")(function(data)
 	ownedCards[playerID][cardID] = (ownedCards[playerID][cardID] or 0) + 1
 	attrSystem:SetUnitAttrStr(heros[playerID], 0, excel["卡牌"][cardID].Attr)
 	GetCard(playerID, bondID, cardID, data)
-	CheckSwallow(playerID, bondID, cardID, data)
+	-- CheckSwallow(playerID, bondID, cardID, data)
 	if common:IsLocalPlayer(player) then
 		if currentCards[playerID][data] then
 			_ui.cardIcon[data]:set_image(icon)
@@ -1023,7 +1124,11 @@ function code.UseSwallowRock(playerID)
 				cardIndex = cardIndex - 1
 				if cardIndex == 0 then
 					SwallowCard(playerID, cardID, i)
-					-- CheckSwallow(playerID, excel["卡牌"][cardID].BondID, cardID, i)
+					-- local bondID = excel["卡牌"][cardID].BondID
+					-- if excel["羁绊列表"][bondID].SwallowTy == 1 then
+					-- 	CheckSwallow(playerID, bondID, cardID, i)
+					-- else
+					-- end
 					break
 				end
 			end
@@ -1112,7 +1217,7 @@ end
 function Card:Init()
 	UIInit()
 
-	initPlayerBonds()
+	InitPlayerBonds()
 end
 
 return Card

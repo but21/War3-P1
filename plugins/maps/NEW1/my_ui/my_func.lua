@@ -6,6 +6,13 @@ local manager = {}
 local string = string
 local math = math
 local table = table
+local type = type
+local rawset = rawset
+local rawget = rawget
+
+local assert = assert
+local setmetatable = setmetatable
+local getmetatable = getmetatable
 
 LUIUpdate = {}
 UIFunc_Table = {}
@@ -517,7 +524,7 @@ function WaitToDo(argTable)
 end
 
 ---获取自定义值
----@param object integer 被获取自定义值的对象: 单位 / 特效 / 触发器 / 物品
+---@param object integer 被获取自定义值的对象: 单位 / 特效 / 触发器 / 物品 / 物品类型
 ---@param type "整数"|"单位"|"实数"|"真值"|"特效"|"字符串"
 ---@param name string 自定义值名称
 ---@return any
@@ -544,7 +551,7 @@ function manager:GetCustomValue(object, type, name)
 end
 
 ---设置自定义值
----@param object integer 被设置自定义值的对象: 单位 / 特效 / 触发器 / 物品
+---@param object integer 被设置自定义值的对象: 单位 / 特效 / 触发器 / 物品 / 物品类型
 ---@param type "整数"|"单位"|"实数"|"字符串"
 ---@param name string 自定义值名称
 ---@param value any  设置的值
@@ -576,7 +583,7 @@ function manager:ID2Int(val)
 	for i = 1, n do
 		v = v + val:byte(i) * 256 ^ (n - i)
 	end
-	return v
+	return math.floor(v)
 end
 
 ---整数转ID
@@ -661,7 +668,7 @@ function manager:BinarySearch(arr, target)
 	local right = #arr
 
 	while left <= right do
-		local mid = math.floor(left + (right - left) / 2)
+		local mid = math.floor((right + left) / 2)
 		if arr[mid] == target then
 			return mid -- 找到目标值，返回索引
 		elseif arr[mid] < target then
@@ -683,7 +690,6 @@ function manager:ReplaceCharAt(str, pos, replacement)
 	if pos < 1 or pos > #str then
 		error("位置超出字符串范围")
 	end
-
 	-- 将字符串拆分为三个部分：前缀、替换字符、后缀
 	local prefix = string.sub(str, 1, pos - 1)
 	local suffix = string.sub(str, pos + 1)
@@ -696,6 +702,9 @@ end
 ---@param t table
 function manager:ClearTable(t)
 	for key, value in pairs(t) do
+		-- if typeof(value) == "table" then
+		-- 	table.ClearTable(value)
+		-- end
 		t[key] = nil
 	end
 end
@@ -724,6 +733,147 @@ function manager:TableRemove(t, index)
 	t[index] = t[size]
 	t[size] = nil
 	return temp
+end
+
+local function sift_up(heap, index)
+	local parent_index = math.floor(index / 2)
+	while index > 1 and heap[index][1] < heap[parent_index][1] do
+		heap[index], heap[parent_index] = heap[parent_index], heap[index]
+		index = parent_index
+		parent_index = math.floor(index / 2)
+	end
+end
+
+local function sift_down(heap, index)
+	local size = #heap
+	while true do
+		local left_child_index = 2 * index
+		local right_child_index = 2 * index + 1
+		local smallest_index = index
+
+		if left_child_index <= size and heap[left_child_index][1] < heap[smallest_index][1] then
+			smallest_index = left_child_index
+		end
+		if right_child_index <= size and heap[right_child_index][1] < heap[smallest_index][1] then
+			smallest_index = right_child_index
+		end
+
+		if smallest_index ~= index then
+			heap[index], heap[smallest_index] = heap[smallest_index], heap[index]
+			index = smallest_index
+		else
+			break
+		end
+	end
+end
+
+local function heap_push(heap, element)
+	table.insert(heap, element)
+	sift_up(heap, #heap)
+end
+
+local heap = {}
+
+---无放回加权随机抽样Ares, 样本数量较多时(几百)使用AExpJ算法
+---@param samples table<integer, table<string, number>>  samples[index].weight为必须的权重字段
+---@param m integer 样本数量
+---@return table --结构和输入一样
+function manager:ARes(samples, m)
+	table.ClearTable(heap)
+	for _, sample in ipairs(samples) do
+		local weight = sample.weight
+		if weight > 0 then
+			local ui = math.RandomReal(0, 1)
+			local ki = ui ^ (1 / weight)
+			if #heap < m then
+				heap_push(heap, { ki, sample })
+			elseif ki > heap[1][1] then
+				heap[1] = { ki, sample }
+				sift_down(heap, 1)
+			end
+		end
+	end
+	local result = {}
+	for _, entry in ipairs(heap) do
+		table.insert(result, entry[2])
+	end
+	return result
+end
+
+local function find_index_binary_search(cumulative_weights, value)
+	local low = 1
+	local high = #cumulative_weights
+
+	while low <= high do
+		local mid = math.floor((low + high) / 2)
+		if cumulative_weights[mid] < value then
+			low = mid + 1
+		else
+			high = mid - 1
+		end
+	end
+	return low
+end
+local cumulative_weights = {}
+local original_indices = {} -- 存储有效权重的原始索引
+--- 使用轮盘赌选择法（二分搜索优化）进行有放回的加权随机抽样。
+--- @param samples table<integer, table>  samples[index].weight为必须的权重字段
+--- @param k integer 需要抽样的次数
+--- @return table --一个包含 k 个抽样结果的表
+function manager:RWS(samples, k)
+	if not samples or #samples == 0 then
+		return {}
+	end
+
+	table.ClearTable2(cumulative_weights)
+	table.ClearTable2(original_indices)
+
+	local total_weight = 0
+
+	-- 1. 计算累积权重，但只包含权重>0的项
+	for index, sample in ipairs(samples) do
+		local weight = sample.weight
+		if weight > 0 then
+			total_weight = total_weight + weight
+			table.insert(cumulative_weights, total_weight)
+			table.insert(original_indices, index)
+		end
+	end
+
+	if total_weight == 0 then
+		return {}
+	end
+
+	local results = {}
+	for i = 1, k do
+		local random_value = math.RandomReal(0, 1) * total_weight
+
+		-- 使用二分搜索找到索引
+		local found_idx = find_index_binary_search(cumulative_weights, random_value)
+		local original_idx = original_indices[found_idx]
+
+		table.insert(results, samples[original_idx])
+	end
+
+	return results
+end
+
+---深拷贝
+---@param orig table
+---@return table
+function manager:DeepCopy(orig)
+	local orig_type = type(orig)
+	local copy
+	if orig_type == 'table' then
+		copy = {}
+		for orig_key, orig_value in pairs(orig) do
+			copy[orig_key] = self:DeepCopy(orig_value)
+		end
+		setmetatable(copy, self:DeepCopy(getmetatable(orig)))
+	else
+		copy = orig
+	end
+	return copy
 end
 
 return manager

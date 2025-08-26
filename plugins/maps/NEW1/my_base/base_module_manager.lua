@@ -6,7 +6,7 @@ BaseModule.MyFunc = require "my_ui.my_func"
 ---原生, 内置, YDWE
 BaseModule.Common = require "my_base.common"
 
--- 事件
+-- -- 事件
 BaseModule.Event = require "my_base.event"
 BaseModule.Event:Init(BaseModule.Common)
 
@@ -31,7 +31,7 @@ BaseModule.DamageSystem = function()
 	return require "my_base.damage_system"
 end
 
--- 图片对象池
+-- -- 图片对象池
 BaseModule.ImagePool = require "my_base.image_pool"
 BaseModule.ImagePool:Init(BaseModule.UICreate)
 

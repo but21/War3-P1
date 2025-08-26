@@ -46,7 +46,8 @@ local function _Init()
 end
 
 
-local _colorBlood = { [[Survival\UI\BossBlood\red.tga]], [[Survival\UI\BossBlood\purple.tga]], [[Survival\UI\BossBlood\blue.tga]], [[Survival\UI\BossBlood\greed.tga]], [[Survival\UI\BossBlood\yellow.tga]] }
+local _colorBlood = { [[Survival\UI\BossBlood\red.tga]], [[Survival\UI\BossBlood\purple.tga]], [[Survival\UI\BossBlood\blue.tga]], [[Survival\UI\BossBlood\greed.tga]],
+	[[Survival\UI\BossBlood\yellow.tga]] }
 
 --[[
 	真血渐变
@@ -92,7 +93,7 @@ local function _Refresh()
 		-- if boss then
 		-- 	print(boss)
 		-- end
-		if boss and boss > 0 and common:GetUnitState(boss, "生命值") > 0 then
+		if boss and boss > 0 and common:GetUnitState(boss, "生命值") > 0 and myFunc:GetCustomValue(boss, "真值", "IsBOSS") then
 			-- print(boss, common:GetUnitTip(boss), myFunc:GetCustomValue(boss, "字符串", "name"))
 			if common:IsLocalPlayer(player) then
 				bloodBar.panel:set_show(true)

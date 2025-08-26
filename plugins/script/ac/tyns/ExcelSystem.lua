@@ -81,4 +81,8 @@ function manager:GetData(excelName, rowID, columnName)
 	return excel[excelName][rowID][columnName]
 end
 
+function manager:GetLength(excelName)
+	return #excel[excelName]
+end
+
 return manager

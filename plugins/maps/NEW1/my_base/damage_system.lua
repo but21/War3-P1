@@ -14,6 +14,9 @@ local htMagicalPower = jass.udg_HTMagicalPower
 local excel = Module.Excel
 local math = math
 local players = jass.udg_Player
+---@class UIModule
+local UIModule
+
 
 ---@class DamageSystem
 local DamageSystem = {}
@@ -34,7 +37,7 @@ end
 local _scale = 1
 local _d = 40 * _scale
 local function _DamageText(damage, damageType, x, y, z, playerID)
-	if damage <= 0 then
+	if damage <= 0 or UIModule.Settings.state[playerID][3] then
 		return
 	end
 	local damageText = myFunc:NumToChinese(damage)
@@ -94,15 +97,10 @@ end
 ---@param bossBlood BossBlood
 function DamageSystem:Init(bossBlood)
 	DamageSystem.bossBlood = bossBlood
+	UIModule = require "my_ui.ui_module_manager"
 end
 
 --#region 伤害系统
-
-
--- 备注:物理和法术都算技能吸血,攻击吸血算平A不算多重
--- 攻击吸血,技能吸血,伤害减免,免伤几率这个几个公式和护甲计算方法一样,越多越收益越低
--- 备注:只有技能伤害和被动效果才会造成物理和法术,多重箭和攻击都走攻击
-
 
 -- 单位受伤
 function code.DamageSystem()
@@ -116,7 +114,7 @@ function code.DamageSystem()
 	-- 判断是否是玩家单位造成的伤害
 	local isPlayerEnemy = common:IsUnitEnemy(damageSource, common.Player[1])
 	if not isPlayerEnemy then
-		if damage == 0 then
+		if damage == 0 or common:IsAttackDamage() then
 			common:SetEventDamage(0)
 			return
 		end
@@ -157,7 +155,7 @@ function code.DamageSystem()
 
 
 		--#region 调整英雄普攻
-		if common:IsAttackDamage() == true and common:IsEventAttackType(common.AtkTypeMelee) then
+		if common:IsEventAttackType(common.AtkTypeMelee) then
 			damage = attrSystem:GetObjAttrFromStr(hero, "面板攻击")
 			local critValue = attrSystem:GetObjAttrFromStr(hero, "攻击暴率%")
 			local attackAddition = attrSystem:GetObjAttrFromStr(hero, "结算攻击伤害%")
@@ -205,11 +203,39 @@ function code.DamageSystem()
 		if code.IsBondCompleted(playerID, 27) then
 			damage = damage * excel["羁绊列表"][27].Value1
 		end
+
+		if code.IsEquipSwallowed(playerID, 617) then
+			if myFunc:GetCustomValue(triggerUnit, "真值", "IsBOSS") then
+				damage = damage * excel["装备"][617].Value1
+			end
+		end
 		--#endregion 通用伤害加成
 
 
+		--#region 真实伤害
+		if common:IsEventAttackType(common.AtkTypeChaos) == true then
+			if code.IsBondCompleted(playerID, 32) then
+				damage = damage * excel["羁绊列表"][32].Value1
+			end
+
+			if code.IsCardOwned(playerID, 378) then
+				damage = damage * excel["卡牌"][378].Value3
+			end
+
+			_DamageText(damage, "真实伤害", enemyX, enemyY, 250, playerID)
+			common:SetEventDamage(damage)
+			DisplayTextToPlayer(jass.udg_Player[playerID], 0, 0, "|cfffc00a8真实伤害: " .. myFunc:NumToChinese(damage))
+			return
+		end
+		--#endregion
+
+
+		--护甲和伤害减免
+		damage = damage * (100 / (100 + armor)) * (100 / (100 + damageReduce))
+
+
 		--#region攻击伤害/多重箭
-		if common:IsAttackDamage() or common:IsEventAttackType(common.AtkTypePierce) then
+		if common:IsEventAttackType(common.AtkTypeMelee) or common:IsEventAttackType(common.AtkTypePierce) then
 			if common:LoadInteger(htSeizeBody, playerID, 9) == 1 then
 				damage = damage * excel["夺舍"][9].Value1
 			end
@@ -272,29 +298,6 @@ function code.DamageSystem()
 			return
 		end
 		--#endregion
-
-
-		--#region 真实伤害
-		if common:IsEventAttackType(common.AtkTypeChaos) == true then
-			if code.IsBondCompleted(playerID, 32) then
-				damage = damage * excel["羁绊列表"][32].Value1
-			end
-
-			if code.IsCardOwned(playerID, 378) then
-				damage = damage * excel["卡牌"][378].Value3
-			end
-
-			_DamageText(damage, "真实伤害", enemyX, enemyY, 250, playerID)
-			common:SetEventDamage(damage)
-			DisplayTextToPlayer(jass.udg_Player[playerID], 0, 0, "|cfffc00a8真实伤害: " .. myFunc:NumToChinese(damage))
-			return
-		end
-		--#endregion
-
-
-
-		--护甲和伤害减免
-		damage = damage * (100 / (100 + armor)) * (100 / (100 + damageReduce))
 
 
 		--#region 物理伤害
@@ -421,6 +424,15 @@ function code.DamageSystem()
 			end
 
 			if common:IsAttackDamage() then
+				if code.IsEquipPassiveOwned(playerID, 2) then
+					local pro = excel["装备"][2].Value1
+					if code.IsEquipSwallowed(playerID, 604) then
+						pro = excel["装备"][604].Value1
+					end
+					if common:GetRandomInt(1, 100) <= pro then
+						damage = 0
+					end
+				end
 				if common:LoadInteger(htSeizeBody, playerID, 11) == 1 then
 					if common:GetRandomInt(1, 100) <= excel["夺舍"][11].Value3 then
 						damage = 0

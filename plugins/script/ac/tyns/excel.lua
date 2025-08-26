@@ -3,7 +3,7 @@ local ns = ns
 ns.excel = {}
 ns.excel.__index = ns.excel
 
-excel = {}
+local excel = {}
 
 --新建excel
 function ns.excel.create()

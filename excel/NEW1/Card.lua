@@ -1,0 +1,2172 @@
+local ns = ns
+local excel = ns.excel.create()
+excel:set_name('卡牌')
+excel.type = {[1]="ID",[2]="CardName",[3]="BondName",[4]="Attr",[5]="Weight",[6]="MultiSel",[7]="CardEffect",[8]="SwallowEffect",[9]="SwallowCondition",[10]="BondID",[11]="Icon",[12]="Value1",[13]="Value2",[14]="Value3",[15]="Value4",[16]="Value5",[17]="Value6",[18]="Value7"}
+excel[1] = {
+    ["CardName"] = [=[杂物卡1]=],
+    ["BondName"] = [=[杂物]=],
+    ["Attr"] = [=[攻击+1]=],
+    ["Weight"] = 100,
+    ["CardEffect"] = [=[攻击+1]=],
+    ["BondID"] = 100,
+    ["Icon"] = [=[StarRail\star_1.tga]=]
+}
+excel[2] = {
+    ["CardName"] = [=[杂物卡2]=],
+    ["BondName"] = [=[杂物]=],
+    ["Attr"] = [=[攻击+2]=],
+    ["Weight"] = 100,
+    ["CardEffect"] = [=[攻击+2]=],
+    ["BondID"] = 100,
+    ["Icon"] = [=[StarRail\star_1.tga]=]
+}
+excel[3] = {
+    ["CardName"] = [=[杂物卡3]=],
+    ["BondName"] = [=[杂物]=],
+    ["Attr"] = [=[攻击+3]=],
+    ["Weight"] = 100,
+    ["CardEffect"] = [=[攻击+3]=],
+    ["BondID"] = 100,
+    ["Icon"] = [=[StarRail\star_1.tga]=]
+}
+excel[4] = {
+    ["CardName"] = [=[杂物卡4]=],
+    ["BondName"] = [=[杂物]=],
+    ["Attr"] = [=[攻击+3]=],
+    ["Weight"] = 100,
+    ["CardEffect"] = [=[攻击+3]=],
+    ["BondID"] = 100,
+    ["Icon"] = [=[StarRail\star_1.tga]=]
+}
+excel[21] = {
+    ["CardName"] = [=[力量A-1]=],
+    ["BondName"] = [=[力量1]=],
+    ["Attr"] = [=[每秒力量+10]=],
+    ["Weight"] = 100,
+    ["SwallowEffect"] = [=[每次攻击提高1点力量]=],
+    ["SwallowCondition"] = [=[数量足够自动吞噬]=],
+    ["BondID"] = 1,
+    ["Icon"] = [=[StarRail\star_3.tga]=]
+}
+excel[22] = {
+    ["CardName"] = [=[力量A-2]=],
+    ["BondName"] = [=[力量1]=],
+    ["Attr"] = [=[杀敌力量+2]=],
+    ["Weight"] = 100,
+    ["SwallowEffect"] = [=[每次攻击提高1点力量]=],
+    ["SwallowCondition"] = [=[数量足够自动吞噬]=],
+    ["BondID"] = 1,
+    ["Icon"] = [=[StarRail\star_3.tga]=]
+}
+excel[23] = {
+    ["CardName"] = [=[力量A-3]=],
+    ["BondName"] = [=[力量1]=],
+    ["Attr"] = [=[力量+1500]=],
+    ["Weight"] = 100,
+    ["SwallowEffect"] = [=[每次攻击提高1点力量]=],
+    ["SwallowCondition"] = [=[数量足够自动吞噬]=],
+    ["BondID"] = 1,
+    ["Icon"] = [=[StarRail\star_3.tga]=]
+}
+excel[24] = {
+    ["CardName"] = [=[力量A-4]=],
+    ["BondName"] = [=[力量1]=],
+    ["Attr"] = [=[力量加成+10%]=],
+    ["Weight"] = 100,
+    ["SwallowEffect"] = [=[每次攻击提高1点力量]=],
+    ["SwallowCondition"] = [=[数量足够自动吞噬]=],
+    ["BondID"] = 1,
+    ["Icon"] = [=[StarRail\star_3.tga]=]
+}
+excel[31] = {
+    ["CardName"] = [=[力量B-1]=],
+    ["BondName"] = [=[力量2]=],
+    ["Attr"] = [=[伤害减免+15%]=],
+    ["Weight"] = 100,
+    ["SwallowEffect"] = [=[物理伤害暴击的时候有25%的几率本次暴击伤害提升30%(乘法叠加)]=],
+    ["SwallowCondition"] = [=[数量足够自动吞噬]=],
+    ["BondID"] = 2,
+    ["Icon"] = [=[StarRail\star_3.tga]=],
+    ["Value1"] = 25,
+    ["Value2"] = 1.3
+}
+excel[32] = {
+    ["CardName"] = [=[力量B-2]=],
+    ["BondName"] = [=[力量2]=],
+    ["Attr"] = [=[物理伤害+15%]=],
+    ["Weight"] = 100,
+    ["SwallowEffect"] = [=[物理伤害暴击的时候有25%的几率本次暴击伤害提升30%(乘法叠加)]=],
+    ["SwallowCondition"] = [=[数量足够自动吞噬]=],
+    ["BondID"] = 2,
+    ["Icon"] = [=[StarRail\star_3.tga]=]
+}
+excel[33] = {
+    ["CardName"] = [=[力量B-3]=],
+    ["BondName"] = [=[力量2]=],
+    ["Attr"] = [=[物理暴率+10%]=],
+    ["Weight"] = 100,
+    ["SwallowEffect"] = [=[物理伤害暴击的时候有25%的几率本次暴击伤害提升30%(乘法叠加)]=],
+    ["SwallowCondition"] = [=[数量足够自动吞噬]=],
+    ["BondID"] = 2,
+    ["Icon"] = [=[StarRail\star_3.tga]=]
+}
+excel[34] = {
+    ["CardName"] = [=[力量B-4]=],
+    ["BondName"] = [=[力量2]=],
+    ["Attr"] = [=[物理暴伤+25%]=],
+    ["Weight"] = 100,
+    ["SwallowEffect"] = [=[物理伤害暴击的时候有25%的几率本次暴击伤害提升30%(乘法叠加)]=],
+    ["SwallowCondition"] = [=[数量足够自动吞噬]=],
+    ["BondID"] = 2,
+    ["Icon"] = [=[StarRail\star_3.tga]=]
+}
+excel[41] = {
+    ["CardName"] = [=[力量C-1]=],
+    ["BondName"] = [=[力量3]=],
+    ["Weight"] = 100,
+    ["CardEffect"] = [=[对目标半径范围敌人造成[力量*1.5]的物理伤害]=],
+    ["SwallowEffect"] = [=[101,105,107,C-4的伤害提升(1+每秒百分比回血%)伤害]=],
+    ["SwallowCondition"] = [=[数量足够自动吞噬]=],
+    ["BondID"] = 3,
+    ["Icon"] = [=[StarRail\star_3.tga]=],
+    ["Value1"] = 15,
+    ["Value2"] = 1.5
+}
+excel[42] = {
+    ["CardName"] = [=[力量C-2]=],
+    ["BondName"] = [=[力量3]=],
+    ["Weight"] = 100,
+    ["CardEffect"] = [=[每秒以自己为圆心对周围敌人造成[力量*0.8]的物理伤害]=],
+    ["SwallowEffect"] = [=[101,105,107,C-4的伤害提升(1+每秒百分比回血%)伤害]=],
+    ["SwallowCondition"] = [=[数量足够自动吞噬]=],
+    ["BondID"] = 3,
+    ["Icon"] = [=[StarRail\star_3.tga]=],
+    ["Value1"] = 0.8
+}
+excel[43] = {
+    ["CardName"] = [=[力量C-3]=],
+    ["BondName"] = [=[力量3]=],
+    ["Weight"] = 100,
+    ["CardEffect"] = [=[对目标半径范围敌人造成[力量*1.5]的物理伤害]=],
+    ["SwallowEffect"] = [=[101,105,107,C-4的伤害提升(1+每秒百分比回血%)伤害]=],
+    ["SwallowCondition"] = [=[数量足够自动吞噬]=],
+    ["BondID"] = 3,
+    ["Icon"] = [=[StarRail\star_3.tga]=],
+    ["Value1"] = 15,
+    ["Value2"] = 1.5
+}
+excel[44] = {
+    ["CardName"] = [=[力量C-4]=],
+    ["BondName"] = [=[力量3]=],
+    ["Weight"] = 100,
+    ["CardEffect"] = [=[每次被攻击都能造成[英雄生命值*3%]的真实伤害]=],
+    ["SwallowEffect"] = [=[101,105,107,C-4的伤害提升(1+生命百分比回血%)伤害]=],
+    ["SwallowCondition"] = [=[数量足够自动吞噬]=],
+    ["BondID"] = 3,
+    ["Icon"] = [=[StarRail\star_3.tga]=],
+    ["Value1"] = 0.03
+}
+excel[51] = {
+    ["CardName"] = [=[力量D-1]=],
+    ["BondName"] = [=[力量4]=],
+    ["Attr"] = [=[生命加成+10%]=],
+    ["Weight"] = 100,
+    ["SwallowEffect"] = [=[受到的所有伤害减少25%(乘法叠加)]=],
+    ["SwallowCondition"] = [=[数量足够自动吞噬]=],
+    ["BondID"] = 4,
+    ["Icon"] = [=[StarRail\star_3.tga]=],
+    ["Value1"] = 0.75
+}
+excel[52] = {
+    ["CardName"] = [=[力量D-2]=],
+    ["BondName"] = [=[力量4]=],
+    ["Attr"] = [=[每秒百分比回血+1.5%]=],
+    ["Weight"] = 100,
+    ["SwallowEffect"] = [=[受到的所有伤害减少25%(乘法叠加)]=],
+    ["SwallowCondition"] = [=[数量足够自动吞噬]=],
+    ["BondID"] = 4,
+    ["Icon"] = [=[StarRail\star_3.tga]=]
+}
+excel[53] = {
+    ["CardName"] = [=[力量D-3]=],
+    ["BondName"] = [=[力量4]=],
+    ["Attr"] = [=[免伤几率+10%]=],
+    ["Weight"] = 100,
+    ["SwallowEffect"] = [=[受到的所有伤害减少25%(乘法叠加)]=],
+    ["SwallowCondition"] = [=[数量足够自动吞噬]=],
+    ["BondID"] = 4,
+    ["Icon"] = [=[StarRail\star_3.tga]=]
+}
+excel[54] = {
+    ["CardName"] = [=[力量D-4]=],
+    ["BondName"] = [=[力量4]=],
+    ["Attr"] = [=[杀敌金币+3]=],
+    ["Weight"] = 100,
+    ["SwallowEffect"] = [=[受到的所有伤害减少25%(乘法叠加)]=],
+    ["SwallowCondition"] = [=[数量足够自动吞噬]=],
+    ["BondID"] = 4,
+    ["Icon"] = [=[StarRail\star_3.tga]=]
+}
+excel[61] = {
+    ["CardName"] = [=[力量E-1]=],
+    ["BondName"] = [=[力量5]=],
+    ["Attr"] = [=[每秒百分比回血+1.5%]=],
+    ["Weight"] = 100,
+    ["SwallowEffect"] = [=[每3秒对自己圆心半径400码敌人造成(护甲*10)+(生命值*10%)的物理伤害]=],
+    ["SwallowCondition"] = [=[数量足够自动吞噬]=],
+    ["BondID"] = 5,
+    ["Icon"] = [=[StarRail\star_3.tga]=],
+    ["Value1"] = 10,
+    ["Value2"] = 0.1
+}
+excel[62] = {
+    ["CardName"] = [=[力量E-2]=],
+    ["BondName"] = [=[力量5]=],
+    ["Attr"] = [=[护甲+50]=],
+    ["Weight"] = 100,
+    ["SwallowEffect"] = [=[每3秒对自己圆心半径400码敌人造成(护甲*10)+(生命值*10%)的物理伤害]=],
+    ["SwallowCondition"] = [=[数量足够自动吞噬]=],
+    ["BondID"] = 5,
+    ["Icon"] = [=[StarRail\star_3.tga]=]
+}
+excel[63] = {
+    ["CardName"] = [=[力量E-3]=],
+    ["BondName"] = [=[力量5]=],
+    ["Attr"] = [=[免伤几率+3%]=],
+    ["Weight"] = 100,
+    ["SwallowEffect"] = [=[每3秒对自己圆心半径400码敌人造成(护甲*10)+(生命值*10%)的物理伤害]=],
+    ["SwallowCondition"] = [=[数量足够自动吞噬]=],
+    ["BondID"] = 5,
+    ["Icon"] = [=[StarRail\star_3.tga]=]
+}
+excel[64] = {
+    ["CardName"] = [=[力量E-4]=],
+    ["BondName"] = [=[力量5]=],
+    ["Attr"] = [=[杀敌力量+1]=],
+    ["Weight"] = 100,
+    ["SwallowEffect"] = [=[每3秒对自己圆心半径400码敌人造成(护甲*10)+(生命值*10%)的物理伤害]=],
+    ["SwallowCondition"] = [=[数量足够自动吞噬]=],
+    ["BondID"] = 5,
+    ["Icon"] = [=[StarRail\star_3.tga]=]
+}
+excel[65] = {
+    ["CardName"] = [=[力量E-5]=],
+    ["BondName"] = [=[力量5]=],
+    ["Weight"] = 100,
+    ["CardEffect"] = [=[对目标半径范围敌人造成[力量*2.5]的物理伤害]=],
+    ["SwallowEffect"] = [=[每3秒对自己圆心半径400码敌人造成(护甲*10)+(生命值*10%)的物理伤害]=],
+    ["SwallowCondition"] = [=[数量足够自动吞噬]=],
+    ["BondID"] = 5,
+    ["Icon"] = [=[StarRail\star_3.tga]=],
+    ["Value1"] = 15,
+    ["Value2"] = 2.5
+}
+excel[71] = {
+    ["CardName"] = [=[力量F-1]=],
+    ["BondName"] = [=[力量6]=],
+    ["Attr"] = [=[伤害减免+10%]=],
+    ["Weight"] = 100,
+    ["SwallowEffect"] = [=[<杀敌生命,每秒生命>的收益提高50%]=],
+    ["SwallowCondition"] = [=[数量足够自动吞噬]=],
+    ["BondID"] = 6,
+    ["Icon"] = [=[StarRail\star_3.tga]=],
+    ["Value1"] = 1.5
+}
+excel[72] = {
+    ["CardName"] = [=[力量F-2]=],
+    ["BondName"] = [=[力量6]=],
+    ["Attr"] = [=[护甲加成+5%]=],
+    ["Weight"] = 100,
+    ["SwallowEffect"] = [=[<杀敌生命,每秒生命>的收益提高50%]=],
+    ["SwallowCondition"] = [=[数量足够自动吞噬]=],
+    ["BondID"] = 6,
+    ["Icon"] = [=[StarRail\star_3.tga]=]
+}
+excel[73] = {
+    ["CardName"] = [=[力量F-3]=],
+    ["BondName"] = [=[力量6]=],
+    ["Attr"] = [=[生命加成+5%]=],
+    ["Weight"] = 100,
+    ["SwallowEffect"] = [=[<杀敌生命,每秒生命>的收益提高50%]=],
+    ["SwallowCondition"] = [=[数量足够自动吞噬]=],
+    ["BondID"] = 6,
+    ["Icon"] = [=[StarRail\star_3.tga]=]
+}
+excel[74] = {
+    ["CardName"] = [=[力量F-4]=],
+    ["BondName"] = [=[力量6]=],
+    ["Attr"] = [=[免伤几率+5%]=],
+    ["Weight"] = 100,
+    ["SwallowEffect"] = [=[<杀敌生命,每秒生命>的收益提高50%]=],
+    ["SwallowCondition"] = [=[数量足够自动吞噬]=],
+    ["BondID"] = 6,
+    ["Icon"] = [=[StarRail\star_3.tga]=]
+}
+excel[75] = {
+    ["CardName"] = [=[力量F-5]=],
+    ["BondName"] = [=[力量6]=],
+    ["Weight"] = 100,
+    ["CardEffect"] = [=[每次攻击附加[英雄最大生命值3%]的物理伤害]=],
+    ["SwallowEffect"] = [=[<杀敌生命,每秒生命>的收益提高50%]=],
+    ["SwallowCondition"] = [=[数量足够自动吞噬]=],
+    ["BondID"] = 6,
+    ["Icon"] = [=[StarRail\star_3.tga]=],
+    ["Value1"] = 0.03
+}
+excel[81] = {
+    ["CardName"] = [=[力量G-1]=],
+    ["BondName"] = [=[力量7]=],
+    ["Attr"] = [=[每秒生命+50]=],
+    ["Weight"] = 100,
+    ["SwallowEffect"] = [=[攻击有5%的几率对目标造成(生命值*3)的真实伤害]=],
+    ["SwallowCondition"] = [=[数量足够自动吞噬]=],
+    ["BondID"] = 7,
+    ["Icon"] = [=[StarRail\star_3.tga]=],
+    ["Value1"] = 5,
+    ["Value2"] = 0.03
+}
+excel[82] = {
+    ["CardName"] = [=[力量G-2]=],
+    ["BondName"] = [=[力量7]=],
+    ["Attr"] = [=[杀敌生命+10]=],
+    ["Weight"] = 100,
+    ["SwallowEffect"] = [=[攻击有5%的几率对目标造成(生命值*3)的真实伤害]=],
+    ["SwallowCondition"] = [=[数量足够自动吞噬]=],
+    ["BondID"] = 7,
+    ["Icon"] = [=[StarRail\star_3.tga]=]
+}
+excel[83] = {
+    ["CardName"] = [=[力量G-3]=],
+    ["BondName"] = [=[力量7]=],
+    ["Attr"] = [=[生命+7500]=],
+    ["Weight"] = 100,
+    ["SwallowEffect"] = [=[攻击有5%的几率对目标造成(生命值*3)的真实伤害]=],
+    ["SwallowCondition"] = [=[数量足够自动吞噬]=],
+    ["BondID"] = 7,
+    ["Icon"] = [=[StarRail\star_3.tga]=]
+}
+excel[84] = {
+    ["CardName"] = [=[力量G-4]=],
+    ["BondName"] = [=[力量7]=],
+    ["Attr"] = [=[生命加成+10%]=],
+    ["Weight"] = 100,
+    ["SwallowEffect"] = [=[攻击有5%的几率对目标造成(生命值*3)的真实伤害]=],
+    ["SwallowCondition"] = [=[数量足够自动吞噬]=],
+    ["BondID"] = 7,
+    ["Icon"] = [=[StarRail\star_3.tga]=]
+}
+excel[85] = {
+    ["CardName"] = [=[力量G-5]=],
+    ["BondName"] = [=[力量7]=],
+    ["Weight"] = 100,
+    ["CardEffect"] = [=[对目标半径范围敌人造成[真实*1.5]的物理伤害]=],
+    ["SwallowEffect"] = [=[攻击有5%的几率对目标造成(生命值*3)的真实伤害]=],
+    ["SwallowCondition"] = [=[数量足够自动吞噬]=],
+    ["BondID"] = 7,
+    ["Icon"] = [=[StarRail\star_3.tga]=],
+    ["Value1"] = 15,
+    ["Value2"] = 1.5
+}
+excel[91] = {
+    ["CardName"] = [=[敏捷A-1]=],
+    ["BondName"] = [=[敏捷1]=],
+    ["Attr"] = [=[每秒敏捷+10]=],
+    ["Weight"] = 100,
+    ["SwallowEffect"] = [=[每次攻击提高1点敏捷]=],
+    ["SwallowCondition"] = [=[数量足够自动吞噬]=],
+    ["BondID"] = 8,
+    ["Icon"] = [=[StarRail\star_3.tga]=]
+}
+excel[92] = {
+    ["CardName"] = [=[敏捷A-2]=],
+    ["BondName"] = [=[敏捷1]=],
+    ["Attr"] = [=[杀敌敏捷+2]=],
+    ["Weight"] = 100,
+    ["SwallowEffect"] = [=[每次攻击提高1点敏捷]=],
+    ["SwallowCondition"] = [=[数量足够自动吞噬]=],
+    ["BondID"] = 8,
+    ["Icon"] = [=[StarRail\star_3.tga]=]
+}
+excel[93] = {
+    ["CardName"] = [=[敏捷A-3]=],
+    ["BondName"] = [=[敏捷1]=],
+    ["Attr"] = [=[敏捷+1500]=],
+    ["Weight"] = 100,
+    ["SwallowEffect"] = [=[每次攻击提高1点敏捷]=],
+    ["SwallowCondition"] = [=[数量足够自动吞噬]=],
+    ["BondID"] = 8,
+    ["Icon"] = [=[StarRail\star_3.tga]=]
+}
+excel[94] = {
+    ["CardName"] = [=[敏捷A-4]=],
+    ["BondName"] = [=[敏捷1]=],
+    ["Attr"] = [=[敏捷加成+10%]=],
+    ["Weight"] = 100,
+    ["SwallowEffect"] = [=[每次攻击提高1点敏捷]=],
+    ["SwallowCondition"] = [=[数量足够自动吞噬]=],
+    ["BondID"] = 8,
+    ["Icon"] = [=[StarRail\star_3.tga]=]
+}
+excel[101] = {
+    ["CardName"] = [=[敏捷B-1]=],
+    ["BondName"] = [=[敏捷2]=],
+    ["Attr"] = [=[攻击速度+30%]=],
+    ["Weight"] = 100,
+    ["SwallowEffect"] = [=[攻击射程+250]=],
+    ["SwallowCondition"] = [=[数量足够自动吞噬]=],
+    ["BondID"] = 9,
+    ["Icon"] = [=[StarRail\star_3.tga]=]
+}
+excel[102] = {
+    ["CardName"] = [=[敏捷B-2]=],
+    ["BondName"] = [=[敏捷2]=],
+    ["Attr"] = [=[攻击伤害+15%]=],
+    ["Weight"] = 100,
+    ["SwallowEffect"] = [=[攻击射程+250]=],
+    ["SwallowCondition"] = [=[数量足够自动吞噬]=],
+    ["BondID"] = 9,
+    ["Icon"] = [=[StarRail\star_3.tga]=]
+}
+excel[103] = {
+    ["CardName"] = [=[敏捷B-3]=],
+    ["BondName"] = [=[敏捷2]=],
+    ["Attr"] = [=[攻击暴率+10%]=],
+    ["Weight"] = 100,
+    ["SwallowEffect"] = [=[攻击射程+250]=],
+    ["SwallowCondition"] = [=[数量足够自动吞噬]=],
+    ["BondID"] = 9,
+    ["Icon"] = [=[StarRail\star_3.tga]=]
+}
+excel[104] = {
+    ["CardName"] = [=[敏捷B-4]=],
+    ["BondName"] = [=[敏捷2]=],
+    ["Attr"] = [=[攻击暴伤+25%]=],
+    ["Weight"] = 100,
+    ["SwallowEffect"] = [=[攻击射程+250]=],
+    ["SwallowCondition"] = [=[数量足够自动吞噬]=],
+    ["BondID"] = 9,
+    ["Icon"] = [=[StarRail\star_3.tga]=]
+}
+excel[111] = {
+    ["CardName"] = [=[敏捷C-1]=],
+    ["BondName"] = [=[敏捷3]=],
+    ["Weight"] = 100,
+    ["CardEffect"] = [=[对直线上的人造成[敏捷*1.5]的物理伤害]=],
+    ["SwallowEffect"] = [=[201,202,208的伤害按照每个多重数量提升5%的伤害,C-4的攻击速度从50%提升到100%]=],
+    ["SwallowCondition"] = [=[数量足够自动吞噬]=],
+    ["BondID"] = 10,
+    ["Icon"] = [=[StarRail\star_3.tga]=],
+    ["Value1"] = 10,
+    ["Value2"] = 1,
+    ["Value3"] = 1.5
+}
+excel[112] = {
+    ["CardName"] = [=[敏捷C-2]=],
+    ["BondName"] = [=[敏捷3]=],
+    ["Weight"] = 100,
+    ["CardEffect"] = [=[2条直线上的人造成[敏捷*1]的物理伤害(X形状)]=],
+    ["SwallowEffect"] = [=[201,202,208的伤害按照每个多重数量提升5%的伤害,C-4的攻击速度从50%提升到100%]=],
+    ["SwallowCondition"] = [=[数量足够自动吞噬]=],
+    ["BondID"] = 10,
+    ["Icon"] = [=[StarRail\star_3.tga]=],
+    ["Value1"] = 10,
+    ["Value2"] = 1,
+    ["Value3"] = 1
+}
+excel[113] = {
+    ["CardName"] = [=[敏捷C-3]=],
+    ["BondName"] = [=[敏捷3]=],
+    ["Weight"] = 100,
+    ["CardEffect"] = [=[对当前目标范围内敌人发射贝塞尔弹道造成单体物理伤害[敏捷*1.5]]=],
+    ["SwallowEffect"] = [=[201,202,208的伤害按照每个多重数量提升5%的伤害,C-4的攻击速度从50%提升到100%]=],
+    ["SwallowCondition"] = [=[数量足够自动吞噬]=],
+    ["BondID"] = 10,
+    ["Icon"] = [=[StarRail\star_3.tga]=],
+    ["Value1"] = 5,
+    ["Value2"] = 1.5
+}
+excel[114] = {
+    ["CardName"] = [=[敏捷C-4]=],
+    ["BondName"] = [=[敏捷3]=],
+    ["Weight"] = 100,
+    ["CardEffect"] = [=[提高50%的攻击速度,持续5秒,间隔10秒]=],
+    ["SwallowEffect"] = [=[201,202,208的伤害按照每个多重数量提升5%的伤害,C-4的攻击速度从50%提升到100%]=],
+    ["SwallowCondition"] = [=[数量足够自动吞噬]=],
+    ["BondID"] = 10,
+    ["Icon"] = [=[StarRail\star_3.tga]=],
+    ["Value1"] = [=[攻击速度+50]=],
+    ["Value2"] = 5,
+    ["Value3"] = 10
+}
+excel[121] = {
+    ["CardName"] = [=[敏捷D-1]=],
+    ["BondName"] = [=[敏捷4]=],
+    ["Attr"] = [=[攻击加成+10%]=],
+    ["Weight"] = 100,
+    ["SwallowEffect"] = [=[攻击间隔-0.05]=],
+    ["SwallowCondition"] = [=[数量足够自动吞噬]=],
+    ["BondID"] = 11,
+    ["Icon"] = [=[StarRail\star_3.tga]=]
+}
+excel[122] = {
+    ["CardName"] = [=[敏捷D-2]=],
+    ["BondName"] = [=[敏捷4]=],
+    ["Attr"] = [=[多重数量+2]=],
+    ["Weight"] = 100,
+    ["SwallowEffect"] = [=[攻击间隔-0.05]=],
+    ["SwallowCondition"] = [=[数量足够自动吞噬]=],
+    ["BondID"] = 11,
+    ["Icon"] = [=[StarRail\star_3.tga]=]
+}
+excel[123] = {
+    ["CardName"] = [=[敏捷D-3]=],
+    ["BondName"] = [=[敏捷4]=],
+    ["Attr"] = [=[多重几率+10%]=],
+    ["Weight"] = 100,
+    ["SwallowEffect"] = [=[攻击间隔-0.05]=],
+    ["SwallowCondition"] = [=[数量足够自动吞噬]=],
+    ["BondID"] = 11,
+    ["Icon"] = [=[StarRail\star_3.tga]=]
+}
+excel[124] = {
+    ["CardName"] = [=[敏捷D-4]=],
+    ["BondName"] = [=[敏捷4]=],
+    ["Attr"] = [=[杀敌金币+3]=],
+    ["Weight"] = 100,
+    ["SwallowEffect"] = [=[攻击间隔-0.05]=],
+    ["SwallowCondition"] = [=[数量足够自动吞噬]=],
+    ["BondID"] = 11,
+    ["Icon"] = [=[StarRail\star_3.tga]=]
+}
+excel[131] = {
+    ["CardName"] = [=[敏捷E-1]=],
+    ["BondName"] = [=[敏捷5]=],
+    ["Attr"] = [=[每秒护甲+0.5]=],
+    ["Weight"] = 100,
+    ["SwallowEffect"] = [=[当生命值低于50%的时候,攻击吸血收益提升50%(乘法叠加)]=],
+    ["SwallowCondition"] = [=[数量足够自动吞噬]=],
+    ["BondID"] = 12,
+    ["Icon"] = [=[StarRail\star_3.tga]=]
+}
+excel[132] = {
+    ["CardName"] = [=[敏捷E-2]=],
+    ["BondName"] = [=[敏捷5]=],
+    ["Attr"] = [=[攻击吸血+3%]=],
+    ["Weight"] = 100,
+    ["SwallowEffect"] = [=[当生命值低于50%的时候,攻击吸血收益提升50%(乘法叠加)]=],
+    ["SwallowCondition"] = [=[数量足够自动吞噬]=],
+    ["BondID"] = 12,
+    ["Icon"] = [=[StarRail\star_3.tga]=]
+}
+excel[133] = {
+    ["CardName"] = [=[敏捷E-3]=],
+    ["BondName"] = [=[敏捷5]=],
+    ["Attr"] = [=[免伤几率+3%]=],
+    ["Weight"] = 100,
+    ["SwallowEffect"] = [=[当生命值低于50%的时候,攻击吸血收益提升50%(乘法叠加)]=],
+    ["SwallowCondition"] = [=[数量足够自动吞噬]=],
+    ["BondID"] = 12,
+    ["Icon"] = [=[StarRail\star_3.tga]=]
+}
+excel[134] = {
+    ["CardName"] = [=[敏捷E-4]=],
+    ["BondName"] = [=[敏捷5]=],
+    ["Attr"] = [=[杀敌敏捷+1]=],
+    ["Weight"] = 100,
+    ["SwallowEffect"] = [=[当生命值低于50%的时候,攻击吸血收益提升50%(乘法叠加)]=],
+    ["SwallowCondition"] = [=[数量足够自动吞噬]=],
+    ["BondID"] = 12,
+    ["Icon"] = [=[StarRail\star_3.tga]=]
+}
+excel[135] = {
+    ["CardName"] = [=[敏捷E-5]=],
+    ["BondName"] = [=[敏捷5]=],
+    ["Weight"] = 100,
+    ["CardEffect"] = [=[对3条直线上的人造成敏捷*1的物理伤害[爪字型,另外2只45度]]=],
+    ["SwallowEffect"] = [=[当生命值低于50%的时候,攻击吸血收益提升50%(乘法叠加)]=],
+    ["SwallowCondition"] = [=[数量足够自动吞噬]=],
+    ["BondID"] = 12,
+    ["Icon"] = [=[StarRail\star_3.tga]=],
+    ["Value1"] = 10,
+    ["Value2"] = 1,
+    ["Value3"] = 1
+}
+excel[141] = {
+    ["CardName"] = [=[敏捷F-1]=],
+    ["BondName"] = [=[敏捷6]=],
+    ["Attr"] = [=[物理伤害+10%]=],
+    ["Weight"] = 100,
+    ["SwallowEffect"] = [=[造成的物理伤害提升20%(乘法叠加)]=],
+    ["SwallowCondition"] = [=[数量足够自动吞噬]=],
+    ["BondID"] = 13,
+    ["Icon"] = [=[StarRail\star_3.tga]=]
+}
+excel[142] = {
+    ["CardName"] = [=[敏捷F-2]=],
+    ["BondName"] = [=[敏捷6]=],
+    ["Attr"] = [=[物理暴伤+15%]=],
+    ["Weight"] = 100,
+    ["SwallowEffect"] = [=[造成的物理伤害提升20%(乘法叠加)]=],
+    ["SwallowCondition"] = [=[数量足够自动吞噬]=],
+    ["BondID"] = 13,
+    ["Icon"] = [=[StarRail\star_3.tga]=]
+}
+excel[143] = {
+    ["CardName"] = [=[敏捷F-3]=],
+    ["BondName"] = [=[敏捷6]=],
+    ["Attr"] = [=[物理暴率+5%]=],
+    ["Weight"] = 100,
+    ["SwallowEffect"] = [=[造成的物理伤害提升20%(乘法叠加)]=],
+    ["SwallowCondition"] = [=[数量足够自动吞噬]=],
+    ["BondID"] = 13,
+    ["Icon"] = [=[StarRail\star_3.tga]=]
+}
+excel[144] = {
+    ["CardName"] = [=[敏捷F-4]=],
+    ["BondName"] = [=[敏捷6]=],
+    ["Attr"] = [=[多重数量+1]=],
+    ["Weight"] = 100,
+    ["SwallowEffect"] = [=[造成的物理伤害提升20%(乘法叠加)]=],
+    ["SwallowCondition"] = [=[数量足够自动吞噬]=],
+    ["BondID"] = 13,
+    ["Icon"] = [=[StarRail\star_3.tga]=]
+}
+excel[145] = {
+    ["CardName"] = [=[敏捷F-5]=],
+    ["BondName"] = [=[敏捷6]=],
+    ["Weight"] = 100,
+    ["CardEffect"] = [=[(类似辟邪剑谱)对5条直线上的人造成[敏捷*1]的物理伤害[并排五只同时出现],弹道间隔150]=],
+    ["SwallowEffect"] = [=[造成的物理伤害提升20%(乘法叠加)]=],
+    ["SwallowCondition"] = [=[数量足够自动吞噬]=],
+    ["BondID"] = 13,
+    ["Icon"] = [=[StarRail\star_3.tga]=],
+    ["Value1"] = 10,
+    ["Value2"] = 1,
+    ["Value3"] = 1
+}
+excel[151] = {
+    ["CardName"] = [=[敏捷G-1]=],
+    ["BondName"] = [=[敏捷7]=],
+    ["Attr"] = [=[攻击速度+15%]=],
+    ["Weight"] = 100,
+    ["SwallowEffect"] = [=[造成的攻击伤害提升20%(乘法叠加)]=],
+    ["SwallowCondition"] = [=[数量足够自动吞噬]=],
+    ["BondID"] = 14,
+    ["Icon"] = [=[StarRail\star_3.tga]=]
+}
+excel[152] = {
+    ["CardName"] = [=[敏捷G-2]=],
+    ["BondName"] = [=[敏捷7]=],
+    ["Attr"] = [=[攻击伤害+10%]=],
+    ["Weight"] = 100,
+    ["SwallowEffect"] = [=[造成的攻击伤害提升20%(乘法叠加)]=],
+    ["SwallowCondition"] = [=[数量足够自动吞噬]=],
+    ["BondID"] = 14,
+    ["Icon"] = [=[StarRail\star_3.tga]=]
+}
+excel[153] = {
+    ["CardName"] = [=[敏捷G-3]=],
+    ["BondName"] = [=[敏捷7]=],
+    ["Attr"] = [=[攻击暴率+5%]=],
+    ["Weight"] = 100,
+    ["SwallowEffect"] = [=[造成的攻击伤害提升20%(乘法叠加)]=],
+    ["SwallowCondition"] = [=[数量足够自动吞噬]=],
+    ["BondID"] = 14,
+    ["Icon"] = [=[StarRail\star_3.tga]=]
+}
+excel[154] = {
+    ["CardName"] = [=[敏捷G-4]=],
+    ["BondName"] = [=[敏捷7]=],
+    ["Attr"] = [=[攻击暴伤+25%]=],
+    ["Weight"] = 100,
+    ["SwallowEffect"] = [=[造成的攻击伤害提升20%(乘法叠加)]=],
+    ["SwallowCondition"] = [=[数量足够自动吞噬]=],
+    ["BondID"] = 14,
+    ["Icon"] = [=[StarRail\star_3.tga]=]
+}
+excel[155] = {
+    ["CardName"] = [=[敏捷G-5]=],
+    ["BondName"] = [=[敏捷7]=],
+    ["Weight"] = 100,
+    ["CardEffect"] = [=[扇形散射,射出直线对前方造成伤害,每支[敏捷*0.5]的物理伤害方向随机,0.25秒一发,10发]=],
+    ["SwallowEffect"] = [=[造成的攻击伤害提升20%(乘法叠加)]=],
+    ["SwallowCondition"] = [=[数量足够自动吞噬]=],
+    ["BondID"] = 14,
+    ["Icon"] = [=[StarRail\star_3.tga]=],
+    ["Value1"] = 10,
+    ["Value2"] = 3,
+    ["Value3"] = 0.5
+}
+excel[161] = {
+    ["CardName"] = [=[智力A-1]=],
+    ["BondName"] = [=[智力1]=],
+    ["Attr"] = [=[每秒智力+10]=],
+    ["Weight"] = 100,
+    ["SwallowEffect"] = [=[每次攻击提高1点智力]=],
+    ["SwallowCondition"] = [=[数量足够自动吞噬]=],
+    ["BondID"] = 15,
+    ["Icon"] = [=[StarRail\star_3.tga]=]
+}
+excel[162] = {
+    ["CardName"] = [=[智力A-2]=],
+    ["BondName"] = [=[智力1]=],
+    ["Attr"] = [=[杀敌智力+2]=],
+    ["Weight"] = 100,
+    ["SwallowEffect"] = [=[每次攻击提高1点智力]=],
+    ["SwallowCondition"] = [=[数量足够自动吞噬]=],
+    ["BondID"] = 15,
+    ["Icon"] = [=[StarRail\star_3.tga]=]
+}
+excel[163] = {
+    ["CardName"] = [=[智力A-3]=],
+    ["BondName"] = [=[智力1]=],
+    ["Attr"] = [=[智力+1500]=],
+    ["Weight"] = 100,
+    ["SwallowEffect"] = [=[每次攻击提高1点智力]=],
+    ["SwallowCondition"] = [=[数量足够自动吞噬]=],
+    ["BondID"] = 15,
+    ["Icon"] = [=[StarRail\star_3.tga]=]
+}
+excel[164] = {
+    ["CardName"] = [=[智力A-4]=],
+    ["BondName"] = [=[智力1]=],
+    ["Attr"] = [=[智力加成+10%]=],
+    ["Weight"] = 100,
+    ["SwallowEffect"] = [=[每次攻击提高1点智力]=],
+    ["SwallowCondition"] = [=[数量足够自动吞噬]=],
+    ["BondID"] = 15,
+    ["Icon"] = [=[StarRail\star_3.tga]=]
+}
+excel[171] = {
+    ["CardName"] = [=[智力B-1]=],
+    ["BondName"] = [=[智力2]=],
+    ["Attr"] = [=[技能急速+30%]=],
+    ["Weight"] = 100,
+    ["SwallowEffect"] = [=[法术暴击的时候有25%几率对目标地点造成[智力*2]的法术伤害]=],
+    ["SwallowCondition"] = [=[数量足够自动吞噬]=],
+    ["BondID"] = 16,
+    ["Icon"] = [=[StarRail\star_3.tga]=]
+}
+excel[172] = {
+    ["CardName"] = [=[智力B-2]=],
+    ["BondName"] = [=[智力2]=],
+    ["Attr"] = [=[法术伤害+15%]=],
+    ["Weight"] = 100,
+    ["SwallowEffect"] = [=[法术暴击的时候有25%几率对目标地点造成[智力*2]的法术伤害]=],
+    ["SwallowCondition"] = [=[数量足够自动吞噬]=],
+    ["BondID"] = 16,
+    ["Icon"] = [=[StarRail\star_3.tga]=]
+}
+excel[173] = {
+    ["CardName"] = [=[智力B-3]=],
+    ["BondName"] = [=[智力2]=],
+    ["Attr"] = [=[法术暴率+10%]=],
+    ["Weight"] = 100,
+    ["SwallowEffect"] = [=[法术暴击的时候有25%几率对目标地点造成[智力*2]的法术伤害]=],
+    ["SwallowCondition"] = [=[数量足够自动吞噬]=],
+    ["BondID"] = 16,
+    ["Icon"] = [=[StarRail\star_3.tga]=]
+}
+excel[174] = {
+    ["CardName"] = [=[智力B-4]=],
+    ["BondName"] = [=[智力2]=],
+    ["Attr"] = [=[法术暴伤+25%]=],
+    ["Weight"] = 100,
+    ["SwallowEffect"] = [=[法术暴击的时候有25%几率对目标地点造成[智力*2]的法术伤害]=],
+    ["SwallowCondition"] = [=[数量足够自动吞噬]=],
+    ["BondID"] = 16,
+    ["Icon"] = [=[StarRail\star_3.tga]=]
+}
+excel[181] = {
+    ["CardName"] = [=[智力C-1]=],
+    ["BondName"] = [=[智力3]=],
+    ["Weight"] = 100,
+    ["CardEffect"] = [=[对目标范围内造成[智力*1.5]的法术伤害]=],
+    ["SwallowEffect"] = [=[301,304,307,触发暴击的时候会提升30%的伤害,C-4的法术暴击从15%提升到20%]=],
+    ["SwallowCondition"] = [=[数量足够自动吞噬]=],
+    ["BondID"] = 17,
+    ["Icon"] = [=[StarRail\star_3.tga]=],
+    ["Value1"] = 5,
+    ["Value2"] = 1.5
+}
+excel[182] = {
+    ["CardName"] = [=[智力C-2]=],
+    ["BondName"] = [=[智力3]=],
+    ["Weight"] = 100,
+    ["CardEffect"] = [=[对直线上的人造成[智力*1.5]的法术伤害]=],
+    ["SwallowEffect"] = [=[301,304,307,触发暴击的时候会提升30%的伤害,C-4的法术暴击从15%提升到20%]=],
+    ["SwallowCondition"] = [=[数量足够自动吞噬]=],
+    ["BondID"] = 17,
+    ["Icon"] = [=[StarRail\star_3.tga]=],
+    ["Value1"] = 1,
+    ["Value2"] = 1.5
+}
+excel[183] = {
+    ["CardName"] = [=[智力C-3]=],
+    ["BondName"] = [=[智力3]=],
+    ["Weight"] = 100,
+    ["CardEffect"] = [=[每1秒对范围内敌人造成智力*0.5法术伤害,最多持续3秒]=],
+    ["SwallowEffect"] = [=[301,304,307,触发暴击的时候会提升30%的伤害,C-4的法术暴击从15%提升到20%]=],
+    ["SwallowCondition"] = [=[数量足够自动吞噬]=],
+    ["BondID"] = 17,
+    ["Icon"] = [=[StarRail\star_3.tga]=],
+    ["Value1"] = 10,
+    ["Value2"] = 3,
+    ["Value3"] = 0.5
+}
+excel[184] = {
+    ["CardName"] = [=[智力C-4]=],
+    ["BondName"] = [=[智力3]=],
+    ["Attr"] = [=[每10秒提高自己法术暴击+15%,持续5秒]=],
+    ["Weight"] = 100,
+    ["SwallowEffect"] = [=[301,304,307,触发暴击的时候会提升30%的伤害,C-4的法术暴击从15%提升到20%]=],
+    ["SwallowCondition"] = [=[数量足够自动吞噬]=],
+    ["BondID"] = 17,
+    ["Icon"] = [=[StarRail\star_3.tga]=],
+    ["Value1"] = [=[法术暴击+15]=],
+    ["Value2"] = 5,
+    ["Value3"] = 10
+}
+excel[191] = {
+    ["CardName"] = [=[智力D-1]=],
+    ["BondName"] = [=[智力4]=],
+    ["Attr"] = [=[每秒智力+10]=],
+    ["Weight"] = 100,
+    ["SwallowEffect"] = [=[每5分钟提高当前法术伤害6%]=],
+    ["SwallowCondition"] = [=[数量足够自动吞噬]=],
+    ["BondID"] = 18,
+    ["Icon"] = [=[StarRail\star_3.tga]=]
+}
+excel[192] = {
+    ["CardName"] = [=[智力D-2]=],
+    ["BondName"] = [=[智力4]=],
+    ["Attr"] = [=[杀敌智力+2]=],
+    ["Weight"] = 100,
+    ["SwallowEffect"] = [=[每5分钟提高当前法术伤害6%]=],
+    ["SwallowCondition"] = [=[数量足够自动吞噬]=],
+    ["BondID"] = 18,
+    ["Icon"] = [=[StarRail\star_3.tga]=]
+}
+excel[193] = {
+    ["CardName"] = [=[智力D-3]=],
+    ["BondName"] = [=[智力4]=],
+    ["Attr"] = [=[智力+1500]=],
+    ["Weight"] = 100,
+    ["SwallowEffect"] = [=[每5分钟提高当前法术伤害6%]=],
+    ["SwallowCondition"] = [=[数量足够自动吞噬]=],
+    ["BondID"] = 18,
+    ["Icon"] = [=[StarRail\star_3.tga]=]
+}
+excel[194] = {
+    ["CardName"] = [=[智力D-4]=],
+    ["BondName"] = [=[智力4]=],
+    ["Attr"] = [=[每秒金币+5]=],
+    ["Weight"] = 100,
+    ["SwallowEffect"] = [=[每5分钟提高当前法术伤害6%]=],
+    ["SwallowCondition"] = [=[数量足够自动吞噬]=],
+    ["BondID"] = 18,
+    ["Icon"] = [=[StarRail\star_3.tga]=]
+}
+excel[201] = {
+    ["CardName"] = [=[智力E-1]=],
+    ["BondName"] = [=[智力5]=],
+    ["Weight"] = 100,
+    ["CardEffect"] = [=[每次法术暴击护甲+0.5]=],
+    ["SwallowEffect"] = [=[攻击有15%几率对目标发射一个单体飞弹,造成[智力*2]的法术伤害]=],
+    ["SwallowCondition"] = [=[数量足够自动吞噬]=],
+    ["BondID"] = 19,
+    ["Icon"] = [=[StarRail\star_3.tga]=],
+    ["Value1"] = 0.5
+}
+excel[202] = {
+    ["CardName"] = [=[智力E-2]=],
+    ["BondName"] = [=[智力5]=],
+    ["Attr"] = [=[法术吸血+3%]=],
+    ["Weight"] = 100,
+    ["SwallowEffect"] = [=[攻击有15%几率对目标发射一个单体飞弹,造成[智力*2]的法术伤害]=],
+    ["SwallowCondition"] = [=[数量足够自动吞噬]=],
+    ["BondID"] = 19,
+    ["Icon"] = [=[StarRail\star_3.tga]=]
+}
+excel[203] = {
+    ["CardName"] = [=[智力E-3]=],
+    ["BondName"] = [=[智力5]=],
+    ["Attr"] = [=[魔法值+50]=],
+    ["Weight"] = 100,
+    ["SwallowEffect"] = [=[攻击有15%几率对目标发射一个单体飞弹,造成[智力*2]的法术伤害]=],
+    ["SwallowCondition"] = [=[数量足够自动吞噬]=],
+    ["BondID"] = 19,
+    ["Icon"] = [=[StarRail\star_3.tga]=]
+}
+excel[204] = {
+    ["CardName"] = [=[智力E-4]=],
+    ["BondName"] = [=[智力5]=],
+    ["Attr"] = [=[杀敌智力+1]=],
+    ["Weight"] = 100,
+    ["SwallowEffect"] = [=[攻击有15%几率对目标发射一个单体飞弹,造成[智力*2]的法术伤害]=],
+    ["SwallowCondition"] = [=[数量足够自动吞噬]=],
+    ["BondID"] = 19,
+    ["Icon"] = [=[StarRail\star_3.tga]=]
+}
+excel[205] = {
+    ["CardName"] = [=[智力E-5]=],
+    ["BondName"] = [=[智力5]=],
+    ["Weight"] = 100,
+    ["CardEffect"] = [=[对目标范围内造成[智力*2.0]的法术伤害]=],
+    ["SwallowEffect"] = [=[攻击有15%几率对目标发射一个单体飞弹,造成[智力*2]的法术伤害]=],
+    ["SwallowCondition"] = [=[数量足够自动吞噬]=],
+    ["BondID"] = 19,
+    ["Icon"] = [=[StarRail\star_3.tga]=],
+    ["Value1"] = 5,
+    ["Value2"] = 2
+}
+excel[211] = {
+    ["CardName"] = [=[智力F-1]=],
+    ["BondName"] = [=[智力6]=],
+    ["Attr"] = [=[法术伤害+10%]=],
+    ["Weight"] = 100,
+    ["SwallowEffect"] = [=[造成的法术伤害提升20%(乘法叠加)]=],
+    ["SwallowCondition"] = [=[数量足够自动吞噬]=],
+    ["BondID"] = 20,
+    ["Icon"] = [=[StarRail\star_3.tga]=]
+}
+excel[212] = {
+    ["CardName"] = [=[智力F-2]=],
+    ["BondName"] = [=[智力6]=],
+    ["Attr"] = [=[法术暴伤+15%]=],
+    ["Weight"] = 100,
+    ["SwallowEffect"] = [=[造成的法术伤害提升20%(乘法叠加)]=],
+    ["SwallowCondition"] = [=[数量足够自动吞噬]=],
+    ["BondID"] = 20,
+    ["Icon"] = [=[StarRail\star_3.tga]=]
+}
+excel[213] = {
+    ["CardName"] = [=[智力F-3]=],
+    ["BondName"] = [=[智力6]=],
+    ["Attr"] = [=[法术暴率+5%]=],
+    ["Weight"] = 100,
+    ["SwallowEffect"] = [=[造成的法术伤害提升20%(乘法叠加)]=],
+    ["SwallowCondition"] = [=[数量足够自动吞噬]=],
+    ["BondID"] = 20,
+    ["Icon"] = [=[StarRail\star_3.tga]=]
+}
+excel[214] = {
+    ["CardName"] = [=[智力F-4]=],
+    ["BondName"] = [=[智力6]=],
+    ["Attr"] = [=[攻击射程+150]=],
+    ["Weight"] = 100,
+    ["SwallowEffect"] = [=[造成的法术伤害提升20%(乘法叠加)]=],
+    ["SwallowCondition"] = [=[数量足够自动吞噬]=],
+    ["BondID"] = 20,
+    ["Icon"] = [=[StarRail\star_3.tga]=]
+}
+excel[215] = {
+    ["CardName"] = [=[智力F-5]=],
+    ["BondName"] = [=[智力6]=],
+    ["Weight"] = 100,
+    ["CardEffect"] = [=[对直线上的人造成[智力*2]的伤害,并且昏迷1秒]=],
+    ["SwallowEffect"] = [=[造成的法术伤害提升20%(乘法叠加)]=],
+    ["SwallowCondition"] = [=[数量足够自动吞噬]=],
+    ["BondID"] = 20,
+    ["Icon"] = [=[StarRail\star_3.tga]=],
+    ["Value1"] = 5,
+    ["Value2"] = 2
+}
+excel[221] = {
+    ["CardName"] = [=[智力G-1]=],
+    ["BondName"] = [=[智力7]=],
+    ["Attr"] = [=[技能急速+15%]=],
+    ["Weight"] = 100,
+    ["SwallowEffect"] = [=[造成的法术伤害有20%几率追加一个闪电对目标造成[智力*2]法术伤害]=],
+    ["SwallowCondition"] = [=[数量足够自动吞噬]=],
+    ["BondID"] = 21,
+    ["Icon"] = [=[StarRail\star_3.tga]=]
+}
+excel[222] = {
+    ["CardName"] = [=[智力G-2]=],
+    ["BondName"] = [=[智力7]=],
+    ["Attr"] = [=[法术伤害+10%]=],
+    ["Weight"] = 100,
+    ["SwallowEffect"] = [=[造成的法术伤害有20%几率追加一个闪电对目标造成[智力*2]法术伤害]=],
+    ["SwallowCondition"] = [=[数量足够自动吞噬]=],
+    ["BondID"] = 21,
+    ["Icon"] = [=[StarRail\star_3.tga]=]
+}
+excel[223] = {
+    ["CardName"] = [=[智力G-3]=],
+    ["BondName"] = [=[智力7]=],
+    ["Attr"] = [=[法术暴率+5%]=],
+    ["Weight"] = 100,
+    ["SwallowEffect"] = [=[造成的法术伤害有20%几率追加一个闪电对目标造成[智力*2]法术伤害]=],
+    ["SwallowCondition"] = [=[数量足够自动吞噬]=],
+    ["BondID"] = 21,
+    ["Icon"] = [=[StarRail\star_3.tga]=]
+}
+excel[224] = {
+    ["CardName"] = [=[智力G-4]=],
+    ["BondName"] = [=[智力7]=],
+    ["Attr"] = [=[法术暴伤+25%]=],
+    ["Weight"] = 100,
+    ["SwallowEffect"] = [=[造成的法术伤害有20%几率追加一个闪电对目标造成[智力*2]法术伤害]=],
+    ["SwallowCondition"] = [=[数量足够自动吞噬]=],
+    ["BondID"] = 21,
+    ["Icon"] = [=[StarRail\star_3.tga]=]
+}
+excel[225] = {
+    ["CardName"] = [=[智力G-5]=],
+    ["BondName"] = [=[智力7]=],
+    ["Weight"] = 100,
+    ["CardEffect"] = [=[每1秒对范围内敌人造成智力*1法术伤害,最多持续4秒]=],
+    ["SwallowEffect"] = [=[造成的法术伤害有20%几率追加一个闪电对目标造成[智力*2]法术伤害]=],
+    ["SwallowCondition"] = [=[数量足够自动吞噬]=],
+    ["BondID"] = 21,
+    ["Icon"] = [=[StarRail\star_3.tga]=],
+    ["Value1"] = 10,
+    ["Value2"] = 4,
+    ["Value3"] = 1
+}
+excel[231] = {
+    ["CardName"] = [=[通用A-1]=],
+    ["BondName"] = [=[通用A]=],
+    ["Attr"] = [=[每秒全属+10]=],
+    ["Weight"] = 100,
+    ["SwallowEffect"] = [=[金币+2500~7500]=],
+    ["SwallowCondition"] = [=[数量足够自动吞噬]=],
+    ["BondID"] = 22,
+    ["Icon"] = [=[StarRail\star_3.tga]=]
+}
+excel[232] = {
+    ["CardName"] = [=[通用A-2]=],
+    ["BondName"] = [=[通用A]=],
+    ["Attr"] = [=[杀敌全属+2]=],
+    ["Weight"] = 100,
+    ["SwallowEffect"] = [=[金币+2500~7500]=],
+    ["SwallowCondition"] = [=[数量足够自动吞噬]=],
+    ["BondID"] = 22,
+    ["Icon"] = [=[StarRail\star_3.tga]=]
+}
+excel[233] = {
+    ["CardName"] = [=[通用A-3]=],
+    ["BondName"] = [=[通用A]=],
+    ["Attr"] = [=[多重数量+1]=],
+    ["Weight"] = 100,
+    ["SwallowEffect"] = [=[金币+2500~7500]=],
+    ["SwallowCondition"] = [=[数量足够自动吞噬]=],
+    ["BondID"] = 22,
+    ["Icon"] = [=[StarRail\star_3.tga]=]
+}
+excel[234] = {
+    ["CardName"] = [=[通用A-4]=],
+    ["BondName"] = [=[通用A]=],
+    ["Attr"] = [=[每秒木材+0.5]=],
+    ["Weight"] = 100,
+    ["SwallowEffect"] = [=[金币+2500~7500]=],
+    ["SwallowCondition"] = [=[数量足够自动吞噬]=],
+    ["BondID"] = 22,
+    ["Icon"] = [=[StarRail\star_3.tga]=]
+}
+excel[241] = {
+    ["CardName"] = [=[通用B-1]=],
+    ["BondName"] = [=[通用B]=],
+    ["Attr"] = [=[物理伤害+15%]=],
+    ["Weight"] = 100,
+    ["SwallowEffect"] = [=[造成的伤害提升15%(乘法叠加)]=],
+    ["SwallowCondition"] = [=[数量足够自动吞噬]=],
+    ["BondID"] = 23,
+    ["Icon"] = [=[StarRail\star_3.tga]=]
+}
+excel[242] = {
+    ["CardName"] = [=[通用B-2]=],
+    ["BondName"] = [=[通用B]=],
+    ["Attr"] = [=[法术伤害+15%]=],
+    ["Weight"] = 100,
+    ["SwallowEffect"] = [=[造成的伤害提升15%(乘法叠加)]=],
+    ["SwallowCondition"] = [=[数量足够自动吞噬]=],
+    ["BondID"] = 23,
+    ["Icon"] = [=[StarRail\star_3.tga]=]
+}
+excel[243] = {
+    ["CardName"] = [=[通用B-3]=],
+    ["BondName"] = [=[通用B]=],
+    ["Attr"] = [=[攻击速度+30%]=],
+    ["Weight"] = 100,
+    ["SwallowEffect"] = [=[造成的伤害提升15%(乘法叠加)]=],
+    ["SwallowCondition"] = [=[数量足够自动吞噬]=],
+    ["BondID"] = 23,
+    ["Icon"] = [=[StarRail\star_3.tga]=]
+}
+excel[244] = {
+    ["CardName"] = [=[通用B-4]=],
+    ["BondName"] = [=[通用B]=],
+    ["Attr"] = [=[技能急速+30%]=],
+    ["Weight"] = 100,
+    ["SwallowEffect"] = [=[造成的伤害提升15%(乘法叠加)]=],
+    ["SwallowCondition"] = [=[数量足够自动吞噬]=],
+    ["BondID"] = 23,
+    ["Icon"] = [=[StarRail\star_3.tga]=]
+}
+excel[251] = {
+    ["CardName"] = [=[通用C-1]=],
+    ["BondName"] = [=[通用C]=],
+    ["Attr"] = [=[每秒回血+500]=],
+    ["Weight"] = 100,
+    ["SwallowEffect"] = [=[攻击加成+5%|n生命加成+5%|n护甲加成+5%]=],
+    ["SwallowCondition"] = [=[数量足够自动吞噬]=],
+    ["BondID"] = 24,
+    ["Icon"] = [=[StarRail\star_3.tga]=]
+}
+excel[252] = {
+    ["CardName"] = [=[通用C-2]=],
+    ["BondName"] = [=[通用C]=],
+    ["Attr"] = [=[护甲+250]=],
+    ["Weight"] = 100,
+    ["SwallowEffect"] = [=[攻击加成+5%|n生命加成+5%|n护甲加成+5%]=],
+    ["SwallowCondition"] = [=[数量足够自动吞噬]=],
+    ["BondID"] = 24,
+    ["Icon"] = [=[StarRail\star_3.tga]=]
+}
+excel[253] = {
+    ["CardName"] = [=[通用C-3]=],
+    ["BondName"] = [=[通用C]=],
+    ["Attr"] = [=[生命+15000]=],
+    ["Weight"] = 100,
+    ["SwallowEffect"] = [=[攻击加成+5%|n生命加成+5%|n护甲加成+5%]=],
+    ["SwallowCondition"] = [=[数量足够自动吞噬]=],
+    ["BondID"] = 24,
+    ["Icon"] = [=[StarRail\star_3.tga]=]
+}
+excel[254] = {
+    ["CardName"] = [=[通用C-4]=],
+    ["BondName"] = [=[通用C]=],
+    ["Attr"] = [=[攻击+1500]=],
+    ["Weight"] = 100,
+    ["SwallowEffect"] = [=[攻击加成+5%|n生命加成+5%|n护甲加成+5%]=],
+    ["SwallowCondition"] = [=[数量足够自动吞噬]=],
+    ["BondID"] = 24,
+    ["Icon"] = [=[StarRail\star_3.tga]=]
+}
+excel[261] = {
+    ["CardName"] = [=[通用D-1]=],
+    ["BondName"] = [=[通用D]=],
+    ["Attr"] = [=[多重数量+2]=],
+    ["Weight"] = 100,
+    ["SwallowEffect"] = [=[英雄攻击的暴击伤害提升50%(乘法叠加)]=],
+    ["SwallowCondition"] = [=[数量足够自动吞噬]=],
+    ["BondID"] = 25,
+    ["Icon"] = [=[StarRail\star_3.tga]=]
+}
+excel[262] = {
+    ["CardName"] = [=[通用D-2]=],
+    ["BondName"] = [=[通用D]=],
+    ["Attr"] = [=[多重几率+10%]=],
+    ["Weight"] = 100,
+    ["SwallowEffect"] = [=[英雄攻击的暴击伤害提升50%(乘法叠加)]=],
+    ["SwallowCondition"] = [=[数量足够自动吞噬]=],
+    ["BondID"] = 25,
+    ["Icon"] = [=[StarRail\star_3.tga]=]
+}
+excel[263] = {
+    ["CardName"] = [=[通用D-3]=],
+    ["BondName"] = [=[通用D]=],
+    ["Attr"] = [=[攻击射程+150]=],
+    ["Weight"] = 100,
+    ["SwallowEffect"] = [=[英雄攻击的暴击伤害提升50%(乘法叠加)]=],
+    ["SwallowCondition"] = [=[数量足够自动吞噬]=],
+    ["BondID"] = 25,
+    ["Icon"] = [=[StarRail\star_3.tga]=]
+}
+excel[264] = {
+    ["CardName"] = [=[通用D-4]=],
+    ["BondName"] = [=[通用D]=],
+    ["Attr"] = [=[攻击间隔-0.05]=],
+    ["Weight"] = 100,
+    ["SwallowEffect"] = [=[英雄攻击的暴击伤害提升50%(乘法叠加)]=],
+    ["SwallowCondition"] = [=[数量足够自动吞噬]=],
+    ["BondID"] = 25,
+    ["Icon"] = [=[StarRail\star_3.tga]=]
+}
+excel[271] = {
+    ["CardName"] = [=[通用E-1]=],
+    ["BondName"] = [=[通用E]=],
+    ["Weight"] = 100,
+    ["CardEffect"] = [=[攻击附加[每秒回血]*8*(1+金币效率%)的真实伤害,多重箭有效]=],
+    ["SwallowEffect"] = [=[攻击间隔-0.05]=],
+    ["SwallowCondition"] = [=[数量足够自动吞噬]=],
+    ["BondID"] = 26,
+    ["Icon"] = [=[StarRail\star_3.tga]=],
+    ["Value1"] = 8
+}
+excel[272] = {
+    ["CardName"] = [=[通用E-2]=],
+    ["BondName"] = [=[通用E]=],
+    ["Weight"] = 100,
+    ["CardEffect"] = [=[攻击附加[每秒回血]*8*(1+伤害减免%)的真实伤害,多重箭有效]=],
+    ["SwallowEffect"] = [=[攻击间隔-0.05]=],
+    ["SwallowCondition"] = [=[数量足够自动吞噬]=],
+    ["BondID"] = 26,
+    ["Icon"] = [=[StarRail\star_3.tga]=],
+    ["Value1"] = 8
+}
+excel[273] = {
+    ["CardName"] = [=[通用E-3]=],
+    ["BondName"] = [=[通用E]=],
+    ["Weight"] = 100,
+    ["CardEffect"] = [=[攻击射出三枚直线冲击波(爪字斜,另外两只30度),造成[攻击力*1.5]的物理伤害]=],
+    ["SwallowEffect"] = [=[攻击间隔-0.05]=],
+    ["SwallowCondition"] = [=[数量足够自动吞噬]=],
+    ["BondID"] = 26,
+    ["Icon"] = [=[StarRail\star_3.tga]=],
+    ["Value1"] = 5,
+    ["Value2"] = 1.5
+}
+excel[274] = {
+    ["CardName"] = [=[通用E-4]=],
+    ["BondName"] = [=[通用E]=],
+    ["Weight"] = 100,
+    ["CardEffect"] = [=[攻击射出1~3颗弹幕砸到目标当前位置(范围伤害),对范围内敌人造成[攻击力*1]的法术伤害]=],
+    ["SwallowEffect"] = [=[攻击间隔-0.05]=],
+    ["SwallowCondition"] = [=[数量足够自动吞噬]=],
+    ["BondID"] = 26,
+    ["Icon"] = [=[StarRail\star_3.tga]=],
+    ["Value1"] = 5,
+    ["Value2"] = 1
+}
+excel[281] = {
+    ["CardName"] = [=[通用F-1]=],
+    ["BondName"] = [=[通用F]=],
+    ["Attr"] = [=[攻击暴率+5%]=],
+    ["Weight"] = 100,
+    ["SwallowEffect"] = [=[造成的伤害提高30%,但是受到额外的40%伤害(都是乘法叠加)]=],
+    ["SwallowCondition"] = [=[数量足够自动吞噬]=],
+    ["BondID"] = 27,
+    ["Icon"] = [=[StarRail\star_3.tga]=]
+}
+excel[282] = {
+    ["CardName"] = [=[通用F-2]=],
+    ["BondName"] = [=[通用F]=],
+    ["Attr"] = [=[物理暴率+5%]=],
+    ["Weight"] = 100,
+    ["SwallowEffect"] = [=[造成的伤害提高30%,但是受到额外的40%伤害(都是乘法叠加)]=],
+    ["SwallowCondition"] = [=[数量足够自动吞噬]=],
+    ["BondID"] = 27,
+    ["Icon"] = [=[StarRail\star_3.tga]=]
+}
+excel[283] = {
+    ["CardName"] = [=[通用F-3]=],
+    ["BondName"] = [=[通用F]=],
+    ["Attr"] = [=[法术暴率+5%]=],
+    ["Weight"] = 100,
+    ["SwallowEffect"] = [=[造成的伤害提高30%,但是受到额外的40%伤害(都是乘法叠加)]=],
+    ["SwallowCondition"] = [=[数量足够自动吞噬]=],
+    ["BondID"] = 27,
+    ["Icon"] = [=[StarRail\star_3.tga]=]
+}
+excel[291] = {
+    ["CardName"] = [=[通用G-1]=],
+    ["BondName"] = [=[通用G]=],
+    ["Attr"] = [=[物理伤害+20%]=],
+    ["Weight"] = 100,
+    ["SwallowEffect"] = [=[物理暴率+10%]=],
+    ["SwallowCondition"] = [=[数量足够自动吞噬]=],
+    ["BondID"] = 28,
+    ["Icon"] = [=[StarRail\star_3.tga]=]
+}
+excel[292] = {
+    ["CardName"] = [=[通用G-2]=],
+    ["BondName"] = [=[通用G]=],
+    ["Attr"] = [=[物理暴伤+30%]=],
+    ["Weight"] = 100,
+    ["SwallowEffect"] = [=[物理暴率+10%]=],
+    ["SwallowCondition"] = [=[数量足够自动吞噬]=],
+    ["BondID"] = 28,
+    ["Icon"] = [=[StarRail\star_3.tga]=]
+}
+excel[293] = {
+    ["CardName"] = [=[通用G-3]=],
+    ["BondName"] = [=[通用G]=],
+    ["Attr"] = [=[物理暴率+5%]=],
+    ["Weight"] = 100,
+    ["SwallowEffect"] = [=[物理暴率+10%]=],
+    ["SwallowCondition"] = [=[数量足够自动吞噬]=],
+    ["BondID"] = 28,
+    ["Icon"] = [=[StarRail\star_3.tga]=]
+}
+excel[294] = {
+    ["CardName"] = [=[通用G-4]=],
+    ["BondName"] = [=[通用G]=],
+    ["Attr"] = [=[生命+15000]=],
+    ["Weight"] = 100,
+    ["SwallowEffect"] = [=[物理暴率+10%]=],
+    ["SwallowCondition"] = [=[数量足够自动吞噬]=],
+    ["BondID"] = 28,
+    ["Icon"] = [=[StarRail\star_3.tga]=]
+}
+excel[295] = {
+    ["CardName"] = [=[通用G-5]=],
+    ["BondName"] = [=[通用G]=],
+    ["Attr"] = [=[攻击+1500]=],
+    ["Weight"] = 100,
+    ["SwallowEffect"] = [=[物理暴率+10%]=],
+    ["SwallowCondition"] = [=[数量足够自动吞噬]=],
+    ["BondID"] = 28,
+    ["Icon"] = [=[StarRail\star_3.tga]=]
+}
+excel[301] = {
+    ["CardName"] = [=[通用H-1]=],
+    ["BondName"] = [=[通用H]=],
+    ["Attr"] = [=[法术伤害+20%]=],
+    ["Weight"] = 100,
+    ["SwallowEffect"] = [=[法术暴率+10%]=],
+    ["SwallowCondition"] = [=[数量足够自动吞噬]=],
+    ["BondID"] = 29,
+    ["Icon"] = [=[StarRail\star_3.tga]=]
+}
+excel[302] = {
+    ["CardName"] = [=[通用H-2]=],
+    ["BondName"] = [=[通用H]=],
+    ["Attr"] = [=[法术暴伤+30%]=],
+    ["Weight"] = 100,
+    ["SwallowEffect"] = [=[法术暴率+10%]=],
+    ["SwallowCondition"] = [=[数量足够自动吞噬]=],
+    ["BondID"] = 29,
+    ["Icon"] = [=[StarRail\star_3.tga]=]
+}
+excel[303] = {
+    ["CardName"] = [=[通用H-3]=],
+    ["BondName"] = [=[通用H]=],
+    ["Attr"] = [=[法术暴率+5%]=],
+    ["Weight"] = 100,
+    ["SwallowEffect"] = [=[法术暴率+10%]=],
+    ["SwallowCondition"] = [=[数量足够自动吞噬]=],
+    ["BondID"] = 29,
+    ["Icon"] = [=[StarRail\star_3.tga]=]
+}
+excel[304] = {
+    ["CardName"] = [=[通用H-4]=],
+    ["BondName"] = [=[通用H]=],
+    ["Attr"] = [=[生命+15000]=],
+    ["Weight"] = 100,
+    ["SwallowEffect"] = [=[法术暴率+10%]=],
+    ["SwallowCondition"] = [=[数量足够自动吞噬]=],
+    ["BondID"] = 29,
+    ["Icon"] = [=[StarRail\star_3.tga]=]
+}
+excel[305] = {
+    ["CardName"] = [=[通用H-5]=],
+    ["BondName"] = [=[通用H]=],
+    ["Attr"] = [=[攻击+1500]=],
+    ["Weight"] = 100,
+    ["SwallowEffect"] = [=[法术暴率+10%]=],
+    ["SwallowCondition"] = [=[数量足够自动吞噬]=],
+    ["BondID"] = 29,
+    ["Icon"] = [=[StarRail\star_3.tga]=]
+}
+excel[311] = {
+    ["CardName"] = [=[通用I-1]=],
+    ["BondName"] = [=[通用I]=],
+    ["Attr"] = [=[杀敌攻击+1]=],
+    ["Weight"] = 100,
+    ["SwallowEffect"] = [=[杀敌攻击,力量,敏捷,智力,生命的实际收益提升25%]=],
+    ["SwallowCondition"] = [=[杀敌500自己吞噬自己]=],
+    ["BondID"] = 30,
+    ["Icon"] = [=[StarRail\star_3.tga]=],
+    ["Value1"] = 500
+}
+excel[312] = {
+    ["CardName"] = [=[通用I-2]=],
+    ["BondName"] = [=[通用I]=],
+    ["Attr"] = [=[杀敌力量+1]=],
+    ["Weight"] = 100,
+    ["SwallowEffect"] = [=[杀敌攻击,力量,敏捷,智力,生命的实际收益提升25%]=],
+    ["SwallowCondition"] = [=[杀敌500自己吞噬自己]=],
+    ["BondID"] = 30,
+    ["Icon"] = [=[StarRail\star_3.tga]=],
+    ["Value1"] = 500
+}
+excel[313] = {
+    ["CardName"] = [=[通用I-3]=],
+    ["BondName"] = [=[通用I]=],
+    ["Attr"] = [=[杀敌敏捷+1]=],
+    ["Weight"] = 100,
+    ["SwallowEffect"] = [=[杀敌攻击,力量,敏捷,智力,生命的实际收益提升25%]=],
+    ["SwallowCondition"] = [=[杀敌500自己吞噬自己]=],
+    ["BondID"] = 30,
+    ["Icon"] = [=[StarRail\star_3.tga]=],
+    ["Value1"] = 500
+}
+excel[314] = {
+    ["CardName"] = [=[通用I-4]=],
+    ["BondName"] = [=[通用I]=],
+    ["Attr"] = [=[杀敌智力+1]=],
+    ["Weight"] = 100,
+    ["SwallowEffect"] = [=[杀敌攻击,力量,敏捷,智力,生命的实际收益提升25%]=],
+    ["SwallowCondition"] = [=[杀敌500自己吞噬自己]=],
+    ["BondID"] = 30,
+    ["Icon"] = [=[StarRail\star_3.tga]=],
+    ["Value1"] = 500
+}
+excel[315] = {
+    ["CardName"] = [=[通用I-5]=],
+    ["BondName"] = [=[通用I]=],
+    ["Attr"] = [=[杀敌生命+5]=],
+    ["Weight"] = 100,
+    ["SwallowEffect"] = [=[杀敌攻击,力量,敏捷,智力,生命的实际收益提升25%]=],
+    ["SwallowCondition"] = [=[杀敌500自己吞噬自己]=],
+    ["BondID"] = 30,
+    ["Icon"] = [=[StarRail\star_3.tga]=],
+    ["Value1"] = 500
+}
+excel[321] = {
+    ["CardName"] = [=[通用J-1]=],
+    ["BondName"] = [=[通用J]=],
+    ["Attr"] = [=[金币加成+15%]=],
+    ["Weight"] = 100,
+    ["SwallowEffect"] = [=[每秒木材+0.5,怪物上限+3]=],
+    ["SwallowCondition"] = [=[持有300秒自己吞噬]=],
+    ["BondID"] = 31,
+    ["Icon"] = [=[StarRail\star_3.tga]=],
+    ["Value1"] = 300
+}
+excel[322] = {
+    ["CardName"] = [=[通用J-2]=],
+    ["BondName"] = [=[通用J]=],
+    ["Attr"] = [=[木材加成+15%]=],
+    ["Weight"] = 100,
+    ["SwallowEffect"] = [=[每秒木材+0.5,怪物上限+3]=],
+    ["SwallowCondition"] = [=[持有300秒自己吞噬]=],
+    ["BondID"] = 31,
+    ["Icon"] = [=[StarRail\star_3.tga]=],
+    ["Value1"] = 300
+}
+excel[323] = {
+    ["CardName"] = [=[通用J-3]=],
+    ["BondName"] = [=[通用J]=],
+    ["Attr"] = [=[杀敌加成+15%]=],
+    ["Weight"] = 100,
+    ["SwallowEffect"] = [=[每秒木材+0.5,怪物上限+3]=],
+    ["SwallowCondition"] = [=[持有300秒自己吞噬]=],
+    ["BondID"] = 31,
+    ["Icon"] = [=[StarRail\star_3.tga]=],
+    ["Value1"] = 300
+}
+excel[324] = {
+    ["CardName"] = [=[通用J-4]=],
+    ["BondName"] = [=[通用J]=],
+    ["Attr"] = [=[杀敌金币+3]=],
+    ["Weight"] = 100,
+    ["SwallowEffect"] = [=[每秒木材+0.5,怪物上限+3]=],
+    ["SwallowCondition"] = [=[持有300秒自己吞噬]=],
+    ["BondID"] = 31,
+    ["Icon"] = [=[StarRail\star_3.tga]=],
+    ["Value1"] = 300
+}
+excel[325] = {
+    ["CardName"] = [=[通用J-5]=],
+    ["BondName"] = [=[通用J]=],
+    ["Attr"] = [=[每秒杀敌+3]=],
+    ["Weight"] = 100,
+    ["SwallowEffect"] = [=[每秒木材+0.5,怪物上限+3]=],
+    ["SwallowCondition"] = [=[持有300秒自己吞噬]=],
+    ["BondID"] = 31,
+    ["Icon"] = [=[StarRail\star_3.tga]=],
+    ["Value1"] = 300
+}
+excel[331] = {
+    ["CardName"] = [=[通用K-1]=],
+    ["BondName"] = [=[通用K]=],
+    ["Attr"] = [=[每秒回血+500]=],
+    ["Weight"] = 100,
+    ["SwallowEffect"] = [=[造成的真实伤害提高20%(乘法叠加)]=],
+    ["SwallowCondition"] = [=[攻击400下自己吞噬]=],
+    ["BondID"] = 32,
+    ["Icon"] = [=[StarRail\star_3.tga]=],
+    ["Value1"] = 400
+}
+excel[332] = {
+    ["CardName"] = [=[通用K-2]=],
+    ["BondName"] = [=[通用K]=],
+    ["Attr"] = [=[护甲+250]=],
+    ["Weight"] = 100,
+    ["SwallowEffect"] = [=[造成的真实伤害提高20%(乘法叠加)]=],
+    ["SwallowCondition"] = [=[攻击400下自己吞噬]=],
+    ["BondID"] = 32,
+    ["Icon"] = [=[StarRail\star_3.tga]=],
+    ["Value1"] = 400
+}
+excel[333] = {
+    ["CardName"] = [=[通用K-3]=],
+    ["BondName"] = [=[通用K]=],
+    ["Attr"] = [=[生命+15000]=],
+    ["Weight"] = 100,
+    ["SwallowEffect"] = [=[造成的真实伤害提高20%(乘法叠加)]=],
+    ["SwallowCondition"] = [=[攻击400下自己吞噬]=],
+    ["BondID"] = 32,
+    ["Icon"] = [=[StarRail\star_3.tga]=],
+    ["Value1"] = 400
+}
+excel[334] = {
+    ["CardName"] = [=[通用K-4]=],
+    ["BondName"] = [=[通用K]=],
+    ["Attr"] = [=[攻击+1500]=],
+    ["Weight"] = 100,
+    ["SwallowEffect"] = [=[造成的真实伤害提高20%(乘法叠加)]=],
+    ["SwallowCondition"] = [=[攻击400下自己吞噬]=],
+    ["BondID"] = 32,
+    ["Icon"] = [=[StarRail\star_3.tga]=],
+    ["Value1"] = 400
+}
+excel[335] = {
+    ["CardName"] = [=[通用K-5]=],
+    ["BondName"] = [=[通用K]=],
+    ["Attr"] = [=[每秒全属+5]=],
+    ["Weight"] = 100,
+    ["SwallowEffect"] = [=[造成的真实伤害提高20%(乘法叠加)]=],
+    ["SwallowCondition"] = [=[攻击400下自己吞噬]=],
+    ["BondID"] = 32,
+    ["Icon"] = [=[StarRail\star_3.tga]=],
+    ["Value1"] = 400
+}
+excel[341] = {
+    ["CardName"] = [=[通用L-1]=],
+    ["BondName"] = [=[通用L]=],
+    ["Attr"] = [=[攻击加成+10%]=],
+    ["Weight"] = 100,
+    ["SwallowCondition"] = [=[此卡凑齐后自动吞噬,吞噬后全套还会再次加入卡池,最多吞噬3次结束]=],
+    ["BondID"] = 33,
+    ["Icon"] = [=[StarRail\star_3.tga]=]
+}
+excel[342] = {
+    ["CardName"] = [=[通用L-2]=],
+    ["BondName"] = [=[通用L]=],
+    ["Attr"] = [=[力量加成+10%]=],
+    ["Weight"] = 100,
+    ["SwallowCondition"] = [=[此卡凑齐后自动吞噬,吞噬后全套还会再次加入卡池,最多吞噬3次结束]=],
+    ["BondID"] = 33,
+    ["Icon"] = [=[StarRail\star_3.tga]=]
+}
+excel[343] = {
+    ["CardName"] = [=[通用L-3]=],
+    ["BondName"] = [=[通用L]=],
+    ["Attr"] = [=[敏捷加成+10%]=],
+    ["Weight"] = 100,
+    ["SwallowCondition"] = [=[此卡凑齐后自动吞噬,吞噬后全套还会再次加入卡池,最多吞噬3次结束]=],
+    ["BondID"] = 33,
+    ["Icon"] = [=[StarRail\star_3.tga]=]
+}
+excel[344] = {
+    ["CardName"] = [=[通用L-4]=],
+    ["BondName"] = [=[通用L]=],
+    ["Attr"] = [=[智力加成+10%]=],
+    ["Weight"] = 100,
+    ["SwallowCondition"] = [=[此卡凑齐后自动吞噬,吞噬后全套还会再次加入卡池,最多吞噬3次结束]=],
+    ["BondID"] = 33,
+    ["Icon"] = [=[StarRail\star_3.tga]=]
+}
+excel[345] = {
+    ["CardName"] = [=[通用L-5]=],
+    ["BondName"] = [=[通用L]=],
+    ["Attr"] = [=[生命加成+10%]=],
+    ["Weight"] = 100,
+    ["SwallowCondition"] = [=[此卡凑齐后自动吞噬,吞噬后全套还会再次加入卡池,最多吞噬3次结束]=],
+    ["BondID"] = 33,
+    ["Icon"] = [=[StarRail\star_3.tga]=]
+}
+excel[351] = {
+    ["CardName"] = [=[[三国1]吞噬卡]=],
+    ["BondName"] = [=[三国风云]=],
+    ["Weight"] = 100,
+    ["CardEffect"] = [=[每杀敌300随机吞噬掉102~105]=],
+    ["BondID"] = 101,
+    ["Icon"] = [=[StarRail\star_3.tga]=],
+    ["Value1"] = [=[吞噬卡]=],
+    ["Value2"] = 300
+}
+excel[352] = {
+    ["CardName"] = [=[[三国1]的普通卡]=],
+    ["BondName"] = [=[三国风云]=],
+    ["Attr"] = [=[力量+2500]=],
+    ["Weight"] = 100,
+    ["BondID"] = 101,
+    ["Icon"] = [=[StarRail\star_3.tga]=]
+}
+excel[353] = {
+    ["CardName"] = [=[[三国1]的普通卡]=],
+    ["BondName"] = [=[三国风云]=],
+    ["Attr"] = [=[力量加成+10%]=],
+    ["Weight"] = 100,
+    ["BondID"] = 101,
+    ["Icon"] = [=[StarRail\star_3.tga]=]
+}
+excel[354] = {
+    ["CardName"] = [=[[三国1]的普通卡]=],
+    ["BondName"] = [=[三国风云]=],
+    ["Attr"] = [=[物理伤害+25%]=],
+    ["Weight"] = 100,
+    ["BondID"] = 101,
+    ["Icon"] = [=[StarRail\star_3.tga]=]
+}
+excel[355] = {
+    ["CardName"] = [=[[三国1]的普通卡]=],
+    ["BondName"] = [=[三国风云]=],
+    ["Attr"] = [=[物理暴伤+40%]=],
+    ["Weight"] = 100,
+    ["BondID"] = 101,
+    ["Icon"] = [=[StarRail\star_3.tga]=]
+}
+excel[356] = {
+    ["CardName"] = [=[[三国2]吞噬卡]=],
+    ["BondName"] = [=[三国风云]=],
+    ["Weight"] = 100,
+    ["CardEffect"] = [=[每杀敌300随机吞噬掉202~205]=],
+    ["BondID"] = 101,
+    ["Icon"] = [=[StarRail\star_3.tga]=],
+    ["Value1"] = [=[吞噬卡]=],
+    ["Value2"] = 300
+}
+excel[357] = {
+    ["CardName"] = [=[[三国2]的普通卡]=],
+    ["BondName"] = [=[三国风云]=],
+    ["Attr"] = [=[生命加成+15%]=],
+    ["Weight"] = 100,
+    ["BondID"] = 101,
+    ["Icon"] = [=[StarRail\star_3.tga]=]
+}
+excel[358] = {
+    ["CardName"] = [=[[三国2]的普通卡]=],
+    ["BondName"] = [=[三国风云]=],
+    ["Attr"] = [=[伤害减免+15%]=],
+    ["Weight"] = 100,
+    ["BondID"] = 101,
+    ["Icon"] = [=[StarRail\star_3.tga]=]
+}
+excel[359] = {
+    ["CardName"] = [=[[三国2]的普通卡]=],
+    ["BondName"] = [=[三国风云]=],
+    ["Attr"] = [=[杀敌生命+5]=],
+    ["Weight"] = 100,
+    ["BondID"] = 101,
+    ["Icon"] = [=[StarRail\star_3.tga]=]
+}
+excel[360] = {
+    ["CardName"] = [=[[三国2]的普通卡]=],
+    ["BondName"] = [=[三国风云]=],
+    ["Attr"] = [=[每秒生命+25]=],
+    ["Weight"] = 100,
+    ["BondID"] = 101,
+    ["Icon"] = [=[StarRail\star_3.tga]=]
+}
+excel[361] = {
+    ["CardName"] = [=[[三国3]吞噬卡]=],
+    ["BondName"] = [=[三国风云]=],
+    ["Weight"] = 100,
+    ["CardEffect"] = [=[每杀敌300随机吞噬掉301~305]=],
+    ["BondID"] = 101,
+    ["Icon"] = [=[StarRail\star_3.tga]=],
+    ["Value1"] = [=[吞噬卡]=],
+    ["Value2"] = 300
+}
+excel[362] = {
+    ["CardName"] = [=[[三国3]的普通卡]=],
+    ["BondName"] = [=[三国风云]=],
+    ["Attr"] = [=[力量+2500]=],
+    ["Weight"] = 100,
+    ["BondID"] = 101,
+    ["Icon"] = [=[StarRail\star_3.tga]=]
+}
+excel[363] = {
+    ["CardName"] = [=[[三国3]的普通卡]=],
+    ["BondName"] = [=[三国风云]=],
+    ["Attr"] = [=[力量加成+10%]=],
+    ["Weight"] = 100,
+    ["BondID"] = 101,
+    ["Icon"] = [=[StarRail\star_3.tga]=]
+}
+excel[364] = {
+    ["CardName"] = [=[[三国3]的普通卡]=],
+    ["BondName"] = [=[三国风云]=],
+    ["Attr"] = [=[杀敌力量+1]=],
+    ["Weight"] = 100,
+    ["BondID"] = 101,
+    ["Icon"] = [=[StarRail\star_3.tga]=]
+}
+excel[365] = {
+    ["CardName"] = [=[[三国3]的普通卡]=],
+    ["BondName"] = [=[三国风云]=],
+    ["Attr"] = [=[每秒力量+5]=],
+    ["Weight"] = 100,
+    ["BondID"] = 101,
+    ["Icon"] = [=[StarRail\star_3.tga]=]
+}
+excel[366] = {
+    ["CardName"] = [=[[三国风云]结局卡]=],
+    ["BondName"] = [=[三国风云]=],
+    ["Attr"] = [=[力量+5000|n力量加成+20%|n物理伤害+50%|n物理暴伤+75%]=],
+    ["Weight"] = 100,
+    ["CardEffect"] = [=[怒火冲天:在自己圆心地上炸开火环,每1秒持续[力量*3]物理伤害,持续5秒,冷却10秒]=],
+    ["BondID"] = 101,
+    ["Icon"] = [=[StarRail\star_3.tga]=],
+    ["Value1"] = 10,
+    ["Value2"] = 5,
+    ["Value3"] = 3
+}
+excel[371] = {
+    ["CardName"] = [=[起源卡]=],
+    ["BondName"] = [=[复杂力量2]=],
+    ["Weight"] = 100,
+    ["CardEffect"] = [=[每杀敌250,往玩家卡池里面添加1张普通卡,一直到6张添加完毕]=],
+    ["BondID"] = 102,
+    ["Icon"] = [=[StarRail\star_3.tga]=],
+    ["Value1"] = 10
+}
+excel[372] = {
+    ["CardName"] = [=[普通卡1]=],
+    ["BondName"] = [=[复杂力量2]=],
+    ["Attr"] = [=[杀敌力量+2]=],
+    ["Weight"] = 75,
+    ["BondID"] = 102,
+    ["Icon"] = [=[StarRail\star_3.tga]=]
+}
+excel[373] = {
+    ["CardName"] = [=[普通卡2]=],
+    ["BondName"] = [=[复杂力量2]=],
+    ["Attr"] = [=[每秒力量+10]=],
+    ["Weight"] = 75,
+    ["BondID"] = 102,
+    ["Icon"] = [=[StarRail\star_3.tga]=]
+}
+excel[374] = {
+    ["CardName"] = [=[普通卡3]=],
+    ["BondName"] = [=[复杂力量2]=],
+    ["Attr"] = [=[力量加成+10%]=],
+    ["Weight"] = 75,
+    ["BondID"] = 102,
+    ["Icon"] = [=[StarRail\star_3.tga]=]
+}
+excel[375] = {
+    ["CardName"] = [=[普通卡4]=],
+    ["BondName"] = [=[复杂力量2]=],
+    ["Attr"] = [=[护甲加成+10%]=],
+    ["Weight"] = 75,
+    ["BondID"] = 102,
+    ["Icon"] = [=[StarRail\star_3.tga]=]
+}
+excel[376] = {
+    ["CardName"] = [=[普通卡5]=],
+    ["BondName"] = [=[复杂力量2]=],
+    ["Weight"] = 75,
+    ["CardEffect"] = [=[每次攻击附加[英雄最大生命值3%]的真实伤害]=],
+    ["BondID"] = 102,
+    ["Icon"] = [=[StarRail\star_3.tga]=],
+    ["Value1"] = 0.03
+}
+excel[377] = {
+    ["CardName"] = [=[普通卡6]=],
+    ["BondName"] = [=[复杂力量2]=],
+    ["Weight"] = 75,
+    ["CardEffect"] = [=[对目标半径范围敌人造成[力量*2.5]的真实伤害]=],
+    ["BondID"] = 102,
+    ["Icon"] = [=[StarRail\star_3.tga]=],
+    ["Value1"] = 15,
+    ["Value2"] = 2.5
+}
+excel[378] = {
+    ["CardName"] = [=[结局卡]=],
+    ["BondName"] = [=[复杂力量2]=],
+    ["Weight"] = 70,
+    ["CardEffect"] = [=[每秒以自己为圆心对周围敌人造成[力量*0.8]的真实伤害;造成的物理伤害提升30%(乘法叠加);造成的真实伤害提升30%(乘法叠加);选取后吞噬起源卡和普通卡1,2,3,4,5,6本卡不吞噬]=],
+    ["BondID"] = 102,
+    ["Icon"] = [=[StarRail\star_3.tga]=],
+    ["Value1"] = 0.8,
+    ["Value2"] = 1.3,
+    ["Value3"] = 1.3
+}
+excel[381] = {
+    ["CardName"] = [=[普通卡1]=],
+    ["BondName"] = [=[复杂敏捷1]=],
+    ["Attr"] = [=[攻击加成+5%]=],
+    ["Weight"] = 100,
+    ["CardEffect"] = [=[可以被吞噬卡1吞噬]=],
+    ["BondID"] = 103,
+    ["Icon"] = [=[StarRail\star_3.tga]=],
+    ["Value1"] = [=[普通卡]=]
+}
+excel[382] = {
+    ["CardName"] = [=[普通卡2]=],
+    ["BondName"] = [=[复杂敏捷1]=],
+    ["Attr"] = [=[攻击力+2500]=],
+    ["Weight"] = 100,
+    ["CardEffect"] = [=[可以被吞噬卡2吞噬]=],
+    ["BondID"] = 103,
+    ["Icon"] = [=[StarRail\star_3.tga]=],
+    ["Value1"] = [=[普通卡]=]
+}
+excel[383] = {
+    ["CardName"] = [=[普通卡3]=],
+    ["BondName"] = [=[复杂敏捷1]=],
+    ["Attr"] = [=[每秒攻击+5]=],
+    ["Weight"] = 100,
+    ["CardEffect"] = [=[可以被吞噬卡3吞噬]=],
+    ["BondID"] = 103,
+    ["Icon"] = [=[StarRail\star_3.tga]=],
+    ["Value1"] = [=[普通卡]=]
+}
+excel[384] = {
+    ["CardName"] = [=[普通卡4]=],
+    ["BondName"] = [=[复杂敏捷1]=],
+    ["Attr"] = [=[杀敌攻击+1]=],
+    ["Weight"] = 100,
+    ["CardEffect"] = [=[可以被吞噬卡4吞噬]=],
+    ["BondID"] = 103,
+    ["Icon"] = [=[StarRail\star_3.tga]=],
+    ["Value1"] = [=[普通卡]=]
+}
+excel[385] = {
+    ["CardName"] = [=[普通卡5]=],
+    ["BondName"] = [=[复杂敏捷1]=],
+    ["Attr"] = [=[攻击速度+20%]=],
+    ["Weight"] = 100,
+    ["CardEffect"] = [=[可以被吞噬卡5吞噬]=],
+    ["BondID"] = 103,
+    ["Icon"] = [=[StarRail\star_3.tga]=],
+    ["Value1"] = [=[普通卡]=]
+}
+excel[386] = {
+    ["CardName"] = [=[普通卡6]=],
+    ["BondName"] = [=[复杂敏捷1]=],
+    ["Attr"] = [=[攻击吸血+2%]=],
+    ["Weight"] = 100,
+    ["CardEffect"] = [=[可以被吞噬卡6吞噬]=],
+    ["BondID"] = 103,
+    ["Icon"] = [=[StarRail\star_3.tga]=],
+    ["Value1"] = [=[普通卡]=]
+}
+excel[387] = {
+    ["CardName"] = [=[吞噬卡1]=],
+    ["BondName"] = [=[复杂敏捷1]=],
+    ["Attr"] = [=[攻击加成+5%]=],
+    ["Weight"] = 100,
+    ["CardEffect"] = [=[攻击200下,把普通卡1吞噬]=],
+    ["BondID"] = 103,
+    ["Icon"] = [=[StarRail\star_3.tga]=],
+    ["Value1"] = [=[吞噬卡]=],
+    ["Value2"] = 10
+}
+excel[388] = {
+    ["CardName"] = [=[吞噬卡2]=],
+    ["BondName"] = [=[复杂敏捷1]=],
+    ["Attr"] = [=[攻击力+2500]=],
+    ["Weight"] = 100,
+    ["CardEffect"] = [=[攻击200下,把普通卡2吞噬]=],
+    ["BondID"] = 103,
+    ["Icon"] = [=[StarRail\star_3.tga]=],
+    ["Value1"] = [=[吞噬卡]=],
+    ["Value2"] = 10
+}
+excel[389] = {
+    ["CardName"] = [=[吞噬卡3]=],
+    ["BondName"] = [=[复杂敏捷1]=],
+    ["Attr"] = [=[每秒攻击+5]=],
+    ["Weight"] = 100,
+    ["CardEffect"] = [=[攻击200下,把普通卡3吞噬]=],
+    ["BondID"] = 103,
+    ["Icon"] = [=[StarRail\star_3.tga]=],
+    ["Value1"] = [=[吞噬卡]=],
+    ["Value2"] = 10
+}
+excel[390] = {
+    ["CardName"] = [=[吞噬卡4]=],
+    ["BondName"] = [=[复杂敏捷1]=],
+    ["Attr"] = [=[杀敌攻击+1]=],
+    ["Weight"] = 100,
+    ["CardEffect"] = [=[攻击200下,把普通卡4吞噬]=],
+    ["BondID"] = 103,
+    ["Icon"] = [=[StarRail\star_3.tga]=],
+    ["Value1"] = [=[吞噬卡]=],
+    ["Value2"] = 10
+}
+excel[391] = {
+    ["CardName"] = [=[吞噬卡5]=],
+    ["BondName"] = [=[复杂敏捷1]=],
+    ["Attr"] = [=[攻击速度+20%]=],
+    ["Weight"] = 100,
+    ["CardEffect"] = [=[攻击200下,把普通卡5吞噬]=],
+    ["BondID"] = 103,
+    ["Icon"] = [=[StarRail\star_3.tga]=],
+    ["Value1"] = [=[吞噬卡]=],
+    ["Value2"] = 10
+}
+excel[392] = {
+    ["CardName"] = [=[吞噬卡6]=],
+    ["BondName"] = [=[复杂敏捷1]=],
+    ["Attr"] = [=[攻击吸血+2%]=],
+    ["Weight"] = 100,
+    ["CardEffect"] = [=[攻击200下,把普通卡6吞噬]=],
+    ["BondID"] = 103,
+    ["Icon"] = [=[StarRail\star_3.tga]=],
+    ["Value1"] = [=[吞噬卡]=],
+    ["Value2"] = 10
+}
+excel[393] = {
+    ["CardName"] = [=[结局卡]=],
+    ["BondName"] = [=[复杂敏捷1]=],
+    ["Attr"] = [=[攻击间隔-0.05]=],
+    ["Weight"] = 50,
+    ["CardEffect"] = [=[攻击暴击的时候有15%几率再次2倍暴击;攻击暴击的时候有5%几率再次4倍暴击;当攻击速度超过500%,每溢出100%提升你造成的攻击伤害25%(乘法)]=],
+    ["BondID"] = 103,
+    ["Icon"] = [=[StarRail\star_3.tga]=],
+    ["Value1"] = 15,
+    ["Value2"] = 2,
+    ["Value3"] = 5,
+    ["Value4"] = 4,
+    ["Value5"] = 0.25
+}
+excel[401] = {
+    ["CardName"] = [=[普通卡1]=],
+    ["BondName"] = [=[复杂敏捷2]=],
+    ["Attr"] = [=[敏捷+500]=],
+    ["Weight"] = 100,
+    ["SwallowCondition"] = [=[可以被吞噬卡吞噬]=],
+    ["BondID"] = 104,
+    ["Icon"] = [=[StarRail\star_3.tga]=],
+    ["Value1"] = [=[普通卡]=]
+}
+excel[402] = {
+    ["CardName"] = [=[普通卡2]=],
+    ["BondName"] = [=[复杂敏捷2]=],
+    ["Attr"] = [=[每秒敏捷+2]=],
+    ["Weight"] = 100,
+    ["SwallowCondition"] = [=[可以被吞噬卡吞噬]=],
+    ["BondID"] = 104,
+    ["Icon"] = [=[StarRail\star_3.tga]=],
+    ["Value1"] = [=[普通卡]=]
+}
+excel[403] = {
+    ["CardName"] = [=[普通卡3]=],
+    ["BondName"] = [=[复杂敏捷2]=],
+    ["Attr"] = [=[敏捷加成+1%]=],
+    ["Weight"] = 100,
+    ["SwallowCondition"] = [=[可以被吞噬卡吞噬]=],
+    ["BondID"] = 104,
+    ["Icon"] = [=[StarRail\star_3.tga]=],
+    ["Value1"] = [=[普通卡]=]
+}
+excel[404] = {
+    ["CardName"] = [=[普通卡4]=],
+    ["BondName"] = [=[复杂敏捷2]=],
+    ["Attr"] = [=[物理伤害+5%]=],
+    ["Weight"] = 100,
+    ["SwallowCondition"] = [=[可以被吞噬卡吞噬]=],
+    ["BondID"] = 104,
+    ["Icon"] = [=[StarRail\star_3.tga]=],
+    ["Value1"] = [=[普通卡]=]
+}
+excel[405] = {
+    ["CardName"] = [=[普通卡5]=],
+    ["BondName"] = [=[复杂敏捷2]=],
+    ["Attr"] = [=[攻击伤害+5%]=],
+    ["Weight"] = 100,
+    ["SwallowCondition"] = [=[可以被吞噬卡吞噬]=],
+    ["BondID"] = 104,
+    ["Icon"] = [=[StarRail\star_3.tga]=],
+    ["Value1"] = [=[普通卡]=]
+}
+excel[406] = {
+    ["CardName"] = [=[普通卡6]=],
+    ["BondName"] = [=[复杂敏捷2]=],
+    ["Attr"] = [=[攻击速度+10%]=],
+    ["Weight"] = 100,
+    ["SwallowCondition"] = [=[可以被吞噬卡吞噬]=],
+    ["BondID"] = 104,
+    ["Icon"] = [=[StarRail\star_3.tga]=],
+    ["Value1"] = [=[普通卡]=]
+}
+excel[407] = {
+    ["CardName"] = [=[普通卡7]=],
+    ["BondName"] = [=[复杂敏捷2]=],
+    ["Attr"] = [=[攻击暴伤+8%]=],
+    ["Weight"] = 100,
+    ["SwallowCondition"] = [=[可以被吞噬卡吞噬]=],
+    ["BondID"] = 104,
+    ["Icon"] = [=[StarRail\star_3.tga]=],
+    ["Value1"] = [=[普通卡]=]
+}
+excel[408] = {
+    ["CardName"] = [=[普通卡8]=],
+    ["BondName"] = [=[复杂敏捷2]=],
+    ["Attr"] = [=[攻击暴率+1%]=],
+    ["Weight"] = 100,
+    ["SwallowCondition"] = [=[可以被吞噬卡吞噬]=],
+    ["BondID"] = 104,
+    ["Icon"] = [=[StarRail\star_3.tga]=],
+    ["Value1"] = [=[普通卡]=]
+}
+excel[409] = {
+    ["CardName"] = [=[吞噬卡1]=],
+    ["BondName"] = [=[复杂敏捷2]=],
+    ["Attr"] = [=[多重数量+1|n多重几率+10%]=],
+    ["Weight"] = 60,
+    ["CardEffect"] = [=[拿到的瞬间吞噬掉所有普通卡,之后再拿普通卡也会吞噬掉]=],
+    ["BondID"] = 104,
+    ["Icon"] = [=[StarRail\star_3.tga]=]
+}
+excel[410] = {
+    ["CardName"] = [=[结局卡]=],
+    ["BondName"] = [=[复杂敏捷2]=],
+    ["Attr"] = [=[物理暴率+10%]=],
+    ["Weight"] = 50,
+    ["CardEffect"] = [=[对当前目标范围内敌人发射贝塞尔弹道造成单体物理伤害[敏捷*2.5];发射回旋镖,对直线上敌人造成伤害,并且会回到起点(来回各一次[敏捷*1.5]的物理伤害);造成的物理伤害提升(1+物理暴率%)的伤害;吞噬掉吞噬卡]=],
+    ["BondID"] = 104,
+    ["Icon"] = [=[StarRail\star_3.tga]=],
+    ["Value1"] = 5,
+    ["Value2"] = 2.5,
+    ["Value3"] = 1.5
+}
+excel[421] = {
+    ["CardName"] = [=[普通卡1]=],
+    ["BondName"] = [=[复杂智力1]=],
+    ["Attr"] = [=[智力加成+5%]=],
+    ["Weight"] = 100,
+    ["MultiSel"] = 1,
+    ["SwallowCondition"] = [=[可以被吞噬卡吞噬]=],
+    ["BondID"] = 105,
+    ["Icon"] = [=[StarRail\star_3.tga]=],
+    ["Value1"] = [=[普通卡]=]
+}
+excel[422] = {
+    ["CardName"] = [=[普通卡2]=],
+    ["BondName"] = [=[复杂智力1]=],
+    ["Attr"] = [=[法术暴率+3%]=],
+    ["Weight"] = 100,
+    ["MultiSel"] = 1,
+    ["SwallowCondition"] = [=[可以被吞噬卡吞噬]=],
+    ["BondID"] = 105,
+    ["Icon"] = [=[StarRail\star_3.tga]=],
+    ["Value1"] = [=[普通卡]=]
+}
+excel[423] = {
+    ["CardName"] = [=[普通卡3]=],
+    ["BondName"] = [=[复杂智力1]=],
+    ["Attr"] = [=[技能急速+5%]=],
+    ["Weight"] = 100,
+    ["MultiSel"] = 1,
+    ["SwallowCondition"] = [=[可以被吞噬卡吞噬]=],
+    ["BondID"] = 105,
+    ["Icon"] = [=[StarRail\star_3.tga]=],
+    ["Value1"] = [=[普通卡]=]
+}
+excel[424] = {
+    ["CardName"] = [=[普通卡4]=],
+    ["BondName"] = [=[复杂智力1]=],
+    ["Attr"] = [=[智力+1500]=],
+    ["Weight"] = 100,
+    ["MultiSel"] = 1,
+    ["SwallowCondition"] = [=[可以被吞噬卡吞噬]=],
+    ["BondID"] = 105,
+    ["Icon"] = [=[StarRail\star_3.tga]=],
+    ["Value1"] = [=[普通卡]=]
+}
+excel[425] = {
+    ["CardName"] = [=[普通卡5]=],
+    ["BondName"] = [=[复杂智力1]=],
+    ["Attr"] = [=[每秒智力+3|n杀敌智力+0.5]=],
+    ["Weight"] = 100,
+    ["MultiSel"] = 1,
+    ["SwallowCondition"] = [=[可以被吞噬卡吞噬]=],
+    ["BondID"] = 105,
+    ["Icon"] = [=[StarRail\star_3.tga]=],
+    ["Value1"] = [=[普通卡]=]
+}
+excel[426] = {
+    ["CardName"] = [=[吞噬卡1]=],
+    ["BondName"] = [=[复杂智力1]=],
+    ["Attr"] = [=[法术伤害+15%|n法术暴伤+25%]=],
+    ["Weight"] = 100,
+    ["MultiSel"] = 1,
+    ["CardEffect"] = [=[拿到的瞬间吞噬掉所有普通卡,自己不吞噬,最大不超过3次]=],
+    ["BondID"] = 105,
+    ["Icon"] = [=[StarRail\star_3.tga]=]
+}
+excel[427] = {
+    ["CardName"] = [=[结局卡]=],
+    ["BondName"] = [=[复杂智力1]=],
+    ["Attr"] = [=[智力+5000|n智力加成+15%]=],
+    ["Weight"] = 100,
+    ["CardEffect"] = [=[对BOSS,精英造成法术伤害按照目标当前已损失生命值百分比提升1.5%(比如生命值低于50%,那么伤害提升75%);身后位置向前方射出直线冲击波[智力*1]的法术伤害,0.25秒一发,10发,每次随机一个点(直径800内);吞掉所有的吞噬卡1]=],
+    ["BondID"] = 105,
+    ["Icon"] = [=[StarRail\star_3.tga]=],
+    ["Value1"] = 1.5,
+    ["Value2"] = 8,
+    ["Value3"] = 1
+}
+excel[431] = {
+    ["CardName"] = [=[普通卡1]=],
+    ["BondName"] = [=[复杂智力2]=],
+    ["Weight"] = 100,
+    ["SwallowCondition"] = [=[可以被结局卡吞噬]=],
+    ["BondID"] = 106,
+    ["Icon"] = [=[StarRail\star_3.tga]=]
+}
+excel[432] = {
+    ["CardName"] = [=[普通卡2]=],
+    ["BondName"] = [=[复杂智力2]=],
+    ["Attr"] = [=[智力+2500]=],
+    ["Weight"] = 100,
+    ["SwallowCondition"] = [=[可以被结局卡吞噬]=],
+    ["BondID"] = 106,
+    ["Icon"] = [=[StarRail\star_3.tga]=]
+}
+excel[433] = {
+    ["CardName"] = [=[普通卡3]=],
+    ["BondName"] = [=[复杂智力2]=],
+    ["Attr"] = [=[每秒智力+3]=],
+    ["Weight"] = 100,
+    ["SwallowCondition"] = [=[可以被结局卡吞噬]=],
+    ["BondID"] = 106,
+    ["Icon"] = [=[StarRail\star_3.tga]=]
+}
+excel[434] = {
+    ["CardName"] = [=[普通卡4]=],
+    ["BondName"] = [=[复杂智力2]=],
+    ["Attr"] = [=[智力加成+5%]=],
+    ["Weight"] = 100,
+    ["SwallowCondition"] = [=[可以被结局卡吞噬]=],
+    ["BondID"] = 106,
+    ["Icon"] = [=[StarRail\star_3.tga]=]
+}
+excel[435] = {
+    ["CardName"] = [=[普通卡5]=],
+    ["BondName"] = [=[复杂智力2]=],
+    ["Attr"] = [=[杀敌智力+1]=],
+    ["Weight"] = 100,
+    ["SwallowCondition"] = [=[可以被结局卡吞噬]=],
+    ["BondID"] = 106,
+    ["Icon"] = [=[StarRail\star_3.tga]=]
+}
+excel[436] = {
+    ["CardName"] = [=[能量卡1]=],
+    ["BondName"] = [=[复杂智力2]=],
+    ["Weight"] = 75,
+    ["MultiSel"] = 1,
+    ["CardEffect"] = [=[当<能量卡>的羁绊数量大于5,结局卡加入可选卡池]=],
+    ["SwallowCondition"] = [=[杀敌250自己吞噬自己]=],
+    ["BondID"] = 106,
+    ["Icon"] = [=[StarRail\star_3.tga]=],
+    ["Value1"] = 250
+}
+excel[437] = {
+    ["CardName"] = [=[结局卡]=],
+    ["BondName"] = [=[复杂智力2]=],
+    ["Weight"] = 100,
+    ["CardEffect"] = [=[每1秒对范围内敌人造成智力*1.5法术伤害,最多持续4秒,并且昏迷1秒;(冰晶宫)在敌人目标点创建一个图腾,每0.5秒对6个方向发射冲击波,持续5秒;<能量卡>的羁绊数量每1点,提高[输出技能310],10%的最终伤害;吞掉5个普通卡,如果有吞噬卡在也会吞噬,从可选卡池移除整套卡]=],
+    ["BondID"] = 106,
+    ["Icon"] = [=[StarRail\star_3.tga]=],
+    ["Value1"] = 12,
+    ["Value2"] = 1.5,
+    ["Value3"] = 4,
+    ["Value4"] = 15,
+    ["Value5"] = 1.5,
+    ["Value6"] = 5,
+    ["Value7"] = 0.1
+}
+
+return excel

@@ -26,10 +26,10 @@ Treasure.ui             = ui
 local ownedTreasures    = {}
 local drawTreasurePool  = {}
 local drawShowAmount    = { 3, 3, 3, 3 }
-local drawAmount        = { 0, 0, 0, 0 }
+local drawCount         = jass.udg_TreasureDrawCount
 local refreshCount      = { 0, 0, 0, 0 }
 local currentOptions    = {}
-Treasure.drawAmount     = drawAmount
+Treasure.drawCount      = drawCount
 Treasure.drawShowAmount = drawShowAmount
 Treasure.refreshCount   = refreshCount
 
@@ -71,7 +71,7 @@ local function UIInit()
 	UIModule         = require "my_ui.ui_module_manager"
 
 	local wBtn, hBtn = 60, 60
-	local xBtn, yBtn = 1600, 300 -- 功能按钮绝对位置
+	local xBtn, yBtn = 1600, 300
 	ui.openIcon      = uiCreate:CreateUIAbsolute("image", gameui, "中心", 0, 0, wBtn, hBtn, { image = [[]], isShow = false })
 	ui.openIcon:set_point2("中心", xBtn, yBtn)
 	ui.openButton   = ui.openIcon:builder "button" { w = wBtn, h = hBtn, xy = { "中心", ui.openIcon, "中心", 0, 0 } }
@@ -81,7 +81,7 @@ local function UIInit()
 	local uiButton  = ui.openButton
 	uiButton:event "点击" (function()
 		local playerID = common:GetLocalPlayerID()
-		if not inSelecting and drawAmount[playerID] > 0 then
+		if not inSelecting and drawCount[playerID] > 0 then
 			inSelecting = true
 			ui.Show(drawShowAmount[playerID])
 			countDown = 15
@@ -216,8 +216,8 @@ end
 common:ReceiveSync("TreasureDraw")(function()
 	local player = common:GetSyncPlayer()
 	local playerID = common:ConvertPlayerToID(player)
-	if drawAmount[playerID] > 0 then
-		drawAmount[playerID] = drawAmount[playerID] - 1
+	if drawCount[playerID] > 0 then
+		drawCount[playerID] = drawCount[playerID] - 1
 		DrawTreasure(playerID)
 	end
 end)
@@ -232,7 +232,7 @@ local function GetTreasure(playerID, id)
 	if TID == 1 then
 		local diamond = common:GetRandomInt(excel["宝物"][id].Value1, excel["宝物"][id].Value2)
 		playerDiamond[playerID] = playerDiamond[playerID] + diamond
-		code.AddMessage(playerID, "获得钻石: |cfaffff00" .. diamond)
+		code.AddMessage(playerID, "获得木材: |cfaffff00" .. diamond)
 	end
 	if TID == 5 then
 		refreshCount[playerID] = refreshCount[playerID] + excel["宝物"][id].Value1
@@ -260,7 +260,15 @@ local function GetTreasure(playerID, id)
 		local attrName = { "当前力量", "当前敏捷", "当前智力" }
 		local ran = math.RandomInt(1, 3)
 		attrSystem:SetObjAttrEx_Str(heros[playerID], attrName[ran], 0, excel["宝物"][id].Value1)
-		code.AddMessage(playerID, attrName .. "+" .. excel["宝物"][id].Value1 .. "%")
+		code.AddMessage(playerID, attrName[ran] .. "+" .. excel["宝物"][id].Value1 .. "%")
+	end
+	if TID == 18 then
+		jass.udg_EquipSwallowLimit[playerID] = jass.udg_EquipSwallowLimit[playerID] + excel["宝物"][id].Value1
+	end
+	if TID == 19 then
+		local equipLv = math.RandomInt(excel["宝物"][id].Value1, excel["宝物"][id].Value2)
+		local item = require "realization.equip":CreateEquip(playerID, equipLv, 1)
+		code.AddMessage(playerID, "获得装备: " .. common:GetItemTypeData(common:GetItemcode(item), "名字"))
 	end
 	myFunc:SetCustomValue(jass.gg_trg_SelectTreasureLua, "整数", "playerID", playerID)
 	myFunc:SetCustomValue(jass.gg_trg_SelectTreasureLua, "整数", "id", id)
@@ -279,8 +287,8 @@ common:ReceiveSync("SelectTreasure")(function(data)
 	if common:IsLocalPlayer(player) then
 		inSelecting = false
 	end
-	GetTreasure(playerID, id)
 	print("玩家" .. playerID, "获得宝物: " .. id)
+	GetTreasure(playerID, id)
 end)
 common:ReceiveSync("RefreshTreasureDraw")(function(data)
 	local player = common:GetSyncPlayer()
@@ -311,9 +319,9 @@ function Treasure:Init()
 	ac.time(1, function()
 		for playerID, player in ipairs(jass.udg_Player) do
 			if common:IsLocalPlayer(player) then
-				if drawAmount[playerID] > 0 then
+				if drawCount[playerID] > 0 then
 					ui.openIcon:set_show(true)
-					ui.openAmount:set_text(drawAmount[playerID])
+					ui.openAmount:set_text(drawCount[playerID])
 				else
 					ui.openIcon:set_show(false)
 				end
