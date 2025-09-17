@@ -25,10 +25,10 @@ UIModule.Treasure.drawCount[1] = 999
 UIModule.Treasure.refreshCount[1] = 999
 archive:SaveStr(1, "heroSkin", string.rep("b", 6))
 
-equip:CreateEquip(1, 6, 1)
+-- equip:CreateEquip(1, 6, 1)
 -- 英雄升级
 for i = 1, 12, 1 do
-	jass.SetHeroLevel(jass.udg_Hero[1], jass.GetHeroLevel(jass.udg_Hero[1]) + 1, true)
+	-- jass.SetHeroLevel(jass.udg_Hero[1], jass.GetHeroLevel(jass.udg_Hero[1]) + 1, true)
 end
 
 -- 夺舍
@@ -52,4 +52,4 @@ code.SetUnitAttr_Str(jass.udg_Hero[1], "物理暴率%", 50)
 code.SetUnitAttr_Str(jass.udg_Hero[1], "攻击", 1000)
 -- code.SetUnitAttr_Str(jass.udg_Hero[1], "护甲", 1000)
 code.SetUnitAttr_Str(jass.udg_Hero[1], "攻击射程", 1000)
-code.SetUnitAttr_Str(jass.udg_Hero[1], "攻击速度%", 100)
+code.SetUnitAttr_Str(jass.udg_Hero[1], "攻击速度%", 300)

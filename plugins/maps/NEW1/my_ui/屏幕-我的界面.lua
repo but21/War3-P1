@@ -33,7 +33,7 @@ for i = 1, 12, 1 do
 	ui.skillSlots[i] = ui:builder "image" { w = 1, h = 1, xy = { "中心", gameui, "中心", 0, 0 }, image = [[Survival\UI\Console\skillSlot.tga]] }
 end
 ui.decorate = ui:builder "image" { w = 85 * 0.8, h = 119 * 0.8, xy = { "中心", 1485, 45 }, image = [[Survival\UI\Console\kt(3).tga]] }
---init
+
 local function init()
 	japi.DzFrameHideInterface()
 
@@ -213,7 +213,7 @@ local function init()
 	end
 
 	-- 小地图
-	ysui['小地图']:reset_allpoint():set_wh(185, 185):set_point('中心', gameui, '中心', -830, -425)
+	ysui['小地图']:reset_allpoint():set_wh(230, 230):set_point('中心', gameui, '中心', -800, -405)
 
 	-- 唠嗑框
 	ysui['聊天消息']:reset_allpoint():set_wh(500, 185):set_point('中心', gameui, '中心', -700, 0)

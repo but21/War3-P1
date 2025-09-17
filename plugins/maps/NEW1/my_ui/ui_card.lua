@@ -381,9 +381,9 @@ local function InitPlayerBonds()
 		for index, value in ipairs(excel["羁绊列表"]) do
 			availableBonds[playerID][index] = index
 		end
-		for i = 1, excel["羁绊列表"][100].InitAmount, 1 do
-			finalBond[playerID][i] = excel["羁绊列表"][100].FirstID + i - 1
-		end
+        for i = 1, excel["羁绊列表"][100].InitAmount, 1 do
+            finalBond[playerID][i] = excel["羁绊列表"][100].FirstID + i - 1
+        end
 		for i = 1, 6 do
 			if excel["羁绊列表"][100 + i] then
 				specialBonds[playerID][i] = 100 + 1
@@ -1216,7 +1216,6 @@ end
 
 function Card:Init()
 	UIInit()
-
 	InitPlayerBonds()
 end
 

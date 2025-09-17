@@ -1,5 +1,4 @@
-#include "DzAPI.j"                 
-
+#include "DzAPI.j"
 //将resource  跟 plugin 导入到地图中
 <?
     local seach_path
@@ -27,8 +26,7 @@
                  --放到地图文件夹目录下
                 fs.copy_file(path, __map_path__ / target_path, true)
             elseif version == 1.31 or version == 0 then
-                --print("file_name" .. file_name)
-                __map_handle__:add_file(file_name, path)
+                __map_handle__:add_file(target_path, path)
             end
         --end
     end
@@ -41,7 +39,6 @@
                 seach_file(child, root)
             else 
                 --否则 直接处理文件
-                --print(child)
                 input_file(child, root)
             end
         end
@@ -69,28 +66,24 @@
         table.insert(result, '')
         return table.concat(result, '\\')
     end
-    --路径
-    local kkwe_path = [[F:\\KKWE\\]]
-    local map_path = [[maps\\NEW1\\]]
-    local excel_path = [[excel\\NEW1]]
+
 
     local root = fs.path[[plugins\]]
     local code = [[
 local storm = require 'jass.storm'
+
 local is_local = storm.load("war3map.wtg") ~= nil
 if is_local then 
-    local excelPath = ("path" .. "excel\\NEW1\\?.lua;"):gsub('plugins\\', '')
     package.path = package.path .. ";"
     .. "path" .. "?\\init.lua;"
     .. "path" .. "script\\?.lua;"
     .. "path" .. "script\\?\\init.lua;"
-    .. "path" .. "script\\init.lua;"
-    .. "path" .. "maps\\NEW1\\?.lua;"
+    .. "path" .. "script\\core\\?.lua;"
+    .. "path" .. "script\\core\\?\\init.lua;"
+	.. "path" .. "script\\init.lua;"
+	.. "path" .. "maps\\NEW1\\?.lua;"
     .. "path" .. "maps\\NEW1\\?\\init.lua;"
-    .. excelPath
-
     package.local_map_path = "path" 
-
 else 
     package.path = package.path .. ";"
         .. "?\\init.lua;"
@@ -106,21 +99,20 @@ return is_local
 ]]
     code = code:gsub('"path"', string.format("%q",absolute(fs.absolute(root))))
     io.save(root / 'path.lua', code)
-    --seach_file(root, root)
-    if JAPI_PATH then 
-        root = fs.path(JAPI_PATH) / 'plugin'
-
-        local code2 = code:gsub('"path"', string.format("%q",absolute(fs.absolute(root))))
-        io.save(root / 'path.lua', code2)
-        seach_file(root, root)
-    end 
-    local excelPath = fs.path('F:\\KKWE\\excel\\NEW1')
-    seach_file(excelPath, root)
+    seach_file(root, root)
+	local root2 = fs.path[[jass\package\plugin\]]
+	local code2 = code:gsub('"path"', string.format("%q",absolute(fs.absolute(root2))))
+    io.save(root2 / 'path.lua', code2)
+    seach_file(root2, root2)
 ?>
 
+
 //导入内置的jass载入脚本
+
+
 #include "macro.j"
 #include "macro2.j"
 #include "embedded.j"
+
 
 

@@ -1361,13 +1361,14 @@ library japi
         call ExecuteFunc("DoNothing")
         call StartCampaignAI( Player(PLAYER_NEUTRAL_AGGRESSIVE), "callback" )
         call ExecuteFunc("DoNothing")
-        call AbilityId("exec-lua:plugin_main")
+
+		call AbilityId("exec-lua:plugin_main")
 
         return 0
     endfunction
 endlibrary
 
-
+#define Cheat AbilityId
 #define SetCameraBounds(a,b,c,d,e,f,g,h) initializePlugin() YDNL call SetCameraBounds(a,b,c,d,e,f,g,h)
 
 

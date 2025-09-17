@@ -10,6 +10,7 @@ if res then
     print('本地路径')
 else
     print('地图内路径')
+	require "log"
 end
 --[[ xpcall(function ()
     require 'script'
@@ -58,6 +59,8 @@ function Set_string()
     end
 end
 
+-- require "unlock"
+-- require "ysqd"
 
 -- 强制宽屏 
 -- ac.time(1, function ()

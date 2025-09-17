@@ -1,3 +1,4 @@
+require "dataExcel"
 
 --神话给的,暂时不知道有什么用
 local japi = require 'jass.japi'

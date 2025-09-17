@@ -44,7 +44,6 @@ for i = 1, 4 do
 		end
 	end)
 end
-
 local UIModule = require "my_ui.ui_module_manager"
 UIModule.BossComing:Init()
 BaseModule.DamageSystem():Init(UIModule.BossBlood)
