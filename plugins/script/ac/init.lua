@@ -1,4 +1,4 @@
-local jass = require 'jass.common'
+local jass = Jass
 ac         = {}
 ac.game    = {}
 ns         = {}

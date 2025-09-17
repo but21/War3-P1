@@ -1,3 +1,4 @@
+print("\ndebug...\n")
 local code = require 'jass.code'
 local jass = Jass
 local slk = require "jass.slk"
@@ -12,7 +13,6 @@ local excel = Module.Excel
 local archive = Module.Archive
 local equip = require "realization.equip"
 
-print("\ndebug...\n")
 -- equip:CreateEquip(1, 1, 30)
 -- common:CreateItem(equip.allItemType[601], 500, 0)
 jass.udg_PlayerGold[1] = 100000

@@ -1,4 +1,4 @@
-local japi = require "jass.japi"
+local japi = Japi
 local code = require "jass.code"
 
 local Archive = {}

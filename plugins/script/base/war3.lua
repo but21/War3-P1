@@ -1,5 +1,5 @@
 
-local jass = require 'jass.common'
+local jass = Jass
 local debug = require 'jass.debug'
 
 war3 = {}

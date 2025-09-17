@@ -1,8 +1,6 @@
-local jass            = Jass
 local Module          = require "my_base.base_module_manager"
 local uiCreate        = Module.UICreate
 
-local floor           = math.floor
 
 local font            = "fonts\\LXWK_Bold.ttf"
 

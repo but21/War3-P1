@@ -1,6 +1,5 @@
 local code              = require "jass.code"
 local jass              = Jass
-local japi              = require "jass.japi"
 local font              = "fonts\\LXWK_Bold.ttf"
 
 local Module            = require "my_base.base_module_manager"

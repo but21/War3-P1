@@ -1,6 +1,9 @@
 local jass = require "jass.common"
 local japi = require "jass.japi"
 local type = type
+local rawset = rawset
+local rawget = rawget
+
 ---@class  tablelib
 local table = table
 ---@class mathlib
@@ -86,11 +89,11 @@ end
 Jass = {}
 setmetatable(Jass, {
 	__index = function(t, key)
-		Jass[key] = jass[key]
-		if rawget(Jass[key]) then
+		rawset(Jass, key, jass[key])
+		if rawget(Jass, key) then
 			return Jass[key]
 		else
-			Jass[key] = "不存在" .. key
+			-- Jass[key] = "不存在" .. key
 			return print("jass不存在   " .. key)
 		end
 	end
@@ -99,11 +102,11 @@ setmetatable(Jass, {
 Japi = {}
 setmetatable(Japi, {
 	__index = function(t, key)
-		if japi[key] then
-			Japi[key] = japi[key]
+		rawset(Japi, key, japi[key])
+		if rawget(Japi, key) then
 			return Japi[key]
 		else
-			return print("jass不存在   " .. key)
+			return print("japi不存在   " .. key)
 		end
 	end
 })

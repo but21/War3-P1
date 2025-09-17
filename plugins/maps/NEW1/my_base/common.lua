@@ -3,7 +3,7 @@ local code = require 'jass.code'
 -- 原生
 local jass = Jass
 -- 内置
-local japi = require "jass.japi"
+local japi = Japi
 
 ---@class Common
 local Common = {}

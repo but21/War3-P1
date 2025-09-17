@@ -1,6 +1,6 @@
 local japi       = require 'jass.japi'
 local code       = require 'jass.code'
-local jass       = require 'jass.common'
+local jass       = Jass
 local message    = require 'jass.message'
 
 local ns         = ns

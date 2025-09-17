@@ -1,5 +1,5 @@
 local runtime = require 'jass.runtime'
-local jass    = require 'jass.common'
+local jass    = Jass
 
 local xpcall  = xpcall
 local ipairs  = ipairs

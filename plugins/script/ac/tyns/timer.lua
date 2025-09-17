@@ -1,4 +1,4 @@
-local jass = require 'jass.common'
+local jass = Jass
 local ns = ns
 
 ns.time = {}

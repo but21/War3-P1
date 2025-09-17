@@ -1,7 +1,7 @@
 ---@diagnostic disable: discard-returns
 
 log = require 'jass.log'
-local jass = require 'jass.common'
+local jass = Jass
 local console = require 'jass.console'
 local log = log
 

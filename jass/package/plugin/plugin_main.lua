@@ -19,7 +19,7 @@ end) ]]
 require "lib"
 require 'base'
 
-local japi = require "jass.japi"
+local japi = Japi
 japi.SetOwner('问号')
 
 --宽屏模式

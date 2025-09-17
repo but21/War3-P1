@@ -1,7 +1,7 @@
 local dzapi   = require 'jass.dzapi'
 local code    = require 'jass.code'
 local japi    = require 'jass.japi'
-local jass    = require 'jass.common'
+local jass    = Jass
 local gameui  = gameui
 
 local Module  = require "my_base.base_module_manager"

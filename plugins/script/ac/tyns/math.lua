@@ -1,7 +1,7 @@
 local math = math
 
 --由于在网易 double类型的数学函数 在窗口化时 会丢失精度 所以改用魔兽的float单精浮点数 统一丢掉4字节 防止异步
-local jass = require 'jass.common'
+local jass = Jass
 
 --弧度好
 local deg = jass.Rad2Deg(1)

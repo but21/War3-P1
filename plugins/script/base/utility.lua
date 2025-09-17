@@ -1,5 +1,5 @@
 ---@diagnostic disable: lowercase-global, undefined-global
-local jass    = require 'jass.common'
+local jass    = Jass
 local japi    = require 'jass.japi'
 local console = require 'jass.console'
 local runtime = require 'jass.runtime'
