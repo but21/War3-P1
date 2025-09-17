@@ -1,6 +1,6 @@
 local BaseModule = require "my_base.base_module_manager"
 local code       = require "jass.code"
-local jass       = require "jass.common"
+local jass       = Jass
 local myFunc     = BaseModule.MyFunc
 local common     = BaseModule.Common
 local archive    = BaseModule.Archive

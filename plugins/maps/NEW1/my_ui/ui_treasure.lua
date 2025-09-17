@@ -1,4 +1,4 @@
-local jass        = require "jass.common"
+local jass        = Jass
 local code        = require "jass.code"
 local Module      = require "my_base.base_module_manager"
 local myFunc      = Module.MyFunc

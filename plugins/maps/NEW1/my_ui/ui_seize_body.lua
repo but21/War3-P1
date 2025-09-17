@@ -1,6 +1,6 @@
 local Module               = require "my_base.base_module_manager"
 local code                 = require "jass.code"
-local jass                 = require "jass.common"
+local jass                 = Jass
 local font                 = "fonts\\LXWK_Bold.ttf"
 
 local uiCreate             = Module.UICreate

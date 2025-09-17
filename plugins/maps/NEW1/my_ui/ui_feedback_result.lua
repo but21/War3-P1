@@ -1,4 +1,4 @@
-local jass = require "jass.common"
+local jass = Jass
 local japi = require "jass.japi"
 local Module = require "my_base.base_module_manager"
 local uiCreate = Module.UICreate

@@ -1,6 +1,5 @@
 local code = require 'jass.code'
-local jass = require 'jass.common'
-local japi = require 'jass.japi'
+local jass = Jass
 local slk = require "jass.slk"
 
 local UIModule = require "my_ui.ui_module_manager"
@@ -14,7 +13,6 @@ local archive = Module.Archive
 local equip = require "realization.equip"
 
 print("\ndebug...\n")
-
 -- equip:CreateEquip(1, 1, 30)
 -- common:CreateItem(equip.allItemType[601], 500, 0)
 jass.udg_PlayerGold[1] = 100000

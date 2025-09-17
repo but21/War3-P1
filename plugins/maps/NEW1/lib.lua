@@ -1,4 +1,5 @@
 local jass = require "jass.common"
+local japi = require "jass.japi"
 local type = type
 ---@class  tablelib
 local table = table
@@ -81,3 +82,28 @@ end
 function math.RandomReal(min, max)
 	return jass.GetRandomReal(min, max)
 end
+
+Jass = {}
+setmetatable(Jass, {
+	__index = function(t, key)
+		Jass[key] = jass[key]
+		if rawget(Jass[key]) then
+			return Jass[key]
+		else
+			Jass[key] = "不存在" .. key
+			return print("jass不存在   " .. key)
+		end
+	end
+})
+
+Japi = {}
+setmetatable(Japi, {
+	__index = function(t, key)
+		if japi[key] then
+			Japi[key] = japi[key]
+			return Japi[key]
+		else
+			return print("jass不存在   " .. key)
+		end
+	end
+})

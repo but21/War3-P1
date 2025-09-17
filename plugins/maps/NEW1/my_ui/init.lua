@@ -1,5 +1,5 @@
 --require 'ui.message_Refresh'
-local jass  = require "jass.common"
+local jass  = Jass
 local code  = require "jass.code"
 local debug = require 'jass.debug'
 

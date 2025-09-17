@@ -1,4 +1,4 @@
-local jass        = require "jass.common"
+local jass        = Jass
 local japi        = require "jass.japi"
 local ns          = ns
 ns.player         = {}

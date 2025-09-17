@@ -2,7 +2,7 @@
 ---@alias unit number
 
 
-require "lib"
+-- require "lib"
 require 'my_ui'
 require 'my_base'
 require 'realization'

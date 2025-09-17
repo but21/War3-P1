@@ -1,5 +1,5 @@
 local japi = require "jass.japi"
-local jass = require "jass.common"
+local jass = Jass
 local BaseModule = require "my_base.base_module_manager"
 local common = BaseModule.Common
 local myFunc = BaseModule.MyFunc

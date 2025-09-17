@@ -1,4 +1,4 @@
-local jass = require "jass.common"
+local jass = Jass
 local hook = require 'jass.hook'
 
 local Attr_Table = require "ac.tyns.AttrSystem".Attr_Table

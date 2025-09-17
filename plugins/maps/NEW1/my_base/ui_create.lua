@@ -1,7 +1,7 @@
 -- 封装
 local code = require 'jass.code'
 -- 原生
-local jass = require 'jass.common'
+local jass = Jass
 -- 内置
 local japi = require "jass.japi"
 

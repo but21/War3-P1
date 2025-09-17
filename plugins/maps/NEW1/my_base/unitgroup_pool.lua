@@ -1,5 +1,5 @@
 local code = require "jass.code"
-local jass = require "jass.common"
+local jass = Jass
 local japi = require "jass.japi"
 
 local UnitGroupPool = {}

@@ -1,4 +1,4 @@
-local jass = require "jass.common"
+local jass = Jass
 local dzapi = require "jass.dzapi"
 local code = require "jass.code"
 local japi = require "jass.japi"

@@ -1,5 +1,5 @@
 local ac = ac
-local jass = require "jass.common"
+local jass = Jass
 
 --简用
 --如果在函数内使用return false就会退出循环

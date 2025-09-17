@@ -1,5 +1,5 @@
 local Module                 = require "my_base.base_module_manager"
-local jass                   = require "jass.common"
+local jass                   = Jass
 local code                   = require "jass.code"
 local excelStm               = Module.ExcelSystem
 local myFunc                 = Module.MyFunc

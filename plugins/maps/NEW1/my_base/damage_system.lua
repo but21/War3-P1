@@ -1,7 +1,7 @@
 -- 封装(包括内置)
 local code = require 'jass.code'
 -- 原生
-local jass = require 'jass.common'
+local jass = Jass
 -- YDWE
 local japi = require "jass.japi"
 
@@ -10,7 +10,6 @@ local myFunc = Module.MyFunc
 local attrSystem = Module.AttrSystem
 local common = Module.Common
 local htSeizeBody = jass.udg_HTSeizeBodyID
-local htMagicalPower = jass.udg_HTMagicalPower
 local excel = Module.Excel
 local math = math
 local players = jass.udg_Player
@@ -33,7 +32,6 @@ end
 for i = 1, #num do
 	_floatTextModel['物理伤害'][num:sub(i, i)] = 'Survival\\FloatText\\character_TD_' .. num:sub(i, i) .. '.mdx'
 end
-
 local _scale = 1
 local _d = 40 * _scale
 local function _DamageText(damage, damageType, x, y, z, playerID)
@@ -93,7 +91,6 @@ local function _DamageText(damage, damageType, x, y, z, playerID)
 		common:DestroyEffect(effect)
 	end
 end
-
 ---@param bossBlood BossBlood
 function DamageSystem:Init(bossBlood)
 	DamageSystem.bossBlood = bossBlood

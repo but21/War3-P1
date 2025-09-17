@@ -1,6 +1,6 @@
 local BaseModule      = require "my_base.base_module_manager"
 local code            = require "jass.code"
-local jass            = require "jass.common"
+local jass            = Jass
 local players         = jass.udg_Player
 local myFunc          = BaseModule.MyFunc
 local uiCreate        = BaseModule.UICreate

@@ -1,5 +1,5 @@
 local ns = ns
-local jass = require "jass.common"
+local jass = Jass
 local japi = require "jass.japi"
 local event = {}
 

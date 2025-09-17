@@ -1,7 +1,7 @@
 local console = require 'jass.console'
 local message = require 'jass.message'
 local code = require 'jass.code'
-local jass = require 'jass.common'
+local jass = Jass
 print = console.write 
 for name, func in pairs(jass) do 
     _G[name] = func

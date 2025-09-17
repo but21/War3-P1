@@ -1,5 +1,5 @@
 local code           = require "jass.code"
-local jass           = require "jass.common"
+local jass           = Jass
 local debug          = require 'jass.debug'
 local japi           = require "jass.japi"
 local BaseModule     = require "my_base.base_module_manager"

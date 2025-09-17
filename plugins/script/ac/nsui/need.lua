@@ -1,7 +1,7 @@
 --i need bitch
 
 --设置常用文件
-local jass = require "jass.common"
+local jass = Jass
 local japi = require "jass.japi"
   
 
