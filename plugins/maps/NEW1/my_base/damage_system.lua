@@ -129,13 +129,7 @@ function code.DamageSystem()
 		local heroX = common:GetUnitX(hero)
 		local heroY = common:GetUnitY(hero)
 		-- local heroP = Common:GetUnitLoc(hero)
-		-- 护甲
-		local armor = common:GetUnitState(triggerUnit, "护甲")
-		-- 伤害减免
-		local damageReduce = attrSystem:GetObjAttrFromStr(triggerUnit, "伤害减免%")
 		local avoidDamage = attrSystem:GetObjAttrFromStr(triggerUnit, "免伤几率%")
-
-
 
 		-- 判断是否是boss, 是的话则显示血条
 		if myFunc:GetCustomValue(triggerUnit, "真值", "IsBOSS") then
@@ -146,51 +140,14 @@ function code.DamageSystem()
 		if common:GetRandomInt(1, 100) <= avoidDamage / (100 + avoidDamage) * 100 then
 			damage = 0
 			common:SetEventDamage(damage)
-			print("伤害免疫")
 			return
 		end
 
 
-		--#region 调整英雄普攻
-		if common:IsEventAttackType(common.AtkTypeMelee) then
-			damage = attrSystem:GetObjAttrFromStr(hero, "面板攻击")
-			local critValue = attrSystem:GetObjAttrFromStr(hero, "攻击暴率%")
-			local attackAddition = attrSystem:GetObjAttrFromStr(hero, "结算攻击伤害%")
-			local critDamage = attrSystem:GetObjAttrFromStr(hero, "结算攻击暴伤%")
-
-			--#region 判断普攻是否暴击并调整伤害
-			if common:GetRandomInt(1, 100) <= critValue then -- 暴击
-				damage = damage * critDamage * attackAddition
-				if code.IsBondCompleted(playerID, 25) then
-					damage = damage * excel["羁绊列表"][25].Value1
-				end
-				if code.IsCardOwned(playerID, 393) then
-					local pro = common:GetRandomInt(1, 100)
-					if pro <= excel["卡牌"][393].Value1 then
-						damage = damage * excel["卡牌"][393].Value2
-						if pro <= excel["卡牌"][393].Value3 then
-							damage = damage * excel["卡牌"][393].Value4
-						end
-					end
-				end
-			else
-				-- 不暴击
-				damage = damage * attackAddition
-			end
-			--#endregion
-
-			if code.IsCardOwned(playerID, 75) then
-				local extraDamage = common:GetUnitState(hero, "最大生命值") * excel["卡牌"][75].Value1
-				if common:IsEventWeaponType(common.WeaponTypeMLC) then
-					extraDamage = extraDamage * attrSystem:GetObjAttrFromStr(hero, "结算物理暴伤%")
-					common:UnitDamageTarget(hero, triggerUnit, extraDamage, false, false, common.AtkTypeHero, common.DamageTypeUniversal, common.WeaponTypeMLC)
-				else
-					common:UnitDamageTarget(hero, triggerUnit, extraDamage, false, false, common.AtkTypeHero, common.DamageTypeUniversal, common.WeaponTypeNone)
-				end
-			end
+		local isCrit = false
+		if common:IsEventWeaponType(common.WeaponTypeMLC) then
+			isCrit = true
 		end
-		--#endregion
-
 
 		--#region 通用伤害加成
 		if code.IsBondCompleted(playerID, 23) then
@@ -205,6 +162,17 @@ function code.DamageSystem()
 			if myFunc:GetCustomValue(triggerUnit, "真值", "IsBOSS") then
 				damage = damage * excel["装备"][617].Value1
 			end
+		end
+
+		damage = damage * (attrSystem:GetObjAttrFromStr(hero, "对怪物增伤%") * 0.01 + 1)
+		if myFunc:GetCustomValue(triggerUnit, "真值", "Is小怪") then
+			damage = damage * (attrSystem:GetObjAttrFromStr(hero, "对小怪增伤%") * 0.01 + 1)
+		end
+		if myFunc:GetCustomValue(triggerUnit, "真值", "Is挑战怪") then
+			damage = damage * (attrSystem:GetObjAttrFromStr(hero, "对挑战怪增伤%") * 0.01 + 1)
+		end
+		if myFunc:GetCustomValue(triggerUnit, "真值", "IsBOSS") then
+			damage = damage * (attrSystem:GetObjAttrFromStr(hero, "对首领增伤%") * 0.01 + 1)
 		end
 		--#endregion 通用伤害加成
 
@@ -221,18 +189,68 @@ function code.DamageSystem()
 
 			_DamageText(damage, "真实伤害", enemyX, enemyY, 250, playerID)
 			common:SetEventDamage(damage)
-			DisplayTextToPlayer(jass.udg_Player[playerID], 0, 0, "|cfffc00a8真实伤害: " .. myFunc:NumToChinese(damage))
+			-- DisplayTextToPlayer(jass.udg_Player[playerID], 0, 0, "|cfffc00a8真实伤害: " .. myFunc:NumToChinese(damage))
 			return
 		end
 		--#endregion
 
 
+		-- 护甲
+		local armor = common:GetUnitState(triggerUnit, "护甲")
+		armor = armor - attrSystem:GetObjAttrFromStr(hero, "护甲固穿")
+		armor = math.max(0, armor - armor * attrSystem:GetObjAttrFromStr(hero, "护甲穿透%"))
+		-- 伤害减免
+		local damageReduce = attrSystem:GetObjAttrFromStr(triggerUnit, "伤害减免%") * 0.01
+		local maxArmor = attrSystem:GetObjAttrFromStr(triggerUnit, "护甲减免上限%") * 0.01 + 0.9
+		local extraDamage = attrSystem:GetObjAttrFromStr(triggerUnit, "承受伤害") * 0.01 + 1
 		--护甲和伤害减免
-		damage = damage * (100 / (100 + armor)) * (100 / (100 + damageReduce))
+		damage = damage * (1 - armor * maxArmor / (armor + 200)) * (1 / (1 + damageReduce)) * extraDamage
 
 
-		--#region攻击伤害/多重箭
+		--#region 物理伤害和普攻伤害都吃的加成
+		if common:IsEventAttackType(common.AtkTypeHero) or common:IsEventAttackType(common.AtkTypeMelee) or common:IsEventAttackType(common.AtkTypePierce) then
+			if code.IsBondCompleted(playerID, 13) then
+				damage = damage * excel["羁绊列表"][13].Value1
+			end
+
+			if code.IsCardOwned(playerID, 378) then
+				damage = damage * excel["卡牌"][378].Value2
+			end
+
+			if code.IsCardOwned(playerID, 410) then
+				damage = damage * (1 + 0.01 * attrSystem:GetObjAttrFromStr(hero, "物理暴率%"))
+			end
+			if isCrit then
+				if code.IsBondCompleted(playerID, 2) then
+					if common:GetRandomInt(1, 100) <= excel["卡牌"][31].Value1 then
+						damage = damage * excel["卡牌"][31].Value2
+					end
+				end
+			end
+		end
+		--#endregion
+
+
+		--#region 结算攻击伤害/多重箭
 		if common:IsEventAttackType(common.AtkTypeMelee) or common:IsEventAttackType(common.AtkTypePierce) then
+			-- 攻击闪避
+			local atkAvoid = attrSystem:GetObjAttrFromStr(triggerUnit, "攻击闪避率%")
+			if common:GetRandomInt(1, 100) <= atkAvoid then
+				common:SetEventDamage(0)
+				return
+			end
+
+
+			local critDamage = attrSystem:GetObjAttrFromStr(hero, "结算攻击暴伤%")
+
+			-- 判断普攻/多重箭是否暴击并调整伤害
+			if isCrit then
+				damage = damage * critDamage
+				if code.IsBondCompleted(playerID, 25) then
+					damage = damage * excel["羁绊列表"][25].Value1
+				end
+			end
+
 			if common:LoadInteger(htSeizeBody, playerID, 9) == 1 then
 				damage = damage * excel["夺舍"][9].Value1
 			end
@@ -274,65 +292,79 @@ function code.DamageSystem()
 					damage = damage * (1 + (attrSystem:GetObjAttrFromStr(hero, "攻击速度%") - 500) / 100 * excel["卡牌"][393].Value5)
 				end
 			end
-
-			-- 普攻吸血
-			if common:IsEventAttackType(common.AtkTypeMelee) then
-				local atkRecover = attrSystem:GetObjAttrFromStr(hero, "攻击吸血%")
-				atkRecover = atkRecover / (100 + atkRecover)
-
-				if code.IsBondCompleted(playerID, 12) then
-					if common:GetUnitState(hero, "生命百分比") <= excel["羁绊列表"][12].Value1 then
-						atkRecover = atkRecover * excel["羁绊列表"][12].Value2
+			if code.IsCardOwned(playerID, 393) then
+				local pro = common:GetRandomInt(1, 100)
+				if pro <= excel["卡牌"][393].Value1 then
+					damage = damage * excel["卡牌"][393].Value2
+					if pro <= excel["卡牌"][393].Value3 then
+						damage = damage * excel["卡牌"][393].Value4
 					end
 				end
-
-				common:SetUnitState(hero, "生命值", common:GetUnitState(hero, "生命值") + damage * atkRecover)
+			end
+			if code.IsCardOwned(playerID, 75) then
+				local extraDamage = common:GetUnitState(hero, "最大生命值") * excel["卡牌"][75].Value1
+				if isCrit then
+					extraDamage = extraDamage * attrSystem:GetObjAttrFromStr(hero, "结算物理暴伤%")
+					common:UnitDamageTarget(hero, triggerUnit, extraDamage, false, false, common.AtkTypeHero, common.DamageTypeUniversal, common.WeaponTypeMLC)
+				else
+					common:UnitDamageTarget(hero, triggerUnit, extraDamage, false, false, common.AtkTypeHero, common.DamageTypeUniversal, common.WeaponTypeNone)
+				end
 			end
 
+			--普攻吸血
+			local atkRecover = attrSystem:GetObjAttrFromStr(hero, "攻击吸血")
+
+			if code.IsBondCompleted(playerID, 12) then
+				if common:GetUnitState(hero, "生命百分比") <= excel["羁绊列表"][12].Value1 then
+					atkRecover = atkRecover * excel["羁绊列表"][12].Value2
+				end
+			end
+
+			local physicsSteal = attrSystem:GetObjAttrFromStr(hero, "物理偷取%") * 0.01 + 1
+			physicsSteal = damage * physicsSteal
+			physicsSteal = math.min(physicsSteal, 0.05 * common:GetUnitState(hero, "最大生命值"))
+
+			common:SetUnitState(hero, "生命值", common:GetUnitState(hero, "生命值") + atkRecover + physicsSteal)
+
+
+			-- 物理固伤
+			damage = damage + attrSystem:GetObjAttrFromStr(hero, "结算物理固伤")
 			_DamageText(damage, "攻击伤害", enemyX, enemyY, 250, playerID)
 			common:SetEventDamage(damage)
-			DisplayTextToPlayer(jass.udg_Player[playerID], 0, 0, "|cff00fd4c普攻: " .. myFunc:NumToChinese(damage))
+			-- DisplayTextToPlayer(jass.udg_Player[playerID], 0, 0, "|cff00fd4c普攻: " .. myFunc:NumToChinese(damage))
 			return
 		end
 		--#endregion
 
+		-- 技能闪避
+		local atkAvoid = attrSystem:GetObjAttrFromStr(triggerUnit, "技能闪避率%")
+		if common:GetRandomInt(1, 100) <= atkAvoid then
+			common:SetEventDamage(0)
+			return
+		end
 
-		--#region 物理伤害
+		--#region 结算物理技能伤害
 		if common:IsEventAttackType(common.AtkTypeHero) == true then
-			if common:IsEventWeaponType(common.WeaponTypeMLC) then
-				if code.IsBondCompleted(playerID, 2) then
-					if common:GetRandomInt(1, 100) <= excel["卡牌"][31].Value1 then
-						damage = damage * excel["卡牌"][31].Value2
-					end
-				end
-			end
+			local physicsSteal = attrSystem:GetObjAttrFromStr(hero, "物理偷取%") * 0.01 + 1
+			physicsSteal = damage * physicsSteal
+			physicsSteal = math.min(physicsSteal, 0.05 * common:GetUnitState(hero, "最大生命值"))
 
-			if code.IsBondCompleted(playerID, 13) then
-				damage = damage * excel["羁绊列表"][13].Value1
-			end
 
-			if code.IsCardOwned(playerID, 378) then
-				damage = damage * excel["卡牌"][378].Value2
-			end
+			local skillRecover = attrSystem:GetObjAttrFromStr(hero, "技能吸血")
+			common:SetUnitState(hero, "生命值", common:GetUnitState(hero, "生命值") + skillRecover + physicsSteal)
 
-			if code.IsCardOwned(playerID, 410) then
-				damage = damage * (1 + 0.01 * attrSystem:GetObjAttrFromStr(hero, "物理暴率%"))
-			end
-
-			local skillRecover = attrSystem:GetObjAttrFromStr(hero, "技能吸血%")
-			skillRecover = skillRecover / (100 + skillRecover)
-			common:SetUnitState(hero, "生命值", common:GetUnitState(hero, "生命值") + damage * skillRecover)
+			damage = damage + attrSystem:GetObjAttrFromStr(hero, "结算物理固伤")
 			_DamageText(damage, "物理伤害", enemyX, enemyY, 250, playerID)
 			common:SetEventDamage(damage)
-			DisplayTextToPlayer(jass.udg_Player[playerID], 0, 0, "|cffefa00d物理伤害: " .. myFunc:NumToChinese(damage))
+			-- DisplayTextToPlayer(jass.udg_Player[playerID], 0, 0, "|cffefa00d物理伤害: " .. myFunc:NumToChinese(damage))
 			return
 		end
 		--#endregion 物理伤害
 
 
-		--#region 法术伤害
+		--#region 结算法术技能伤害
 		if common:IsEventAttackType(common.AtkTypeNormal) == true then
-			if common:IsEventWeaponType(common.WeaponTypeMLC) then
+			if isCrit then
 				if code.IsBondCompleted(playerID, 16) then
 					if common:GetRandomInt(1, 100) <= excel["羁绊列表"][16].Value1 then
 						myFunc:SetCustomValue(jass.gg_trg_Bond_16, "整数", "playerID", playerID)
@@ -363,12 +395,17 @@ function code.DamageSystem()
 				end
 			end
 
-			local skillRecover = attrSystem:GetObjAttrFromStr(hero, "技能吸血%")
-			skillRecover = skillRecover / (100 + skillRecover)
-			common:SetUnitState(hero, "生命值", common:GetUnitState(hero, "生命值") + damage * skillRecover)
+			local magicSteal = attrSystem:GetObjAttrFromStr(hero, "法术偷取%") * 0.01 + 1
+			magicSteal = damage * magicSteal
+			magicSteal = math.min(magicSteal, 0.05 * common:GetUnitState(hero, "最大生命值"))
+
+			local skillRecover = attrSystem:GetObjAttrFromStr(hero, "技能吸血")
+			common:SetUnitState(hero, "生命值", common:GetUnitState(hero, "生命值") + skillRecover + magicSteal)
+
+			damage = damage + attrSystem:GetObjAttrFromStr(hero, "结算法术固伤")
 			_DamageText(damage, "法术伤害", enemyX, enemyY, 250, playerID)
 			common:SetEventDamage(damage)
-			DisplayTextToPlayer(jass.udg_Player[playerID], 0, 0, "|cff008afc法术伤害: " .. myFunc:NumToChinese(damage))
+			-- DisplayTextToPlayer(jass.udg_Player[playerID], 0, 0, "|cff008afc法术伤害: " .. myFunc:NumToChinese(damage))
 			return
 		end
 		--#endregion
@@ -418,6 +455,11 @@ function code.DamageSystem()
 				if common:LoadInteger(htSeizeBody, playerID, 10) == 1 then
 					damage = damage * excel["夺舍"][10].Value1
 				end
+				-- 技能闪避
+				local atkAvoid = attrSystem:GetObjAttrFromStr(triggerUnit, "技能闪避率%")
+				if common:GetRandomInt(1, 100) <= atkAvoid then
+					common:SetEventDamage(0)
+				end
 			end
 
 			if common:IsAttackDamage() then
@@ -434,6 +476,11 @@ function code.DamageSystem()
 					if common:GetRandomInt(1, 100) <= excel["夺舍"][11].Value3 then
 						damage = 0
 					end
+				end
+				-- 攻击闪避
+				local atkAvoid = attrSystem:GetObjAttrFromStr(triggerUnit, "攻击闪避率%")
+				if common:GetRandomInt(1, 100) <= atkAvoid then
+					common:SetEventDamage(0)
 				end
 			end
 

@@ -43,7 +43,7 @@ function Event:Init(common)
 		if _listeners[eventName] and _listeners[eventName][playerID] then
 			-- 遍历并执行所有监听器
 			for i = #_listeners[eventName][playerID], 1, -1 do
-				_listeners[eventName][playerID][i](..., _listeners[eventName][playerID][i])
+				_listeners[eventName][playerID][i](_listeners[eventName][playerID][i], playerID, ...)
 			end
 		end
 	end
@@ -77,6 +77,7 @@ function Event:Init(common)
 	--#region 触发英雄攻击事件
 	function code.HeroAtk(attacker, target)
 		local playerID = common:ConvertPlayerToID(common:GetOwningPlayer(attacker))
+		-- print( "fjsd", playerID, attacker, target)
 		Event:Emit("HeroAtk", playerID, attacker, target)
 	end
 

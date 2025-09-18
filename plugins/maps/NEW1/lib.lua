@@ -1,9 +1,9 @@
 local jass = require "jass.common"
 local japi = require "jass.japi"
-local type = type
 local rawset = rawset
 local rawget = rawget
 
+local type = type
 ---@class  tablelib
 local table = table
 ---@class mathlib

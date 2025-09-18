@@ -242,7 +242,7 @@ local function GetTreasure(playerID, id)
 	end
 	if TID == 9 then
 		local count = 0
-		local function HeroKill(killer, dead)
+		local function HeroKill()
 			count = count + 1
 			if count == excel["宝物"][id].Value1 then
 				local gold = math.RandomInt(excel["宝物"][id].Value2, excel["宝物"][id].Value3)

@@ -65,23 +65,23 @@ local function EquipInit()
 
 	for playerID = 1, 4 do
 		if common:PlayerInGame(common.Player[playerID]) then
-			event:On("HeroAtk", playerID, function(hero, target, self)
+			event:On("HeroAtk", playerID, function(self, pID, hero, target)
 				if code.IsEquipPassiveOwned(playerID, 5) then
 					local val = excel["装备"][5].Value1
-					playerGold[playerID] = playerGold[playerID] + val * (1 + 0.01 * attrSystem:GetObjAttrFromStr(hero, "金币加成"))
+					playerGold[playerID] = playerGold[playerID] + val
 				end
 				if code.IsEquipPassiveOwned(playerID, 8) then
 					local val = math.RandomInt(excel["装备"][8].Value1, excel["装备"][8].Value2)
 					attrSystem:SetObjAttrEx_Str(hero, "智力", 0, val)
 				end
 			end)
-			event:On("HeroAtked", playerID, function(atker, hero, self)
+			event:On("HeroAtked", playerID, function(self, pID, atker, hero)
 				if code.IsEquipPassiveOwned(playerID, 3) then
 					local val = math.RandomInt(excel["装备"][3].Value1, excel["装备"][3].Value2)
 					attrSystem:SetObjAttrEx_Str(hero, "生命", 0, val)
 				end
 			end)
-			event:On("HeroLvUp", playerID, function(hero, self)
+			event:On("HeroLvUp", playerID, function(self, pID, hero)
 				if code.IsEquipPassiveOwned(playerID, 8) then
 					local val = excel["装备"][6].Value1
 					local ranIndex = math.RandomInt(1, 3)
@@ -97,7 +97,7 @@ local function EquipInit()
 				end
 			end)
 			local killCount = 0
-			event:On("HeroKill", playerID, function(hero, target, self)
+			event:On("HeroKill", playerID, function(self, pID, hero, target)
 				if code.IsEquipPassiveOwned(playerID, 10) then
 					killCount = killCount + 1
 					if killCount >= excel["装备"][10].Value1 then
@@ -283,7 +283,7 @@ function code.SwallowEquip(playerID, equipID)
 	end
 	if equipID == 616 then
 		local count = 0
-		event:On("HeroLvUp", playerID, function(hero, self)
+		event:On("HeroLvUp", playerID, function(self, pID, hero)
 			local val = excel["装备"][equipID].Value1
 			count = count + val
 			attrSystem:SetObjAttrEx_Str(heros[playerID], "法术暴率%", 0, val)
@@ -311,6 +311,5 @@ function code.SwallowEquip(playerID, equipID)
 		attrSystem:SetObjAttrEx_Str(heros[playerID], "绝对伤害", 0, #swallowEquip2[playerID] * excel["装备"][equipID].Value1)
 	end
 end
-
 
 return Equip

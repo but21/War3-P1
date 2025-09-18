@@ -1,18 +1,20 @@
-local BaseModule = require "my_base.base_module_manager"
-local code       = require "jass.code"
-local jass       = Jass
-local myFunc     = BaseModule.MyFunc
-local common     = BaseModule.Common
-local archive    = BaseModule.Archive
-local players    = jass.udg_Player
-local math       = math
-local excel      = BaseModule.Excel
-local font       = "fonts\\LXWK_Bold.ttf"
-local attrStm    = BaseModule.AttrSystem
+local BaseModule  = require "my_base.base_module_manager"
+local code        = require "jass.code"
+local jass        = Jass
+local myFunc      = BaseModule.MyFunc
+local common      = BaseModule.Common
+local archive     = BaseModule.Archive
+local players     = jass.udg_Player
+local math        = math
+local excel       = BaseModule.Excel
+local font        = "fonts\\LXWK_Bold.ttf"
+local attrStm     = BaseModule.AttrSystem
+local playerWoods = jass.udg_PlayerDiamond
+local heros       = jass.udg_Hero
 
-local BossComing = {}
-local ui         = {}
-BossComing.ui    = ui
+local BossComing  = {}
+local ui          = {}
+BossComing.ui     = ui
 
 function BossComing:Init()
 	ui.background = gameui:builder 'image' { w = 1920, h = 1080, xy = { "中心", gameui, "中心", 0, 0 }, image = [[Survival\UI\BossComing.tga]], show = false }
@@ -76,23 +78,6 @@ function code.BossComing(playerID, bossID)
 	if bossID == 85 then
 		jass.udg_IsGameStart = false
 	end
-	-- ac.time(1, function(self)
-	-- 	if jass.udg_GameResult > 0 then
-	-- 		if common:IsLocalPlayer(players[playerID]) then
-	-- 			ui.countdownBg:set_show(true)
-	-- 			ui.countdownText:set_text(90 - self.lostcount .. "秒")
-	-- 		end
-	-- 		code.GameWin()
-	-- 		if common:IsLocalPlayer(players[playerID]) then
-	-- 			ui.countdownBg:set_show(false)
-	-- 		end
-	-- 		self:rem()
-	-- 	end
-	-- 	if self.lostcount == 90 then
-	-- 		code.GameFailed(playerID)
-	-- 		self:rem()
-	-- 	end
-	-- end)
 	if common:IsLocalPlayer(common.Player[playerID]) then
 		ui.background:set_show(true)
 		ui.background:set_wh(1729 * 0.7, 332 * 0.7)
@@ -123,7 +108,8 @@ end
 function code.KillAttackBoss()
 	maxTime = 0
 	for playerID, player in ipairs(players) do
-		jass.udg_PlayerDiamond[playerID] = jass.udg_PlayerDiamond[playerID] + jass.udg_KillBossDiamond[playerID] * (1 + 0.01 * attrStm:GetObjAttrFromStr(jass.udg_Hero[playerID], "木材加成"))
+		playerWoods[playerID] = playerWoods[playerID] +
+			(jass.udg_KillBossDiamond[playerID] + attrStm:GetObjAttrFromStr(heros[playerID], "杀敌木材")) * (1 + 0.01 * attrStm:GetObjAttrFromStr(heros[playerID], "木材加成"))
 		local treasure = require "my_ui.ui_treasure"
 		treasure.drawCount[playerID] = treasure.drawCount[playerID] + 1
 	end

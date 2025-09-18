@@ -22,15 +22,18 @@ local attr_d = {
 	{ key = 5, value = "敏捷" },
 	{ key = 6, value = "智力" },
 	{ key = 7, value = "全属" },
-	{ key = 8, value = "已丢弃" },
+	{ key = 8, value = "移动速度" },
 	{ key = 9, value = "攻击速度%" },
 	{ key = 10, value = "攻击间隔" },
 	{ key = 11, value = "攻击射程" },
 	{ key = 12, value = "多重数量" },
 	{ key = 13, value = "多重几率%" },
 	{ key = 14, value = "多重伤害系数" },
-	{ key = 15, value = "技能急速%" },
+	{ key = 15, value = "技能急速" },
 	{ key = 16, value = "魔法值" },
+	{ key = 17, value = "物理固伤" },
+	{ key = 18, value = "法术固伤" },
+	{ key = 19, value = "固定生命" },
 
 	-- 杀敌
 	{ key = 21, value = "杀敌攻击" },
@@ -41,8 +44,12 @@ local attr_d = {
 	{ key = 26, value = "杀敌智力" },
 	{ key = 27, value = "杀敌全属" },
 	{ key = 28, value = "杀敌金币" },
+	{ key = 29, value = "杀敌物理固伤" },
+	{ key = 30, value = "杀敌法术固伤" },
+	{ key = 31, value = "杀敌木材" },
 
-	-- 40 每秒
+
+	-- 每秒
 	{ key = 41, value = "每秒攻击" },
 	{ key = 42, value = "每秒护甲" },
 	{ key = 43, value = "每秒生命" },
@@ -53,8 +60,11 @@ local attr_d = {
 	{ key = 48, value = "每秒金币" },
 	{ key = 49, value = "每秒杀敌" },
 	{ key = 50, value = "每秒木材" },
+	{ key = 51, value = "每秒物理固伤" },
+	{ key = 52, value = "每秒法术固伤" },
 
-	-- 60 加成
+
+	-- 加成
 	{ key = 61, value = "攻击加成%" },
 	{ key = 62, value = "护甲加成%" },
 	{ key = 63, value = "生命加成%" },
@@ -65,8 +75,9 @@ local attr_d = {
 	{ key = 68, value = "杀敌加成%" },
 	{ key = 69, value = "木材加成%" },
 	{ key = 70, value = "经验加成%" },
+	{ key = 71, value = "全属性加成%" },
 
-	-- 80 伤害
+	-- 伤害
 	{ key = 81, value = "攻击伤害%" },
 	{ key = 82, value = "物理伤害%" },
 	{ key = 83, value = "法术伤害%" },
@@ -79,16 +90,31 @@ local attr_d = {
 	{ key = 90, value = "物理暴伤%" },
 	{ key = 91, value = "法术暴伤%" },
 	{ key = 92, value = "真实伤害%" },
+	{ key = 93, value = "伤害增幅%" },
+	{ key = 94, value = "技能伤害%" },
+	{ key = 95, value = "暴击率%" },
+	{ key = 96, value = "技能暴率%" },
+	{ key = 97, value = "物理固伤增幅%" },
+	{ key = 98, value = "法术固伤增幅%" },
+	{ key = 99, value = "护甲穿透%" },
+	{ key = 100, value = "护甲固穿%" },
 
-	-- 100 生存
+	-- 生存
 	{ key = 101, value = "每秒回血" },
 	{ key = 102, value = "每秒百分比回血%" },
-	{ key = 103, value = "攻击吸血%" },
-	{ key = 104, value = "技能吸血%" },
+	{ key = 103, value = "攻击吸血" },
+	{ key = 104, value = "技能吸血" },
 	{ key = 105, value = "伤害减免%" },
 	{ key = 106, value = "免伤几率%" },
+	{ key = 107, value = "每秒回血加成%" },
+	{ key = 108, value = "物理偷取%" },
+	{ key = 109, value = "法术偷取%" },
+	{ key = 110, value = "护甲减免上限%" },
+	{ key = 111, value = "攻击闪避率%" },
+	{ key = 112, value = "技能闪避率%" },
+	{ key = 113, value = "承受伤害%" },
 
-	-- 120 结算
+	-- 结算
 	{ key = 121, value = "结算物理伤害%" },
 	{ key = 122, value = "结算法术伤害%" },
 	{ key = 123, value = "结算攻击伤害%" },
@@ -97,16 +123,18 @@ local attr_d = {
 	{ key = 126, value = "结算攻击暴伤%" },
 	{ key = 127, value = "结算多重伤害%" },
 	{ key = 128, value = "结算真实伤害%" },
-	{ key = 129, value = "结算技能急速%" },
+	{ key = 129, value = "结算技能急速" },
 
-	-- 140 面板
+	-- 面板
 	{ key = 141, value = "面板攻击" },
 	{ key = 142, value = "面板力量" },
 	{ key = 143, value = "面板敏捷" },
 	{ key = 144, value = "面板智力" },
 	{ key = 145, value = "面板每秒回血" },
+	{ key = 146, value = "面板物理固伤" },
+	{ key = 147, value = "面板法术固伤" },
 
-	-- 160 当前
+	-- 当前
 	{ key = 161, value = "当前力量%" },
 	{ key = 162, value = "当前敏捷%" },
 	{ key = 163, value = "当前智力%" },
@@ -115,6 +143,48 @@ local attr_d = {
 	{ key = 166, value = "当前攻击伤害%" },
 	{ key = 167, value = "当前金币%" },
 	{ key = 168, value = "当前杀敌%" },
+
+	-- 伤害2
+	{ key = 181, value = "卡牌伤害%" },
+	{ key = 182, value = "力量系卡牌伤害%" },
+	{ key = 183, value = "敏捷系卡牌伤害%" },
+	{ key = 184, value = "智力系卡牌伤害%" },
+	{ key = 185, value = "英雄伤害%" },
+	{ key = 186, value = "力量系英雄伤害%" },
+	{ key = 187, value = "敏捷系英雄伤害%" },
+	{ key = 188, value = "智力系英雄伤害%" },
+	{ key = 189, value = "对怪物增伤%" },
+	{ key = 190, value = "对小怪增伤%" },
+	{ key = 191, value = "对挑战怪增伤%" },
+	{ key = 192, value = "对首领增伤%" },
+	{ key = 193, value = "对玩家增伤%" },
+
+	-- 攻击
+	{ key = 201, value = "攻击力量" },
+	{ key = 202, value = "攻击敏捷" },
+	{ key = 203, value = "攻击智力" },
+	{ key = 204, value = "攻击攻击" },
+	{ key = 205, value = "攻击生命" },
+	{ key = 206, value = "攻击物理固伤" },
+	{ key = 207, value = "攻击法术固伤" },
+
+	-- 被攻击
+	{ key = 221, value = "被攻击力量" },
+	{ key = 222, value = "被攻击敏捷" },
+	{ key = 223, value = "被攻击智力" },
+	{ key = 224, value = "被攻击攻击" },
+	{ key = 225, value = "被攻击生命" },
+	{ key = 226, value = "被攻击物理固伤" },
+	{ key = 227, value = "被攻击法术固伤" },
+
+	-- 升级
+	{ key = 241, value = "升级攻击力量" },
+	{ key = 242, value = "升级攻击敏捷" },
+	{ key = 243, value = "升级攻击智力" },
+	{ key = 244, value = "升级攻击攻击" },
+	{ key = 245, value = "升级攻击生命" },
+	{ key = 246, value = "升级攻击物理固伤" },
+	{ key = 247, value = "升级攻击法术固伤" },
 }
 
 --- 所有属性类型  index - name
