@@ -52,7 +52,7 @@ local function ConsoleInit()
 		text = text .. "※每秒百分比回血: " .. string.format("%.0f", attrSystem:GetObjAttrFromStr(u, "每秒百分比回血")) .. "%|n"
 		local armor = japi.GetUnitState(u, jass.ConvertUnitState(0x20)) + 0
 		text = text .. "※防御: " .. string.format("%.0f", armor) .. "(受到伤害减少" .. string.format("%.2f", (armor / (100 + armor)) * 100) .. "%)"
-		text = text .. "※移速: " .. string.format("%.0f", tostring(common:GetUnitState(u, "移动速度")))
+		text = text .. "|n※移速: " .. string.format("%.0f", tostring(common:GetUnitState(u, "移动速度")))
 		text = text .. "|n|n※技能急速%: " .. string.format("%.0f", attrSystem:GetObjAttrFromStr(u, "技能急速")) .. "%"
 		text = text .. "|n(最大生效值为400%)"
 		text = myFunc:SetNumColor(text, "|cfaffff00", "|r")
@@ -102,7 +102,7 @@ local function ConsoleInit()
 		consoleTip["panel"]:set_show(true)
 		consoleTip["panel"]:reset_allpoint()
 		consoleTip["panel"]:set_point("左下", btn, "右上", 20, 20)
-		local text = "※每点力量提供10固定生命，0.5每秒回血，0.35攻击力|n|n※每点敏捷提供0.35攻击力，1物理固伤|n|n※每点智力提供0.35攻击力，1法术固伤"
+		local text = "※每点力量提供10固定生命，0.5生命回复，0.35攻击力|n|n※每点敏捷提供0.35攻击力，1物理固伤|n|n※每点智力提供0.35攻击力，1法术固伤"
 		-- text = text .. "|n|n※最高属性提供其50%的攻击"
 		-- local text = "力量、敏捷、智力中的最高值为英雄的攻击力。"
 		text = myFunc:SetNumColor(text, "|cfaffff00", "|r")

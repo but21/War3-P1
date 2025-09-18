@@ -43,10 +43,9 @@ end
 -- print(attrSystem:GetObjAttrFromStr(jass.udg_Hero[1], "每秒回血"))
 
 
-code.SetUnitAttr_Str(jass.udg_Hero[1], "生命", 100000)
+code.SetUnitAttr_Str(jass.udg_Hero[1], "力量", 10000)
 code.SetUnitAttr_Str(jass.udg_Hero[1], "多重几率", 100)
 code.SetUnitAttr_Str(jass.udg_Hero[1], "法术暴率%", 50)
 code.SetUnitAttr_Str(jass.udg_Hero[1], "物理暴率%", 50)
-code.SetUnitAttr_Str(jass.udg_Hero[1], "攻击", 1000)
 code.SetUnitAttr_Str(jass.udg_Hero[1], "攻击射程", 1000)
 code.SetUnitAttr_Str(jass.udg_Hero[1], "攻击速度%", 300)

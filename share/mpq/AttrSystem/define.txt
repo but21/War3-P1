@@ -124,6 +124,12 @@ FattrType_126=0,FattrType,126,结算攻击暴伤%
 FattrType_127=0,FattrType,127,结算多重伤害%
 FattrType_128=0,FattrType,128,结算真实伤害%
 FattrType_129=0,FattrType,129,结算技能急速
+FattrType_130=0,FattrType,130,结算力量卡牌伤害%
+FattrType_131=0,FattrType,131,结算敏捷卡牌伤害%
+FattrType_132=0,FattrType,132,结算智力卡牌伤害%
+FattrType_133=0,FattrType,133,结算力量英雄伤害%
+FattrType_134=0,FattrType,134,结算敏捷英雄伤害%
+FattrType_135=0,FattrType,135,结算智力英雄伤害%
 
 
 FattrType_141=0,FattrType,141,面板攻击
